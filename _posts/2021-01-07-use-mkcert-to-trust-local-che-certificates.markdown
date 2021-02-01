@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Using mkcert to trust local Che certificates"
+title: "Use mkcert to Trust Local Che Certificates"
 date: '2021-02-01T10:01:30.817Z'
 description: >-
   Generate a locally-trusted certificate using mkcert and configure Che to use it.
@@ -10,15 +10,15 @@ slug: >-
   /@mario.loriedo/using-mkcert-to-locally-trust-eclipse-che-tls-certificates-ffaafe76e5d0
 ---
 
-![](https://cdn-images-1.medium.com/max/800/1*bo14UIis0Dz-7i_aLr3MFg.png)
+![Locally trusted certs]({{ site.url }}/assets/img/mkcert/header.png)
 
 When deploying Che locally, on minikube for example, its TLS certificate will be self-signed and not trusted by the local browsers.
 
-In this blog post we are going to see how we can generate TLS certificates using [mkcert](https://mkcert.dev/) and configure Che to use them. Those certificates will be always locally trusted.
+In this blog post we are going to see how we can generate TLS certificates using [mkcert](https://mkcert.dev/) and configure Che to use them. Those certificates will be always locally-trusted.
 
-### The problem with untrusted TLS certificates
+## The problem with untrusted TLS certificates
 
-When Che SSL certificate is signed by an unknown CA, the certificate won't be trusted by the local browser and Che users have to download and locally import the TLS certificate[^1] ([we have even documemented instructions in Che documentation](https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-minikube/#importing-certificates-to-browsers_che)).
+When Che SSL certificate is signed by an unknown CA, the certificate won't be trusted by the local browser and Che users have to download and locally import the TLS certificate[^1] ([we have even documemented the instructions for different browsers](https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-minikube/#importing-certificates-to-browsers_che)).
 
 Locally importing a CA certificate is a repetitive and error prone task. A new CA certificate needs to be imported at every local Che install. That's annyoing, especially if like me you deploy Che often. 
 
@@ -28,15 +28,15 @@ We could automate the import of the certificate at the end of every Che deploy t
 
 > mkcert is a simple tool for making locally-trusted development certificates. It requires no configuration.
 
-### Issue a locally-trusted Che certificate
+## Issue a locally-trusted Che certificate
 
 The following steps will guide you through the generation of a TLS certificate for Che ingresses signed by a CA that is trusted by your system and browsers.
 
-#### STEP1 - Install mkcert
+### STEP1 - Install mkcert
 
 Instructions to install mkcert are in the GitHub repository [README file](https://github.com/FiloSottile/mkcert#installation). 
 
-#### STEP2 - Create a local CA
+### STEP2 - Create a local CA
 
 In order to generate a valid certificate we need a trusted Certificate Authority to sign them. 
 
@@ -62,7 +62,7 @@ The CA is trusted by the OS and by my local Firefox.
 
 This is a one time operation as I can use this same CA to sign certificates for different Che deployments, even on different clusters.
 
-#### STEP3 - Retrieve Che domain
+### STEP3 - Retrieve Che domain name
 
 Assuming that Che has already been deployed (here are the instructions), the following command is 
 
@@ -78,9 +78,9 @@ $ echo ${CHE_DOMAIN_NAME}
 
 Note that on `minikube` the domain name contains the IP address of the VM (for example `192.168.64.34.nip.io`). This step and the following one should be repeated when the IP changes (if the cluster gets recreated for example).
 
-#### STEP4 - Generate a locally trusted TLS certificate for Che
+### STEP4 - Generate a locally-trusted TLS certificate for Che
 
-With the CA created at STEP 2 we can issue locally trusted TLS certificates for any domain. And, compared to `openssl`, `mkcert` makes the operation easy. 
+With the CA created at STEP 2 we can issue locally-trusted TLS certificates for any domain. And, compared to `openssl`, `mkcert` makes the operation easy. 
 
 To generates a certificate for `${CHE_DOMAIN_NAME}` retrieved at the previous step:
 
@@ -98,15 +98,15 @@ It will expire on 29 March 2023 🗓
 
 We have just generated a wildcard TLS certificate and private key for Che that is valid until 2023.
 
-#### STEP5 - Configure Che to use the certificate
+### STEP5 - Configure Che to use the new certificate
 
 To configure Che to use the certificate generated above we should create a [Kubernetes tls secret](https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets). We will name it **`che-custom-tls`**:
 
 ```bash
-$ CHE_TLS_CERT_PATH=./_wildcard.192.168.64.34.nip.io.pem      # Replace the value with the cert path from previous step
-    CHE_TLS_KEY_PATH=./_wildcard.192.168.64.34.nip.io-key.pem # Replace the value with the key path from previous step
-    CHE_SERVER_NAMESPACE=workspaces-server                    # Replace the value with Che server namespace
-    CHE_TLS_SECRET=che-custom-tls
+$ CHE_TLS_CERT_PATH=./_wildcard.192.168.64.34.nip.io.pem    # Replace the value with the cert path from previous step
+  CHE_TLS_KEY_PATH=./_wildcard.192.168.64.34.nip.io-key.pem # Replace the value with the key path from previous step
+  CHE_SERVER_NAMESPACE=workspaces-server                    # Replace the value with Che server namespace
+  CHE_TLS_SECRET=che-custom-tls
 $ kubectl create secret tls ${CHE_TLS_SECRET} \
                --namespace ${CHE_SERVER_NAMESPACE} \
                --key ${CHE_TLS_KEY_PATH} \
@@ -124,7 +124,7 @@ $ kubectl patch checluster "${CHE_CLUSTER}" --type='json' \
 checluster.org.eclipse.che/eclipse-che patched
 ```
 
-A last command is required to include the local CA certificate, created at step 2, in the CA bundle of Che workspaces trusted certificates.
+A last command is required to include the local CA certificate, created at step 2, in the CA bundle of Che workspaces trusted certificates. This is required to allow communications between workspaces and the Che server.
 
 The convention used to add a certificate in Che CA bundle is via a `ConfigMap` in Che server namepsace with labels `app.kubernetes.io/part-of=che.eclipse.org` and `app.kubernetes.io/component=ca-bundle`:
 
@@ -140,8 +140,15 @@ kubectl label configmap custom-certs \
            --namespace="${CHE_SERVER_NAMESPACE}"
 ```
 
+## Verification
+
+![Trusted Certificate]({{ site.url }}/assets/img/mkcert/trusted-cert.png)
+
+If you have followed the steps described above, when opening the Che dashboard in your local browser, you should see that the certificate is considered valid. Starting a workspace should also work without any issue.
+
+---
 ---
 
-*Footnotes*
+### Footnotes
 
 [^1]: Adding the URL among the browser exceptions is not enough. Even in single-host mode (when Che uses one unique domain for every endpoint) a fully trusted TLS certificate is required to use [the service worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) [required by the IDE](https://github.com/eclipse/che/issues/18566) running in the browser.
