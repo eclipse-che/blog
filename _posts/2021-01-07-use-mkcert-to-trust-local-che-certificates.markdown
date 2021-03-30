@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Use mkcert to Trust Local Che Certificates"
-date: '2021-02-01T10:01:30.817Z'
+title: Use mkcert to Trust Local Che Certificates
+author: Mario Loriedo
 description: >-
   Generate a locally-trusted certificate using mkcert and configure Che to use it.
 categories: []
 keywords: []
 slug: >-
-  /@mario.loriedo/using-mkcert-to-locally-trust-eclipse-che-tls-certificates-ffaafe76e5d0
+  /@mario.loriedo/use-mkcert-to-trust-local-che-certificates
 ---
 
 ![Locally trusted certs]({{ site.url }}/assets/img/mkcert/header.png)
@@ -133,11 +133,12 @@ $ LOCAL_CA_CERT=~/Library/Application\ Support/mkcert/rootCA.pem
 $ kubectl create configmap custom-certs \
               --namespace="${CHE_SERVER_NAMESPACE}" \
               --from-file="${LOCAL_CA_CERT}"
-
-kubectl label configmap custom-certs \
+configmap/custom-certs created
+$ kubectl label configmap custom-certs \
            app.kubernetes.io/part-of=che.eclipse.org \
            app.kubernetes.io/component=ca-bundle \
            --namespace="${CHE_SERVER_NAMESPACE}"
+configmap/custom-certs labeled
 ```
 
 ## Verification
