@@ -13,7 +13,6 @@ slug: >-
 ---
 
 ![](https://cdn-images-1.medium.com/max/800/1*9kUKM1qnsM8n53Ue6uSyUw.png)
-undefined
 
 In this blog post, we’ll demonstrate how to use the serverless capabilities of Apache OpenWhisk by writing actions within Eclipse Che.
 
@@ -108,7 +107,6 @@ Now we have two MiniShift projects, `openwhisk` with all Apache OpenWhisk deploy
 Eclipse Che can be reached at [http://che-eclipse-che.192.168.64.5.nip.io/dashboard](http://che-eclipse-che.192.168.64.5.nip.io/dashboard) on my current setup. (the link is displayed at the end of the run of the sh script)
 
 ![](https://cdn-images-1.medium.com/max/800/1*MvjCGP94kzRBRDVsqtCtVA.png)
-undefined
 
 Let’s create a workspace by using the following docker image: `florentbenoit/centos_openwhisk` This image integrates Java, NodeJS and Python runtime but also OpenShift client `(oc)`and OpenWhisk client `(wsk)`
 
@@ -120,7 +118,6 @@ _Contribute to openwhisk-action development by creating an account on GitHub._gi
 Let’s build the maven project:
 
 ![](https://cdn-images-1.medium.com/max/800/1*8ak-embtGh0s7EZNqrIh3w.gif)
-undefined
 
 In the target folder, the jar file was generated.
 
@@ -139,10 +136,12 @@ Login successful.
 You have access to the following projects and can switch between them with 'oc  
 project <projectname>':
 
-eclipse-che  
-    myproject  
-    openwhisk  
+```bash
+eclipse-che
+    myproject
+    openwhisk
   \* workspacewdsw9iop4nubfh7m
+```
 
 Using project "workspacewdsw9iop4nubfh7m".
 
@@ -153,8 +152,8 @@ Now using project "openwhisk" on server "[https://192.168.64.5:8443](https://192
 
 Then we’re able to configure OpenWhisk client
 
-```
-$ AUTH_SECRET=$(oc get secret openwhisk -o yaml | grep "system:" | awk '{print $2}' | base64 --decode)$ wsk property set --auth $AUTH_SECRET --apihost $(oc get route/openwhisk --template={{.spec.host}})
+```bash
+$ AUTH_SECRET=$(oc get secret openwhisk -o yaml | grep "system:" | awk '{print $2}' | base64 --decode)$ wsk property set --auth $AUTH_SECRET --apihost $(oc get route/openwhisk --template={{ "{{ .spec.host " }}}})
 ```
 
 then we can build the action from the JAR file
@@ -175,6 +174,5 @@ so we were able to write an action from Eclipse Che, create it in OpenWhisk and 
 }
 
 ![](https://cdn-images-1.medium.com/max/800/1*5KCftW_aMynTi6hYxHFnUw.gif)
-undefined
 
 As always please let us know your thoughts by connecting with us on twitter @eclipse\_che or by filing issues in the Che GitHub repo at [https://github.com/eclipse/che](https://github.com/eclipse/che)
