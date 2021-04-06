@@ -39,7 +39,8 @@ Now click on Python stack:
 The raw configuration section shows the devfile content:
 
 ![](https://cdn-images-1.medium.com/max/800/1*rYww8WAOL7YbRjhNzFwWxQ.png)
-undefined
+
+<script src="https://gist.github.com/benoitf/660dbe69a2098cbc9653829a38d33bcb.js"></script>
 
 ### Deconstructing the devfile
 
@@ -51,12 +52,14 @@ undefined
 
 Describes the projects to clone into the workspace. The `type` field can be `git` or `zip`. In this case, we’re using git so we specify the repository URL (there can be multiple URLs to clone in multiple projects).
 
+```yaml
 projects:  
  -  
   name: python-hello-world  
   source:  
    type: git  
    location: '[https://github.com/che-samples/python-hello-world.git'](https://github.com/che-samples/python-hello-world.git%27)
+```
 
 Alternatively, when using the `zip` type you can link to a zip file containing the project source code.
 
@@ -64,16 +67,18 @@ Alternatively, when using the `zip` type you can link to a zip file containing t
 
 This example devfile uses two kind of components: a Che plug-in and a docker image.
 
-\-  
-  type: **chePlugin**  
+```yaml
+-  
+  type: chePlugin
   id: ms-python/python/latest  
   memoryLimit: 512Mi  
  -  
-  type: **dockerimage**  
+  type: dockerimage  
   alias: python  
   image: 'quay.io/eclipse/che-python-3.6:nightly'  
   memoryLimit: 512Mi  
   mountSources: true
+```
 
 The `cheplugin` type is used for plugins in the Eclipse Che plug-in registry. The `id` field includes the vendor name, name and version divided by slashes. In this case, `latest` is an alias to the latest stable definition of the plug-in. This Che Plug-in is a VS Code extension that is instantiated in a sidecar container with its own code and dependencies. This is held outside the source code container so that it doesn’t “pollute” the behaviour of the project itself.
 
@@ -85,15 +90,17 @@ The `dockerimage` type is used to generate the runtime container. In this case t
 
 Commands defined in the devfile will be available in the IDE.
 
+```yaml
 commands:  
-\-  
+-  
   name: run  
   actions:  
    -  
     type: exec  
     component: python  
     command: python hello-world.py  
-    workdir: '${CHE\_PROJECTS\_ROOT}/python-hello-world'
+    workdir: '${CHE_PROJECTS_ROOT}/python-hello-world'
+```
 
 In this example a new `run` command is defined. It is executing the `hello-world.py` source file with the python interpreter. The working directory is set with the `workdir` line.
 

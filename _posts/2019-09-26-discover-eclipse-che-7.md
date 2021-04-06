@@ -69,7 +69,6 @@ Press `F1` key or click on the `command palette` link in the `Welcome Panel`. En
 The workspace panel is a quick view allowing to interact with the workspace like launching pre-defined commands for this workspace or opening terminals.
 
 ![](https://cdn-images-1.medium.com/max/800/1*RR_dBL6BgRdNEBf20HLNEQ.png)
-undefined
 
 There are two kind of containers:  
  — _Plugin’s runtime containers_: containers provided by plug-ins. It’s the execution runtime used by these plugins

@@ -9,7 +9,6 @@ slug: /@florent.benoit/java-9-part-1-using-java-9-in-eclipse-che
 ---
 
 ![](https://cdn-images-1.medium.com/max/800/1*0ij42CnBwH2OdQaeg0ftAA.png)
-undefined
 
 In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che.
 
@@ -93,7 +92,6 @@ Great, let’s connect to [http://localhost:8080](http://localhost:8080) and cre
 Since this is all new work, we’ll need to create a custom Che workspace with Java 9 installed — luckily that’s not hard! I’ve published a `florentbenoit/ubuntu_jdk9` Docker image containing OpenJDK9 on top of the `ubuntu:17.10` Docker image. It also includes maven.
 
 ![](https://cdn-images-1.medium.com/max/800/1*3-5AQ1wfiSBkR7ngZi2h2g.png)
-undefined
 
 Check that the image is set to `florentbenoit/ubuntu_jdk9.`
 
@@ -102,7 +100,6 @@ Also, be sure that the Java LSP agent is enabled, if it’s not you won’t get 
 You can show the config of the workspace and it should include the agent `org.eclipse.che.ls.java` (line 28 below)
 
 ![](https://cdn-images-1.medium.com/max/800/1*gjAw6gkwDYudDvUKvcLPjQ.png)
-undefined
 
 When the correct Docker image is set and the Java LS agent is defined, we can start the workspace.
 

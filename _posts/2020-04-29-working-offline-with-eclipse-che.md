@@ -43,10 +43,12 @@ I will use the `rsync` tool included in the image `quay.io/fbenoit/rsync-simple`
 
 The image includes the following:
 
+```Dockerfile
 FROM alpine:latest  
 ...  
 RUN apk add --no-cache rsync  
 ...
+```
 
 As you can see this just adds the `rsync` tool inside the smallest container possible (based on `alpine` linux).
 
@@ -66,7 +68,7 @@ As seen in prerequisites, `rsync` tool needs to be part of the workspace and by 
 
 Add this component into `components` section (or create a new `components` section first if it’s not there).
 
-undefined
+<script src="https://gist.github.com/benoitf/e27a11502d0b7215beb77b922fae8c52.js"></script>
 
 Now restart the workspace to finish the inclusion of this new `rsync` component. You can check if you’ve been successful by opening the workspace in an IDE and opening the Workspace panel (the cube icon on the right of the IDE):
 
@@ -87,16 +89,16 @@ In my example, I am using the online Eclipse Che instance hosted on `che.openshi
 I can use the OpenShift web console to do that. To get the web console link, open a terminal inside the IDE by using the Workspace panel within the IDE.
 
 ![](https://cdn-images-1.medium.com/max/800/0*MhsYrMqF5OTUPDqI.gif)
-undefined
 
 Open a terminal inside the Theia IDE container for example. Then type:
 
+```bash
 $ echo ${CHE\_OSO\_CLUSTER//api/console}
+```
 
 It will display the URL of the console:
 
 ![](https://cdn-images-1.medium.com/max/800/0*i0COfDvwSTNLulHk.png)
-undefined
 
 Use command+click on [https://console.starter-us-east-2.openshift.com/](https://console.starter-us-east-2.openshift.com/)  
 It will open link in default browser. Note that your workspace might be assigned to a different cluster, so the URL might be different as well.
@@ -107,16 +109,19 @@ When logged in in the OpenShift console:
 *   Click on `copy Login command` and execute that command on your laptop.
 
 ![](https://cdn-images-1.medium.com/max/800/0*cW62ijAisPJtRFrD.png)
-undefined
 
 copy the `oc` login command and execute it on your laptop:
 
-$ oc login [https://api.starter-us-east-2.openshift.com](https://api.starter-us-east-2.openshift.com) — token=tHeEnCoDeDtOkEn  
-Logged into “[https://api.starter-us-east-2.openshift.com:443](https://api.starter-us-east-2.openshift.com:443)" using the token provided.
+```bash
+$ oc login https://api.starter-us-east-2.openshift.com — token=tHeEnCoDeDtOkEn  
+Logged into "https://api.starter-us-east-2.openshift.com:443" using the token provided.
+```
 
 Then use your namespace (ending with -che) using `oc project <namespace>` command:
 
+```bash
 $ oc project <namespace>-che
+```
 
 And we can check that the workspace pod is there by using `oc get pods` or `kubectl get pods` commands.
 
@@ -128,7 +133,9 @@ We will copy files from the remote workspace to our local machine.
 
 We need the name of the workspace. It is available from a terminal with the following command:
 
+```bash
 $ echo $HOSTNAME
+```
 
 ![](https://cdn-images-1.medium.com/max/800/0*FNc5U92npf5UhCs8.png)
 
@@ -144,13 +151,13 @@ We will need a shell script to perform the copy and this script will use `kubect
 
 Create a new file `kubectl-rsync.sh` with the following content:
 
-undefined
+<script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
 
 Don’t forget to make it executable: `chmod u+x kubectl-rsync.sh` and now let’s assume you copy it to `${HOME}/bin` folder.
 
 Now, let’s create another script named `workspace-sync.sh`
 
-undefined
+<script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
 
 Apply permissions by using `chmod u+x workspace-sync.sh`.
 
@@ -160,13 +167,17 @@ Now that our scripts have been setup, it’s time to use them.
 
 First, we store the workspace pod into an env variable:
 
-$ export WORKSPACE\_POD=workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
+```bash
+$ export WORKSPACE_POD=workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
+```
 
 Let’s proceed to the first import.
 
 Assuming our remote workspace has files in `/projects/` and that we want to copy workspace files it to `${HOME}/my-workspace` on our laptop, execute the following command:
 
-$ RSYNC\_OPTIONS="--progress --stats" RSYNC\_FROM="${WORKSPACE\_POD}:/projects/" RSYNC\_TO="${HOME}/my-workspace" ${HOME}/bin/workspace-sync.sh
+```bash
+$ RSYNC_OPTIONS="--progress --stats" RSYNC\_FROM="${WORKSPACE_POD}:/projects/" RSYNC_TO="${HOME}/my-workspace" ${HOME}/bin/workspace-sync.sh
+```
 
 Now files are being transferred into our laptop.
 
@@ -188,18 +199,21 @@ All modified files are now on your local computer so you can edit them. But at s
 
 We’ll use the same `workspace-sync.sh` script but we’ll reverse the source and destination. Because now we want to copy laptop’s changes to the remote workspace and not the previous way. Also, we’ll set this time `RSYNC_INFINITE=true` to do rsync every 15s (to never miss local changes).
 
-$ RSYNC\_FROM="${HOME}/`my-workspace`/" RSYNC\_TO="${WORKSPACE\_POD}:/projects/" RSYNC\_INFINITE="true" ${HOME}/bin/workspace-sync.sh
+```bash
+$ RSYNC_FROM="${HOME}/`my-workspace`/" RSYNC_TO="${WORKSPACE_POD}:/projects/" RSYNC_INFINITE="true" ${HOME}/bin/workspace-sync.sh
+```
 
 You can drop `--progress --stats` from `RSYNC_OPTIONS` so you don’t generate too much output now that you’ve confirmed it works.
 
 One issue is that when syncing back the changes, we don’t want to upload the whole node\_modules folder. Adding the `--exclude node_modules` parameter takes care of that.
 
-RSYNC\_OPTIONS="--exclude node\_modules"
+```bash
+RSYNC_OPTIONS="--exclude node\_modules"
+```
 
 The script now checks all the changes every 15 seconds.
 
 ![](https://cdn-images-1.medium.com/max/800/1*pvDlDYPzSFvS1GJoiWpkiA.png)
-undefined
 
 All changes from my filesystem are now inside my remote workspace.
 

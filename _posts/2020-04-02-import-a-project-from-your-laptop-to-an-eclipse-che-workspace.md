@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Work on my laptop’s project from a remote Eclipse Che workspace.
+title: Import a project from your laptop to an Eclipse Che workspace.
 author: Florent Benoit
 description: >-
   Here is the use-case: I have a project on my laptop that I am working on by
@@ -48,10 +48,12 @@ I’ve published this image under `quay.io/fbenoit/rsync-simple` so no need to b
 
 The image includes the following:
 
+```Dockerfile
 FROM alpine:latest  
 ...  
 RUN apk add --no-cache rsync  
 ...
+```
 
 As you can see this just adds the`rsync` tool inside the smallest container possible (based on `alpine` linux).
 
@@ -73,15 +75,13 @@ The application is a Nodejs example.
 
 Let’s start with a minimalist devfile. The devfile is responsible of creating the Eclipse Che workspace.
 
-undefined
-undefined
+<script src="https://gist.github.com/benoitf/c910348251322bb1155bea7cfed7057f.js"></script>
 
 I set `persistVolumes` to false as the storage will be our laptop. I don’t want to use remote storage to save my project files.
 
 As seen in prerequisites, `rsync`tool needs to be part of the workspace. Let’s add a new `rsync` component and let it have access to `/projects` folder using `mountSources: true`
 
-undefined
-undefined
+<script src="https://gist.github.com/benoitf/73748447b14f499e49180ff61baa6678.js"></script>
 
 The workspace now includes the `rsync` tool.
 
@@ -94,8 +94,7 @@ Now I add :
 *   Intellisense with a typescript plugin
 *   `nodejs` component to have node tools.
 
-undefined
-undefined
+<script src="https://gist.github.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290.js"></script>
 
 #### 2\. Start an Eclipse Che workspace ready to receive my project
 
@@ -112,7 +111,6 @@ There are a few ways we can start the Che workspace:
 After the startup of the workspace, we can see the IDE. We can see that there are no files in project tree. This is normal because we want to import our local project folder.
 
 ![](https://cdn-images-1.medium.com/max/800/1*aQdSPCSpzoy8GWf2r4LlKQ.png)
-undefined
 
 #### 3\. Push/Import into the remote Eclipse Che workspace the local files
 
@@ -130,12 +128,14 @@ I can use the OpenShift web console to do that. To get the web console link, ope
 
 ![](https://cdn-images-1.medium.com/max/800/1*8tRQjynD-Vz105I7QAEMMg.gif)
 
-$ echo ${CHE\_OSO\_CLUSTER//api/console}
+```bash
+$ echo ${CHE_OSO_CLUSTER//api/console}
+```
 
 It will display the URL of the console
 
 ![](https://cdn-images-1.medium.com/max/800/1*t40cl9LnEzFjKK308q6CdQ.png)
-undefined
+
 
 Use command+click on [https://console.starter-us-east-2.openshift.com/](https://console.starter-us-east-2.openshift.com/)  
 It will open link in default browser.  
@@ -158,7 +158,9 @@ We will copy files from the remote workspace.
 
 We need the name of the workspace. It is available from a terminal with the following command:
 
+```bash
 $ echo $HOSTNAME
+```
 
 ![](https://cdn-images-1.medium.com/max/800/1*e94TBeKu3SR2HLmA5AXrRg.png)
 
@@ -174,14 +176,13 @@ We will need a shell script to perform the copy and this script will use `kubect
 
 Create a new file `kubectl-rsync.sh` with the following content:
 
-undefined
+<script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
 
 And make it executable: `chmod u+x kubectl-rsync.sh` and now let’s assume you copy it to `${HOME}/bin` folder.
 
 Now, let’s create another script named `workspace-sync.sh`
 
-undefined
-undefined
+<script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
 
 Apply permissions by using `chmod u+x workspace-sync.sh`
 
@@ -191,13 +192,17 @@ Now that our scripts have been setup, it’s time to use them.
 
 First, we store the workspace pod into an env variable:
 
-$ export WORKSPACE\_POD=workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
+```bash
+$ export WORKSPACE_POD=workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
+```
 
 Let’s proceed to the first import.
 
 Assuming our local Nodejs app is in `${HOME}/react-web-app`, execute the following command:
 
-$ RSYNC\_OPTIONS="--progress --stats --exclude 'node\_modules'" RSYNC\_FROM="${HOME}/react-web-app" RSYNC\_TO="${WORKSPACE\_POD}:/projects/" ${HOME}/bin/workspace-sync.sh
+```bash
+$ RSYNC_OPTIONS="--progress --stats --exclude 'node\_modules'" RSYNC_FROM="${HOME}/react-web-app" RSYNC_TO="${WORKSPACE_POD}:/projects/" ${HOME}/bin/workspace-sync.sh
+```
 
 Files are being transferred into the remote workspace.
 
@@ -216,7 +221,6 @@ Let’s use yarn command to launch the project inside Eclipse Che.
 And now start the webapp using `yarn start` command inside `/projects/react-web-app`
 
 ![](https://cdn-images-1.medium.com/max/800/1*1MlP-Ejs6JS8fBniZZUMHw.gif)
-undefined
 
 And edit `src/App.tsx` file and see the result.
 
@@ -226,7 +230,9 @@ All modified files are in my Eclipse Che workspace. But I want to keep my local 
 
 We’ll use the same `workspace-sync.sh` script but we’ll reverse the source and destination. Because now we want to copy remote changes to the laptop and not the previous way. Also, we’ll set this time `RSYNC_INFINITE=true` to do rsync every 15s (to never miss remote changes).
 
-$ RSYNC\_OPTIONS="--exclude node\_modules" RSYNC\_FROM="${WORKSPACE\_POD}:/projects/react-web-app/" RSYNC\_TO="${HOME}/react-web-app/" RSYNC\_INFINITE="true" ${HOME}/bin/workspace-sync.sh
+```bash
+$ RSYNC_OPTIONS="--exclude node_modules" RSYNC_FROM="${WORKSPACE_POD}:/projects/react-web-app/" RSYNC_TO="${HOME}/react-web-app/" RSYNC_INFINITE="true" ${HOME}/bin/workspace-sync.sh
+```
 
 I dropped `--progress --stats` from `RSYNC_OPTIONS` to not generate too much output.
 
@@ -235,14 +241,14 @@ One issue is that when syncing back the changes, we don’t want to download the
 The script now checks all the changes every 15 seconds.
 
 ![](https://cdn-images-1.medium.com/max/800/1*f8fhfbCvpuX2FX7RRDF-9A.png)
-undefined
+
 
 All changes from Eclipse Che workspace are now inside my filesystem.
 
 Let’s check:
 
 ![](https://cdn-images-1.medium.com/max/800/1*ukJ137UX5FqrEehw3jd-7g.png)
-undefined
+
 
 #### 6\. Finishing
 
