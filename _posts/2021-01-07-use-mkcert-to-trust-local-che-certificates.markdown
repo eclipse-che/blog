@@ -10,7 +10,7 @@ slug: >-
   /@mario.loriedo/use-mkcert-to-trust-local-che-certificates
 ---
 
-![Locally trusted certs]({{ site.url }}/assets/img/mkcert/header.png)
+![Locally trusted certs]({{ site.url }}{{ site.baseurl }}/assets/img/mkcert/header.png)
 
 When deploying Che locally, on minikube for example, its TLS certificate will be self-signed and not trusted by the local browsers.
 
@@ -143,7 +143,7 @@ configmap/custom-certs labeled
 
 ## Verification
 
-![Trusted Certificate]({{ site.url }}/assets/img/mkcert/trusted-cert.png)
+![Trusted Certificate]({{ site.url }}{{ site.baseurl }}/assets/img/mkcert/trusted-cert.png)
 
 If you have followed the steps described above, when opening the Che dashboard in your local browser, you should see that the certificate is considered valid. Starting a workspace should also work without any issue.
 
