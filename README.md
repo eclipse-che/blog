@@ -1,3 +1,5 @@
+![GitHub deployments](https://img.shields.io/github/deployments/eclipse-che/che-incubator.github.io/github-pages)
+
 ## How to submit and review a new blog post
 
 Add a new file in `_posts` folder. Images go in `assets/img/<blog-subfolder>`.
