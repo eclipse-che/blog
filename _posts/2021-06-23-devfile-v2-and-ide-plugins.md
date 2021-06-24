@@ -203,15 +203,15 @@ components:
 
 The plug-in `redhat.java` will be started inside the tools container and in its own sidecar container.
 
-It also means that all dependencies required by the plug-ins need to be there else the VS Code java extension may fail to start.
+For this to work the tools container should include the plug pre-requisites otherwise the VS Code java extension will fail to start.
 
 #### Prebuilt DevWorkspace templates
 
-Today, the flow is the following with devfile v1: user pickup a getting started, then dashboard fetches the devfile then plug-in broker will analyze the devfile.yaml and fetch content from linked plug-in registries, parse the meta.yaml of these plug-ins to find sidecar definition, and then at the end some containers are added.
+With Devfile v1 the flow was the following: a user selects a getting started example, the Dashboard fetches the Devfile, the plug-in broker analyzes the `devfile.yaml` fetches the content from linked plug-in registries, parses the `meta.yaml` of these plug-ins, extracts the sidecar containers definitions and, finally, adds some containers to the workspace definition.
 
-With devfile v2, there is still these kind of steps where a lot of yaml/json files are fetched, analyzed to result at the end in a set of DevWorkspace templates.
+With Devfile v2, these steps with a lot of yaml/json transformations are still present but the output result is a set of DevWorkspace templates that will be applied on the Kubernetes cluster.
 
-The Che-Theia library allows to generate a single yaml file with all the analysis being done offline.
+Those DevWorkspace templates can be generated at build time rather than at runtime. The Che-Theia library, with a Devfile provided as input (the optional `.vscode/extensions.json` and `.che/che-theia-plugins.yaml` files), generates a yaml file that includes the definition of the DevWorkspace templates.
 
 npx @eclipse-che/che-theia-devworkspace-handler --devfile-url:[https://github.com/che-samples/spring-petclinic/tree/devfilev2](https://github.com/che-samples/spring-petclinic/tree/devfilev2) --output-file:$(pwd)/all-in-one.yaml
 
@@ -219,15 +219,15 @@ Then this file can be used directly by `kubectl` :
 
 `kubectl apply -f all-in-one.yaml -n my-namespace`
 
-These templates can be stored in the devfile registry so Eclipse Che dashboard could directly use this content instead of processing at every click the full analysis.
+These templates can be included in the Devfile registry and the Eclipse Che Dashboard will apply them directly instead of processing the original Devfile at every workspace start.
 
 ### Plug-in registry changes
 
-For the workspaces using devfile v1, Eclipse Che server fetches meta.yaml files from the plug-in registry. There are some limitations, for example defining plug-in preferences is only possible if there is a sidecar being defined, etc.
+For workspaces using Devfile v1, Eclipse Che server fetches a `meta.yaml` files from the plug-in registry. There are some limitations, for example defining plug-in preferences is only possible if there is a sidecar being defined, etc.
 
-With DevWorkspaces, the plug-in registry export now the content provided in different formats. It still export meta.yaml but it also expose devfile.yaml files for Eclipse Che editors definition and for some plug-ins that are not IDE plug-ins like che-machine-exec (library to be able connect to a specific container in a workspace/pod).
+With DevWorkspaces, the plug-in registry export now the content provided in different formats. It still exports `meta.yaml` files but it also exposes `devfile.yaml` files for Eclipse Che editors definition and for some plug-ins that are not IDE plug-ins like che-machine-exec (library to be able connect to a specific container in a workspace/pod).
 
-Also the Che-Theia IDE plug-ins are now exposed by their che-theia-plugin.yaml fragment.
+Also the Che-Theia IDE plug-ins are now exposed by their `che-theia-plugin.yaml` fragment.
 
 Every Che-Theia plug-in fragment is generated from the [che-theia-plugins.yaml file](https://github.com/eclipse-che/che-plugin-registry/blob/main/che-theia-plugins.yaml).
 
@@ -237,7 +237,7 @@ Corresponding definition for`redhat/java` IDE plug-in is available at:
 
 [https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/redhat/java/latest/che-theia-plugin.yaml](https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/redhat/java/latest/che-theia-plugin.yaml)
 
-It references the dependencies of this IDE plug-in and the preferences (so .vsix are not grouped directly in the meta.yaml file)
+It references the dependencies of this IDE plug-in and its preferences (whereas with `meta.yaml` the notion of dependency didn't exist and all the required `.vsix` had to be specified in the file)
 
 ```yaml
 preferences:  
