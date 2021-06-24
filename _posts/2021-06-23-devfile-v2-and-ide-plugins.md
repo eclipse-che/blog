@@ -266,7 +266,7 @@ example of index of the devfile-registry:
 }
 ```
 
-By enabling DevWorkspaces on Eclipse Che and if there are some v2 links in the devfile registry, the dashboard will only display Devfile v2 getting started (no devfile v1 getting started). Each of these samples will use the new DevWorkspace engine.
+If the DevWorkspaces is enabled and there are some v2 links in the Devfile registry, only Devfile v2 getting started will be shown on the Dashboard (Devfile v1 getting started will be hidden). Each of these samples will use the new DevWorkspace engine.
 
 ![Getting Started]({{ site.url }}{{ site.baseurl }}/assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png)
 
