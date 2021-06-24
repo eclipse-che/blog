@@ -38,7 +38,7 @@ When the support is enabled, both Devfile v1 and v2 are supported. You can still
 * If the `devfile.yaml` has `apiVersion 1.0.0`, it will use Che server workspace engine to deploy this Devfile.
 * If the `devfile.yaml` has `schemaVersion 2.0.0` (or greater like `2.1.0`), it will use the DevWorkspace controller to deploy this devfile.
 
-⚠️ DevWorkspaces requires OpenShift as platform until Milestone 3 is reached (no support of plain Kubernetes yet)
+⚠️ DevWorkspaces requires OpenShift as platform until Milestone 3 is reached (vanilla Kubernetes is not supported yet)
 
 ℹ️ Enabling DevWorkspace is also defaulting installation to use single-host deployment. So no need to install certificates on your computer.
 
