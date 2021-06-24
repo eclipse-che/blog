@@ -89,7 +89,7 @@ Another change in the lifecycle of a workspace is that the project clone operati
 
 While IDE plug-ins are no longer part of the `devfile.yaml`, instead or reinventing a new file format to specify an IDE plugins, the idea was to leverage the already existing definition files.
 
-Example: VS Code has `.vscode/extensions.json` file where plug-ins can be recommended.
+For example VS Code has `.vscode/extensions.json` file where plug-ins can be recommended.
 
 Eclipse Che will use this input by adding these VS Code extensions to the DevWorkspace.
 
