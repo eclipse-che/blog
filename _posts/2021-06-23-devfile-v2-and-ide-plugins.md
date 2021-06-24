@@ -75,7 +75,7 @@ Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.
 
 ℹ️ [The installation guide is also available in Eclipse Che documentation](https://www.eclipse.org/che/docs/che-7/installation-guide/enabling-dev-workspace-engine/)
 
-### Updating from devfile v1
+### Updating from Devfile v1
 
 While the syntax between v1 and v2 yaml definition is close, there is a major change in the DevWorkspace definition: the IDE plug-ins are no longer part of the Devfile.
 
