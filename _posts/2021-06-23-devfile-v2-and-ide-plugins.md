@@ -251,7 +251,7 @@ dependencies:
 
 The index of the Devfile registry is providing a list of Devfiles to use. But now, Devfile v2 as some other optional files may be required, it’s better to reference a repository rather than a single `devfile.yaml`.
 
-New links are available in the devfile registry. The `v2` links are links to either repositories or devfiles.
+New links are available in the Devfile registry. The `v2` links are links to either repositories or devfiles.
 
 Here is an example of a minimal index of a Devfile registry:
 
