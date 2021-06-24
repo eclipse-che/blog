@@ -27,7 +27,7 @@ Devfile v2 support in Eclipse Che can be followed by milestones.
 
 *   [Milestone 1](https://github.com/eclipse/che/milestone/136) introduced the first support of Devfile v2 (start a basic workspace)
 *   [Milestone 2](https://github.com/eclipse/che/milestone/139) just landed in Eclipse Che 7.32.0 with the support of Theia plug-ins for DevWorkspaces
-*   [Milestone 3](https://github.com/eclipse/che/milestone/140) is the next target, including Kubernetes support and more.
+*   [Milestone 3](https://github.com/eclipse/che/milestone/140) is the next target, including vanilla Kubernetes support (currently only OpenShift is supported) and more.
 
 ### How to test ?
 
