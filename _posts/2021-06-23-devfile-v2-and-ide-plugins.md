@@ -31,7 +31,7 @@ Devfile v2 support in Eclipse Che can be followed by milestones.
 
 ### How to test ?
 
-The support of devfile v2/DevWorkspaces is optional and need to be opt-in.  
+The support of Devfile v2/DevWorkspaces is optional and need to be opt-in.  
 
 When the support is enabled, both devfile v1 and v2 are supported. You can still work with your previous workspaces and devfile v1.
 
