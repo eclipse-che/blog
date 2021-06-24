@@ -15,7 +15,7 @@ Devfile has been incubated by Eclipse Che project providing [devfile v1 specific
 
 To allow other projects to use a common definition, devfile has moved out of Eclipse Che. It has its own definition at [https://devfile.io](https://devfile.io) with current [v2.1.0 specification](https://docs.devfile.io/devfile/2.1.0/user-guide/api-reference.html).
 
-Devfile v1 were handled by Eclipse Che Server workspace engine using Java/Kubernetes API. There is a new engine for devfile v2 called DevWorkspace Controller. The source code is at: [https://github.com/devfile/devworkspace-operator](https://github.com/devfile/devworkspace-operator).
+Devfiles v1 were handled by Eclipse Che Server workspace engine using Java/Kubernetes API. There is a new engine for v2 Devfiles called DevWorkspace Controller. The source code is at: [https://github.com/devfile/devworkspace-operator](https://github.com/devfile/devworkspace-operator).
 
 DevWorkspaces are custom kubernetes resources and can be created/listed/deleted using kubernetes tools like `kubectl`.
 
