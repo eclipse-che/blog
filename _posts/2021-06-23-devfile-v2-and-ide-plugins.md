@@ -73,7 +73,7 @@ Opening the Dashboard page will display the new getting started:
 
 Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.
 
-ℹ️ [Installation guide is also available in Che documentation](https://www.eclipse.org/che/docs/che-7/installation-guide/enabling-dev-workspace-engine/)
+ℹ️ [The installation guide is also available in Eclipse Che documentation](https://www.eclipse.org/che/docs/che-7/installation-guide/enabling-dev-workspace-engine/)
 
 ### Updating from devfile v1
 
