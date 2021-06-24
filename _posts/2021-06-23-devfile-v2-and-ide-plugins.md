@@ -19,7 +19,7 @@ Devfiles v1 were handled by Eclipse Che Server workspace engine using Java/Kuber
 
 DevWorkspaces are custom Kubernetes resources and can be created/listed/deleted using any Kubernetes client like `kubectl`.
 
-A DevWorkspace is a workspace using the new engine and supporting devfile V2 definition.
+A DevWorkspace is a workspace using the new engine and supporting Devfile v2 definition.
 
 ### Milestones
 
