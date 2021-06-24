@@ -201,7 +201,7 @@ components:
 }
 ```
 
-The plug-in `redhat.java` will be started inside the tools container and not bring another sidecar container.
+The plug-in `redhat.java` will be started inside the tools container and in its own sidecar container.
 
 It also means that all dependencies required by the plug-ins need to be there else the VS Code java extension may fail to start.
 
