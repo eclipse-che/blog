@@ -270,4 +270,4 @@ By enabling DevWorkspaces on Eclipse Che and if there are some v2 links in the d
 
 ![Getting Started]({{ site.url }}{{ site.baseurl }}/assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png)
 
-There is ongoing work to merge Che Devfile registry and [Community Devfile registry](https://registry.devfile.io) endorsed by [devfile organization](https://github.com/devfile/registry).
+In addition to those changes, there is an ongoing effort to merge Che Devfile registry and [community Devfile registry](https://registry.devfile.io). This work is part of the [Devfile project](https://github.com/devfile/registry) that is planned to become [a CNCF sandbox project](https://github.com/devfile/api/issues/426).
