@@ -91,7 +91,7 @@ While IDE plug-ins are no longer part of the `devfile.yaml`, instead or reinvent
 
 For example VS Code has `.vscode/extensions.json` file where plug-ins can be recommended.
 
-Eclipse Che will use this input by adding these VS Code extensions to the DevWorkspace.
+Eclipse Che now supports this file format and, when it founds one and the editor is Eclipse Theia, it will add the corresponding VS Code extensions to the DevWorkspace.
 
 Specifying
 
