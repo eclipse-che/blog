@@ -33,7 +33,7 @@ Devfile v2 support in Eclipse Che can be followed by milestones.
 
 The support of Devfile v2/DevWorkspaces is optional and need to be opt-in.  
 
-When the support is enabled, both devfile v1 and v2 are supported. You can still work with your previous workspaces and devfile v1.
+When the support is enabled, both Devfile v1 and v2 are supported. You can still work with your previous workspaces and Devfile v1.
 
 * If the `devfile.yaml` has `apiVersion 1.0.0`, it will use che server workspace engine to deploy this devfile.
 * If the `devfile.yaml` has `schemaVersion 2.0.0` (or greater like `2.1.0`), it will use the DevWorkspace controller to deploy this devfile.
