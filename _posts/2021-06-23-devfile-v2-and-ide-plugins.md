@@ -40,7 +40,7 @@ When the support is enabled, both Devfile v1 and v2 are supported. You can still
 
 ⚠️ DevWorkspaces requires OpenShift as platform until Milestone 3 is reached (vanilla Kubernetes is not supported yet)
 
-ℹ️ Enabling DevWorkspace is also defaulting installation to use single-host deployment. So no need to install certificates on your computer.
+ℹ️ When DevWorkspace is enabled, single-host deployment is enforced. As a consequence, when the Che host certificate is untrusted, there is no need to locally install it.
 
 To enable DevWorkspaces, use a custom spec object for Che Operator:  
 
