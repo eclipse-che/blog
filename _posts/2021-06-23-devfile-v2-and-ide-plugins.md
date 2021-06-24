@@ -160,7 +160,7 @@ attributes:
 
 ### New Features for plug-ins
 
-While there is big change by excluding the IDE plug-ins from the devfile, each editor can bring new features more easily, as each editor is handling the DevWorkspace templates update based on some definition of files (like optional `.vscode/extensions.json`or `.che/che-theia-plugins.yaml` files)
+Although excluding the IDE plug-ins from the Devfile specification represents a big change, each editor can now bring new features more easily. Each editor can directly update a workspace using `DevWorkspaceTemplate` objects based on its configuration files (like optional `.vscode/extensions.json` or `.che/che-theia-plugins.yaml` files).
 
 #### Deploy plug-ins in existing containers
 
