@@ -128,7 +128,7 @@ For example, overriding some container settings like the memoryLimit for the `re
 
 Sometimes it may not be possible to add the `.vscode/extensions.json` or the `.che/che-theia-plugins.yaml` files inside the repository.
 
-Inlining the content of these files in the `devfile.yaml` file is somehow possible using the following syntax of the devfile:
+Inlining the content of these files in the `devfile.yaml` file is somehow possible using the following syntax of the Devfile:
 ```yaml
 schemaVersion: 2.1.0  
 metadata:  
