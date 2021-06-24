@@ -253,7 +253,7 @@ The index of the Devfile registry is providing a list of Devfiles to use. But no
 
 New links are available in the devfile registry. The `v2` links are links to either repositories or devfiles.
 
-example of index of the devfile-registry:
+Here is an example of a minimal index of a Devfile registry:
 
 ```json
 {
