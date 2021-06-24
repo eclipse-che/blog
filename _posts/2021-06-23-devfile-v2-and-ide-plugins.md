@@ -105,7 +105,7 @@ Specifying
 
 in `.vscode/extensions.json` will automatically install `redhat/java` VS Code extension in the Eclipse Che workspace.
 
-Note: if the specified set of extensions IDs are not available in the Eclipse Che plug-in registry, it won’t fail but the extensions won’t be available.
+Note: if the specified set of extensions IDs are not available in the Eclipse Che plug-in registry, the workspace creation won’t fail but the extensions won’t be included.
 
 Current plug-ins are available at registry at [https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/](https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/) which is updated on every commit on the main branch of the plug-in registry.
 
