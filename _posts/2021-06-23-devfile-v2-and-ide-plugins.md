@@ -77,7 +77,7 @@ Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.
 
 ### Updating from devfile v1
 
-While the syntax between v1 and v2 yaml definition is close, there is a major change in the DevWorkspace definition: the IDE plug-ins are no longer part of the devfile.
+While the syntax between v1 and v2 yaml definition is close, there is a major change in the DevWorkspace definition: the IDE plug-ins are no longer part of the Devfile.
 
 It brings more clarity: for example, it was possible to specify a java plug-in but if the editor was not Eclipse Theia then there was no Java plug-in in the resulting workspace. Also when using other tools that don’t provide IDE like [odo](https://developers.redhat.com/products/odo/overview), when consuming the devfile definition, these plug-ins were not available.
 
