@@ -172,7 +172,7 @@ attributes:
   che-theia.eclipse.org/sidecar-policy: USE_DEV_CONTAINER
 ```
 
-In that case, all plugins requiring a sidecar will be deployed in the `user defined container` and not bring any sidecar container.
+In that case, all plugins requiring a sidecar will be deployed in the `user defined container` and not in their specific sidecar container.
 
 Example:
 
