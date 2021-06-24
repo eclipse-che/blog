@@ -79,7 +79,7 @@ Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.
 
 While the syntax between v1 and v2 yaml definition is close, there is a major change in the DevWorkspace definition: the IDE plug-ins are no longer part of the Devfile.
 
-It brings more clarity: for example, it was possible to specify a java plug-in but if the editor was not Eclipse Theia then there was no Java plug-in in the resulting workspace. Also when using other tools that don’t provide IDE like [odo](https://developers.redhat.com/products/odo/overview), when consuming the devfile definition, these plug-ins were not available.
+It brings more clarity: for example, it was possible to include a java plug-in but it was unclear that it required the Eclipse Theia editor and that it would not work with other supported editors. Also, when the Devfile was consumed by other tools like [odo](https://developers.redhat.com/products/odo/overview) that don't have the notion of plugin or editor, those components were ignored.
 
 Another change in the lifecycle of a workspace is that the project clone operation is done by the DevWorkspace engine. So whatever editor is picked-up, project is always cloned in `/projects/<your-project>` location after the workspace is started (no matter if there is an editor/IDE or not)
 
