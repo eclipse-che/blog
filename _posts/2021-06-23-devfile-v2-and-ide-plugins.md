@@ -111,7 +111,7 @@ The list of the VS Code extension that can be included in a Che Theia workspace 
 
 #### Custom definition
 
-Relying on `.vscode/extensions.json` is great but sometimes some specific settings could be provided in addition to that file.
+Relying on `.vscode/extensions.json` is great but, to run a VS Code extension as a Kubernetes workload, may require some extra specifications that are not part of this file format.
 
 Here comes the `.che/che-theia-plugins.yaml` optional file.
 
