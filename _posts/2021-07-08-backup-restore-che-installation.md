@@ -75,7 +75,7 @@ It supports optional authentication by username and password:
 ```bash
 $ export REST_SERVER_USERNAME=user
 $ export REST_SERVER_PASSWORD=password
-$ chectl server:backup -r rest:http:// -p encryption-password
+$ chectl server:backup -r rest:http://backups.my-domain.net:1234/che -p encryption-password
 ```
 Internal backup server is of type `REST`.
 
