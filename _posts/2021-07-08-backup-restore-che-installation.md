@@ -106,9 +106,9 @@ $ chectl server:restore
 It will download the latest backup snapshot from the configured backup server and restore all Eclipse Che data from it.
 If needed, it will even deploy a new Che cluster and apply data from the backup snapshot.
 
-But what if we created a dozen of backups and want to restore not from the latest backup available on the backup server, but older one?
+But what if we created a dozen of backups and want to restore not from the latest backup available on the backup server, but an older one?
 It is possible!
-Just add a backup snapshot ID as a parameter to the restore command:
+Just add backup snapshot ID with `-f`  flag to the restore command:
 ```bash
 $ chectl server:restore -s f801da5c
 ```
@@ -167,7 +167,7 @@ spec:
 Both secrets `aws-backup-encryption-password-secret` with `repo-password` key and `aws-user-credentials-secret` with `awsAccessKeyId` and `awsSecretAccessKey` keys must exist.
 
 As it was described above, under `spec` section only `rest`, `awss3` and `sftp` is allowed.
-CR Definitions have self-explanatory fields and it will be easy to create a backup server configuration.
+CR definitions have self-explanatory fields and it will be easy to create a backup server configuration.
 But note, that each subsection mutually excludes the others.
 However, it is allowed to create as many backup server configurations as needed.
 
@@ -185,7 +185,7 @@ spec:
 Right after the CR creation a new backup process will be started.
 To monitor backup process state, one should look at `status` section of the created CR:
 ```bash
-$ kubectl get CheClusterBackup eclipse-che-backup -n eclipse-che -o yaml | grep -A 10 ^status
+$ kubectl get CheClusterBackup eclipse-che-backup -n eclipse-che -o yaml | grep -A 5 ^status
 ```
 The output of the command above looks like:
 ```yaml
@@ -230,7 +230,7 @@ However, it is possible to restore from a specific snapshot by adding `snapshotI
 
 To monitor the restore state, one may read status of the corresponding CR:
 ```bash
-$ kubectl get CheClusterRestore eclipse-che-restore -n eclipse-che -o yaml | grep -A 10 ^status
+$ kubectl get CheClusterRestore eclipse-che-restore -n eclipse-che -o yaml | grep -A 5 ^status
 ```
 Once the restore finishes, the CR can be deleted.
 
