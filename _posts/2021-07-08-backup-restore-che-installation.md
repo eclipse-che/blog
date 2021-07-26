@@ -3,7 +3,7 @@ title: Back up and Restore Eclipse Che Installation
 layout: post
 author: Mykola Morhun
 description: >-
-  How to create backups of Eclipse Che installation and recover Che state after a disaster
+  How to create backups and do recovery of Eclipse Che
 categories: []
 keywords: ['backup', 'back up', 'restore']
 slug: /@mmorhun/backup-restore-che-installation
@@ -20,7 +20,7 @@ In such case the task becomes much more complicated and will require from the ad
 Or... just back up the whole cluster, however, such approach has a lot of overhead.
 
 To address the backup / restore problem in [Eclipse Che](https://www.eclipse.org/che/), backup / restore feature was implemented.
-With it, cluster admin doesn't have to be aware of Eclipse Che internals in order to create a backup or restore Che.
+With it, cluster admin doesn't have to be aware of Eclipse Che internals in order to create a backup or do recovery of Che.
 Eclipse Che (Eclipse Che operator to be more precise) can create backups and restore the installation even if Che cluster was completely deleted!
 (Che operator should be available, though).
 
@@ -29,7 +29,7 @@ But first, let's talk about backup servers a bit.
 
 ### Internal vs external backup server
 
-When all data for backup is gathered into a snapshot, then it is encrypted and send to a backup server.
+When all data for backup is gathered into a snapshot, then it is encrypted and sent to a backup server.
 The backup server should be set up beforehand and be accessible from within the cluster.
 This step requires choosing the backup server type and manual configuration of it.
 
@@ -238,6 +238,6 @@ Once the restore finishes, the CR can be deleted.
 
 As of now, there are two major limitations with backup and restore:
 * Backing up of user's projects inside workspaces hasn't been implemented yet. So, all not committed changes will not be restored.
-* Backup snapshots are bind to the specific cluster, so it is not possible to restore snapshot on another cluster in ganeral case. This is because Che binds to some cluster ID's.
+* Backup snapshots are bind to the specific cluster, so it is not possible to restore snapshot on another cluster in general case. This is because Che binds to some cluster ID's.
 
 Other than that, back up and restore is a user friendly and straightforward process now.
