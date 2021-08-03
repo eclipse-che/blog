@@ -1,5 +1,5 @@
 ---
-title: Back up and Restore Eclipse Che Installation
+title: Backup and Restore of an Eclipse Che Installation
 layout: post
 author: Mykola Morhun
 description: >-
@@ -12,17 +12,17 @@ slug: /@mmorhun/backup-restore-che-installation
 ### Introduction
 
 Any application that runs in production should be backed up regularly.
-Even if the application runs inside Kubernetes or Openshift cluster.
-To back up an application in a Kubernetes or Openshift cluster, cluster admin should back up all the resources and definitions that the application owns and uses.
+Even if the application runs inside a Kubernetes or Openshift cluster.
+To back up an application in a Kubernetes cluster, a user should back up all the resources and definitions that the application uses.
 It could be pretty easy in case when the application is, for example, a deployment with attached volume.
 But what if the application has a lot of objects to back up?
-In such case the task becomes much more complicated and will require from the admin understanding on how the components of the application work and interact with each other.
+In such case the task becomes more complicated and requires an understanding on how the components of the application work and interact with each other.
 Or... just back up the whole cluster, however, such approach has a lot of overhead.
 
-To address the backup / restore problem in [Eclipse Che](https://www.eclipse.org/che/), backup / restore feature was implemented.
-With it, cluster admin doesn't have to be aware of Eclipse Che internals in order to create a backup or do recovery of Che.
-Eclipse Che (Eclipse Che operator to be more precise) can create backups and restore the installation even if Che cluster was completely deleted!
-(Che operator should be available, though).
+To address this problem in [Eclipse Che](https://www.eclipse.org/che/), the backup and restore feature was implemented.
+With it, an admin doesn't have to be aware of Eclipse Che internals in order to create a backup or do recovery of Che.
+Eclipse Che (Eclipse Che operator to be more precise) can create backups and restore the installation even if a Che installation was completely deleted!
+This works only if Che has been installed using the operator (`chectl server:deploy` using installers `olm` or `operator`).
 
 Let me show you how easy the process of backing up and restoring Che is now.
 But first, let's talk about backup servers a bit.
