@@ -21,7 +21,7 @@ This is the first of a series of three articles reviewing the changes introduced
 Che default workspace engine is the che-server. The DevWorkspace engine needs to be explicitly enabled. The following [chectl](https://github.com/che-incubator/chectl) command deploys Che on OpenShift configured with the DevWorkspace Operator as workspace engine:
 
 ```bash
-chectl server:deploy --installer=olm -p openshift \
+chectl server:deploy -p openshift \
                      --workspace-engine=dev-workspace
 ```
 
