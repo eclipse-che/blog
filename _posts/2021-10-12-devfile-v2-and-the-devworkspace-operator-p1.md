@@ -132,7 +132,7 @@ In this post we have described how to enable the DevWorkspace engine and reviewe
 In the second part of this series we are going to look at the changes from an administrator point of view:
 - It’s possible to deploy only one Che instance per Kubernetes cluster
 - Devfiles are not in the registry anymore
-- Keycloak is not required anymore and Che users has to be Kubernetes users
+- Keycloak is not required anymore and Che users have to be Kubernetes users
 - Simpler configuration: namespace, persistent volumes, network
 - Use of external routes not supported
 - Metrics
