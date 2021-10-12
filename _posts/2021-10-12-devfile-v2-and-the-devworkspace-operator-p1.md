@@ -65,7 +65,7 @@ The Devfile specification has gone through the release of v2. Here are a few not
 - Events and parent are two new components types.
 - Besides Che it’s used by the OpenShift Developer Console, `odo` and the [Devfile Docker plugin](https://github.com/devfile/devfile-docker-plugin). 
 
-The documentation for Devfile v2.1 is [https://devfile.io/docs/devfile/2.1.0/](https://devfile.io/docs/devfile/2.1.0/user-guide/index.html) and a migration to v2 guide 
+The documentation for Devfile v2.1 is [https://devfile.io/docs/devfile/2.1.0/](https://devfile.io/docs/devfile/2.1.0/user-guide/index.html). A [migration guide from v1 to v2 of the specification](https://devfile.io/docs/devfile/2.1.0/user-guide/migrating-to-devfile-v2.html) is included. 
 
 ### A new way to specify the editor and its plugins
 As mentioned above, version 2 of the Devfile, doesn’t include cheEditor and chePlugins component types anymore. 
@@ -89,7 +89,7 @@ The recommended way to specify a che-theia plugin in a workspace is to include t
 }
 ```
  
-It is also possible to define a Che editor and its plugins inline in a Devfile attributes, but that’s not recommended. More informations can be found at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
+It is also possible to define a Che editor and its plugins inline in Devfile attributes, but that’s not recommended. More informations can be found at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
 
 ### The Devfile should live at the root of the git repo, not in a registry
 The recommended place to publish the Devfile is within the project source code. Along with the files that we have just seen above to specify che-theia plugins and the editor:
@@ -103,11 +103,11 @@ The recommended place to publish the Devfile is within the project source code. 
          |___ extensions.json
 ```
 
-The Devfile should be versioned and its version should be synchronized with the version of the source code. Having the Devfile at the root of a repository makes it possible to use a simple factory link to the repository to start the workspace.
+Having the Devfile at the root of a repository makes it possible to use a simple factory link to the repository to start the workspace. For example [workspaces.openshift.com/#https://github.com/eclipse/che-docs](https://workspaces.openshift.com/#https://github.com/eclipse/che-docs) is a factory link: when a user click on it, a workspace defined by the Devfile in the repo [github.com/eclipse/che-docs](https://github.com/eclipse/che-docs) will be started on the public Che instance hosted by Red Hat at workspaces.openshift.com. 
 
-Versioning the Devfile with the source code has two consequences: 
+Recommending to colocate and evolve a v2 Devfile with the source code has two consequences:
 - the `project` section of a Devfile can be omitted: it’s implicitly set to the git repo where the Devfile lives
-- Che source code examples include a Devfile at their root (those Devfiles used to be published in the Devfile registry)  
+- Che samples will include a Devfile at their root (those Devfiles used to be published in the Devfile registry)  
 
 ### Only one running workspace per user
 A user cannot have more than one running workspace at a time. This limitation is related to the persistent volume strategy (“common”) that is used by Che. The same Volume is mounted by every workspace of the same user. This is implemented using Pods `volumeMounts.subPath` property and guarantees that the number of Volumes mounted by Che matches the number of users.
