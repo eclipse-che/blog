@@ -11,7 +11,7 @@ slug: /@mario.loriedo/devfile-v2-and-the-devworkspace-operator-p1
 
 ![Locally trusted certs]({{ site.url }}{{ site.baseurl }}/assets/img/devfile-v2-and-the-devworkspace-operator-part1/che-workspace-engines.png)
 
-With version [2.28 of Che](https://github.com/eclipse/che/releases/tag/7.28.0) we have introduced a workspace engine, [the DevWorkspace Operator](https://github.com/devfile/devworkspace-operator), that supports v2 of the Devfile specification. Although the default engine is still the che-server we plan to replace it with the DevWorkspace in the next few months.
+With version [7.28 of Che](https://github.com/eclipse/che/releases/tag/7.28.0) we have introduced a workspace engine, [the DevWorkspace Operator](https://github.com/devfile/devworkspace-operator), that supports v2 of the Devfile specification. Although the default engine is still the che-server we plan to replace it with the DevWorkspace in the next few months.
 
 Switching to the DevWorkspace engine has some important consequences. Notably on the authentication subsystem that will be lighter and more flexible, on the workspaces network managed by a central gateway powered by [Traefik](https://github.com/traefik/traefik) and simpler configuration options for Che administrators.  
 
