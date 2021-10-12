@@ -110,7 +110,7 @@ Versioning the Devfile with the source code has two consequences:
 - Che source code examples include a Devfile at their root (those Devfiles used to be published in the Devfile registry)  
 
 ### Only one running workspace per user
-A user cannot have more than one running workspace at the time. This limitation is related to the persistent volume strategy (“common”) that is used by Che. The same Volume is mounted by every workspace of the same user. This is implemented using Pods `volumeMounts.subPath` property and guarantee that the number of Volumes mounted by Che matches the number of user.
+A user cannot have more than one running workspace at a time. This limitation is related to the persistent volume strategy (“common”) that is used by Che. The same Volume is mounted by every workspace of the same user. This is implemented using Pods `volumeMounts.subPath` property and guarantees that the number of Volumes mounted by Che matches the number of users.
 
 ## Current limitations and Timeline
 
