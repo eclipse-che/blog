@@ -89,7 +89,7 @@ The recommended way to specify a che-theia plugin in a workspace is to include t
 }
 ```
  
-It is also possible to define a Che editor and its plugins inline in a Devfile attributes. But that’s not recommended. More informations can be found at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
+It is also possible to define a Che editor and its plugins inline in a Devfile attributes, but that’s not recommended. More informations can be found at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
 
 ### The Devfile should live at the root of the git repo, not in a registry
 The recommended place to publish the Devfile is within the project source code. Along with the files that we have just seen above to specify che-theia plugins and the editor:
