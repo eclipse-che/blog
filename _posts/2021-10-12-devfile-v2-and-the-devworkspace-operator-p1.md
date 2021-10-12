@@ -99,7 +99,7 @@ The recommended place to publish the Devfile is within the project source code. 
   |___ .che
          |___ che-editor.yaml
          |___ che-theia-plugins.yaml
-  |___ .vsocode
+  |___ .vscode
          |___ extensions.json
 ```
 
