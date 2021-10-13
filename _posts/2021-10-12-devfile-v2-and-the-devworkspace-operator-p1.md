@@ -62,7 +62,7 @@ The Devfile specification has gone through the release of v2. Here are a few not
 - It is compatible with the specification of a Kubernetes API. The DevWorkspace CRD is an extension of the Kubernetes API and it’s generated from the Devfile specification.
 - It removes [chePlugin and cheEditor component types](https://github.com/eclipse/che/issues/18669).
 - It introduces the volume component type.
-- Events and parent are two new components types.
+- Events and parent are two new top level devfile properties.
 - Besides Che it’s used by the OpenShift Developer Console, `odo` and the [Devfile Docker plugin](https://github.com/devfile/devfile-docker-plugin). 
 
 The documentation for Devfile v2.1 is [https://devfile.io/docs/devfile/2.1.0/](https://devfile.io/docs/devfile/2.1.0/user-guide/index.html). A [migration guide from v1 to v2 of the specification](https://devfile.io/docs/devfile/2.1.0/user-guide/migrating-to-devfile-v2.html) is included. 
@@ -89,7 +89,7 @@ The recommended way to specify a che-theia plugin in a workspace is to include t
 }
 ```
  
-It is also possible to define a Che editor and its plugins inline in Devfile attributes, but that’s not recommended. More informations can be found at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
+It is also possible to define a Che editor and its plugins inline in Devfile attributes, but that’s recommended only when it is not possible to colocate the devile with the source code. More informations about IDEs plugins with v2 of the Devfile can be found [in this blog post](https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html) and at [https://github.com/eclipse/che/issues/18669](https://github.com/eclipse/che/issues/18669).
 
 ### The Devfile should live at the root of the git repo, not in a registry
 The recommended place to publish the Devfile is within the project source code. Along with the files that we have just seen above to specify che-theia plugins and the editor:
