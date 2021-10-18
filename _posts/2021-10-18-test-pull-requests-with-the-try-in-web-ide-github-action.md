@@ -11,9 +11,9 @@ slug: /@david.kwon/test-pull-requests-with-the-try-in-web-ide-github-action
 
 *Cross posted from the [Red Hat Developer blog](https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository).*
 
-Web-based, cloud-hosted integrated development environments (IDEs) can make development and collaboration more efficient if they are well integrated with version control. This blog post shows you how to use the [Try in Web IDE GitHub action](https://github.com/marketplace/actions/try-in-web-ide) to make it easier for collaborators to test pull requests on [Red Hat CodeReady Workspaces](https://developers.redhat.com/products/codeready-workspaces/overview) running in the [Developer Sandbox for Red Hat OpenShift](https://developers.redhat.com/developer-sandbox/ide).
+Web-based, cloud-hosted integrated development environments (IDEs) can make development and collaboration more efficient if they are well integrated with version control. This blog post shows you how to use the [Try in Web IDE GitHub action](https://github.com/marketplace/actions/try-in-web-ide) to make it easier for collaborators to test pull requests on [Eclipse Che hosted by Red Hat](https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/).
 
-Note: CodeReady Workspaces is Red Hat's supported version of Eclipse Che.
+Note: The instance of Eclipse Che used by the Try in Web IDE GitHub action can be configured. The default instance is [workspaces.openshift.com](https://workspaces.openshift.com) (Eclipse Che hosted by Red Hat).
 
 ## The Try in Web IDE GitHub action
 The Try in Web IDE GitHub action makes it easy to try a pull request in your browser-based developer environment. The GitHub action listens to pull request events and provides a comment or status check with a link. When you click the link, it opens the branch in a new web IDE workspace.
@@ -28,7 +28,7 @@ Figure 2 shows a status check done by the GitHub action. Clicking the Details li
 ![GitHub PR status check with link to open PR branch in new workspace]({{ site.url }}{{ site.baseurl }}/assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/status-check.png)
 <span style="color:grey">*Figure 2: Clicking the Details link opens a web IDE workspace for testing the pull request.*</span>
 
-Figure 3 shows the workspace created in CodeReady Workspaces in the Developer Sandbox. This is the web IDE workspace that opens in the web browser when you click either the badge from Figure 1 or the link from Figure 2. From here, you can try the pull request and test its correctness.
+Figure 3 shows the workspace created in Eclipse Che hosted by Red Hat. This is the web IDE workspace that opens in the web browser when you click either the badge from Figure 1 or the link from Figure 2. From here, you can try the pull request and test its correctness.
 
 ![PR branch opened in a new workspace]({{ site.url }}{{ site.baseurl }}/assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/crw.png)
 <span style="color:grey">*Figure 3: Try the pull request and test its correctness.*</span>
@@ -37,11 +37,11 @@ Figure 3 shows the workspace created in CodeReady Workspaces in the Developer Sa
 This section shows you how to add the Try in Web IDE GitHub action to your GitHub repository's workflow. We will configure the action to automatically create a comment (Figure 1) and status check (Figure 2) on new pull requests.
 
 ### Prerequisites and setup
-You will need a Red Hat account to use CodeReady Workspaces in the Developer Sandbox. Navigate to [Developer Sandbox for Red Hat OpenShift](https://developers.redhat.com/developer-sandbox), register for a free account, and launch your Developer Sandbox environment. Note that you must verify your identity with a phone number.
+You will need a Red Hat account to use Eclipse Che hosted by Red Hat. Navigate to [Developer Sandbox for Red Hat OpenShift](https://developers.redhat.com/developer-sandbox), register for a free account, and launch your Developer Sandbox environment. Note that you must verify your identity with a phone number.
 
 You also need an account on GitHub and a repository where you can integrate GitHub actions.
 
-Finally, you should have a [devfile](https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-1/) in the root of your GitHub repository. We'll use the devfile very shortly.
+Finally, although not mandatory, you can add a [devfile](https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-1/) in the root of your GitHub repository to specify the features of the development environment and IDE. We'll use the devfile very shortly.
 
 ### Step 1: Create the GitHub workflow file
 In your GitHub repository, create a `.github/workflows` directory if it does not exist already. Then, create a file named `example.yml` in `.github/workflows` with the following content:
@@ -99,7 +99,7 @@ The `add_comment` and `add_status` GitHub action inputs can also be configured t
 ```
 The full table of inputs is available in the Try in Web IDE GitHub action [documentation](https://github.com/marketplace/actions/try-in-web-ide#action-inputs).
 
-### Step 3: Create a devfile
+### Step 3 (optional): Create a devfile
 To define the development environment of the web IDE workspace, creating a devfile in the root of the repository is highly recommended. Configuring a devfile ensures that the workspace contains everything you need to effectively try and test the pull request, such as plug-ins, development commands, Kubernetes objects, and other aspects of the environment setup.
 
 For example, specifying the Red Hat Java plug-in in the devfile provides features that Java developers use (for things like debugging, code completion, and so on) within the web IDE workspace.
