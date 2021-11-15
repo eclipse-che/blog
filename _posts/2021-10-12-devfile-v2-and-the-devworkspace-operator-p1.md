@@ -72,7 +72,7 @@ As mentioned above, version 2 of the Devfile, doesn’t include cheEditor and ch
 
 The recommended way to specify the editor of a workspace is to include the file `.che/che-editor.yaml` at the root of the workspace git repository:
 ```yaml
-id: eclipse/che-theia                 # mandatory
+id: eclipse/che-theia/latest          # mandatory
 registryUrl: https://my-registry.com  # optional
 override:                             # optional
   containers:
