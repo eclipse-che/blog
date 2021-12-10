@@ -4,7 +4,7 @@ metadata:
 components:
   - name: jekyll
     container:
-      image: quay.io/fbenoit/che-blog-post-image:tmp3
+      image: quay.io/fbenoit/che-blog-post-image:tmp4
       memoryLimit: 4Gi
       endpoints:
         - exposure: public

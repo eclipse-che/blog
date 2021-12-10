@@ -39,6 +39,7 @@ RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home && chmod +x /e
 
 USER 1000
 WORKDIR /projects
-
+ENV HOME=/home/jekyll
+ENV USER_NAME=jekyll
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["tail", "-f", "/dev/null"]
