@@ -24,18 +24,21 @@ RUN wget -qO- https://github.com/errata-ai/vale/archive/v${VALE_VERSION}.tar.gz 
 # use jekyll image
 FROM docker.io/jekyll/jekyll:4.2.0
 COPY --from=vale-builder /vale/bin/vale /usr/local/bin/vale
+RUN mkdir -p /home/jekyll/.vale/styles
+WORKDIR /home/jekyll/.vale/styles
+RUN wget -qO- https://github.com/vale-at-red-hat/vale-at-red-hat/releases/latest/download/RedHat.zip | unzip -
+RUN wget -qO-  https://github.com/vale-at-red-hat/chedocs/releases/latest/download/CheDocs.zip | unzip -
 COPY --chown=jekyll:jekyll .docker/.vale.ini /home/jekyll/.vale.ini
 COPY --chown=jekyll:jekyll Gemfile .
 COPY --chown=jekyll:jekyll Gemfile.lock .
 RUN bundle install
 
-# add a user
-RUN mkdir -p /home/jekyll/.vale/styles
-WORKDIR /home/jekyll/.vale/styles
-RUN wget -qO- https://github.com/vale-at-red-hat/vale-at-red-hat/releases/latest/download/RedHat.zip | unzip -
-RUN wget -qO-  https://github.com/vale-at-red-hat/chedocs/releases/latest/download/CheDocs.zip | unzip -
            
+COPY --chown=0:0 .docker/entrypoint.sh /
+RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home && chmod +x /entrypoint.sh
 
 USER 1000
 WORKDIR /projects
 
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD ["tail", "-f", "/dev/null"]
