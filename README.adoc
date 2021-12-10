@@ -1,0 +1,69 @@
+![GitHub deployments](https://img.shields.io/github/deployments/eclipse-che/che-incubator.github.io/github-pages)
+
+:toc:
+
+## Submitting and reviewing a blog post
+
+.Procedure
+
+. Author the content in a `_<YYYY-MM-DD>_-_<post-title>_.adoc` AsciiDoc file in the `++_posts++` folder.
+
+. Add images to the `assets/img/_<post-title>_/` directory.
+
+. Build and test. See xref:testing-the-blog-on-a-local-environment[].
+
+. Submit a pull request.
+
+. Ping reviewers on Mattermost for approval and merge.
+
+## Testing a blog post
+
+Before opening a pull request you may want to see how the blog post renders with Jekyll.
+
+[id="testing-the-blog-on-a-local-environment"]
+### Testing the blog on a local environment
+
+.Prerequisites
+
+* Podman or Docker is installed. 
+
+* Vale CLI and the _RedHat_ style are installed. See https://vale-at-red-hat.github.io/vale-at-red-hat/docs/end-user-guide/using-vale-cli/[Using vale CLI on a local environment].
+
+
+.Procedure
+
+. Build and serve the blog:
++
+----
+$ ./tools/runnerpreview.sh
+----
+
+. Run vale
++
+----
+$ vale _posts
+----
+
+
+### Testing the blog online
+
+
+## Reviewing a blog post
+
+
+
+
+### Building the `eclipse-che-blog` container
+
+.Procedure
+
+. Build the `eclipse-che-blog` container
++
+----
+$ podman build -t eclipse-che-blog .    
+----
+
+.Verification steps
+
+* Build the blog using the local `eclipse-che-blog` container. See: xref:testing-the-blog-on-a-local-environment[]
+
