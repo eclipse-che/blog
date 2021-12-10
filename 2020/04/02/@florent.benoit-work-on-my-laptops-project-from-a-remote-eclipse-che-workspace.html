@@ -1,329 +1,872 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Import a project from your laptop to an Eclipse Che workspace. | Eclipse Che Blog</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Import a project from your laptop to an Eclipse Che workspace." />
-<meta name="author" content="Florent Benoit" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…" />
-<meta property="og:description" content="Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…" />
-<link rel="canonical" href="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" />
-<meta property="og:site_name" content="Eclipse Che Blog" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-04-02T00:00:00+00:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Import a project from your laptop to an Eclipse Che workspace." />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Florent Benoit"},"description":"Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…","url":"https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html","@type":"BlogPosting","headline":"Import a project from your laptop to an Eclipse Che workspace.","dateModified":"2020-04-02T00:00:00+00:00","datePublished":"2020-04-02T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
-<body><header class="site-header" role="banner">
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>
+      Import a project from your laptop to an Eclipse Che workspace. | Eclipse
+      Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta
+      property="og:title"
+      content="Import a project from your laptop to an Eclipse Che workspace."
+    />
+    <meta name="author" content="Florent Benoit" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…"
+    />
+    <meta
+      property="og:description"
+      content="Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…"
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2020-04-02T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Import a project from your laptop to an Eclipse Che workspace."
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Florent Benoit" },
+        "description": "Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…",
+        "url": "https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html",
+        "@type": "BlogPosting",
+        "headline": "Import a project from your laptop to an Eclipse Che workspace.",
+        "dateModified": "2020-04-02T00:00:00+00:00",
+        "datePublished": "2020-04-02T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Import a project from your laptop to an Eclipse Che workspace.</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2020-04-02T00:00:00+00:00" itemprop="datePublished">Apr 2, 2020
-      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
-  </header>
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Import a project from your laptop to an Eclipse Che workspace.
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2020-04-02T00:00:00+00:00"
+                itemprop="datePublished"
+                >Apr 2, 2020 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Florent Benoit</span
+                ></span
+              >
+            </p>
+          </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    <p>Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</p>
+          <div class="post-content e-content" itemprop="articleBody">
+            <p>
+              Eclipse Che is a Kubernetes-Native IDE. It might be interesting to
+              work on your project using remote resources instead of consuming
+              your laptop resources. Another interesting way is to use
+              containers that might be used in production as well.
+            </p>
 
-<p>Also let say you’re running out of battery, you may spare CPU and get extra time !</p>
+            <p>
+              Also let say you’re running out of battery, you may spare CPU and
+              get extra time !
+            </p>
 
-<p>In this article we’ll cover how to set this up, by:</p>
+            <p>In this article we’ll cover how to set this up, by:</p>
 
-<ol>
-  <li>Defining an Eclipse Che workspace for a project (create a <code class="language-plaintext highlighter-rouge">devfile</code>).</li>
-  <li>Starting an Eclipse Che workspace ready to receive the project.</li>
-  <li>Pushing / importing the local files into the remote Eclipse Che workspace.</li>
-  <li>Coding using Eclipse Che.</li>
-  <li>Synchronizing all code changes with <code class="language-plaintext highlighter-rouge">rsync</code>.</li>
-  <li>Stopping the Che workspace and even deleting it without impacting the local copy.</li>
-</ol>
+            <ol>
+              <li>
+                Defining an Eclipse Che workspace for a project (create a
+                <code class="language-plaintext highlighter-rouge">devfile</code
+                >).
+              </li>
+              <li>
+                Starting an Eclipse Che workspace ready to receive the project.
+              </li>
+              <li>
+                Pushing / importing the local files into the remote Eclipse Che
+                workspace.
+              </li>
+              <li>Coding using Eclipse Che.</li>
+              <li>
+                Synchronizing all code changes with
+                <code class="language-plaintext highlighter-rouge">rsync</code>.
+              </li>
+              <li>
+                Stopping the Che workspace and even deleting it without
+                impacting the local copy.
+              </li>
+            </ol>
 
-<h3 id="prerequisites">Prerequisites</h3>
+            <h3 id="prerequisites">Prerequisites</h3>
 
-<h4 id="1-on-my-laptop-check-all-tools-are-available">1. On my laptop: check all tools are available</h4>
+            <h4 id="1-on-my-laptop-check-all-tools-are-available">
+              1. On my laptop: check all tools are available
+            </h4>
 
-<ul>
-  <li>Check local installation of <code class="language-plaintext highlighter-rouge">rsync</code> on the laptop by trying to execute the command <code class="language-plaintext highlighter-rouge">$ rsync</code></li>
-  <li>Check installation of <code class="language-plaintext highlighter-rouge">kubectl</code> to execute <code class="language-plaintext highlighter-rouge">rsync</code> command.</li>
-  <li>Check installation of <code class="language-plaintext highlighter-rouge">oc</code> if Eclipse Che is running on top of OpenShift.</li>
-</ul>
+            <ul>
+              <li>
+                Check local installation of
+                <code class="language-plaintext highlighter-rouge">rsync</code>
+                on the laptop by trying to execute the command
+                <code class="language-plaintext highlighter-rouge"
+                  >$ rsync</code
+                >
+              </li>
+              <li>
+                Check installation of
+                <code class="language-plaintext highlighter-rouge"
+                  >kubectl</code
+                >
+                to execute
+                <code class="language-plaintext highlighter-rouge">rsync</code>
+                command.
+              </li>
+              <li>
+                Check installation of
+                <code class="language-plaintext highlighter-rouge">oc</code> if
+                Eclipse Che is running on top of OpenShift.
+              </li>
+            </ul>
 
-<p>If these tools are not installed, please install them.</p>
+            <p>If these tools are not installed, please install them.</p>
 
-<h4 id="2-in-eclipse-che-workspace">2. In Eclipse Che Workspace</h4>
+            <h4 id="2-in-eclipse-che-workspace">2. In Eclipse Che Workspace</h4>
 
-<p><code class="language-plaintext highlighter-rouge">rsync</code>tool needs to be part of the workspace.</p>
+            <p>
+              <code class="language-plaintext highlighter-rouge">rsync</code
+              >tool needs to be part of the workspace.
+            </p>
 
-<p>Note: with OpenShift we could use<code class="language-plaintext highlighter-rouge">oc rsync</code> command. But there is no exclude filter taken into account for example. So in this blog post I will use only <code class="language-plaintext highlighter-rouge">kubectl</code>and <code class="language-plaintext highlighter-rouge">rsync</code>tools</p>
+            <p>
+              Note: with OpenShift we could use<code
+                class="language-plaintext highlighter-rouge"
+                >oc rsync</code
+              >
+              command. But there is no exclude filter taken into account for
+              example. So in this blog post I will use only
+              <code class="language-plaintext highlighter-rouge">kubectl</code
+              >and
+              <code class="language-plaintext highlighter-rouge">rsync</code
+              >tools
+            </p>
 
-<p>Eclipse Che workspaces may include several running containers. (Workspace pod). Let’s add a new container that will manage only <code class="language-plaintext highlighter-rouge">rsync</code> operations.</p>
+            <p>
+              Eclipse Che workspaces may include several running containers.
+              (Workspace pod). Let’s add a new container that will manage only
+              <code class="language-plaintext highlighter-rouge">rsync</code>
+              operations.
+            </p>
 
-<p>For the demo, I will create a custom OCI image based on alpine. In this custom image, I will install <code class="language-plaintext highlighter-rouge">rsync tool.</code></p>
+            <p>
+              For the demo, I will create a custom OCI image based on alpine. In
+              this custom image, I will install
+              <code class="language-plaintext highlighter-rouge"
+                >rsync tool.</code
+              >
+            </p>
 
-<p>I’ve published this image under <code class="language-plaintext highlighter-rouge">quay.io/fbenoit/rsync-simple</code> so no need to build it.</p>
+            <p>
+              I’ve published this image under
+              <code class="language-plaintext highlighter-rouge"
+                >quay.io/fbenoit/rsync-simple</code
+              >
+              so no need to build it.
+            </p>
 
-<p>The image includes the following:</p>
+            <p>The image includes the following:</p>
 
-<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> alpine:latest  </span>
+            <div class="language-Dockerfile highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="k">FROM</span><span class="s"> alpine:latest  </span>
 ...  
 <span class="k">RUN </span>apk add <span class="nt">--no-cache</span> rsync  
 ...
-</code></pre></div></div>
-
-<p>As you can see this just adds the<code class="language-plaintext highlighter-rouge">rsync</code> tool inside the smallest container possible (based on <code class="language-plaintext highlighter-rouge">alpine</code> linux).</p>
-
-<p>I’ve also added an entry-point to keep the container always-on. I added extra permissions to make it compliant with random user-id for OpenShift.</p>
-
-<h4 id="3-a-localproject">3. A local project</h4>
-
-<p>To make sure that everyone can reproduce the test, it’s important to use the same local project :-)</p>
-
-<p>The project I’m using is a clone of <a href="https://github.com/che-samples/react-web-app">https://github.com/che-samples/react-web-app</a></p>
-
-<p>I’ve cloned it into <code class="language-plaintext highlighter-rouge">$HOME/react-web-app</code> folder.</p>
-
-<p>The application is a Nodejs example.</p>
-
-<h3 id="workflow">Workflow</h3>
-
-<h4 id="1-define-an-eclipse-che-workspace-for-my-project-create-adevfile">1. Define an Eclipse Che workspace for my project (create a devfile)</h4>
-
-<p>Let’s start with a minimalist devfile. The devfile is responsible of creating the Eclipse Che workspace.</p>
-
-<script src="https://gist.github.com/benoitf/c910348251322bb1155bea7cfed7057f.js"></script>
-
-<p>I set <code class="language-plaintext highlighter-rouge">persistVolumes</code> to false as the storage will be our laptop. I don’t want to use remote storage to save my project files.</p>
-
-<p>As seen in prerequisites, <code class="language-plaintext highlighter-rouge">rsync</code>tool needs to be part of the workspace. Let’s add a new <code class="language-plaintext highlighter-rouge">rsync</code> component and let it have access to <code class="language-plaintext highlighter-rouge">/projects</code> folder using <code class="language-plaintext highlighter-rouge">mountSources: true</code></p>
-
-<script src="https://gist.github.com/benoitf/73748447b14f499e49180ff61baa6678.js"></script>
-
-<p>The workspace now includes the <code class="language-plaintext highlighter-rouge">rsync</code> tool.</p>
-
-<p>Let’s add new components to work on the project with Eclipse Che.</p>
-
-<p>The project that I want to import is a Nodejs project.</p>
-
-<p>Now I add :</p>
-
-<ul>
-  <li>Intellisense with a typescript plugin</li>
-  <li><code class="language-plaintext highlighter-rouge">nodejs</code> component to have node tools.</li>
-</ul>
-
-<script src="https://gist.github.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290.js"></script>
-
-<h4 id="2-start-an-eclipse-che-workspace-ready-to-receive-myproject">2. Start an Eclipse Che workspace ready to receive my project</h4>
-
-<p>The workspace definition is ready with the devfile.</p>
-
-<p>There are a few ways we can start the Che workspace:</p>
-
-<ul>
-  <li>Importing this devfile into the Eclipse Che dashboard</li>
-  <li>Using <code class="language-plaintext highlighter-rouge">chectl</code> with the devfile</li>
-  <li>Opening this <a href="http://che.openshift.io/f/?url=https://gist.githubusercontent.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290/raw/6b5fcb5fa9abf28693dc74ac20cb8d6c01cc4345/devfile.yaml">direct link</a> that creates and starts the workspace</li>
-</ul>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*LsTwkOIAEZ1N_R4xcOB2zg.png" alt="" /></p>
-
-<p>After the startup of the workspace, we can see the IDE. We can see that there are no files in project tree. This is normal because we want to import our local project folder.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*aQdSPCSpzoy8GWf2r4LlKQ.png" alt="" /></p>
-
-<h4 id="3-pushimport-into-the-remote-eclipse-che-workspace-the-localfiles">3. Push/Import into the remote Eclipse Che workspace the local files</h4>
-
-<p>To push files to the remote workspace and use rsync, we will need some information.</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">kubectl</code> ready-to-use (authentication performed)</li>
-  <li>The name of the workspace pod</li>
-  <li>A rsync bash script</li>
-</ol>
-
-<h4 id="31-kubectl">3.1. kubectl</h4>
-
-<p>In my example, I am using the online Eclipse Che instance hosted on <code class="language-plaintext highlighter-rouge">che.openshift.io.</code> I will copy the command to be able to log into OpenShift instance.</p>
-
-<p>I can use the OpenShift web console to do that. To get the web console link, open a terminal inside the IDE by using the Workspace panel within the IDE</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*8tRQjynD-Vz105I7QAEMMg.gif" alt="" /></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="k">${</span><span class="nv">CHE_OSO_CLUSTER</span><span class="p">//api/console</span><span class="k">}</span>
-</code></pre></div></div>
-
-<p>It will display the URL of the console</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*t40cl9LnEzFjKK308q6CdQ.png" alt="" /></p>
-
-<p>Use command+click on <a href="https://console.starter-us-east-2.openshift.com/">https://console.starter-us-east-2.openshift.com/</a><br />
-It will open link in default browser.<br />
-Note: your cluster might be different so the URL might be different as well.</p>
-
-<p>When logged in in the OpenShift console:</p>
-
-<ul>
-  <li>Open the top right corner link</li>
-  <li>Click on <code class="language-plaintext highlighter-rouge">copy Login command</code> and execute that command on your laptop.</li>
-</ul>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*74zeKYsoqUWIr6hIMx3keQ.png" alt="" /></p>
-
-<p>You should be now connected from your laptop to the OpenShift cluster.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*hejFl6A3OUzstkjPNjZDUg.png" alt="" /></p>
-
-<h4 id="32-name-of-the-workspace-pod">3.2. Name of the workspace pod</h4>
-
-<p>We will copy files from the remote workspace.</p>
-
-<p>We need the name of the workspace. It is available from a terminal with the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
-</code></pre></div></div>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*e94TBeKu3SR2HLmA5AXrRg.png" alt="" /></p>
-
-<p>Another way is to use<code class="language-plaintext highlighter-rouge">kubectl</code> or <code class="language-plaintext highlighter-rouge">oc</code>tool to find the workspace pod name (<code class="language-plaintext highlighter-rouge">$ kubectl get pods</code>or <code class="language-plaintext highlighter-rouge">$ oc get pods</code>).</p>
-
-<p>Name of the container that includes <code class="language-plaintext highlighter-rouge">rsync</code> is rsync as it’s the alias name we defined in the devfile.</p>
-
-<h4 id="33-the-rsyncscript">3.3. The rsync script</h4>
-
-<p>To import the project files into Eclipse Che workspace, we will now use <code class="language-plaintext highlighter-rouge">rsync.</code></p>
-
-<p>We will need a shell script to perform the copy and this script will use <code class="language-plaintext highlighter-rouge">kubectl exec</code> command.</p>
-
-<p>Create a new file <code class="language-plaintext highlighter-rouge">kubectl-rsync.sh</code> with the following content:</p>
-
-<script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
-
-<p>And make it executable: <code class="language-plaintext highlighter-rouge">chmod u+x kubectl-rsync.sh</code> and now let’s assume you copy it to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder.</p>
-
-<p>Now, let’s create another script named <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code></p>
-
-<script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
-
-<p>Apply permissions by using <code class="language-plaintext highlighter-rouge">chmod u+x workspace-sync.sh</code></p>
-
-<p>Copy it for example to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder. We’re using the <code class="language-plaintext highlighter-rouge">-e</code> option in rsync parameters to specify another shell.</p>
-
-<p>Now that our scripts have been setup, it’s time to use them.</p>
-
-<p>First, we store the workspace pod into an env variable:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">WORKSPACE_POD</span><span class="o">=</span>workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
-</code></pre></div></div>
-
-<p>Let’s proceed to the first import.</p>
-
-<p>Assuming our local Nodejs app is in <code class="language-plaintext highlighter-rouge">${HOME}/react-web-app</code>, execute the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--progress --stats --exclude 'node</span><span class="se">\_</span><span class="s2">modules'"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>Files are being transferred into the remote workspace.</p>
-
-<p>We see progress due to <code class="language-plaintext highlighter-rouge">--progress</code> option.</p>
-
-<p>In the UI now we see <code class="language-plaintext highlighter-rouge">react-web-app</code> folder:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*0ILdTv5LWAp_oHzVmIrO1A.png" alt="" /></p>
-
-<h4 id="4-code-using-eclipseche">4. Code using Eclipse Che</h4>
-
-<p>Let’s use yarn command to launch the project inside Eclipse Che.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*stAPWxgcnhcvPkSgqTto4g.gif" alt="" /></p>
-
-<p>And now start the webapp using <code class="language-plaintext highlighter-rouge">yarn start</code> command inside <code class="language-plaintext highlighter-rouge">/projects/react-web-app</code></p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*1MlP-Ejs6JS8fBniZZUMHw.gif" alt="" /></p>
-
-<p>And edit <code class="language-plaintext highlighter-rouge">src/App.tsx</code> file and see the result.</p>
-
-<h4 id="5-synchronize-back-all-thechanges">5. Synchronize back all the changes</h4>
-
-<p>All modified files are in my Eclipse Che workspace. But I want to keep my local folder on my laptop in sync with my new remote changes.</p>
-
-<p>We’ll use the same <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code> script but we’ll reverse the source and destination. Because now we want to copy remote changes to the laptop and not the previous way. Also, we’ll set this time <code class="language-plaintext highlighter-rouge">RSYNC_INFINITE=true</code> to do rsync every 15s (to never miss remote changes).</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--exclude node_modules"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/react-web-app/"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app/"</span> <span class="nv">RSYNC_INFINITE</span><span class="o">=</span><span class="s2">"true"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>I dropped <code class="language-plaintext highlighter-rouge">--progress --stats</code> from <code class="language-plaintext highlighter-rouge">RSYNC_OPTIONS</code> to not generate too much output.</p>
-
-<p>One issue is that when syncing back the changes, we don’t want to download the whole node_modules folder. Adding the <code class="language-plaintext highlighter-rouge">--exclude node_modules</code> parameter takes care of that.</p>
-
-<p>The script now checks all the changes every 15 seconds.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*f8fhfbCvpuX2FX7RRDF-9A.png" alt="" /></p>
-
-<p>All changes from Eclipse Che workspace are now inside my filesystem.</p>
-
-<p>Let’s check:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*ukJ137UX5FqrEehw3jd-7g.png" alt="" /></p>
-
-<h4 id="6-finishing">6. Finishing</h4>
-
-<p>When we’re done working we can double-check that the rsync script has finished to copy all files to my laptop, then stop the Eclipse Che workspace. We can even delete the stopped Che workspace as we have all the up-to-date changes saved on our local drive.</p>
-
-<p>Note: With <code class="language-plaintext highlighter-rouge">persistVolumes=false</code> , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.</p>
-
-  </div><a class="u-url" href="/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" hidden></a>
-</article>
-
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              As you can see this just adds the<code
+                class="language-plaintext highlighter-rouge"
+                >rsync</code
+              >
+              tool inside the smallest container possible (based on
+              <code class="language-plaintext highlighter-rouge">alpine</code>
+              linux).
+            </p>
+
+            <p>
+              I’ve also added an entry-point to keep the container always-on. I
+              added extra permissions to make it compliant with random user-id
+              for OpenShift.
+            </p>
+
+            <h4 id="3-a-localproject">3. A local project</h4>
+
+            <p>
+              To make sure that everyone can reproduce the test, it’s important
+              to use the same local project :-)
+            </p>
+
+            <p>
+              The project I’m using is a clone of
+              <a href="https://github.com/che-samples/react-web-app"
+                >https://github.com/che-samples/react-web-app</a
+              >
+            </p>
+
+            <p>
+              I’ve cloned it into
+              <code class="language-plaintext highlighter-rouge"
+                >$HOME/react-web-app</code
+              >
+              folder.
+            </p>
+
+            <p>The application is a Nodejs example.</p>
+
+            <h3 id="workflow">Workflow</h3>
+
+            <h4
+              id="1-define-an-eclipse-che-workspace-for-my-project-create-adevfile"
+            >
+              1. Define an Eclipse Che workspace for my project (create
+              a devfile)
+            </h4>
+
+            <p>
+              Let’s start with a minimalist devfile. The devfile is responsible
+              of creating the Eclipse Che workspace.
+            </p>
+
+            <script src="https://gist.github.com/benoitf/c910348251322bb1155bea7cfed7057f.js"></script>
+
+            <p>
+              I set
+              <code class="language-plaintext highlighter-rouge"
+                >persistVolumes</code
+              >
+              to false as the storage will be our laptop. I don’t want to use
+              remote storage to save my project files.
+            </p>
+
+            <p>
+              As seen in prerequisites,
+              <code class="language-plaintext highlighter-rouge">rsync</code
+              >tool needs to be part of the workspace. Let’s add a new
+              <code class="language-plaintext highlighter-rouge">rsync</code>
+              component and let it have access to
+              <code class="language-plaintext highlighter-rouge"
+                >/projects</code
+              >
+              folder using
+              <code class="language-plaintext highlighter-rouge"
+                >mountSources: true</code
+              >
+            </p>
+
+            <script src="https://gist.github.com/benoitf/73748447b14f499e49180ff61baa6678.js"></script>
+
+            <p>
+              The workspace now includes the
+              <code class="language-plaintext highlighter-rouge">rsync</code>
+              tool.
+            </p>
+
+            <p>
+              Let’s add new components to work on the project with Eclipse Che.
+            </p>
+
+            <p>The project that I want to import is a Nodejs project.</p>
+
+            <p>Now I add :</p>
+
+            <ul>
+              <li>Intellisense with a typescript plugin</li>
+              <li>
+                <code class="language-plaintext highlighter-rouge">nodejs</code>
+                component to have node tools.
+              </li>
+            </ul>
+
+            <script src="https://gist.github.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290.js"></script>
+
+            <h4
+              id="2-start-an-eclipse-che-workspace-ready-to-receive-myproject"
+            >
+              2. Start an Eclipse Che workspace ready to receive my project
+            </h4>
+
+            <p>The workspace definition is ready with the devfile.</p>
+
+            <p>There are a few ways we can start the Che workspace:</p>
+
+            <ul>
+              <li>Importing this devfile into the Eclipse Che dashboard</li>
+              <li>
+                Using
+                <code class="language-plaintext highlighter-rouge">chectl</code>
+                with the devfile
+              </li>
+              <li>
+                Opening this
+                <a
+                  href="http://che.openshift.io/f/?url=https://gist.githubusercontent.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290/raw/6b5fcb5fa9abf28693dc74ac20cb8d6c01cc4345/devfile.yaml"
+                  >direct link</a
+                >
+                that creates and starts the workspace
+              </li>
+            </ul>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*LsTwkOIAEZ1N_R4xcOB2zg.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              After the startup of the workspace, we can see the IDE. We can see
+              that there are no files in project tree. This is normal because we
+              want to import our local project folder.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*aQdSPCSpzoy8GWf2r4LlKQ.png"
+                alt=""
+              />
+            </p>
+
+            <h4
+              id="3-pushimport-into-the-remote-eclipse-che-workspace-the-localfiles"
+            >
+              3. Push/Import into the remote Eclipse Che workspace the
+              local files
+            </h4>
+
+            <p>
+              To push files to the remote workspace and use rsync, we will need
+              some information.
+            </p>
+
+            <ol>
+              <li>
+                <code class="language-plaintext highlighter-rouge"
+                  >kubectl</code
+                >
+                ready-to-use (authentication performed)
+              </li>
+              <li>The name of the workspace pod</li>
+              <li>A rsync bash script</li>
+            </ol>
+
+            <h4 id="31-kubectl">3.1. kubectl</h4>
+
+            <p>
+              In my example, I am using the online Eclipse Che instance hosted
+              on
+              <code class="language-plaintext highlighter-rouge"
+                >che.openshift.io.</code
+              >
+              I will copy the command to be able to log into OpenShift instance.
+            </p>
+
+            <p>
+              I can use the OpenShift web console to do that. To get the web
+              console link, open a terminal inside the IDE by using the
+              Workspace panel within the IDE
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*8tRQjynD-Vz105I7QAEMMg.gif"
+                alt=""
+              />
+            </p>
+
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">echo</span> <span class="k">${</span><span class="nv">CHE_OSO_CLUSTER</span><span class="p">//api/console</span><span class="k">}</span>
+</code></pre>
+              </div>
+            </div>
+
+            <p>It will display the URL of the console</p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*t40cl9LnEzFjKK308q6CdQ.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              Use command+click on
+              <a href="https://console.starter-us-east-2.openshift.com/"
+                >https://console.starter-us-east-2.openshift.com/</a
+              ><br />
+              It will open link in default browser.<br />
+              Note: your cluster might be different so the URL might be
+              different as well.
+            </p>
+
+            <p>When logged in in the OpenShift console:</p>
+
+            <ul>
+              <li>Open the top right corner link</li>
+              <li>
+                Click on
+                <code class="language-plaintext highlighter-rouge"
+                  >copy Login command</code
+                >
+                and execute that command on your laptop.
+              </li>
+            </ul>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*74zeKYsoqUWIr6hIMx3keQ.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              You should be now connected from your laptop to the OpenShift
+              cluster.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*hejFl6A3OUzstkjPNjZDUg.png"
+                alt=""
+              />
+            </p>
+
+            <h4 id="32-name-of-the-workspace-pod">
+              3.2. Name of the workspace pod
+            </h4>
+
+            <p>We will copy files from the remote workspace.</p>
+
+            <p>
+              We need the name of the workspace. It is available from a terminal
+              with the following command:
+            </p>
+
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*e94TBeKu3SR2HLmA5AXrRg.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              Another way is to use<code
+                class="language-plaintext highlighter-rouge"
+                >kubectl</code
+              >
+              or
+              <code class="language-plaintext highlighter-rouge">oc</code>tool
+              to find the workspace pod name (<code
+                class="language-plaintext highlighter-rouge"
+                >$ kubectl get pods</code
+              >or
+              <code class="language-plaintext highlighter-rouge"
+                >$ oc get pods</code
+              >).
+            </p>
+
+            <p>
+              Name of the container that includes
+              <code class="language-plaintext highlighter-rouge">rsync</code> is
+              rsync as it’s the alias name we defined in the devfile.
+            </p>
+
+            <h4 id="33-the-rsyncscript">3.3. The rsync script</h4>
+
+            <p>
+              To import the project files into Eclipse Che workspace, we will
+              now use
+              <code class="language-plaintext highlighter-rouge">rsync.</code>
+            </p>
+
+            <p>
+              We will need a shell script to perform the copy and this script
+              will use
+              <code class="language-plaintext highlighter-rouge"
+                >kubectl exec</code
+              >
+              command.
+            </p>
+
+            <p>
+              Create a new file
+              <code class="language-plaintext highlighter-rouge"
+                >kubectl-rsync.sh</code
+              >
+              with the following content:
+            </p>
+
+            <script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
+
+            <p>
+              And make it executable:
+              <code class="language-plaintext highlighter-rouge"
+                >chmod u+x kubectl-rsync.sh</code
+              >
+              and now let’s assume you copy it to
+              <code class="language-plaintext highlighter-rouge"
+                >${HOME}/bin</code
+              >
+              folder.
+            </p>
+
+            <p>
+              Now, let’s create another script named
+              <code class="language-plaintext highlighter-rouge"
+                >workspace-sync.sh</code
+              >
+            </p>
+
+            <script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
+
+            <p>
+              Apply permissions by using
+              <code class="language-plaintext highlighter-rouge"
+                >chmod u+x workspace-sync.sh</code
+              >
+            </p>
+
+            <p>
+              Copy it for example to
+              <code class="language-plaintext highlighter-rouge"
+                >${HOME}/bin</code
+              >
+              folder. We’re using the
+              <code class="language-plaintext highlighter-rouge">-e</code>
+              option in rsync parameters to specify another shell.
+            </p>
+
+            <p>Now that our scripts have been setup, it’s time to use them.</p>
+
+            <p>First, we store the workspace pod into an env variable:</p>
+
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">WORKSPACE_POD</span><span class="o">=</span>workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
+</code></pre>
+              </div>
+            </div>
+
+            <p>Let’s proceed to the first import.</p>
+
+            <p>
+              Assuming our local Nodejs app is in
+              <code class="language-plaintext highlighter-rouge"
+                >${HOME}/react-web-app</code
+              >, execute the following command:
+            </p>
+
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--progress --stats --exclude 'node</span><span class="se">\_</span><span class="s2">modules'"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
+</code></pre>
+              </div>
+            </div>
+
+            <p>Files are being transferred into the remote workspace.</p>
+
+            <p>
+              We see progress due to
+              <code class="language-plaintext highlighter-rouge"
+                >--progress</code
+              >
+              option.
+            </p>
+
+            <p>
+              In the UI now we see
+              <code class="language-plaintext highlighter-rouge"
+                >react-web-app</code
+              >
+              folder:
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*0ILdTv5LWAp_oHzVmIrO1A.png"
+                alt=""
+              />
+            </p>
+
+            <h4 id="4-code-using-eclipseche">4. Code using Eclipse Che</h4>
+
+            <p>
+              Let’s use yarn command to launch the project inside Eclipse Che.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*stAPWxgcnhcvPkSgqTto4g.gif"
+                alt=""
+              />
+            </p>
+
+            <p>
+              And now start the webapp using
+              <code class="language-plaintext highlighter-rouge"
+                >yarn start</code
+              >
+              command inside
+              <code class="language-plaintext highlighter-rouge"
+                >/projects/react-web-app</code
+              >
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*1MlP-Ejs6JS8fBniZZUMHw.gif"
+                alt=""
+              />
+            </p>
+
+            <p>
+              And edit
+              <code class="language-plaintext highlighter-rouge"
+                >src/App.tsx</code
+              >
+              file and see the result.
+            </p>
+
+            <h4 id="5-synchronize-back-all-thechanges">
+              5. Synchronize back all the changes
+            </h4>
+
+            <p>
+              All modified files are in my Eclipse Che workspace. But I want to
+              keep my local folder on my laptop in sync with my new remote
+              changes.
+            </p>
+
+            <p>
+              We’ll use the same
+              <code class="language-plaintext highlighter-rouge"
+                >workspace-sync.sh</code
+              >
+              script but we’ll reverse the source and destination. Because now
+              we want to copy remote changes to the laptop and not the previous
+              way. Also, we’ll set this time
+              <code class="language-plaintext highlighter-rouge"
+                >RSYNC_INFINITE=true</code
+              >
+              to do rsync every 15s (to never miss remote changes).
+            </p>
+
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--exclude node_modules"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/react-web-app/"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app/"</span> <span class="nv">RSYNC_INFINITE</span><span class="o">=</span><span class="s2">"true"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              I dropped
+              <code class="language-plaintext highlighter-rouge"
+                >--progress --stats</code
+              >
+              from
+              <code class="language-plaintext highlighter-rouge"
+                >RSYNC_OPTIONS</code
+              >
+              to not generate too much output.
+            </p>
+
+            <p>
+              One issue is that when syncing back the changes, we don’t want to
+              download the whole node_modules folder. Adding the
+              <code class="language-plaintext highlighter-rouge"
+                >--exclude node_modules</code
+              >
+              parameter takes care of that.
+            </p>
+
+            <p>The script now checks all the changes every 15 seconds.</p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*f8fhfbCvpuX2FX7RRDF-9A.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              All changes from Eclipse Che workspace are now inside my
+              filesystem.
+            </p>
+
+            <p>Let’s check:</p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*ukJ137UX5FqrEehw3jd-7g.png"
+                alt=""
+              />
+            </p>
+
+            <h4 id="6-finishing">6. Finishing</h4>
+
+            <p>
+              When we’re done working we can double-check that the rsync script
+              has finished to copy all files to my laptop, then stop the Eclipse
+              Che workspace. We can even delete the stopped Che workspace as we
+              have all the up-to-date changes saved on our local drive.
+            </p>
+
+            <p>
+              Note: With
+              <code class="language-plaintext highlighter-rouge"
+                >persistVolumes=false</code
+              > , restarting the workspace will result in an empty project tree
+              again until you re-run the laptop-to-remote-Che sync script.
+            </p>
+          </div>
+          <a
+            class="u-url"
+            href="/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"
+            hidden
+          ></a>
+        </article>
       </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
 
-  <div class="wrapper">
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
 
-    <h2 class="footer-heading">Eclipse Che Blog</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
-        <p>Eclipse Che runs IDEs in Kubernetes.</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
-</body>
-
+    </footer>
+  </body>
 </html>

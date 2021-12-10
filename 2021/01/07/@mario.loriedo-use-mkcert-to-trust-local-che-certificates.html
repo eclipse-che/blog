@@ -1,127 +1,326 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Use mkcert to Trust Local Che Certificates | Eclipse Che Blog</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Use mkcert to Trust Local Che Certificates" />
-<meta name="author" content="Mario Loriedo" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Generate a locally-trusted certificate using mkcert and configure Che to use it." />
-<meta property="og:description" content="Generate a locally-trusted certificate using mkcert and configure Che to use it." />
-<link rel="canonical" href="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
-<meta property="og:site_name" content="Eclipse Che Blog" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-01-07T00:00:00+00:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Use mkcert to Trust Local Che Certificates" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Mario Loriedo"},"description":"Generate a locally-trusted certificate using mkcert and configure Che to use it.","url":"https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html","@type":"BlogPosting","headline":"Use mkcert to Trust Local Che Certificates","dateModified":"2021-01-07T00:00:00+00:00","datePublished":"2021-01-07T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
-<body><header class="site-header" role="banner">
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>Use mkcert to Trust Local Che Certificates | Eclipse Che Blog</title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta
+      property="og:title"
+      content="Use mkcert to Trust Local Che Certificates"
+    />
+    <meta name="author" content="Mario Loriedo" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="Generate a locally-trusted certificate using mkcert and configure Che to use it."
+    />
+    <meta
+      property="og:description"
+      content="Generate a locally-trusted certificate using mkcert and configure Che to use it."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2021-01-07T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Use mkcert to Trust Local Che Certificates"
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Mario Loriedo" },
+        "description": "Generate a locally-trusted certificate using mkcert and configure Che to use it.",
+        "url": "https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html",
+        "@type": "BlogPosting",
+        "headline": "Use mkcert to Trust Local Che Certificates",
+        "dateModified": "2021-01-07T00:00:00+00:00",
+        "datePublished": "2021-01-07T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Use mkcert to Trust Local Che Certificates</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2021-01-07T00:00:00+00:00" itemprop="datePublished">Jan 7, 2021
-      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Mario Loriedo</span></span></p>
-  </header>
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Use mkcert to Trust Local Che Certificates
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2021-01-07T00:00:00+00:00"
+                itemprop="datePublished"
+                >Jan 7, 2021 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Mario Loriedo</span
+                ></span
+              >
+            </p>
+          </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    <p><img src="https://che.eclipseprojects.io//assets/img/mkcert/header.png" alt="Locally trusted certs" /></p>
+          <div class="post-content e-content" itemprop="articleBody">
+            <p>
+              <img
+                src="https://che.eclipseprojects.io//assets/img/mkcert/header.png"
+                alt="Locally trusted certs"
+              />
+            </p>
 
-<p>When deploying Che locally, on minikube for example, its TLS certificate will be self-signed and not trusted by the local browsers.</p>
+            <p>
+              When deploying Che locally, on minikube for example, its TLS
+              certificate will be self-signed and not trusted by the local
+              browsers.
+            </p>
 
-<p>In this blog post we are going to see how we can generate TLS certificates using <a href="https://mkcert.dev/">mkcert</a> and configure Che to use them. Those certificates will be always locally-trusted.</p>
+            <p>
+              In this blog post we are going to see how we can generate TLS
+              certificates using <a href="https://mkcert.dev/">mkcert</a> and
+              configure Che to use them. Those certificates will be always
+              locally-trusted.
+            </p>
 
-<h2 id="the-problem-with-untrusted-tls-certificates">The problem with untrusted TLS certificates</h2>
+            <h2 id="the-problem-with-untrusted-tls-certificates">
+              The problem with untrusted TLS certificates
+            </h2>
 
-<p>When Che SSL certificate is signed by an unknown CA, the certificate won’t be trusted by the local browser and Che users have to download and locally import the TLS certificate<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> (<a href="https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-minikube/#importing-certificates-to-browsers_che">we have even documemented the instructions for different browsers</a>).</p>
+            <p>
+              When Che SSL certificate is signed by an unknown CA, the
+              certificate won’t be trusted by the local browser and Che users
+              have to download and locally import the TLS certificate<sup
+                id="fnref:1"
+                role="doc-noteref"
+                ><a href="#fn:1" class="footnote" rel="footnote">1</a></sup
+              >
+              (<a
+                href="https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-minikube/#importing-certificates-to-browsers_che"
+                >we have even documemented the instructions for different
+                browsers</a
+              >).
+            </p>
 
-<p>Locally importing a CA certificate is a repetitive and error prone task. A new CA certificate needs to be imported at every local Che install. That’s annyoing, especially if like me you deploy Che often.</p>
+            <p>
+              Locally importing a CA certificate is a repetitive and error prone
+              task. A new CA certificate needs to be imported at every local Che
+              install. That’s annyoing, especially if like me you deploy Che
+              often.
+            </p>
 
-<p>Someone may argue that with <a href="https://letsencrypt.org/">Let’s Encrypt</a> or <a href="https://zerossl.com/">ZeroSSL</a> issueing a valid certificates is straighforward. But that won’t for <code class="language-plaintext highlighter-rouge">localhost</code> or <code class="language-plaintext highlighter-rouge">nip.io</code>.</p>
+            <p>
+              Someone may argue that with
+              <a href="https://letsencrypt.org/">Let’s Encrypt</a> or
+              <a href="https://zerossl.com/">ZeroSSL</a> issueing a valid
+              certificates is straighforward. But that won’t for
+              <code class="language-plaintext highlighter-rouge"
+                >localhost</code
+              >
+              or
+              <code class="language-plaintext highlighter-rouge">nip.io</code>.
+            </p>
 
-<p>We could automate the import of the certificate at the end of every Che deploy too. But, instead of reinventing the wheel, we are going to use <a href="https://mkcert.dev/">mkcert</a>. That’s a command line tool to manage local TLS certificates:</p>
+            <p>
+              We could automate the import of the certificate at the end of
+              every Che deploy too. But, instead of reinventing the wheel, we
+              are going to use <a href="https://mkcert.dev/">mkcert</a>. That’s
+              a command line tool to manage local TLS certificates:
+            </p>
 
-<blockquote>
-  <p>mkcert is a simple tool for making locally-trusted development certificates. It requires no configuration.</p>
-</blockquote>
+            <blockquote>
+              <p>
+                mkcert is a simple tool for making locally-trusted development
+                certificates. It requires no configuration.
+              </p>
+            </blockquote>
 
-<h2 id="issue-a-locally-trusted-che-certificate">Issue a locally-trusted Che certificate</h2>
+            <h2 id="issue-a-locally-trusted-che-certificate">
+              Issue a locally-trusted Che certificate
+            </h2>
 
-<p>The following steps will guide you through the generation of a TLS certificate for Che ingresses signed by a CA that is trusted by your system and browsers.</p>
+            <p>
+              The following steps will guide you through the generation of a TLS
+              certificate for Che ingresses signed by a CA that is trusted by
+              your system and browsers.
+            </p>
 
-<h3 id="step1---install-mkcert">STEP1 - Install mkcert</h3>
+            <h3 id="step1---install-mkcert">STEP1 - Install mkcert</h3>
 
-<p>Instructions to install mkcert are in the GitHub repository <a href="https://github.com/FiloSottile/mkcert#installation">README file</a>.</p>
+            <p>
+              Instructions to install mkcert are in the GitHub repository
+              <a href="https://github.com/FiloSottile/mkcert#installation"
+                >README file</a
+              >.
+            </p>
 
-<h3 id="step2---create-a-local-ca">STEP2 - Create a local CA</h3>
+            <h3 id="step2---create-a-local-ca">STEP2 - Create a local CA</h3>
 
-<p>In order to generate a valid certificate we need a trusted Certificate Authority to sign them.</p>
+            <p>
+              In order to generate a valid certificate we need a trusted
+              Certificate Authority to sign them.
+            </p>
 
-<p>The following <code class="language-plaintext highlighter-rouge">mkcert</code> command generates a CA certificate and key:</p>
+            <p>
+              The following
+              <code class="language-plaintext highlighter-rouge">mkcert</code>
+              command generates a CA certificate and key:
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mkcert <span class="nt">-install</span>   
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>mkcert <span class="nt">-install</span>   
 Using the <span class="nb">local </span>CA at “/Users/mariolet/Library/Application Support/mkcert” ✨  
 The <span class="nb">local </span>CA is already installed <span class="k">in </span>the system trust store! 👍  
 The <span class="nb">local </span>CA is already installed <span class="k">in </span>the Firefox trust store! 👍
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>As a result a CA certificate and private key will created in <code class="language-plaintext highlighter-rouge">mkcert</code> data folder <code class="language-plaintext highlighter-rouge">~/Library/Application Support/mkcert/</code>:</p>
+            <p>
+              As a result a CA certificate and private key will created in
+              <code class="language-plaintext highlighter-rouge">mkcert</code>
+              data folder
+              <code class="language-plaintext highlighter-rouge"
+                >~/Library/Application Support/mkcert/</code
+              >:
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> ~/Library/Application<span class="se">\ </span>Support/mkcert/
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nb">ls</span> <span class="nt">-l</span> ~/Library/Application<span class="se">\ </span>Support/mkcert/
 total 16
 <span class="nt">-r--------</span>  1 mloriedo  staff  2484 Jul 20  2020 rootCA-key.pem
 <span class="nt">-rw-r--r--</span>  1 mloriedo  staff  1720 Jul 20  2020 rootCA.pem
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>The CA is trusted by the OS and by my local Firefox.</p>
+            <p>The CA is trusted by the OS and by my local Firefox.</p>
 
-<p>This is a one time operation as I can use this same CA to sign certificates for different Che deployments, even on different clusters.</p>
+            <p>
+              This is a one time operation as I can use this same CA to sign
+              certificates for different Che deployments, even on different
+              clusters.
+            </p>
 
-<h3 id="step3---retrieve-che-domain-name">STEP3 - Retrieve Che domain name</h3>
+            <h3 id="step3---retrieve-che-domain-name">
+              STEP3 - Retrieve Che domain name
+            </h3>
 
-<p>Assuming that Che has already been deployed (here are the instructions), the following command is</p>
+            <p>
+              Assuming that Che has already been deployed (here are the
+              instructions), the following command is
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ CHE_DOMAIN_NAME</span><span class="o">=</span><span class="si">$(</span>kubectl get ingress <span class="se">\</span>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ CHE_DOMAIN_NAME</span><span class="o">=</span><span class="si">$(</span>kubectl get ingress <span class="se">\</span>
          <span class="nt">--all-namespaces</span> <span class="se">\</span>
          <span class="nt">-l</span> <span class="s2">"app.kubernetes.io/name"</span><span class="o">=</span><span class="s2">"che"</span> <span class="se">\</span>
          <span class="nt">-l</span> <span class="s2">"app.kubernetes.io/component"</span><span class="o">=</span><span class="s2">"che"</span> <span class="se">\</span>
          <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[*].spec.tls[0].hosts[0]}'</span><span class="si">)</span>
 <span class="nv">$ </span><span class="nb">echo</span> <span class="k">${</span><span class="nv">CHE_DOMAIN_NAME</span><span class="k">}</span>
 192.168.64.34.nip.io
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>Note that on <code class="language-plaintext highlighter-rouge">minikube</code> the domain name contains the IP address of the VM (for example <code class="language-plaintext highlighter-rouge">192.168.64.34.nip.io</code>). This step and the following one should be repeated when the IP changes (if the cluster gets recreated for example).</p>
+            <p>
+              Note that on
+              <code class="language-plaintext highlighter-rouge">minikube</code>
+              the domain name contains the IP address of the VM (for example
+              <code class="language-plaintext highlighter-rouge"
+                >192.168.64.34.nip.io</code
+              >). This step and the following one should be repeated when the IP
+              changes (if the cluster gets recreated for example).
+            </p>
 
-<h3 id="step4---generate-a-locally-trusted-tls-certificate-for-che">STEP4 - Generate a locally-trusted TLS certificate for Che</h3>
+            <h3 id="step4---generate-a-locally-trusted-tls-certificate-for-che">
+              STEP4 - Generate a locally-trusted TLS certificate for Che
+            </h3>
 
-<p>With the CA created at STEP 2 we can issue locally-trusted TLS certificates for any domain. And, compared to <code class="language-plaintext highlighter-rouge">openssl</code>, <code class="language-plaintext highlighter-rouge">mkcert</code> makes the operation easy.</p>
+            <p>
+              With the CA created at STEP 2 we can issue locally-trusted TLS
+              certificates for any domain. And, compared to
+              <code class="language-plaintext highlighter-rouge">openssl</code>,
+              <code class="language-plaintext highlighter-rouge">mkcert</code>
+              makes the operation easy.
+            </p>
 
-<p>To generates a certificate for <code class="language-plaintext highlighter-rouge">${CHE_DOMAIN_NAME}</code> retrieved at the previous step:</p>
+            <p>
+              To generates a certificate for
+              <code class="language-plaintext highlighter-rouge"
+                >${CHE_DOMAIN_NAME}</code
+              >
+              retrieved at the previous step:
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mkcert <span class="s2">"*.</span><span class="k">${</span><span class="nv">CHE_DOMAIN_NAME</span><span class="k">}</span><span class="s2">"</span>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>mkcert <span class="s2">"*.</span><span class="k">${</span><span class="nv">CHE_DOMAIN_NAME</span><span class="k">}</span><span class="s2">"</span>
 Created a new certificate valid <span class="k">for </span>the following names 📜  
  — “<span class="k">*</span>.192.168.64.34.nip.io”
 
@@ -130,15 +329,38 @@ Reminder: X.509 wildcards only go one level deep, so this won’t match a.b.192.
 The certificate is at “./_wildcard.192.168.64.34.nip.io.pem” and the key at “./_wildcard.192.168.64.34.nip.io-key.pem” ✅
 
 It will expire on 29 March 2023 🗓
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>We have just generated a wildcard TLS certificate and private key for Che that is valid until 2023.</p>
+            <p>
+              We have just generated a wildcard TLS certificate and private key
+              for Che that is valid until 2023.
+            </p>
 
-<h3 id="step5---configure-che-to-use-the-new-certificate">STEP5 - Configure Che to use the new certificate</h3>
+            <h3 id="step5---configure-che-to-use-the-new-certificate">
+              STEP5 - Configure Che to use the new certificate
+            </h3>
 
-<p>To configure Che to use the certificate generated above we should create a <a href="https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets">Kubernetes tls secret</a>. We will name it <strong><code class="language-plaintext highlighter-rouge">che-custom-tls</code></strong>:</p>
+            <p>
+              To configure Che to use the certificate generated above we should
+              create a
+              <a
+                href="https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets"
+                >Kubernetes tls secret</a
+              >. We will name it
+              <strong
+                ><code class="language-plaintext highlighter-rouge"
+                  >che-custom-tls</code
+                ></strong
+              >:
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ CHE_TLS_CERT_PATH</span><span class="o">=</span>./_wildcard.192.168.64.34.nip.io.pem    <span class="c"># Replace the value with the cert path from previous step</span>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ CHE_TLS_CERT_PATH</span><span class="o">=</span>./_wildcard.192.168.64.34.nip.io.pem    <span class="c"># Replace the value with the cert path from previous step</span>
   <span class="nv">CHE_TLS_KEY_PATH</span><span class="o">=</span>./_wildcard.192.168.64.34.nip.io-key.pem <span class="c"># Replace the value with the key path from previous step</span>
   <span class="nv">CHE_SERVER_NAMESPACE</span><span class="o">=</span>workspaces-server                    <span class="c"># Replace the value with Che server namespace</span>
   <span class="nv">CHE_TLS_SECRET</span><span class="o">=</span>che-custom-tls
@@ -147,22 +369,52 @@ It will expire on 29 March 2023 🗓
                <span class="nt">--key</span> <span class="k">${</span><span class="nv">CHE_TLS_KEY_PATH</span><span class="k">}</span> <span class="se">\</span>
                <span class="nt">--cert</span> <span class="k">${</span><span class="nv">CHE_TLS_CERT_PATH</span><span class="k">}</span>
 secret/che-custom-tls created
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>We can now update Che configuration to use this secret:</p>
+            <p>We can now update Che configuration to use this secret:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ CHE_CLUSTER</span><span class="o">=</span>eclipse-che   <span class="c"># Replace the value with CheCluster CR name</span>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ CHE_CLUSTER</span><span class="o">=</span>eclipse-che   <span class="c"># Replace the value with CheCluster CR name</span>
 <span class="nv">$ </span>kubectl patch checluster <span class="s2">"</span><span class="k">${</span><span class="nv">CHE_CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--type</span><span class="o">=</span><span class="s1">'json'</span> <span class="se">\</span>
     <span class="nt">--namespace</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CHE_SERVER_NAMESPACE</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
     <span class="nt">-p</span><span class="o">=</span><span class="s2">"[{</span><span class="se">\"</span><span class="s2">op</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">replace</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">/spec/k8s/tlsSecretName</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">value</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="k">${</span><span class="nv">CHE_TLS_SECRET</span><span class="k">}</span><span class="se">\"</span><span class="s2">}]"</span>
 checluster.org.eclipse.che/eclipse-che patched
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>A last command is required to include the local CA certificate, created at step 2, in the CA bundle of Che workspaces trusted certificates. This is required to allow communications between workspaces and the Che server.</p>
+            <p>
+              A last command is required to include the local CA certificate,
+              created at step 2, in the CA bundle of Che workspaces trusted
+              certificates. This is required to allow communications between
+              workspaces and the Che server.
+            </p>
 
-<p>The convention used to add a certificate in Che CA bundle is via a <code class="language-plaintext highlighter-rouge">ConfigMap</code> in Che server namepsace with labels <code class="language-plaintext highlighter-rouge">app.kubernetes.io/part-of=che.eclipse.org</code> and <code class="language-plaintext highlighter-rouge">app.kubernetes.io/component=ca-bundle</code>:</p>
+            <p>
+              The convention used to add a certificate in Che CA bundle is via a
+              <code class="language-plaintext highlighter-rouge"
+                >ConfigMap</code
+              >
+              in Che server namepsace with labels
+              <code class="language-plaintext highlighter-rouge"
+                >app.kubernetes.io/part-of=che.eclipse.org</code
+              >
+              and
+              <code class="language-plaintext highlighter-rouge"
+                >app.kubernetes.io/component=ca-bundle</code
+              >:
+            </p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ LOCAL_CA_CERT</span><span class="o">=</span>~/Library/Application<span class="se">\ </span>Support/mkcert/rootCA.pem  
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ LOCAL_CA_CERT</span><span class="o">=</span>~/Library/Application<span class="se">\ </span>Support/mkcert/rootCA.pem  
 <span class="nv">$ </span>kubectl create configmap custom-certs <span class="se">\</span>
               <span class="nt">--namespace</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">CHE_SERVER_NAMESPACE</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
               <span class="nt">--from-file</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">LOCAL_CA_CERT</span><span class="k">}</span><span class="s2">"</span>
@@ -172,55 +424,113 @@ configmap/custom-certs created
            app.kubernetes.io/component<span class="o">=</span>ca-bundle <span class="se">\</span>
            <span class="nt">--namespace</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">CHE_SERVER_NAMESPACE</span><span class="k">}</span><span class="s2">"</span>
 configmap/custom-certs labeled
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<h2 id="verification">Verification</h2>
+            <h2 id="verification">Verification</h2>
 
-<p><img src="https://che.eclipseprojects.io//assets/img/mkcert/trusted-cert.png" alt="Trusted Certificate" /></p>
+            <p>
+              <img
+                src="https://che.eclipseprojects.io//assets/img/mkcert/trusted-cert.png"
+                alt="Trusted Certificate"
+              />
+            </p>
 
-<p>If you have followed the steps described above, when opening the Che dashboard in your local browser, you should see that the certificate is considered valid. Starting a workspace should also work without any issue.</p>
+            <p>
+              If you have followed the steps described above, when opening the
+              Che dashboard in your local browser, you should see that the
+              certificate is considered valid. Starting a workspace should also
+              work without any issue.
+            </p>
 
-<hr />
-<hr />
+            <hr />
+            <hr />
 
-<h3 id="footnotes">Footnotes</h3>
+            <h3 id="footnotes">Footnotes</h3>
 
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>Adding the URL among the browser exceptions is not enough. Even in single-host mode (when Che uses one unique domain for every endpoint) a fully trusted TLS certificate is required to use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">the service worker API</a> <a href="https://github.com/eclipse/che/issues/18566">required by the IDE</a> running in the browser. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-  </div><a class="u-url" href="/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" hidden></a>
-</article>
-
+            <div class="footnotes" role="doc-endnotes">
+              <ol>
+                <li id="fn:1" role="doc-endnote">
+                  <p>
+                    Adding the URL among the browser exceptions is not enough.
+                    Even in single-host mode (when Che uses one unique domain
+                    for every endpoint) a fully trusted TLS certificate is
+                    required to use
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API"
+                      >the service worker API</a
+                    >
+                    <a href="https://github.com/eclipse/che/issues/18566"
+                      >required by the IDE</a
+                    >
+                    running in the browser. <a
+                      href="#fnref:1"
+                      class="reversefootnote"
+                      role="doc-backlink"
+                      >&#8617;</a
+                    >
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"
+            hidden
+          ></a>
+        </article>
       </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
 
-  <div class="wrapper">
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
 
-    <h2 class="footer-heading">Eclipse Che Blog</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
-        <p>Eclipse Che runs IDEs in Kubernetes.</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
-</body>
-
+    </footer>
+  </body>
 </html>

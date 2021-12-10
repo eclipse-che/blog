@@ -1,192 +1,509 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Backup and Restore of an Eclipse Che Installation | Eclipse Che Blog</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Backup and Restore of an Eclipse Che Installation" />
-<meta name="author" content="Mykola Morhun" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="How to create backups and do recovery of Eclipse Che" />
-<meta property="og:description" content="How to create backups and do recovery of Eclipse Che" />
-<link rel="canonical" href="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html" />
-<meta property="og:site_name" content="Eclipse Che Blog" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-07-08T00:00:00+00:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Backup and Restore of an Eclipse Che Installation" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Mykola Morhun"},"description":"How to create backups and do recovery of Eclipse Che","url":"https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html","@type":"BlogPosting","headline":"Backup and Restore of an Eclipse Che Installation","dateModified":"2021-07-08T00:00:00+00:00","datePublished":"2021-07-08T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
-<body><header class="site-header" role="banner">
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>
+      Backup and Restore of an Eclipse Che Installation | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta
+      property="og:title"
+      content="Backup and Restore of an Eclipse Che Installation"
+    />
+    <meta name="author" content="Mykola Morhun" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="How to create backups and do recovery of Eclipse Che"
+    />
+    <meta
+      property="og:description"
+      content="How to create backups and do recovery of Eclipse Che"
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2021-07-08T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Backup and Restore of an Eclipse Che Installation"
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Mykola Morhun" },
+        "description": "How to create backups and do recovery of Eclipse Che",
+        "url": "https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html",
+        "@type": "BlogPosting",
+        "headline": "Backup and Restore of an Eclipse Che Installation",
+        "dateModified": "2021-07-08T00:00:00+00:00",
+        "datePublished": "2021-07-08T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Backup and Restore of an Eclipse Che Installation</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2021-07-08T00:00:00+00:00" itemprop="datePublished">Jul 8, 2021
-      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Mykola Morhun</span></span></p>
-  </header>
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Backup and Restore of an Eclipse Che Installation
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2021-07-08T00:00:00+00:00"
+                itemprop="datePublished"
+                >Jul 8, 2021 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Mykola Morhun</span
+                ></span
+              >
+            </p>
+          </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    <h3 id="introduction">Introduction</h3>
+          <div class="post-content e-content" itemprop="articleBody">
+            <h3 id="introduction">Introduction</h3>
 
-<p>Any application that runs in production should be backed up regularly.
-Even if the application runs inside a Kubernetes or Openshift cluster.
-To back up an application in a Kubernetes cluster, a user should back up all the resources and definitions that the application uses.
-It could be pretty easy in case when the application is, for example, a deployment with attached volume.
-But what if the application has a lot of objects to back up?
-In such case the task becomes more complicated and requires an understanding on how the components of the application work and interact with each other.
-Or… just back up the whole cluster, however, such approach has a lot of overhead.</p>
+            <p>
+              Any application that runs in production should be backed up
+              regularly. Even if the application runs inside a Kubernetes or
+              Openshift cluster. To back up an application in a Kubernetes
+              cluster, a user should back up all the resources and definitions
+              that the application uses. It could be pretty easy in case when
+              the application is, for example, a deployment with attached
+              volume. But what if the application has a lot of objects to back
+              up? In such case the task becomes more complicated and requires an
+              understanding on how the components of the application work and
+              interact with each other. Or… just back up the whole cluster,
+              however, such approach has a lot of overhead.
+            </p>
 
-<p>To address this problem in <a href="https://www.eclipse.org/che/">Eclipse Che</a>, the backup and restore feature was implemented.
-With it, an admin doesn’t have to be aware of Eclipse Che internals in order to create a backup or do recovery of Che.
-Eclipse Che (Eclipse Che operator to be more precise) can create backups and restore the installation even if a Che installation was completely deleted!
-This works only if Che has been installed using the operator (<code class="language-plaintext highlighter-rouge">chectl server:deploy</code> using installers <code class="language-plaintext highlighter-rouge">olm</code> or <code class="language-plaintext highlighter-rouge">operator</code>).</p>
+            <p>
+              To address this problem in
+              <a href="https://www.eclipse.org/che/">Eclipse Che</a>, the backup
+              and restore feature was implemented. With it, an admin doesn’t
+              have to be aware of Eclipse Che internals in order to create a
+              backup or do recovery of Che. Eclipse Che (Eclipse Che operator to
+              be more precise) can create backups and restore the installation
+              even if a Che installation was completely deleted! This works only
+              if Che has been installed using the operator (<code
+                class="language-plaintext highlighter-rouge"
+                >chectl server:deploy</code
+              >
+              using installers
+              <code class="language-plaintext highlighter-rouge">olm</code> or
+              <code class="language-plaintext highlighter-rouge">operator</code
+              >).
+            </p>
 
-<p>Let me show you how easy the process of backing up and restoring Che is now.
-But first, let’s talk about backup servers a bit.</p>
+            <p>
+              Let me show you how easy the process of backing up and restoring
+              Che is now. But first, let’s talk about backup servers a bit.
+            </p>
 
-<h3 id="internal-vs-external-backup-server">Internal vs external backup server</h3>
+            <h3 id="internal-vs-external-backup-server">
+              Internal vs external backup server
+            </h3>
 
-<p>When all data for backup is gathered into a snapshot, then it is encrypted and sent to a backup server.
-The backup server should be set up beforehand and be accessible from within the cluster.
-This step requires choosing the backup server type and manual configuration of it.</p>
+            <p>
+              When all data for backup is gathered into a snapshot, then it is
+              encrypted and sent to a backup server. The backup server should be
+              set up beforehand and be accessible from within the cluster. This
+              step requires choosing the backup server type and manual
+              configuration of it.
+            </p>
 
-<p>To make life a bit easier, Eclipse Che can automatically set up and configure a backup server in the same cluster.
-Such approach requires no additional configuration as everything is automated, but the main downside of it is that backups are stored in the same cluster and even the same namespace as Eclipse Che.</p>
+            <p>
+              To make life a bit easier, Eclipse Che can automatically set up
+              and configure a backup server in the same cluster. Such approach
+              requires no additional configuration as everything is automated,
+              but the main downside of it is that backups are stored in the same
+              cluster and even the same namespace as Eclipse Che.
+            </p>
 
-<p>Note, for production use, it is recommended to set up a backup server outside of the cluster.</p>
+            <p>
+              Note, for production use, it is recommended to set up a backup
+              server outside of the cluster.
+            </p>
 
-<h3 id="how-to-back-up-and-restore-che-using-chectl">How to back up and restore Che using chectl</h3>
+            <h3 id="how-to-back-up-and-restore-che-using-chectl">
+              How to back up and restore Che using chectl
+            </h3>
 
-<h4 id="creating-backups">Creating backups</h4>
+            <h4 id="creating-backups">Creating backups</h4>
 
-<p>To create a backup of Eclipse Che with <a href="https://github.com/che-incubator/chectl#chectl">chectl</a> one should run:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chectl server:backup
-</code></pre></div></div>
-<p>The command above will create a backup snapshot and send it to the configured backup server.
-But if no backup server is configured, Che operator will deploy internal backup server and configure itself to use the server by default.</p>
+            <p>
+              To create a backup of Eclipse Che with
+              <a href="https://github.com/che-incubator/chectl#chectl"
+                >chectl</a
+              >
+              one should run:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>chectl server:backup
+</code></pre>
+              </div>
+            </div>
+            <p>
+              The command above will create a backup snapshot and send it to the
+              configured backup server. But if no backup server is configured,
+              Che operator will deploy internal backup server and configure
+              itself to use the server by default.
+            </p>
 
-<p>To use an external backup server (or switch to another one), its URL and backups repository password should be provided, for example:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>checlt server:backup <span class="nt">-r</span> rest:my-backups.domain.net:1234/che-backups <span class="nt">-p</span> encryption-password
-</code></pre></div></div>
-<p>After execution of the command above, a new backup will be created and sent to the specified backup server.
-Also, it will configure Che to use that backup server by default, so for the next backups just <code class="language-plaintext highlighter-rouge">chectl server:backup</code> will be enough.</p>
+            <p>
+              To use an external backup server (or switch to another one), its
+              URL and backups repository password should be provided, for
+              example:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>checlt server:backup <span class="nt">-r</span> rest:my-backups.domain.net:1234/che-backups <span class="nt">-p</span> encryption-password
+</code></pre>
+              </div>
+            </div>
+            <p>
+              After execution of the command above, a new backup will be created
+              and sent to the specified backup server. Also, it will configure
+              Che to use that backup server by default, so for the next backups
+              just
+              <code class="language-plaintext highlighter-rouge"
+                >chectl server:backup</code
+              >
+              will be enough.
+            </p>
 
-<p>Note, instead of using <code class="language-plaintext highlighter-rouge">-p</code> flag, it is possible to set <code class="language-plaintext highlighter-rouge">BACKUP_REPOSITORY_PASSWORD</code> environment variable.
-Note, losing repository password means losing all the data stored in it as the password is used to decrypt the repository content.</p>
+            <p>
+              Note, instead of using
+              <code class="language-plaintext highlighter-rouge">-p</code> flag,
+              it is possible to set
+              <code class="language-plaintext highlighter-rouge"
+                >BACKUP_REPOSITORY_PASSWORD</code
+              >
+              environment variable. Note, losing repository password means
+              losing all the data stored in it as the password is used to
+              decrypt the repository content.
+            </p>
 
-<h4 id="supported-types-of-backup-servers">Supported types of backup servers</h4>
+            <h4 id="supported-types-of-backup-servers">
+              Supported types of backup servers
+            </h4>
 
-<p>Eclipse Che uses an external tool called <a href="https://restic.net/">restic</a> to manage backup snapshots.
-<code class="language-plaintext highlighter-rouge">restic</code> stores backup snapshots in a backup repository, where each snapshot is identified by a hash.
-It also can connect to different kinds of servers that provide data storage capabilities.</p>
+            <p>
+              Eclipse Che uses an external tool called
+              <a href="https://restic.net/">restic</a> to manage backup
+              snapshots.
+              <code class="language-plaintext highlighter-rouge">restic</code>
+              stores backup snapshots in a backup repository, where each
+              snapshot is identified by a hash. It also can connect to different
+              kinds of servers that provide data storage capabilities.
+            </p>
 
-<p>As of now, Eclipse Che supports the following types of backup servers:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">REST</code></li>
-  <li><code class="language-plaintext highlighter-rouge">AWS S3</code> and API compatible</li>
-  <li><code class="language-plaintext highlighter-rouge">SFTP</code></li>
-</ul>
+            <p>
+              As of now, Eclipse Che supports the following types of backup
+              servers:
+            </p>
+            <ul>
+              <li>
+                <code class="language-plaintext highlighter-rouge">REST</code>
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge">AWS S3</code>
+                and API compatible
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge">SFTP</code>
+              </li>
+            </ul>
 
-<p><a href="https://github.com/restic/rest-server#rest-server"><code class="language-plaintext highlighter-rouge">REST</code> backup server</a> is a dedicated server that’s specially designed to be used with <code class="language-plaintext highlighter-rouge">restic</code>.
-It supports optional authentication by username and password:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">REST_SERVER_USERNAME</span><span class="o">=</span>user
+            <p>
+              <a href="https://github.com/restic/rest-server#rest-server"
+                ><code class="language-plaintext highlighter-rouge">REST</code>
+                backup server</a
+              >
+              is a dedicated server that’s specially designed to be used with
+              <code class="language-plaintext highlighter-rouge">restic</code>.
+              It supports optional authentication by username and password:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">REST_SERVER_USERNAME</span><span class="o">=</span>user
 <span class="nv">$ </span><span class="nb">export </span><span class="nv">REST_SERVER_PASSWORD</span><span class="o">=</span>password
 <span class="nv">$ </span>chectl server:backup <span class="nt">-r</span> rest:http://backups.my-domain.net:1234/che <span class="nt">-p</span> encryption-password
-</code></pre></div></div>
-<p>Internal backup server is of type <code class="language-plaintext highlighter-rouge">REST</code>.</p>
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Internal backup server is of type
+              <code class="language-plaintext highlighter-rouge">REST</code>.
+            </p>
 
-<p><code class="language-plaintext highlighter-rouge">AWS S3</code> storage and all API compatible implementations can be used as a backup server.
-Requires setting <code class="language-plaintext highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="language-plaintext highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> environment variables.
-Example:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span>BZK8W5<span class="k">****</span>
+            <p>
+              <code class="language-plaintext highlighter-rouge">AWS S3</code>
+              storage and all API compatible implementations can be used as a
+              backup server. Requires setting
+              <code class="language-plaintext highlighter-rouge"
+                >AWS_ACCESS_KEY_ID</code
+              >
+              and
+              <code class="language-plaintext highlighter-rouge"
+                >AWS_SECRET_ACCESS_KEY</code
+              >
+              environment variables. Example:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span>BZK8W5<span class="k">****</span>
 <span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span>JKTa9TKoL<span class="k">*****</span>dH6U+kP
 <span class="nv">$ </span>chectl server:backup <span class="nt">-r</span> s3:s3.amazonaws.com/che-bucket <span class="nt">-p</span> password
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p><code class="language-plaintext highlighter-rouge">SFTP</code> storage.
-It requires providing SSH key for passwordless login.
-That could be done by providing the path to the file with the SSH key or the key itself (choose one):</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">SSH_KEY_FILE</span><span class="o">=</span>/home/user/.ssh/sftp.key
+            <p>
+              <code class="language-plaintext highlighter-rouge">SFTP</code>
+              storage. It requires providing SSH key for passwordless login.
+              That could be done by providing the path to the file with the SSH
+              key or the key itself (choose one):
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">SSH_KEY_FILE</span><span class="o">=</span>/home/user/.ssh/sftp.key
 <span class="nv">$ </span><span class="c"># export SSH_KEY=-----BEGIN RSA PRIVATE KEY-----*****</span>
 <span class="nv">$ </span>chectl server:backup sftp:user@my-host.net:1234//srv/static/che-backups
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<h4 id="restoring-che-installation-form-a-backup">Restoring Che installation form a backup</h4>
+            <h4 id="restoring-che-installation-form-a-backup">
+              Restoring Che installation form a backup
+            </h4>
 
-<p>To restore Eclipse Che installation, simply run:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chectl server:restore
-</code></pre></div></div>
-<p>It will download the latest backup snapshot from the configured backup server and restore all Eclipse Che data from it.
-If needed, it will even deploy a new Che cluster and apply data from the backup snapshot.</p>
+            <p>To restore Eclipse Che installation, simply run:</p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>chectl server:restore
+</code></pre>
+              </div>
+            </div>
+            <p>
+              It will download the latest backup snapshot from the configured
+              backup server and restore all Eclipse Che data from it. If needed,
+              it will even deploy a new Che cluster and apply data from the
+              backup snapshot.
+            </p>
 
-<p>But what if we created a dozen of backups and want to restore not from the latest backup available on the backup server, but an older one?
-It is possible!
-Just add backup snapshot ID with <code class="language-plaintext highlighter-rouge">-f</code>  flag to the restore command:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chectl server:restore <span class="nt">-s</span> f801da5c
-</code></pre></div></div>
-<p>Where to get snapshot IDs?
-There are two ways.
-Snapshot ID is printed when a backup command executed:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Backup snapshot ID: f801da5c
-</code></pre></div></div>
-<p>Another way is to use <code class="language-plaintext highlighter-rouge">restic</code> tool:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>restic <span class="nt">-r</span> rest:my-backups.domain.net:1234/che-backups snapshots
-</code></pre></div></div>
+            <p>
+              But what if we created a dozen of backups and want to restore not
+              from the latest backup available on the backup server, but an
+              older one? It is possible! Just add backup snapshot ID with
+              <code class="language-plaintext highlighter-rouge">-f</code> flag
+              to the restore command:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>chectl server:restore <span class="nt">-s</span> f801da5c
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Where to get snapshot IDs? There are two ways. Snapshot ID is
+              printed when a backup command executed:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>Backup snapshot ID: f801da5c
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Another way is to use
+              <code class="language-plaintext highlighter-rouge">restic</code>
+              tool:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>restic <span class="nt">-r</span> rest:my-backups.domain.net:1234/che-backups snapshots
+</code></pre>
+              </div>
+            </div>
 
-<p>Also, it is possible to use differnet backup server to restore from.
-Just provide a backup server URL and repository password with needed credentials.
-For example:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chectl server:restore <span class="nt">-r</span> sftp:cheuser@my-sftp.domain.net:/srv/data/che-backups/ <span class="nt">-p</span> encryption-password <span class="nt">--ssh-key-file</span><span class="o">=</span>~/.ssh/che-sftp.key
-</code></pre></div></div>
-<p>Note, that the command above will change default backup server, so the next backup will be sent there unless another configuration provided.</p>
+            <p>
+              Also, it is possible to use differnet backup server to restore
+              from. Just provide a backup server URL and repository password
+              with needed credentials. For example:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>chectl server:restore <span class="nt">-r</span> sftp:cheuser@my-sftp.domain.net:/srv/data/che-backups/ <span class="nt">-p</span> encryption-password <span class="nt">--ssh-key-file</span><span class="o">=</span>~/.ssh/che-sftp.key
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Note, that the command above will change default backup server, so
+              the next backup will be sent there unless another configuration
+              provided.
+            </p>
 
-<h3 id="how-to-back-up-and-restore-che-via-custom-resources-objects">How to back up and restore Che via custom resources objects</h3>
+            <h3
+              id="how-to-back-up-and-restore-che-via-custom-resources-objects"
+            >
+              How to back up and restore Che via custom resources objects
+            </h3>
 
-<h4 id="concept">Concept</h4>
+            <h4 id="concept">Concept</h4>
 
-<p>If someone doesn’t want to use <code class="language-plaintext highlighter-rouge">chectl</code> or want to have more control over the backup and restore process, it is possible to control backup and restore processes by directly managing backup related custom resources (CRs).
-There are 3 types of CRs:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">CheBackupServerConfiguration</code> that holds information about a backup server and references to the secrets with credentials.</li>
-  <li><code class="language-plaintext highlighter-rouge">CheClusterBackup</code> requests a new backup and also points to an instance of <code class="language-plaintext highlighter-rouge">CheBackupServerConfiguration</code> to where the backup snapshot should be sent.</li>
-  <li><code class="language-plaintext highlighter-rouge">CheClusterRestore</code> requests a new restore and holds reference to <code class="language-plaintext highlighter-rouge">CheBackupServerConfiguration</code> from where the backup snapshot should be downloaded.</li>
-</ul>
+            <p>
+              If someone doesn’t want to use
+              <code class="language-plaintext highlighter-rouge">chectl</code>
+              or want to have more control over the backup and restore process,
+              it is possible to control backup and restore processes by directly
+              managing backup related custom resources (CRs). There are 3 types
+              of CRs:
+            </p>
+            <ul>
+              <li>
+                <code class="language-plaintext highlighter-rouge"
+                  >CheBackupServerConfiguration</code
+                >
+                that holds information about a backup server and references to
+                the secrets with credentials.
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge"
+                  >CheClusterBackup</code
+                >
+                requests a new backup and also points to an instance of
+                <code class="language-plaintext highlighter-rouge"
+                  >CheBackupServerConfiguration</code
+                >
+                to where the backup snapshot should be sent.
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge"
+                  >CheClusterRestore</code
+                >
+                requests a new restore and holds reference to
+                <code class="language-plaintext highlighter-rouge"
+                  >CheBackupServerConfiguration</code
+                >
+                from where the backup snapshot should be downloaded.
+              </li>
+            </ul>
 
-<p>Please note, that only creation of <code class="language-plaintext highlighter-rouge">CheClusterBackup</code> and <code class="language-plaintext highlighter-rouge">CheClusterRestore</code> instances triggers backup and restore processes correspondingly.
-Any editing of these resources has no effect.</p>
+            <p>
+              Please note, that only creation of
+              <code class="language-plaintext highlighter-rouge"
+                >CheClusterBackup</code
+              >
+              and
+              <code class="language-plaintext highlighter-rouge"
+                >CheClusterRestore</code
+              >
+              instances triggers backup and restore processes correspondingly.
+              Any editing of these resources has no effect.
+            </p>
 
-<p>Under the hood, <code class="language-plaintext highlighter-rouge">chectl</code> deals with the described CRs in order to create a backup or trigger a restore process.</p>
+            <p>
+              Under the hood,
+              <code class="language-plaintext highlighter-rouge">chectl</code>
+              deals with the described CRs in order to create a backup or
+              trigger a restore process.
+            </p>
 
-<h4 id="configuring-a-backup-server">Configuring a backup server</h4>
+            <h4 id="configuring-a-backup-server">
+              Configuring a backup server
+            </h4>
 
-<p>Before backing up or restoring Che installation, at least one backup server configuration should be created.
-Also, all secrets that are referenced from the CR must exist.
-Then, the configuration might be referenced from backup and/or restore CR.</p>
+            <p>
+              Before backing up or restoring Che installation, at least one
+              backup server configuration should be created. Also, all secrets
+              that are referenced from the CR must exist. Then, the
+              configuration might be referenced from backup and/or restore CR.
+            </p>
 
-<p>Example backup server configuration for AWS S3 storage:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
+            <p>Example backup server configuration for AWS S3 storage:</p>
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">CheBackupServerConfiguration</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">backup-server-configuration</span>
@@ -195,111 +512,295 @@ Then, the configuration might be referenced from backup and/or restore CR.</p>
     <span class="na">repositoryPath</span><span class="pi">:</span> <span class="s">che-bucket</span>
     <span class="na">repositoryPasswordSecretRef</span><span class="pi">:</span> <span class="s">aws-backup-encryption-password-secret</span>
     <span class="na">awsAccessKeySecretRef</span><span class="pi">:</span> <span class="s">aws-user-credentials-secret</span>
-</code></pre></div></div>
-<p>Both secrets <code class="language-plaintext highlighter-rouge">aws-backup-encryption-password-secret</code> with <code class="language-plaintext highlighter-rouge">repo-password</code> key and <code class="language-plaintext highlighter-rouge">aws-user-credentials-secret</code> with <code class="language-plaintext highlighter-rouge">awsAccessKeyId</code> and <code class="language-plaintext highlighter-rouge">awsSecretAccessKey</code> keys must exist.</p>
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Both secrets
+              <code class="language-plaintext highlighter-rouge"
+                >aws-backup-encryption-password-secret</code
+              >
+              with
+              <code class="language-plaintext highlighter-rouge"
+                >repo-password</code
+              >
+              key and
+              <code class="language-plaintext highlighter-rouge"
+                >aws-user-credentials-secret</code
+              >
+              with
+              <code class="language-plaintext highlighter-rouge"
+                >awsAccessKeyId</code
+              >
+              and
+              <code class="language-plaintext highlighter-rouge"
+                >awsSecretAccessKey</code
+              >
+              keys must exist.
+            </p>
 
-<p>As it was described above, under <code class="language-plaintext highlighter-rouge">spec</code> section only <code class="language-plaintext highlighter-rouge">rest</code>, <code class="language-plaintext highlighter-rouge">awss3</code> and <code class="language-plaintext highlighter-rouge">sftp</code> is allowed.
-CR definitions have self-explanatory fields and it will be easy to create a backup server configuration.
-But note, that each subsection mutually excludes the others.
-However, it is allowed to create as many backup server configurations as needed.</p>
+            <p>
+              As it was described above, under
+              <code class="language-plaintext highlighter-rouge">spec</code>
+              section only
+              <code class="language-plaintext highlighter-rouge">rest</code>,
+              <code class="language-plaintext highlighter-rouge">awss3</code>
+              and
+              <code class="language-plaintext highlighter-rouge">sftp</code> is
+              allowed. CR definitions have self-explanatory fields and it will
+              be easy to create a backup server configuration. But note, that
+              each subsection mutually excludes the others. However, it is
+              allowed to create as many backup server configurations as needed.
+            </p>
 
-<h4 id="backing-up">Backing up</h4>
+            <h4 id="backing-up">Backing up</h4>
 
-<p>To create a new backup, a new CR of <code class="language-plaintext highlighter-rouge">CheClusterBackup</code> type should be created:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
+            <p>
+              To create a new backup, a new CR of
+              <code class="language-plaintext highlighter-rouge"
+                >CheClusterBackup</code
+              >
+              type should be created:
+            </p>
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">CheClusterBackup</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">eclipse-che-backup</span>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">backupServerConfigRef</span><span class="pi">:</span> <span class="s">backup-server-configuration</span>
-</code></pre></div></div>
-<p>Right after the CR creation a new backup process will be started.
-To monitor backup process state, one should look at <code class="language-plaintext highlighter-rouge">status</code> section of the created CR:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get CheClusterBackup eclipse-che-backup <span class="nt">-n</span> eclipse-che <span class="nt">-o</span> yaml | <span class="nb">grep</span> <span class="nt">-A</span> 5 ^status
-</code></pre></div></div>
-<p>The output of the command above looks like:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">status</span><span class="pi">:</span>
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Right after the CR creation a new backup process will be started.
+              To monitor backup process state, one should look at
+              <code class="language-plaintext highlighter-rouge">status</code>
+              section of the created CR:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>kubectl get CheClusterBackup eclipse-che-backup <span class="nt">-n</span> eclipse-che <span class="nt">-o</span> yaml | <span class="nb">grep</span> <span class="nt">-A</span> 5 ^status
+</code></pre>
+              </div>
+            </div>
+            <p>The output of the command above looks like:</p>
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">status</span><span class="pi">:</span>
   <span class="na">message</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Backup</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">progress.</span><span class="nv"> </span><span class="s">Start</span><span class="nv"> </span><span class="s">time:</span><span class="nv"> </span><span class="s">&lt;timestamp&gt;'</span>
   <span class="na">stage</span><span class="pi">:</span> <span class="s">Collecting Che installation data</span>
   <span class="na">state</span><span class="pi">:</span> <span class="s">InProgress</span>
-</code></pre></div></div>
-<p>where</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">message</code> shows overall human readable status or an error message.</li>
-  <li><code class="language-plaintext highlighter-rouge">stage</code> displays human readable current phase of backup process</li>
-  <li><code class="language-plaintext highlighter-rouge">state</code> indicates the overall state of the backup. Only <code class="language-plaintext highlighter-rouge">InProgress</code>, <code class="language-plaintext highlighter-rouge">Succeeded</code> and <code class="language-plaintext highlighter-rouge">Failed</code> allowed.</li>
-</ul>
+</code></pre>
+              </div>
+            </div>
+            <p>where</p>
+            <ul>
+              <li>
+                <code class="language-plaintext highlighter-rouge"
+                  >message</code
+                >
+                shows overall human readable status or an error message.
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge">stage</code>
+                displays human readable current phase of backup process
+              </li>
+              <li>
+                <code class="language-plaintext highlighter-rouge">state</code>
+                indicates the overall state of the backup. Only
+                <code class="language-plaintext highlighter-rouge"
+                  >InProgress</code
+                >,
+                <code class="language-plaintext highlighter-rouge"
+                  >Succeeded</code
+                >
+                and
+                <code class="language-plaintext highlighter-rouge">Failed</code>
+                allowed.
+              </li>
+            </ul>
 
-<p>When the process finishes successfully, the <code class="language-plaintext highlighter-rouge">status</code> section will contain <code class="language-plaintext highlighter-rouge">snapshotId</code> field that could be used when restoring.
-The CR might be deleted after backup is finished.</p>
+            <p>
+              When the process finishes successfully, the
+              <code class="language-plaintext highlighter-rouge">status</code>
+              section will contain
+              <code class="language-plaintext highlighter-rouge"
+                >snapshotId</code
+              >
+              field that could be used when restoring. The CR might be deleted
+              after backup is finished.
+            </p>
 
-<p>If one need to request internal backup server and create a backup, <code class="language-plaintext highlighter-rouge">CheClusterBackup</code> with <code class="language-plaintext highlighter-rouge">useInternalBackupServer</code> property set to <code class="language-plaintext highlighter-rouge">true</code> should be created:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
+            <p>
+              If one need to request internal backup server and create a backup,
+              <code class="language-plaintext highlighter-rouge"
+                >CheClusterBackup</code
+              >
+              with
+              <code class="language-plaintext highlighter-rouge"
+                >useInternalBackupServer</code
+              >
+              property set to
+              <code class="language-plaintext highlighter-rouge">true</code>
+              should be created:
+            </p>
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">CheClusterBackup</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">eclipse-che-backup</span>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">useInternalBackupServer</span><span class="pi">:</span> <span class="no">true</span>
-</code></pre></div></div>
-<p>Note, it will create an instance of <code class="language-plaintext highlighter-rouge">CheBackupServerConfiguration</code> and corresponding secrets automatically.</p>
+</code></pre>
+              </div>
+            </div>
+            <p>
+              Note, it will create an instance of
+              <code class="language-plaintext highlighter-rouge"
+                >CheBackupServerConfiguration</code
+              >
+              and corresponding secrets automatically.
+            </p>
 
-<h4 id="restoring">Restoring</h4>
+            <h4 id="restoring">Restoring</h4>
 
-<p>To restore from a backup snapshot, a new CR of <code class="language-plaintext highlighter-rouge">CheClusterRestore</code> type should be created:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
+            <p>
+              To restore from a backup snapshot, a new CR of
+              <code class="language-plaintext highlighter-rouge"
+                >CheClusterRestore</code
+              >
+              type should be created:
+            </p>
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">org.eclipse.che/v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">CheClusterRestore</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">eclipse-che-restore</span>
 <span class="na">spec</span><span class="pi">:</span>
   <span class="na">backupServerConfigRef</span><span class="pi">:</span> <span class="s">backup-server-configuration</span>
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>By default the latest snapshot is taken.
-However, it is possible to restore from a specific snapshot by adding <code class="language-plaintext highlighter-rouge">snapshotId</code> field under <code class="language-plaintext highlighter-rouge">spec</code> section.</p>
+            <p>
+              By default the latest snapshot is taken. However, it is possible
+              to restore from a specific snapshot by adding
+              <code class="language-plaintext highlighter-rouge"
+                >snapshotId</code
+              >
+              field under
+              <code class="language-plaintext highlighter-rouge">spec</code>
+              section.
+            </p>
 
-<p>To monitor the restore state, one may read status of the corresponding CR:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get CheClusterRestore eclipse-che-restore <span class="nt">-n</span> eclipse-che <span class="nt">-o</span> yaml | <span class="nb">grep</span> <span class="nt">-A</span> 5 ^status
-</code></pre></div></div>
-<p>Once the restore finishes, the CR can be deleted.</p>
+            <p>
+              To monitor the restore state, one may read status of the
+              corresponding CR:
+            </p>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="nv">$ </span>kubectl get CheClusterRestore eclipse-che-restore <span class="nt">-n</span> eclipse-che <span class="nt">-o</span> yaml | <span class="nb">grep</span> <span class="nt">-A</span> 5 ^status
+</code></pre>
+              </div>
+            </div>
+            <p>Once the restore finishes, the CR can be deleted.</p>
 
-<h3 id="limitations">Limitations</h3>
+            <h3 id="limitations">Limitations</h3>
 
-<p>As of now, there are two major limitations with backup and restore:</p>
-<ul>
-  <li>Backing up of user’s projects inside workspaces hasn’t been implemented yet. So, all not committed changes will not be restored.</li>
-  <li>Backup snapshots are bind to the specific cluster, so it is not possible to restore snapshot on another cluster in general case. This is because Che binds to some cluster ID’s.</li>
-</ul>
+            <p>
+              As of now, there are two major limitations with backup and
+              restore:
+            </p>
+            <ul>
+              <li>
+                Backing up of user’s projects inside workspaces hasn’t been
+                implemented yet. So, all not committed changes will not be
+                restored.
+              </li>
+              <li>
+                Backup snapshots are bind to the specific cluster, so it is not
+                possible to restore snapshot on another cluster in general case.
+                This is because Che binds to some cluster ID’s.
+              </li>
+            </ul>
 
-<p>Other than that, back up and restore is a user friendly and straightforward process now.</p>
-
-  </div><a class="u-url" href="/2021/07/08/@mmorhun-backup-restore-che-installation.html" hidden></a>
-</article>
-
+            <p>
+              Other than that, back up and restore is a user friendly and
+              straightforward process now.
+            </p>
+          </div>
+          <a
+            class="u-url"
+            href="/2021/07/08/@mmorhun-backup-restore-che-installation.html"
+            hidden
+          ></a>
+        </article>
       </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
 
-  <div class="wrapper">
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
 
-    <h2 class="footer-heading">Eclipse Che Blog</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
-        <p>Eclipse Che runs IDEs in Kubernetes.</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
-</body>
-
+    </footer>
+  </body>
 </html>

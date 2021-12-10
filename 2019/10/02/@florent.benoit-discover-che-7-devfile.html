@@ -1,114 +1,262 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Discover Che 7: devfile | Eclipse Che Blog</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Discover Che 7: devfile" />
-<meta name="author" content="Florent Benoit" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Developer environments as code" />
-<meta property="og:description" content="Developer environments as code" />
-<link rel="canonical" href="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html" />
-<meta property="og:site_name" content="Eclipse Che Blog" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2019-10-02T00:00:00+00:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Discover Che 7: devfile" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Florent Benoit"},"description":"Developer environments as code","url":"https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html","@type":"BlogPosting","headline":"Discover Che 7: devfile","dateModified":"2019-10-02T00:00:00+00:00","datePublished":"2019-10-02T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
-<body><header class="site-header" role="banner">
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>Discover Che 7: devfile | Eclipse Che Blog</title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta property="og:title" content="Discover Che 7: devfile" />
+    <meta name="author" content="Florent Benoit" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Developer environments as code" />
+    <meta property="og:description" content="Developer environments as code" />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2019-10-02T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Discover Che 7: devfile" />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Florent Benoit" },
+        "description": "Developer environments as code",
+        "url": "https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html",
+        "@type": "BlogPosting",
+        "headline": "Discover Che 7: devfile",
+        "dateModified": "2019-10-02T00:00:00+00:00",
+        "datePublished": "2019-10-02T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Discover Che 7: devfile</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2019-10-02T00:00:00+00:00" itemprop="datePublished">Oct 2, 2019
-      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
-  </header>
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Discover Che 7: devfile
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2019-10-02T00:00:00+00:00"
+                itemprop="datePublished"
+                >Oct 2, 2019 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Florent Benoit</span
+                ></span
+              >
+            </p>
+          </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    <p><a href="https://che.eclipse.org/discover-eclipse-che-7-7515e74a99ca">In a previous blog post</a>, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.</p>
+          <div class="post-content e-content" itemprop="articleBody">
+            <p>
+              <a
+                href="https://che.eclipse.org/discover-eclipse-che-7-7515e74a99ca"
+                >In a previous blog post</a
+              >, we’ve experimented ready-to-use workspaces and how to
+              write/run/debug code easily.
+            </p>
 
-<p>But when we are open a ready-to-use workspace, it seems that there is some magic:</p>
+            <p>
+              But when we are open a ready-to-use workspace, it seems that there
+              is some magic:
+            </p>
 
-<ul>
-  <li>The runtime already has language tooling</li>
-  <li>There is code completion with pre-installed plug-ins for the given language</li>
-  <li>The project is already cloned into the workspace, and we have commands to build, debug and manipulate the runtime</li>
-</ul>
+            <ul>
+              <li>The runtime already has language tooling</li>
+              <li>
+                There is code completion with pre-installed plug-ins for the
+                given language
+              </li>
+              <li>
+                The project is already cloned into the workspace, and we have
+                commands to build, debug and manipulate the runtime
+              </li>
+            </ul>
 
-<p>In this blog post, we’ll discover what drives this workspace magic: the devfile.</p>
+            <p>
+              In this blog post, we’ll discover what drives this workspace
+              magic: the devfile.
+            </p>
 
-<h4 id="definition">Definition</h4>
+            <h4 id="definition">Definition</h4>
 
-<p>A devfile defines the configuration of the workspace, which is the developer’s environment. This definition is portable - we can create any number of identical workspaces from the same devfile. Anyone can share a devfile and everyone using this devfile will get the same workspace including projects, tooling, commands, etc…</p>
+            <p>
+              A devfile defines the configuration of the workspace, which is the
+              developer’s environment. This definition is portable - we can
+              create any number of identical workspaces from the same devfile.
+              Anyone can share a devfile and everyone using this devfile will
+              get the same workspace including projects, tooling, commands, etc…
+            </p>
 
-<p><img src="https://cdn-images-1.medium.com/max/800/0*o_SxIc5VuMqc0BtS.png" alt="" /></p>
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/0*o_SxIc5VuMqc0BtS.png"
+                alt=""
+              />
+            </p>
 
-<h4 id="explore">Explore</h4>
+            <h4 id="explore">Explore</h4>
 
-<p>To make exploration easier, we’ll use the hosted Eclipse Che service (version 7) run by Red Hat at <a href="https://che.openshift.io">https://che.openshift.io</a>.</p>
+            <p>
+              To make exploration easier, we’ll use the hosted Eclipse Che
+              service (version 7) run by Red Hat at
+              <a href="https://che.openshift.io">https://che.openshift.io</a>.
+            </p>
 
-<p>For our example, let’s start with a pre-built workspace Stack: From the user dashboard, click on Stacks in the left nav bar.</p>
+            <p>
+              For our example, let’s start with a pre-built workspace Stack:
+              From the user dashboard, click on Stacks in the left nav bar.
+            </p>
 
-<p><img src="https://cdn-images-1.medium.com/max/800/1*edyrQNdKqzpJC9jhh3MQLA.png" alt="" /></p>
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*edyrQNdKqzpJC9jhh3MQLA.png"
+                alt=""
+              />
+            </p>
 
-<p>Now click on Python stack:</p>
+            <p>Now click on Python stack:</p>
 
-<p><img src="https://cdn-images-1.medium.com/max/800/1*8rOhOHjaU4cdimuJXeGjlA.png" alt="" /></p>
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*8rOhOHjaU4cdimuJXeGjlA.png"
+                alt=""
+              />
+            </p>
 
-<p>The raw configuration section shows the devfile content:</p>
+            <p>The raw configuration section shows the devfile content:</p>
 
-<p><img src="https://cdn-images-1.medium.com/max/800/1*rYww8WAOL7YbRjhNzFwWxQ.png" alt="" /></p>
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*rYww8WAOL7YbRjhNzFwWxQ.png"
+                alt=""
+              />
+            </p>
 
-<script src="https://gist.github.com/benoitf/660dbe69a2098cbc9653829a38d33bcb.js"></script>
+            <script src="https://gist.github.com/benoitf/660dbe69a2098cbc9653829a38d33bcb.js"></script>
 
-<h3 id="deconstructing-thedevfile">Deconstructing the devfile</h3>
+            <h3 id="deconstructing-thedevfile">Deconstructing the devfile</h3>
 
-<h4 id="metadata">Metadata</h4>
+            <h4 id="metadata">Metadata</h4>
 
-<p><code class="language-plaintext highlighter-rouge">metadata.generateName</code> is used for the workspace prefix name. When a user creates a workspace from the devfile, their workspace name will be named <code class="language-plaintext highlighter-rouge">python-&lt;random-4-digits-id&gt;</code>. By using instead of <code class="language-plaintext highlighter-rouge">generateName metadata.name</code> there will be no prefix so workspace names will all use only that name, however, if a single user tries to create a second workspace from the same devile, they’ll get an error notifying them that they can’t create another workspace because one with that name already exists.</p>
+            <p>
+              <code class="language-plaintext highlighter-rouge"
+                >metadata.generateName</code
+              >
+              is used for the workspace prefix name. When a user creates a
+              workspace from the devfile, their workspace name will be named
+              <code class="language-plaintext highlighter-rouge"
+                >python-&lt;random-4-digits-id&gt;</code
+              >. By using instead of
+              <code class="language-plaintext highlighter-rouge"
+                >generateName metadata.name</code
+              >
+              there will be no prefix so workspace names will all use only that
+              name, however, if a single user tries to create a second workspace
+              from the same devile, they’ll get an error notifying them that
+              they can’t create another workspace because one with that name
+              already exists.
+            </p>
 
-<h4 id="projects">Projects</h4>
+            <h4 id="projects">Projects</h4>
 
-<p>Describes the projects to clone into the workspace. The <code class="language-plaintext highlighter-rouge">type</code> field can be <code class="language-plaintext highlighter-rouge">git</code> or <code class="language-plaintext highlighter-rouge">zip</code>. In this case, we’re using git so we specify the repository URL (there can be multiple URLs to clone in multiple projects).</p>
+            <p>
+              Describes the projects to clone into the workspace. The
+              <code class="language-plaintext highlighter-rouge">type</code>
+              field can be
+              <code class="language-plaintext highlighter-rouge">git</code> or
+              <code class="language-plaintext highlighter-rouge">zip</code>. In
+              this case, we’re using git so we specify the repository URL (there
+              can be multiple URLs to clone in multiple projects).
+            </p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">projects</span><span class="pi">:</span>  
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">projects</span><span class="pi">:</span>  
  <span class="pi">-</span>  
   <span class="na">name</span><span class="pi">:</span> <span class="s">python-hello-world</span>  
   <span class="na">source</span><span class="pi">:</span>  
    <span class="na">type</span><span class="pi">:</span> <span class="s">git</span>  
    <span class="na">location</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[https://github.com/che-samples/python-hello-world.git'</span><span class="err">]</span><span class="s">(https://github.com/che-samples/python-hello-world.git%27)</span>
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>Alternatively, when using the <code class="language-plaintext highlighter-rouge">zip</code> type you can link to a zip file containing the project source code.</p>
+            <p>
+              Alternatively, when using the
+              <code class="language-plaintext highlighter-rouge">zip</code> type
+              you can link to a zip file containing the project source code.
+            </p>
 
-<h4 id="components">Components</h4>
+            <h4 id="components">Components</h4>
 
-<p>This example devfile uses two kind of components: a Che plug-in and a docker image.</p>
+            <p>
+              This example devfile uses two kind of components: a Che plug-in
+              and a docker image.
+            </p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span>  
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code><span class="pi">-</span>  
   <span class="na">type</span><span class="pi">:</span> <span class="s">chePlugin</span>
   <span class="na">id</span><span class="pi">:</span> <span class="s">ms-python/python/latest</span>  
   <span class="na">memoryLimit</span><span class="pi">:</span> <span class="s">512Mi</span>  
@@ -118,19 +266,76 @@
   <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">quay.io/eclipse/che-python-3.6:nightly'</span>  
   <span class="na">memoryLimit</span><span class="pi">:</span> <span class="s">512Mi</span>  
   <span class="na">mountSources</span><span class="pi">:</span> <span class="no">true</span>
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>The <code class="language-plaintext highlighter-rouge">cheplugin</code> type is used for plugins in the Eclipse Che plug-in registry. The <code class="language-plaintext highlighter-rouge">id</code> field includes the vendor name, name and version divided by slashes. In this case, <code class="language-plaintext highlighter-rouge">latest</code> is an alias to the latest stable definition of the plug-in. This Che Plug-in is a VS Code extension that is instantiated in a sidecar container with its own code and dependencies. This is held outside the source code container so that it doesn’t “pollute” the behaviour of the project itself.</p>
+            <p>
+              The
+              <code class="language-plaintext highlighter-rouge"
+                >cheplugin</code
+              >
+              type is used for plugins in the Eclipse Che plug-in registry. The
+              <code class="language-plaintext highlighter-rouge">id</code> field
+              includes the vendor name, name and version divided by slashes. In
+              this case,
+              <code class="language-plaintext highlighter-rouge">latest</code>
+              is an alias to the latest stable definition of the plug-in. This
+              Che Plug-in is a VS Code extension that is instantiated in a
+              sidecar container with its own code and dependencies. This is held
+              outside the source code container so that it doesn’t “pollute” the
+              behaviour of the project itself.
+            </p>
 
-<p>The <code class="language-plaintext highlighter-rouge">dockerimage</code> type is used to generate the runtime container. In this case that includes everything in the <code class="language-plaintext highlighter-rouge">che-python-3.6</code> nightly container build. The <code class="language-plaintext highlighter-rouge">alias</code> is what will be used to identify this container when we want commands executed in it (we’ll cover that in the next section). Setting the <code class="language-plaintext highlighter-rouge">mountSources</code> flag to <code class="language-plaintext highlighter-rouge">true</code> will make the projects source code available inside this container. Typically in the<code class="language-plaintext highlighter-rouge">/projects</code> folder. If you make it <code class="language-plaintext highlighter-rouge">false</code> then there will be no folder that uses attached storage (this is fine for certain use cases like teaching examples where code changes don’t need to be retained after the course unit is completed).</p>
+            <p>
+              The
+              <code class="language-plaintext highlighter-rouge"
+                >dockerimage</code
+              >
+              type is used to generate the runtime container. In this case that
+              includes everything in the
+              <code class="language-plaintext highlighter-rouge"
+                >che-python-3.6</code
+              >
+              nightly container build. The
+              <code class="language-plaintext highlighter-rouge">alias</code> is
+              what will be used to identify this container when we want commands
+              executed in it (we’ll cover that in the next section). Setting the
+              <code class="language-plaintext highlighter-rouge"
+                >mountSources</code
+              >
+              flag to
+              <code class="language-plaintext highlighter-rouge">true</code>
+              will make the projects source code available inside this
+              container. Typically in the<code
+                class="language-plaintext highlighter-rouge"
+                >/projects</code
+              >
+              folder. If you make it
+              <code class="language-plaintext highlighter-rouge">false</code>
+              then there will be no folder that uses attached storage (this is
+              fine for certain use cases like teaching examples where code
+              changes don’t need to be retained after the course unit is
+              completed).
+            </p>
 
-<p><code class="language-plaintext highlighter-rouge">memoryLimit</code> can be given in either case to change the default memory allocation.</p>
+            <p>
+              <code class="language-plaintext highlighter-rouge"
+                >memoryLimit</code
+              >
+              can be given in either case to change the default memory
+              allocation.
+            </p>
 
-<h4 id="commands">Commands</h4>
+            <h4 id="commands">Commands</h4>
 
-<p>Commands defined in the devfile will be available in the IDE.</p>
+            <p>Commands defined in the devfile will be available in the IDE.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">commands</span><span class="pi">:</span>  
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">commands</span><span class="pi">:</span>  
 <span class="pi">-</span>  
   <span class="na">name</span><span class="pi">:</span> <span class="s">run</span>  
   <span class="na">actions</span><span class="pi">:</span>  
@@ -139,61 +344,150 @@
     <span class="na">component</span><span class="pi">:</span> <span class="s">python</span>  
     <span class="na">command</span><span class="pi">:</span> <span class="s">python hello-world.py</span>  
     <span class="na">workdir</span><span class="pi">:</span> <span class="s1">'</span><span class="s">${CHE_PROJECTS_ROOT}/python-hello-world'</span>
-</code></pre></div></div>
+</code></pre>
+              </div>
+            </div>
 
-<p>In this example a new <code class="language-plaintext highlighter-rouge">run</code> command is defined. It is executing the <code class="language-plaintext highlighter-rouge">hello-world.py</code> source file with the python interpreter. The working directory is set with the <code class="language-plaintext highlighter-rouge">workdir</code> line.</p>
+            <p>
+              In this example a new
+              <code class="language-plaintext highlighter-rouge">run</code>
+              command is defined. It is executing the
+              <code class="language-plaintext highlighter-rouge"
+                >hello-world.py</code
+              >
+              source file with the python interpreter. The working directory is
+              set with the
+              <code class="language-plaintext highlighter-rouge">workdir</code>
+              line.
+            </p>
 
-<p>The <code class="language-plaintext highlighter-rouge">component: python</code> line tells Che to execute this command in the container with the <code class="language-plaintext highlighter-rouge">python</code> alias (we defined that in the section above).</p>
+            <p>
+              The
+              <code class="language-plaintext highlighter-rouge"
+                >component: python</code
+              >
+              line tells Che to execute this command in the container with the
+              <code class="language-plaintext highlighter-rouge">python</code>
+              alias (we defined that in the section above).
+            </p>
 
-<p>Variables can be used in commands like <code class="language-plaintext highlighter-rouge">${CHE_PROJECTS_ROOT}</code> to specify the folder where the source code is mounted in the container.</p>
+            <p>
+              Variables can be used in commands like
+              <code class="language-plaintext highlighter-rouge"
+                >${CHE_PROJECTS_ROOT}</code
+              >
+              to specify the folder where the source code is mounted in the
+              container.
+            </p>
 
-<h4 id="experiment-with-devfiles-foryourself">Experiment with devfiles for yourself</h4>
+            <h4 id="experiment-with-devfiles-foryourself">
+              Experiment with devfiles for yourself
+            </h4>
 
-<p>You can click on different stacks from the Che user dashboard and see the associated devfile — this is a great way to discover more examples.</p>
+            <p>
+              You can click on different stacks from the Che user dashboard and
+              see the associated devfile — this is a great way to discover more
+              examples.
+            </p>
 
-<p>Read about the full devfile schema at <a href="https://redhat-developer.github.io/devfile/devfile">https://redhat-developer.github.io/devfile/devfile</a></p>
+            <p>
+              Read about the full devfile schema at
+              <a href="https://redhat-developer.github.io/devfile/devfile"
+                >https://redhat-developer.github.io/devfile/devfile</a
+              >
+            </p>
 
-<h3 id="get-involved">Get Involved!</h3>
+            <h3 id="get-involved">Get Involved!</h3>
 
-<p><a href="http://www.eclipse.org/che/docs/#getting-started">Quick Start with Eclipse Che</a>.</p>
+            <p>
+              <a href="http://www.eclipse.org/che/docs/#getting-started"
+                >Quick Start with Eclipse Che</a
+              >.
+            </p>
 
-<p>Join the community:</p>
+            <p>Join the community:</p>
 
-<ul>
-  <li><strong>Support</strong>: You can ask questions, report bugs, and request features using <a href="https://github.com/eclipse/che/issues">GitHub issues</a>.</li>
-  <li><strong>Public Chat</strong>: Join the public <a href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che">eclipse-che</a> Mattermost channel to discuss with community and contributors.</li>
-  <li><strong>Weekly Meetings</strong>: Join us in our <a href="https://github.com/eclipse/che/wiki/Che-Dev-Meetings">Che community meeting</a> every second monday.</li>
-  <li><strong>Mailing list</strong>: che-dev@eclipse.org</li>
-</ul>
-
-  </div><a class="u-url" href="/2019/10/02/@florent.benoit-discover-che-7-devfile.html" hidden></a>
-</article>
-
+            <ul>
+              <li>
+                <strong>Support</strong>: You can ask questions, report bugs,
+                and request features using
+                <a href="https://github.com/eclipse/che/issues">GitHub issues</a
+                >.
+              </li>
+              <li>
+                <strong>Public Chat</strong>: Join the public
+                <a
+                  href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che"
+                  >eclipse-che</a
+                >
+                Mattermost channel to discuss with community and contributors.
+              </li>
+              <li>
+                <strong>Weekly Meetings</strong>: Join us in our
+                <a href="https://github.com/eclipse/che/wiki/Che-Dev-Meetings"
+                  >Che community meeting</a
+                >
+                every second monday.
+              </li>
+              <li><strong>Mailing list</strong>: che-dev@eclipse.org</li>
+            </ul>
+          </div>
+          <a
+            class="u-url"
+            href="/2019/10/02/@florent.benoit-discover-che-7-devfile.html"
+            hidden
+          ></a>
+        </article>
       </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
 
-  <div class="wrapper">
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
 
-    <h2 class="footer-heading">Eclipse Che Blog</h2>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
       </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
-        <p>Eclipse Che runs IDEs in Kubernetes.</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
-</body>
-
+    </footer>
+  </body>
 </html>

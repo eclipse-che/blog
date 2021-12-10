@@ -1,194 +1,535 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Java 9 — Part 1: Using Java 9 in Eclipse Che | Eclipse Che Blog</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Java 9 — Part 1: Using Java 9 in Eclipse Che" />
-<meta name="author" content="Florent Benoit" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che." />
-<meta property="og:description" content="In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che." />
-<link rel="canonical" href="https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html" />
-<meta property="og:site_name" content="Eclipse Che Blog" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-12-12T00:00:00+00:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Java 9 — Part 1: Using Java 9 in Eclipse Che" />
-<script type="application/ld+json">
-{"author":{"@type":"Person","name":"Florent Benoit"},"description":"In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che.","url":"https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html","@type":"BlogPosting","headline":"Java 9 — Part 1: Using Java 9 in Eclipse Che","dateModified":"2017-12-12T00:00:00+00:00","datePublished":"2017-12-12T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html"},"@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
-<body><header class="site-header" role="banner">
-
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
-
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>
+      Java 9 — Part 1: Using Java 9 in Eclipse Che | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta
+      property="og:title"
+      content="Java 9 — Part 1: Using Java 9 in Eclipse Che"
+    />
+    <meta name="author" content="Florent Benoit" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che."
+    />
+    <meta
+      property="og:description"
+      content="In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2017-12-12T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Java 9 — Part 1: Using Java 9 in Eclipse Che"
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Florent Benoit" },
+        "description": "In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che.",
+        "url": "https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html",
+        "@type": "BlogPosting",
+        "headline": "Java 9 — Part 1: Using Java 9 in Eclipse Che",
+        "dateModified": "2017-12-12T00:00:00+00:00",
+        "datePublished": "2017-12-12T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
       <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Java 9 — Part 1: Using Java 9 in Eclipse Che</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2017-12-12T00:00:00+00:00" itemprop="datePublished">Dec 12, 2017
-      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
-  </header>
-
-  <div class="post-content e-content" itemprop="articleBody">
-    <p><img src="https://cdn-images-1.medium.com/max/800/1*0ij42CnBwH2OdQaeg0ftAA.png" alt="" /></p>
-
-<p>In this post I’ll explain how you can run Java 9 workspaces in Eclipse Che.</p>
-
-<p><strong>Background</strong></p>
-
-<p>Eclipse Che uses the Eclipse JDT (Java Development Tools) to do all the Java language services in the IDE (code completion, refactoring, etc…). Now that Eclipse Che is moving towards using only LSP (Language Server Protocol) implementations it’s easier to maintain these language services, and there is a clear separation between the <code class="language-plaintext highlighter-rouge">IDE</code> part and the <code class="language-plaintext highlighter-rouge">language</code> part.</p>
-
-<p>With Che 5.x, we had a JDT instance running on the server side. It was a custom JDT patched to get rid of all the UI that we couldn’t use in the browser-based Che IDE.</p>
-
-<p>With Che 6 (usable now but due to GA in January 2018) we now have a JDT instance packaged as part of <code class="language-plaintext highlighter-rouge">jdt.ls</code> language server protocol implementation.</p>
-
-<p><a href="https://github.com/eclipse/eclipse.jdt.ls" title="https://github.com/eclipse/eclipse.jdt.ls"><strong>eclipse/eclipse.jdt.ls</strong><br />
-_eclipse.jdt.ls - Java language server_github.com</a><a href="https://github.com/eclipse/eclipse.jdt.ls"></a></p>
-
-<p>You may know already that the <code class="language-plaintext highlighter-rouge">eclipse.jdt.ls</code> was developed by Red Hat and is also used for the Java extension on VS Code.</p>
-
-<p><a href="https://marketplace.visualstudio.com/items?itemName=redhat.java" title="https://marketplace.visualstudio.com/items?itemName=redhat.java"><strong>Language Support for Java(TM) by Red Hat - Visual Studio Marketplace</strong><br />
-_Extension for Visual Studio Code - Language Support for Java(TM) for Visual Studio Code provided by Red Hat_marketplace.visualstudio.com</a><a href="https://marketplace.visualstudio.com/items?itemName=redhat.java"></a></p>
-
-<p>It means that all improvements, bugfixes, etc. that are done inside <code class="language-plaintext highlighter-rouge">jdt.ls</code> are then shared for many products — the true meaning of Christmas (and community)!</p>
-
-<p>However, in Eclipse Che there are a few things for Java that aren’t part of the Language Server Protocol — these Che-specific items have been built into the Che <code class="language-plaintext highlighter-rouge">jdt.ls</code> project: <a href="https://github.com/eclipse/che-ls-jdt">https://github.com/eclipse/che-ls-jdt</a></p>
-
-<p>Now that we had a language server compliant with Java 9 we needed to enable it in Che. For now this work is only available through a feature branch named <code class="language-plaintext highlighter-rouge">5730_Java_ls_poc</code>in the Che repo. So I needed to build this branch and then create Docker images for it so that others (like you) that want to try it don’t need to checkout or build a branch!</p>
-
-<p>You can skip the next section if you only want to run your workspace and aren’t interested in rebuilding Che (it’s not necessary to).</p>
-
-<p><strong>Building Che Server Docker Images</strong></p>
-
-<p>After successfully building the branch I can also make the Che server Java 9 compliant.</p>
-
-<p>We could use Alpine Linux with Java 9 to have a small image but there is no OpenJDK9/Alpine yet. And it’s probably not going to happen soon based on the following issue.</p>
-
-<p><a href="https://github.com/docker-library/openjdk/issues/100" title="https://github.com/docker-library/openjdk/issues/100"><strong>Create 9-alpine · Issue #100 · docker-library/openjdk</strong><br />
-_Can we get a JDK 9 on alpine 3.5?_github.com</a><a href="https://github.com/docker-library/openjdk/issues/100"></a></p>
-
-<p>As part of experimenting with stuff, let’s use Eclipse OpenJ9 — a JVM under the Eclipse Foundation (obviously we’re fans of the Foundation).</p>
-
-<p><a href="https://www.eclipse.org/openj9/" title="https://www.eclipse.org/openj9/"><strong>OpenJ9</strong><br />
-_Eclipse OpenJ9 is a high performance, scalable, Java virtual machine (JVM) implementation that represents hundreds of…_www.eclipse.org</a><a href="https://www.eclipse.org/openj9/"></a></p>
-
-<p>AdoptOpenJDK provides a Docker image we can use:<code class="language-plaintext highlighter-rouge">adoptopenjdk/openjdk9-openj9</code></p>
-
-<p><a href="https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/">https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/</a></p>
-
-<p>I’ve used the following Dockerfile to build the Che image.</p>
-
-<p><a href="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9" title="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9"><strong>eclipse/che</strong><br />
-_che - Eclipse Che: Next-generation Eclipse IDE. Open source workspace server and cloud IDE._github.com</a><a href="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9"></a></p>
-
-<p>In the end, I’ve successfully build the server image from the <code class="language-plaintext highlighter-rouge">jdt.ls</code> branch named <code class="language-plaintext highlighter-rouge">florentbenoit/che-server:jdtls</code> and it’s based on the OpenJ9 <code class="language-plaintext highlighter-rouge">adoptopenjdk/openjdk9-openj9</code> Docker image. I’ve also published the image so everyone can use it.</p>
-
-<p><strong>Using Java 9 in my Workspace</strong></p>
-
-<p>Let’s start Eclipse Che. I’m using <code class="language-plaintext highlighter-rouge">/tmp/jdtls</code> as folder to store the data.</p>
-
-<p>$ docker run -it –rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/jdtls:/data florentbenoit/che:jdtls start –fast</p>
-
-<p>The output should look like:</p>
-
-<p>INFO: Proxy: HTTP_PROXY=, HTTPS_PROXY=, NO_PROXY=*.local, 169.254/16<br />
-INFO: (che cli): jdtls - using docker 17.11.0-ce / docker4mac<br />
-INFO: (che config): Generating che configuration…<br />
-INFO: (che config): Customizing docker-compose for running in a container<br />
-INFO: (che start): Starting containers…<br />
-INFO: (che start): Services booting…<br />
-INFO: (che start): Server logs at “docker logs -f che”<br />
-INFO: (che start): Booted and reachable<br />
-INFO: (che start): Ver: jdtls<br />
-INFO: (che start): Use: <a href="http://localhost:8080">http://localhost:8080</a><br />
-INFO: (che start): API: http://localhost:8080/swagger</p>
-
-<p>We can check that the server is running Java 9:</p>
-
-<p>$ docker logs 2&gt;&amp;1 che | grep “JVM “<br />
-- JVM Version:           9-internal+0-adhoc.jenkins.openjdk<br />
-- JVM Vendor:            Eclipse OpenJ9</p>
-
-<p>Great, let’s connect to <a href="http://localhost:8080">http://localhost:8080</a> and create a new workspace.</p>
-
-<p>Since this is all new work, we’ll need to create a custom Che workspace with Java 9 installed — luckily that’s not hard! I’ve published a <code class="language-plaintext highlighter-rouge">florentbenoit/ubuntu_jdk9</code> Docker image containing OpenJDK9 on top of the <code class="language-plaintext highlighter-rouge">ubuntu:17.10</code> Docker image. It also includes maven.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*3-5AQ1wfiSBkR7ngZi2h2g.png" alt="" /></p>
-
-<p>Check that the image is set to <code class="language-plaintext highlighter-rouge">florentbenoit/ubuntu_jdk9.</code></p>
-
-<p>Also, be sure that the Java LSP agent is enabled, if it’s not you won’t get any of the language server features like code completion, etc…</p>
-
-<p>You can show the config of the workspace and it should include the agent <code class="language-plaintext highlighter-rouge">org.eclipse.che.ls.java</code> (line 28 below)</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*gjAw6gkwDYudDvUKvcLPjQ.png" alt="" /></p>
-
-<p>When the correct Docker image is set and the Java LS agent is defined, we can start the workspace.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*lrOK-v6wStCp7dlT_dkKHg.png" alt="" />
-<img src="https://cdn-images-1.medium.com/max/800/1*NoVT59PVuDSp5_eOCisojQ.png" alt="" /></p>
-
-<p>Let’s import a maven project from <a href="https://github.com/benoitf/jdtls-maven-example">https://github.com/benoitf/jdtls-maven-example</a></p>
-
-<p><a href="https://github.com/benoitf/jdtls-maven-example" title="https://github.com/benoitf/jdtls-maven-example"><strong>benoitf/jdtls-maven-example</strong><br />
-_jdtls-maven-example - Java9 + maven + jdt.ls example_github.com</a><a href="https://github.com/benoitf/jdtls-maven-example"></a></p>
-
-<p>After the project is imported, you can then try to type Java 9 code. You should have code completion and javadoc for Java 9 features.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*H2VsxhKLgzWKZgnHX60tkg.gif" alt="" /></p>
-
-<p>Voilà! You can use Java 9 inside your projects now!</p>
-
-<p>In the next post we’ll look at how to compile and run the Che project (as a contributor) with Java 9.</p>
-
-<p>As always please let us know your thoughts by connecting with us on twitter @eclipse_che or by filing issues in the Che GitHub repo at <a href="https://github.com/eclipse/che">https://github.com/eclipse/che</a></p>
-
-  </div><a class="u-url" href="/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html" hidden></a>
-</article>
-
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
       </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Java 9 — Part 1: Using Java 9 in Eclipse Che
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2017-12-12T00:00:00+00:00"
+                itemprop="datePublished"
+                >Dec 12, 2017 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Florent Benoit</span
+                ></span
+              >
+            </p>
+          </header>
 
-  <div class="wrapper">
+          <div class="post-content e-content" itemprop="articleBody">
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*0ij42CnBwH2OdQaeg0ftAA.png"
+                alt=""
+              />
+            </p>
 
-    <h2 class="footer-heading">Eclipse Che Blog</h2>
+            <p>
+              In this post I’ll explain how you can run Java 9 workspaces in
+              Eclipse Che.
+            </p>
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+            <p><strong>Background</strong></p>
+
+            <p>
+              Eclipse Che uses the Eclipse JDT (Java Development Tools) to do
+              all the Java language services in the IDE (code completion,
+              refactoring, etc…). Now that Eclipse Che is moving towards using
+              only LSP (Language Server Protocol) implementations it’s easier to
+              maintain these language services, and there is a clear separation
+              between the
+              <code class="language-plaintext highlighter-rouge">IDE</code> part
+              and the
+              <code class="language-plaintext highlighter-rouge">language</code>
+              part.
+            </p>
+
+            <p>
+              With Che 5.x, we had a JDT instance running on the server side. It
+              was a custom JDT patched to get rid of all the UI that we couldn’t
+              use in the browser-based Che IDE.
+            </p>
+
+            <p>
+              With Che 6 (usable now but due to GA in January 2018) we now have
+              a JDT instance packaged as part of
+              <code class="language-plaintext highlighter-rouge">jdt.ls</code>
+              language server protocol implementation.
+            </p>
+
+            <p>
+              <a
+                href="https://github.com/eclipse/eclipse.jdt.ls"
+                title="https://github.com/eclipse/eclipse.jdt.ls"
+                ><strong>eclipse/eclipse.jdt.ls</strong><br />
+                _eclipse.jdt.ls - Java language server_github.com</a
+              ><a href="https://github.com/eclipse/eclipse.jdt.ls"></a>
+            </p>
+
+            <p>
+              You may know already that the
+              <code class="language-plaintext highlighter-rouge"
+                >eclipse.jdt.ls</code
+              >
+              was developed by Red Hat and is also used for the Java extension
+              on VS Code.
+            </p>
+
+            <p>
+              <a
+                href="https://marketplace.visualstudio.com/items?itemName=redhat.java"
+                title="https://marketplace.visualstudio.com/items?itemName=redhat.java"
+                ><strong
+                  >Language Support for Java(TM) by Red Hat - Visual Studio
+                  Marketplace</strong
+                ><br />
+                _Extension for Visual Studio Code - Language Support for
+                Java(TM) for Visual Studio Code provided by Red
+                Hat_marketplace.visualstudio.com</a
+              ><a
+                href="https://marketplace.visualstudio.com/items?itemName=redhat.java"
+              ></a>
+            </p>
+
+            <p>
+              It means that all improvements, bugfixes, etc. that are done
+              inside
+              <code class="language-plaintext highlighter-rouge">jdt.ls</code>
+              are then shared for many products — the true meaning of Christmas
+              (and community)!
+            </p>
+
+            <p>
+              However, in Eclipse Che there are a few things for Java that
+              aren’t part of the Language Server Protocol — these Che-specific
+              items have been built into the Che
+              <code class="language-plaintext highlighter-rouge">jdt.ls</code>
+              project:
+              <a href="https://github.com/eclipse/che-ls-jdt"
+                >https://github.com/eclipse/che-ls-jdt</a
+              >
+            </p>
+
+            <p>
+              Now that we had a language server compliant with Java 9 we needed
+              to enable it in Che. For now this work is only available through a
+              feature branch named
+              <code class="language-plaintext highlighter-rouge"
+                >5730_Java_ls_poc</code
+              >in the Che repo. So I needed to build this branch and then create
+              Docker images for it so that others (like you) that want to try it
+              don’t need to checkout or build a branch!
+            </p>
+
+            <p>
+              You can skip the next section if you only want to run your
+              workspace and aren’t interested in rebuilding Che (it’s not
+              necessary to).
+            </p>
+
+            <p><strong>Building Che Server Docker Images</strong></p>
+
+            <p>
+              After successfully building the branch I can also make the Che
+              server Java 9 compliant.
+            </p>
+
+            <p>
+              We could use Alpine Linux with Java 9 to have a small image but
+              there is no OpenJDK9/Alpine yet. And it’s probably not going to
+              happen soon based on the following issue.
+            </p>
+
+            <p>
+              <a
+                href="https://github.com/docker-library/openjdk/issues/100"
+                title="https://github.com/docker-library/openjdk/issues/100"
+                ><strong
+                  >Create 9-alpine · Issue #100 · docker-library/openjdk</strong
+                ><br />
+                _Can we get a JDK 9 on alpine 3.5?_github.com</a
+              ><a
+                href="https://github.com/docker-library/openjdk/issues/100"
+              ></a>
+            </p>
+
+            <p>
+              As part of experimenting with stuff, let’s use Eclipse OpenJ9 — a
+              JVM under the Eclipse Foundation (obviously we’re fans of the
+              Foundation).
+            </p>
+
+            <p>
+              <a
+                href="https://www.eclipse.org/openj9/"
+                title="https://www.eclipse.org/openj9/"
+                ><strong>OpenJ9</strong><br />
+                _Eclipse OpenJ9 is a high performance, scalable, Java virtual
+                machine (JVM) implementation that represents hundreds
+                of…_www.eclipse.org</a
+              ><a href="https://www.eclipse.org/openj9/"></a>
+            </p>
+
+            <p>
+              AdoptOpenJDK provides a Docker image we can use:<code
+                class="language-plaintext highlighter-rouge"
+                >adoptopenjdk/openjdk9-openj9</code
+              >
+            </p>
+
+            <p>
+              <a href="https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/"
+                >https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/</a
+              >
+            </p>
+
+            <p>I’ve used the following Dockerfile to build the Che image.</p>
+
+            <p>
+              <a
+                href="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9"
+                title="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9"
+                ><strong>eclipse/che</strong><br />
+                _che - Eclipse Che: Next-generation Eclipse IDE. Open source
+                workspace server and cloud IDE._github.com</a
+              ><a
+                href="https://github.com/eclipse/che/blob/6901e5360949468dae6bcbc16ec25e57d13f5c91/dockerfiles/che/Dockerfile.openj9"
+              ></a>
+            </p>
+
+            <p>
+              In the end, I’ve successfully build the server image from the
+              <code class="language-plaintext highlighter-rouge">jdt.ls</code>
+              branch named
+              <code class="language-plaintext highlighter-rouge"
+                >florentbenoit/che-server:jdtls</code
+              >
+              and it’s based on the OpenJ9
+              <code class="language-plaintext highlighter-rouge"
+                >adoptopenjdk/openjdk9-openj9</code
+              >
+              Docker image. I’ve also published the image so everyone can use
+              it.
+            </p>
+
+            <p><strong>Using Java 9 in my Workspace</strong></p>
+
+            <p>
+              Let’s start Eclipse Che. I’m using
+              <code class="language-plaintext highlighter-rouge"
+                >/tmp/jdtls</code
+              >
+              as folder to store the data.
+            </p>
+
+            <p>
+              $ docker run -it –rm -v /var/run/docker.sock:/var/run/docker.sock
+              -v /tmp/jdtls:/data florentbenoit/che:jdtls start –fast
+            </p>
+
+            <p>The output should look like:</p>
+
+            <p>
+              INFO: Proxy: HTTP_PROXY=, HTTPS_PROXY=, NO_PROXY=*.local,
+              169.254/16<br />
+              INFO: (che cli): jdtls - using docker 17.11.0-ce / docker4mac<br />
+              INFO: (che config): Generating che configuration…<br />
+              INFO: (che config): Customizing docker-compose for running in a
+              container<br />
+              INFO: (che start): Starting containers…<br />
+              INFO: (che start): Services booting…<br />
+              INFO: (che start): Server logs at “docker logs -f che”<br />
+              INFO: (che start): Booted and reachable<br />
+              INFO: (che start): Ver: jdtls<br />
+              INFO: (che start): Use:
+              <a href="http://localhost:8080">http://localhost:8080</a><br />
+              INFO: (che start): API: http://localhost:8080/swagger
+            </p>
+
+            <p>We can check that the server is running Java 9:</p>
+
+            <p>
+              $ docker logs 2&gt;&amp;1 che | grep “JVM “<br />
+              - JVM Version: 9-internal+0-adhoc.jenkins.openjdk<br />
+              - JVM Vendor: Eclipse OpenJ9
+            </p>
+
+            <p>
+              Great, let’s connect to
+              <a href="http://localhost:8080">http://localhost:8080</a> and
+              create a new workspace.
+            </p>
+
+            <p>
+              Since this is all new work, we’ll need to create a custom Che
+              workspace with Java 9 installed — luckily that’s not hard! I’ve
+              published a
+              <code class="language-plaintext highlighter-rouge"
+                >florentbenoit/ubuntu_jdk9</code
+              >
+              Docker image containing OpenJDK9 on top of the
+              <code class="language-plaintext highlighter-rouge"
+                >ubuntu:17.10</code
+              >
+              Docker image. It also includes maven.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*3-5AQ1wfiSBkR7ngZi2h2g.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              Check that the image is set to
+              <code class="language-plaintext highlighter-rouge"
+                >florentbenoit/ubuntu_jdk9.</code
+              >
+            </p>
+
+            <p>
+              Also, be sure that the Java LSP agent is enabled, if it’s not you
+              won’t get any of the language server features like code
+              completion, etc…
+            </p>
+
+            <p>
+              You can show the config of the workspace and it should include the
+              agent
+              <code class="language-plaintext highlighter-rouge"
+                >org.eclipse.che.ls.java</code
+              >
+              (line 28 below)
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*gjAw6gkwDYudDvUKvcLPjQ.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              When the correct Docker image is set and the Java LS agent is
+              defined, we can start the workspace.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*lrOK-v6wStCp7dlT_dkKHg.png"
+                alt=""
+              />
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*NoVT59PVuDSp5_eOCisojQ.png"
+                alt=""
+              />
+            </p>
+
+            <p>
+              Let’s import a maven project from
+              <a href="https://github.com/benoitf/jdtls-maven-example"
+                >https://github.com/benoitf/jdtls-maven-example</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://github.com/benoitf/jdtls-maven-example"
+                title="https://github.com/benoitf/jdtls-maven-example"
+                ><strong>benoitf/jdtls-maven-example</strong><br />
+                _jdtls-maven-example - Java9 + maven + jdt.ls
+                example_github.com</a
+              ><a href="https://github.com/benoitf/jdtls-maven-example"></a>
+            </p>
+
+            <p>
+              After the project is imported, you can then try to type Java 9
+              code. You should have code completion and javadoc for Java 9
+              features.
+            </p>
+
+            <p>
+              <img
+                src="https://cdn-images-1.medium.com/max/800/1*H2VsxhKLgzWKZgnHX60tkg.gif"
+                alt=""
+              />
+            </p>
+
+            <p>Voilà! You can use Java 9 inside your projects now!</p>
+
+            <p>
+              In the next post we’ll look at how to compile and run the Che
+              project (as a contributor) with Java 9.
+            </p>
+
+            <p>
+              As always please let us know your thoughts by connecting with us
+              on twitter @eclipse_che or by filing issues in the Che GitHub repo
+              at
+              <a href="https://github.com/eclipse/che"
+                >https://github.com/eclipse/che</a
+              >
+            </p>
+          </div>
+          <a
+            class="u-url"
+            href="/2017/12/12/@florent.benoit-java-9-part-1-using-java-9-in-eclipse-che.html"
+            hidden
+          ></a>
+        </article>
       </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
-</div>
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
 
-      <div class="footer-col footer-col-3">
-        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </div>
-
-</footer>
-</body>
-
+    </footer>
+  </body>
 </html>
