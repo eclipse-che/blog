@@ -6,11 +6,6 @@ components:
     container:
       image: quay.io/fbenoit/che-blog-post-image:tmp3
       memoryLimit: 4Gi
-      command:
-        - tail
-      args:
-        - "-f"
-        - /dev/null      
       endpoints:
         - exposure: public
           name: live-reload
