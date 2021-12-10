@@ -1,0 +1,98 @@
+---
+title: Start a workspace by entering a URL
+layout: post
+author: Florent Benoit
+description: >-
+  How to start a workspace by customizing the URL.
+categories: []
+keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
+slug: /@florent.benoit/start-a-workspace-by-entering-a-url
+---
+
+== Starting a workspace by entering a URL
+
+As a user, you can create a workspace containing a clone of a Git repository by entering a custom URL in the address bar of your browser.
+
+As a user, you can also create a workspace containing a clone of a Git repository by entering the URL of the Git repository on the {prod} dashboard page.
+
+=== Short URL syntax for cloning hosted Git repositories
+
+In the earlier versions of {prod}, the {prod-short} URL syntax began with `/f/?url=`, for example `{prod-url}/f/?url=https://github.com/my/repository`, but it was complex and error-prone. While that syntax is still supported, short syntax should be used as follows:
+
+To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser's address bar and enter the {prod-short} URL, prepended with a `#` character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: link:https://workspaces.openshift.com#https://github.com/eclipse-che/che-server[]. Then {prod} starts a workspace and clones the repository, `\https://github.com/eclipse-che/che-server` in this example.
+
+
+{prod} also searches for a `.devfile.yaml` or `devfile.yaml` file in the given repository. The devfile describes the containers and commands to use for that project. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including `curl`, `jq`, `yq`, etc).
+
+For more information about devfiles, see the link:https://devfile.io/[Devfile Documentation].
+
+=== URL syntax by Git provider
+
+URL syntax for cloning GitHub-hosted repositories to the starting workspace:
+
+* To clone the default branch on GitHub to the starting workspace:
++
+`#https://github.com/_<user_or_org>_/_<repository>_`
++
+Example: `#https://github.com/eclipse-che/che-plugin-registry`
+
+* To clone a specified branch on GitHub to the starting workspace:
++
+`#https://github.com/_<user_or_org>_/_<repository>_/tree/_<branch-name>_`
++
+Example: `#https://github.com/eclipse-che/che-plugin-registry/tree/7.39.x`
+
+* To clone the branch of a pull request on GitHub to the starting workspace:
++
+`#https://github.com/_<user_or_org>_/_<repository>_/pull/_<pull-request-id>_`
++
+Example: `#https://github.com/eclipse-che/che-plugin-registry/pull/1097`
+
+URL syntax for cloning GitLab-hosted repositories:
+
+* To clone the default branch on GitLab to the starting workspace:
++
+`#https://gitlab.com/_<user_or_org>_/_<repository>_`
+
+* To clone a specified branch on GitLab to the starting workspace:
++
+`#https://gitlab.com/_<user_or_org>_/_<repository>_/-/tree/_<branch>_`
+
+
+=== Using a different editor or `IDE`
+
+The default IDE is a property of {prod}, and the default value is `eclipse/che-theia/latest`. See the docs for the link:https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/#devfile-defaults[Devfile defaults].
+
+Overriding the default editor is possible with the `?che-editor=<editor-id>` parameter. The `editor-id` comes from the identifier of the IDE in the plug-in registry.
+* Example: `{prod-url}#https://github.com/example/foo?che-editor=eclipse/che-theia/next` to use the next version of Theia (build after each commit) 
+
+Some of IDE keys are `eclipse/che-theia/latest`, `eclipse/che-theia/next`, `che-incubator/intellij-community/latest`, `che-incubator/pycharm/latest` or `che-incubator/che-code/insiders`
+
+The parameter `?che-editor` accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
+* Example: `{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml`
+
+=== Using a different devfile file from the repository
+
+If the devfile file name is different from the default search pattern, which is `.devfile.yaml` or `devfile.yaml`, it is possible to override that name.
+
+Use the parameter `?devfilePath=mydevfile.yaml` at the end of `{prod-url}#__<git_repository_url>__`.
+* Example: `{prod-url}#https://github.com/example/foo?devfilePath=mydevfile.yaml`
+
+The short name for the `devfilePath` parameter is `df`.
+* Example: `{prod-url}#https://github.com/example/foo?df=mydevfile.yaml`
+
+
+== URL syntax for workspace names
+
+With DevWorkspace Operator enabled:
+
+If you enter a URL such as `{prod-url}#http://github.com/foo/bar` and you don’t have any workspace named `bar`, {prod} creates a workspace named `bar` and clones the GitHub repository.
+
+Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, {prod} reopens the previously created workspace `bar`. (If you deleted the previously created `bar` workspace, entering `{prod-url}#http://github.com/foo/bar` results in {prod} creating another workspace named `bar`.)
+
+To create another workspace each time you enter the same URL, enter the URL appended with `?new` in the URL format `{prod-url}#http://github.com/foo/bar?new`. Even if you already have a workspace named `bar`, each time you enter such URL, {prod} will create another, sequentially named workspace (example: `bar-abcde`).
+
+=== Support of devfiles
+
+{prod} uses {devworkspace} Operator that targets devfiles v2 with `schemaVersion: 2.1.0`.
+Use of devfile v1 is deprecated. Under the hood, the https://github.com/che-incubator/devfile-converter[converter library] converts devfiles v1 to devfiles v2.
