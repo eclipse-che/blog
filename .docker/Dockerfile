@@ -35,7 +35,7 @@ RUN bundle install
 
            
 COPY --chown=0:0 .docker/entrypoint.sh /
-RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home && chmod +x /entrypoint.sh
+RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home && chmod +x /entrypoint.sh && usermod --shell /bin/bash jekyll
 
 USER 1000
 WORKDIR /projects
