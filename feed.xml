@@ -1,145 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/eclipse-che-blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/eclipse-che-blog/" rel="alternate" type="text/html" /><updated>2021-12-10T11:19:32+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Starting a workspace by entering a URL</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/12/10/@florent.benoit-start-a-workspace-by-entering-a-url.html" rel="alternate" type="text/html" title="Starting a workspace by entering a URL" /><published>2021-12-10T00:00:00+00:00</published><updated>2021-12-10T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/12/10/@florent.benoit/start-a-workspace-by-entering-a-url</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/12/10/@florent.benoit-start-a-workspace-by-entering-a-url.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As a user, you can create a workspace containing a clone of a Git repository by entering a custom URL in the address bar of your browser.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As a user, you can also create a workspace containing a clone of a Git repository by entering the URL of the Git repository on the Eclipse&amp;#160;Che dashboard page.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;short-url-syntax-for-cloning-hosted-git-repositories&quot;&gt;Short URL syntax for cloning hosted git repositories&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the earlier versions of Eclipse&amp;#160;Che, the Che URL syntax began with &lt;code&gt;/f/?url=&lt;/code&gt;, for example &lt;code&gt;&lt;a href=&quot;https://che-host:che-port/f/?url=https://github.com/my/repository&quot; class=&quot;bare&quot;&gt;https://che-host:che-port/f/?url=https://github.com/my/repository&lt;/a&gt;&lt;/code&gt;, but it was complex and error-prone. While that syntax is still supported, short syntax should be used as follows:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser&amp;#8217;s address bar and enter the Che URL, prepended with a &lt;code&gt;#&lt;/code&gt; character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: &lt;a href=&quot;https://workspaces.openshift.com#https://github.com/eclipse-che/che-server&quot; class=&quot;bare&quot;&gt;https://workspaces.openshift.com#https://github.com/eclipse-che/che-server&lt;/a&gt;. Then Eclipse&amp;#160;Che starts a workspace and clones the repository, &lt;code&gt;https://github.com/eclipse-che/che-server&lt;/code&gt; in this example.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Eclipse&amp;#160;Che also searches for a &lt;code&gt;.devfile.yaml&lt;/code&gt; or &lt;code&gt;devfile.yaml&lt;/code&gt; file in the given repository. The devfile describes the containers and commands to use for that project. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including &lt;code&gt;curl&lt;/code&gt;, &lt;code&gt;jq&lt;/code&gt;, &lt;code&gt;yq&lt;/code&gt;, etc).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For more information on devfiles, see the &lt;a href=&quot;https://devfile.io/&quot;&gt;Devfile Documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;url-syntax-by-git-provider&quot;&gt;URL syntax by Git provider&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;URL syntax for cloning GitHub-hosted repositories to the starting workspace:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;To clone the default branch on GitHub to the starting workspace:&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;#https://github.com/&lt;em&gt;&amp;lt;user_or_org&amp;gt;&lt;/em&gt;/&lt;em&gt;&amp;lt;repository&amp;gt;&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Example: &lt;code&gt;#https://github.com/eclipse-che/che-plugin-registry&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To clone a specified branch on GitHub to the starting workspace:&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;#https://github.com/&lt;em&gt;&amp;lt;user_or_org&amp;gt;&lt;/em&gt;/&lt;em&gt;&amp;lt;repository&amp;gt;&lt;/em&gt;/tree/&lt;em&gt;&amp;lt;branch-name&amp;gt;&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Example: &lt;code&gt;#https://github.com/eclipse-che/che-plugin-registry/tree/7.39.x&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To clone the branch of a pull request on GitHub to the starting workspace:&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;#https://github.com/&lt;em&gt;&amp;lt;user_or_org&amp;gt;&lt;/em&gt;/&lt;em&gt;&amp;lt;repository&amp;gt;&lt;/em&gt;/pull/&lt;em&gt;&amp;lt;pull-request-id&amp;gt;&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Example: &lt;code&gt;#https://github.com/eclipse-che/che-plugin-registry/pull/1097&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;URL syntax for cloning GitLab-hosted repositories:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;To clone the default branch on GitLab to the starting workspace:&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;#https://gitlab.com/&lt;em&gt;&amp;lt;user_or_org&amp;gt;&lt;/em&gt;/&lt;em&gt;&amp;lt;repository&amp;gt;&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To clone a specified branch on GitLab to the starting workspace:&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;#https://gitlab.com/&lt;em&gt;&amp;lt;user_or_org&amp;gt;&lt;/em&gt;/&lt;em&gt;&amp;lt;repository&amp;gt;&lt;/em&gt;/-/tree/&lt;em&gt;&amp;lt;branch&amp;gt;&lt;/em&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;using-a-different-editor-or-ide&quot;&gt;Using a different editor or &lt;code&gt;IDE&lt;/code&gt;&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The default IDE is a property of Eclipse&amp;#160;Che, and the default value is &lt;code&gt;eclipse/che-theia/latest&lt;/code&gt;. See the docs for the &lt;a href=&quot;https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/#devfile-defaults&quot;&gt;Devfile defaults&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Overriding the default editor is possible with the &lt;code&gt;?che-editor=&amp;lt;editor-id&amp;gt;&lt;/code&gt; parameter. The &lt;code&gt;editor-id&lt;/code&gt; comes from the identifier of the IDE in the plug-in registry.
-* Example: &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#https://github.com/example/foo?che-editor=eclipse/che-theia/next&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#https://github.com/example/foo?che-editor=eclipse/che-theia/next&lt;/a&gt;&lt;/code&gt; to use the next version of Theia (build after each commit)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Some of IDE keys are &lt;code&gt;eclipse/che-theia/latest&lt;/code&gt;, &lt;code&gt;eclipse/che-theia/next&lt;/code&gt;, &lt;code&gt;che-incubator/intellij-community/latest&lt;/code&gt;, &lt;code&gt;che-incubator/pycharm/latest&lt;/code&gt; or &lt;code&gt;che-incubator/che-code/insiders&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The parameter &lt;code&gt;?che-editor&lt;/code&gt; accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
-* Example: &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;using-a-different-devfile-file-from-the-repository&quot;&gt;Using a different devfile file from the repository&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If the devfile file name is different from the default search pattern, which is &lt;code&gt;.devfile.yaml&lt;/code&gt; or &lt;code&gt;devfile.yaml&lt;/code&gt;, it is possible to override that name.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Use the parameter &lt;code&gt;?devfilePath=mydevfile.yaml&lt;/code&gt; at the end of &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#&lt;/a&gt;&lt;em&gt;&amp;lt;git_repository_url&amp;gt;&lt;/em&gt;&lt;/code&gt;.
-* Example: &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#https://github.com/example/foo?devfilePath=mydevfile.yaml&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#https://github.com/example/foo?devfilePath=mydevfile.yaml&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The short name for the &lt;code&gt;devfilePath&lt;/code&gt; parameter is &lt;code&gt;df&lt;/code&gt;.
-* Example: &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#https://github.com/example/foo?df=mydevfile.yaml&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#https://github.com/example/foo?df=mydevfile.yaml&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;url-syntax-for-workspace-names&quot; class=&quot;sect0&quot;&gt;URL syntax for workspace names&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;With DevWorkspace Operator enabled:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you enter a URL such as &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#http://github.com/foo/bar&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#http://github.com/foo/bar&lt;/a&gt;&lt;/code&gt; and you don’t have any workspace named &lt;code&gt;bar&lt;/code&gt;, Eclipse&amp;#160;Che creates a workspace named &lt;code&gt;bar&lt;/code&gt; and clones the GitHub repository.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Each time you enter a URL such as &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#http://github.com/foo/bar&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#http://github.com/foo/bar&lt;/a&gt;&lt;/code&gt; again, Eclipse&amp;#160;Che reopens the previously created workspace &lt;code&gt;bar&lt;/code&gt;. (If you deleted the previously created &lt;code&gt;bar&lt;/code&gt; workspace, entering &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#http://github.com/foo/bar&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#http://github.com/foo/bar&lt;/a&gt;&lt;/code&gt; results in Eclipse&amp;#160;Che creating another workspace named &lt;code&gt;bar&lt;/code&gt;.)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To create another workspace each time you enter the same URL, enter the URL appended with &lt;code&gt;?new&lt;/code&gt; in the URL format &lt;code&gt;&lt;a href=&quot;https://che-host:che-port#http://github.com/foo/bar?new&quot; class=&quot;bare&quot;&gt;https://che-host:che-port#http://github.com/foo/bar?new&lt;/a&gt;&lt;/code&gt;. Even if you already have a workspace named &lt;code&gt;bar&lt;/code&gt;, each time you enter such URL, Eclipse&amp;#160;Che will create another, sequentially named workspace (example: &lt;code&gt;bar-abcde&lt;/code&gt;).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;support-of-devfiles&quot;&gt;Support of devfiles&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Eclipse&amp;#160;Che uses DevWorkspace Operator that targets devfiles v2 with &lt;code&gt;schemaVersion: 2.1.0&lt;/code&gt;.
-Use of devfile v1 is deprecated. Under the hood, the &lt;a href=&quot;https://github.com/che-incubator/devfile-converter&quot;&gt;converter library&lt;/a&gt; converts devfiles v1 to devfiles v2.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Florent Benoit</name></author><summary type="html">As a user, you can create a workspace containing a clone of a Git repository by entering a custom URL in the address bar of your browser.</summary></entry><entry><title type="html">Test pull requests with the Try in Web IDE GitHub action</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" rel="alternate" type="text/html" title="Test pull requests with the Try in Web IDE GitHub action" /><published>2021-10-18T00:00:00+00:00</published><updated>2021-10-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/10/18/@david.kwon/test-pull-requests-with-the-try-in-web-ide-github-action</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html">&lt;p&gt;&lt;em&gt;Cross posted from the &lt;a href=&quot;https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository&quot;&gt;Red Hat Developer blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2021-12-10T11:27:39+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Test pull requests with the Try in Web IDE GitHub action</title><link href="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" rel="alternate" type="text/html" title="Test pull requests with the Try in Web IDE GitHub action" /><published>2021-10-18T00:00:00+00:00</published><updated>2021-10-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/10/18/@david.kwon/test-pull-requests-with-the-try-in-web-ide-github-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html">&lt;p&gt;&lt;em&gt;Cross posted from the &lt;a href=&quot;https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository&quot;&gt;Red Hat Developer blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Web-based, cloud-hosted integrated development environments (IDEs) can make development and collaboration more efficient if they are well integrated with version control. This blog post shows you how to use the &lt;a href=&quot;https://github.com/marketplace/actions/try-in-web-ide&quot;&gt;Try in Web IDE GitHub action&lt;/a&gt; to make it easier for collaborators to test pull requests on &lt;a href=&quot;https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/&quot;&gt;Eclipse Che hosted by Red Hat&lt;/a&gt;.&lt;/p&gt;
 
@@ -150,17 +9,17 @@ Use of devfile v1 is deprecated. Under the hood, the &lt;a href=&quot;https://gi
 
 &lt;p&gt;The &lt;a href=&quot;https://github.com/eclipse/che-docs&quot;&gt;Eclipse Che documentation&lt;/a&gt; repository has recently integrated this GitHub action into its workflow. You can view a recent pull request to try it yourself. Figure 1 shows a pull request comment created by the GitHub action. Clicking the badge opens a new workspace to try the pull request in the web browser.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/comment.png&quot; alt=&quot;GitHub PR comment with badge to open PR branch in new workspace&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/comment.png&quot; alt=&quot;GitHub PR comment with badge to open PR branch in new workspace&quot; /&gt;
 &lt;span style=&quot;color:grey&quot;&gt;&lt;em&gt;Figure 1: Clicking the badge opens a web IDE workspace for testing the pull request.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;Figure 2 shows a status check done by the GitHub action. Clicking the Details link opens a new workspace to try the pull request in the web browser.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/status-check.png&quot; alt=&quot;GitHub PR status check with link to open PR branch in new workspace&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/status-check.png&quot; alt=&quot;GitHub PR status check with link to open PR branch in new workspace&quot; /&gt;
 &lt;span style=&quot;color:grey&quot;&gt;&lt;em&gt;Figure 2: Clicking the Details link opens a web IDE workspace for testing the pull request.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;Figure 3 shows the workspace created in Eclipse Che hosted by Red Hat. This is the web IDE workspace that opens in the web browser when you click either the badge from Figure 1 or the link from Figure 2. From here, you can try the pull request and test its correctness.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/crw.png&quot; alt=&quot;PR branch opened in a new workspace&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/crw.png&quot; alt=&quot;PR branch opened in a new workspace&quot; /&gt;
 &lt;span style=&quot;color:grey&quot;&gt;&lt;em&gt;Figure 3: Try the pull request and test its correctness.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;integrate-the-try-in-web-ide-action-with-your-github-repository&quot;&gt;Integrate the Try in Web IDE action with your GitHub repository&lt;/h2&gt;
@@ -248,7 +107,7 @@ Use of devfile v1 is deprecated. Under the hood, the &lt;a href=&quot;https://gi
 &lt;p&gt;This devfile defines the project name and source location, as well as the Java plug-in. Many more &lt;a href=&quot;https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-1/#adding-components-to-a-devfile_che&quot;&gt;components&lt;/a&gt; can be added in a devfile to fine-tune the development environment for your specific project.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;After you have completed the steps in this blog post, creating a new pull request will trigger the Try in Web IDE GitHub action and create a comment, status check, or both, depending on how you’ve configured the action inputs. With a Red Hat account, you can now try pull requests in a web-based IDE with the click of a link.&lt;/p&gt;</content><author><name>David Kwon</name></author><summary type="html">Cross posted from the Red Hat Developer blog.</summary></entry><entry><title type="html">Devfile v2 and the DevWorkspace Operator - Part 1</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html" rel="alternate" type="text/html" title="Devfile v2 and the DevWorkspace Operator - Part 1" /><published>2021-10-12T00:00:00+00:00</published><updated>2021-10-12T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/10/12/@mario.loriedo/devfile-v2-and-the-devworkspace-operator-p1</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html">&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/devfile-v2-and-the-devworkspace-operator-part1/che-workspace-engines.png&quot; alt=&quot;Locally trusted certs&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;After you have completed the steps in this blog post, creating a new pull request will trigger the Try in Web IDE GitHub action and create a comment, status check, or both, depending on how you’ve configured the action inputs. With a Red Hat account, you can now try pull requests in a web-based IDE with the click of a link.&lt;/p&gt;</content><author><name>David Kwon</name></author><summary type="html">Cross posted from the Red Hat Developer blog.</summary></entry><entry><title type="html">Devfile v2 and the DevWorkspace Operator - Part 1</title><link href="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html" rel="alternate" type="text/html" title="Devfile v2 and the DevWorkspace Operator - Part 1" /><published>2021-10-12T00:00:00+00:00</published><updated>2021-10-12T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/10/12/@mario.loriedo/devfile-v2-and-the-devworkspace-operator-p1</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html">&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/devfile-v2-and-the-devworkspace-operator-part1/che-workspace-engines.png&quot; alt=&quot;Locally trusted certs&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;With version &lt;a href=&quot;https://github.com/eclipse/che/releases/tag/7.28.0&quot;&gt;7.28 of Che&lt;/a&gt; we have introduced a new workspace engine, &lt;a href=&quot;https://github.com/devfile/devworkspace-operator&quot;&gt;the DevWorkspace Operator&lt;/a&gt;, that supports v2 of the Devfile specification. Although the default engine is still the che-server we plan to replace it with the DevWorkspace in the next few months.&lt;/p&gt;
 
@@ -391,7 +250,7 @@ kubectl patch checluster/eclipse-che &lt;span class=&quot;nt&quot;&gt;--type&lt;
   &lt;/li&gt;
   &lt;li&gt;DevWorkspaceTemplate and Plugins&lt;/li&gt;
   &lt;li&gt;Auto-mounting Secrets and ConfigMaps&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Mario Loriedo</name></author><summary type="html"></summary></entry><entry><title type="html">Backup and Restore of an Eclipse Che Installation</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/07/08/@mmorhun-backup-restore-che-installation.html" rel="alternate" type="text/html" title="Backup and Restore of an Eclipse Che Installation" /><published>2021-07-08T00:00:00+00:00</published><updated>2021-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/07/08/@mmorhun/backup-restore-che-installation</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/07/08/@mmorhun-backup-restore-che-installation.html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;/ul&gt;</content><author><name>Mario Loriedo</name></author><summary type="html"></summary></entry><entry><title type="html">Backup and Restore of an Eclipse Che Installation</title><link href="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html" rel="alternate" type="text/html" title="Backup and Restore of an Eclipse Che Installation" /><published>2021-07-08T00:00:00+00:00</published><updated>2021-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/07/08/@mmorhun/backup-restore-che-installation</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/07/08/@mmorhun-backup-restore-che-installation.html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
 &lt;p&gt;Any application that runs in production should be backed up regularly.
 Even if the application runs inside a Kubernetes or Openshift cluster.
@@ -613,7 +472,7 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
   &lt;li&gt;Backup snapshots are bind to the specific cluster, so it is not possible to restore snapshot on another cluster in general case. This is because Che binds to some cluster ID’s.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Other than that, back up and restore is a user friendly and straightforward process now.&lt;/p&gt;</content><author><name>Mykola Morhun</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Devfile v2 and IDE plug-ins</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html" rel="alternate" type="text/html" title="Devfile v2 and IDE plug-ins" /><published>2021-06-23T00:00:00+00:00</published><updated>2021-06-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/06/23/@florent.benoit/devfile-v2-and-ide-plug-ins</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html">&lt;h3 id=&quot;definition&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;Other than that, back up and restore is a user friendly and straightforward process now.&lt;/p&gt;</content><author><name>Mykola Morhun</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Devfile v2 and IDE plug-ins</title><link href="https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html" rel="alternate" type="text/html" title="Devfile v2 and IDE plug-ins" /><published>2021-06-23T00:00:00+00:00</published><updated>2021-06-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/06/23/@florent.benoit/devfile-v2-and-ide-plug-ins</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html">&lt;h3 id=&quot;definition&quot;&gt;Definition&lt;/h3&gt;
 
 &lt;p&gt;Devfile has been incubated by Eclipse Che project providing &lt;a href=&quot;https://redhat-developer.github.io/devfile/&quot;&gt;devfile v1 specification&lt;/a&gt;.&lt;/p&gt;
 
@@ -674,7 +533,7 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 
 &lt;p&gt;Opening the Dashboard page will display the new getting started:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png&quot; alt=&quot;Getting Started&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png&quot; alt=&quot;Getting Started&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.&lt;/p&gt;
 
@@ -756,7 +615,7 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 
 &lt;h3 id=&quot;workflow-of-handling-ide-plug-ins-with-workspaces&quot;&gt;Workflow of handling IDE plug-ins with workspaces&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/devfile-v2-and-ide-plugins/devfile2-workflow.png&quot; alt=&quot;devfile v2 workflow&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/devfile2-workflow.png&quot; alt=&quot;devfile v2 workflow&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;new-features-forplug-ins&quot;&gt;New Features for plug-ins&lt;/h3&gt;
 
@@ -867,9 +726,9 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 
 &lt;p&gt;If the DevWorkspaces is enabled and there are some v2 links in the Devfile registry, only Devfile v2 getting started will be shown on the Dashboard (Devfile v1 getting started will be hidden). Each of these samples will use the new DevWorkspace engine.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png&quot; alt=&quot;Getting Started&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png&quot; alt=&quot;Getting Started&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;In addition to those changes, there is an ongoing effort to merge Che Devfile registry and &lt;a href=&quot;https://registry.devfile.io&quot;&gt;community Devfile registry&lt;/a&gt;. This work is part of the &lt;a href=&quot;https://github.com/devfile/registry&quot;&gt;Devfile project&lt;/a&gt; that is planned to become &lt;a href=&quot;https://github.com/devfile/api/issues/426&quot;&gt;a CNCF sandbox project&lt;/a&gt;.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Definition</summary></entry><entry><title type="html">Use mkcert to Trust Local Che Certificates</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" rel="alternate" type="text/html" title="Use mkcert to Trust Local Che Certificates" /><published>2021-01-07T00:00:00+00:00</published><updated>2021-01-07T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo/use-mkcert-to-trust-local-che-certificates</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html">&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/mkcert/header.png&quot; alt=&quot;Locally trusted certs&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;In addition to those changes, there is an ongoing effort to merge Che Devfile registry and &lt;a href=&quot;https://registry.devfile.io&quot;&gt;community Devfile registry&lt;/a&gt;. This work is part of the &lt;a href=&quot;https://github.com/devfile/registry&quot;&gt;Devfile project&lt;/a&gt; that is planned to become &lt;a href=&quot;https://github.com/devfile/api/issues/426&quot;&gt;a CNCF sandbox project&lt;/a&gt;.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Definition</summary></entry><entry><title type="html">Use mkcert to Trust Local Che Certificates</title><link href="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" rel="alternate" type="text/html" title="Use mkcert to Trust Local Che Certificates" /><published>2021-01-07T00:00:00+00:00</published><updated>2021-01-07T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/01/07/@mario.loriedo/use-mkcert-to-trust-local-che-certificates</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html">&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/mkcert/header.png&quot; alt=&quot;Locally trusted certs&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When deploying Che locally, on minikube for example, its TLS certificate will be self-signed and not trusted by the local browsers.&lt;/p&gt;
 
@@ -997,7 +856,7 @@ configmap/custom-certs labeled
 
 &lt;h2 id=&quot;verification&quot;&gt;Verification&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io/eclipse-che-blog//assets/img/mkcert/trusted-cert.png&quot; alt=&quot;Trusted Certificate&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://che.eclipseprojects.io//assets/img/mkcert/trusted-cert.png&quot; alt=&quot;Trusted Certificate&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If you have followed the steps described above, when opening the Che dashboard in your local browser, you should see that the certificate is considered valid. Starting a workspace should also work without any issue.&lt;/p&gt;
 
@@ -1012,7 +871,7 @@ configmap/custom-certs labeled
       &lt;p&gt;Adding the URL among the browser exceptions is not enough. Even in single-host mode (when Che uses one unique domain for every endpoint) a fully trusted TLS certificate is required to use &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API&quot;&gt;the service worker API&lt;/a&gt; &lt;a href=&quot;https://github.com/eclipse/che/issues/18566&quot;&gt;required by the IDE&lt;/a&gt; running in the browser. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Mario Loriedo</name></author><summary type="html"></summary></entry><entry><title type="html">How to quickly deploy a VS Code extension on Eclipse Che</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2020/07/24/@florent.benoit-how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che.html" rel="alternate" type="text/html" title="How to quickly deploy a VS Code extension on Eclipse Che" /><published>2020-07-24T00:00:00+00:00</published><updated>2020-07-24T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2020/07/24/@florent.benoit/how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2020/07/24/@florent.benoit-how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che.html">&lt;h4 id=&quot;introduction&quot;&gt;Introduction&lt;/h4&gt;
+&lt;/div&gt;</content><author><name>Mario Loriedo</name></author><summary type="html"></summary></entry><entry><title type="html">How to quickly deploy a VS Code extension on Eclipse Che</title><link href="https://che.eclipseprojects.io/2020/07/24/@florent.benoit-how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che.html" rel="alternate" type="text/html" title="How to quickly deploy a VS Code extension on Eclipse Che" /><published>2020-07-24T00:00:00+00:00</published><updated>2020-07-24T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2020/07/24/@florent.benoit/how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2020/07/24/@florent.benoit-how-to-quickly-deploy-a-vs-code-extension-on-eclipse-che.html">&lt;h4 id=&quot;introduction&quot;&gt;Introduction&lt;/h4&gt;
 
 &lt;p&gt;Eclipse Che is supporting VS Code extensions in its IDE.&lt;/p&gt;
 
@@ -1166,7 +1025,7 @@ plugin.yaml
 
 &lt;p&gt;I can now code with nice brackets :-)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*T0IcGezki-m-bHM8DB3V7A.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Working offline with Eclipse Che</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html" rel="alternate" type="text/html" title="Working offline with Eclipse Che" /><published>2020-04-29T00:00:00+00:00</published><updated>2020-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2020/04/29/@florent.benoit/working-offline-with-eclipse-che</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html">&lt;p&gt;Eclipse Che has many thousands of users. Most of them use the VS Code-inspired browser IDE, but sometimes you know you’re going to be offline for awhile and want to be able to work with a local editor, then sync back your changes when you’re back online.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*T0IcGezki-m-bHM8DB3V7A.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Working offline with Eclipse Che</title><link href="https://che.eclipseprojects.io/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html" rel="alternate" type="text/html" title="Working offline with Eclipse Che" /><published>2020-04-29T00:00:00+00:00</published><updated>2020-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2020/04/29/@florent.benoit/working-offline-with-eclipse-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html">&lt;p&gt;Eclipse Che has many thousands of users. Most of them use the VS Code-inspired browser IDE, but sometimes you know you’re going to be offline for awhile and want to be able to work with a local editor, then sync back your changes when you’re back online.&lt;/p&gt;
 
 &lt;p&gt;Obviously if you only care about changes to the source code then git will handle this just fine. But if you want to run it offline, make changes to your tools, runtimes or dependencies then it’s great to be able to have all that synced back to Eclipse Che.&lt;/p&gt;
 
@@ -1380,7 +1239,7 @@ Logged into &lt;span class=&quot;s2&quot;&gt;&quot;https://api.starter-us-east-2
 
 &lt;p&gt;When we’re done working we can double-check that the rsync script has finished to copy all files remotely and then delete the project on our laptop.&lt;/p&gt;
 
-&lt;p&gt;One you have this all set up it’s easy to either leave it running all the time and fluidly move from editing on your laptop and editing in the cloud. Or only turn it on when you know you’ll be offline for awhile (like for a trip).&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che has many thousands of users. Most of them use the VS Code-inspired browser IDE, but sometimes you know you’re going to be offline for awhile and want to be able to work with a local editor, then sync back your changes when you’re back online.</summary></entry><entry><title type="html">Import a project from your laptop to an Eclipse Che workspace.</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" rel="alternate" type="text/html" title="Import a project from your laptop to an Eclipse Che workspace." /><published>2020-04-02T00:00:00+00:00</published><updated>2020-04-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2020/04/02/@florent.benoit/work-on-my-laptops-project-from-a-remote-eclipse-che-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html">&lt;p&gt;Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.&lt;/p&gt;
+&lt;p&gt;One you have this all set up it’s easy to either leave it running all the time and fluidly move from editing on your laptop and editing in the cloud. Or only turn it on when you know you’ll be offline for awhile (like for a trip).&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che has many thousands of users. Most of them use the VS Code-inspired browser IDE, but sometimes you know you’re going to be offline for awhile and want to be able to work with a local editor, then sync back your changes when you’re back online.</summary></entry><entry><title type="html">Import a project from your laptop to an Eclipse Che workspace.</title><link href="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" rel="alternate" type="text/html" title="Import a project from your laptop to an Eclipse Che workspace." /><published>2020-04-02T00:00:00+00:00</published><updated>2020-04-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2020/04/02/@florent.benoit/work-on-my-laptops-project-from-a-remote-eclipse-che-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html">&lt;p&gt;Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.&lt;/p&gt;
 
 &lt;p&gt;Also let say you’re running out of battery, you may spare CPU and get extra time !&lt;/p&gt;
 
@@ -1626,7 +1485,7 @@ Note: your cluster might be different so the URL might be different as well.&lt;
 
 &lt;p&gt;When we’re done working we can double-check that the rsync script has finished to copy all files to my laptop, then stop the Eclipse Che workspace. We can even delete the stopped Che workspace as we have all the up-to-date changes saved on our local drive.&lt;/p&gt;
 
-&lt;p&gt;Note: With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;persistVolumes=false&lt;/code&gt; , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</summary></entry><entry><title type="html">Discover Che 7: devfile</title><link href="https://che.eclipseprojects.io/eclipse-che-blog/2019/10/02/@florent.benoit-discover-che-7-devfile.html" rel="alternate" type="text/html" title="Discover Che 7: devfile" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/eclipse-che-blog/2019/10/02/@florent.benoit/discover-che-7-devfile</id><content type="html" xml:base="https://che.eclipseprojects.io/eclipse-che-blog/2019/10/02/@florent.benoit-discover-che-7-devfile.html">&lt;p&gt;&lt;a href=&quot;https://che.eclipse.org/discover-eclipse-che-7-7515e74a99ca&quot;&gt;In a previous blog post&lt;/a&gt;, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.&lt;/p&gt;
+&lt;p&gt;Note: With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;persistVolumes=false&lt;/code&gt; , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</summary></entry><entry><title type="html">Discover Che 7: devfile</title><link href="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html" rel="alternate" type="text/html" title="Discover Che 7: devfile" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2019/10/02/@florent.benoit/discover-che-7-devfile</id><content type="html" xml:base="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html">&lt;p&gt;&lt;a href=&quot;https://che.eclipse.org/discover-eclipse-che-7-7515e74a99ca&quot;&gt;In a previous blog post&lt;/a&gt;, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.&lt;/p&gt;
 
 &lt;p&gt;But when we are open a ready-to-use workspace, it seems that there is some magic:&lt;/p&gt;
 
@@ -1742,4 +1601,143 @@ Note: your cluster might be different so the URL might be different as well.&lt;
   &lt;li&gt;&lt;strong&gt;Public Chat&lt;/strong&gt;: Join the public &lt;a href=&quot;https://mattermost.eclipse.org/eclipse/channels/eclipse-che&quot;&gt;eclipse-che&lt;/a&gt; Mattermost channel to discuss with community and contributors.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Weekly Meetings&lt;/strong&gt;: Join us in our &lt;a href=&quot;https://github.com/eclipse/che/wiki/Che-Dev-Meetings&quot;&gt;Che community meeting&lt;/a&gt; every second monday.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Mailing list&lt;/strong&gt;: che-dev@eclipse.org&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Florent Benoit</name></author><summary type="html">In a previous blog post, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Florent Benoit</name></author><summary type="html">In a previous blog post, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.</summary></entry><entry><title type="html">Discover Eclipse Che 7</title><link href="https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html" rel="alternate" type="text/html" title="Discover Eclipse Che 7" /><published>2019-09-26T00:00:00+00:00</published><updated>2019-09-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2019/09/26/@florent.benoit/discover-eclipse-che-7</id><content type="html" xml:base="https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html">&lt;p&gt;Eclipse Che 7 has been announced few days ago, if you have not yet tried it, it’s time to experiment with all the new exciting capabilities!&lt;/p&gt;
+
+&lt;p&gt;This guide will drive you through different steps and allow you to experiment Che 7. To follow this guide, you’ll not need to install Che on your machine or your K8S cluster, we’ll just be using a free online instance of Eclipse Che that is running at &lt;a href=&quot;https://che.openshift.io&quot;&gt;https://che.openshift.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s a free-to-use instance that is powered by latest Eclipse Che 7 version and providing 3GB of memory for a single workspace. It requires a Red Hat Developer account but you can log-in with different third parties accounts like github, facebook, google, twitter, etc.&lt;/p&gt;
+
+&lt;h3 id=&quot;pre-requisities&quot;&gt;Pre-requisities&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Go to &lt;a href=&quot;https://che.openshift.io&quot;&gt;https://che.openshift.io&lt;/a&gt; and log-in or create an account.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*zP2mhFXfO1JpH6LWA3ElYQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After creating a new account or simply log-in, you’re redirected to the dashboard page of Eclipse Che&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*K5GPheEfQ0cBPlt2f8ZcDA.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;discovering-che-workspaces&quot;&gt;Discovering Che Workspaces&lt;/h3&gt;
+
+&lt;p&gt;Eclipse Che is using containers under the hood. It means all runtimes used in workspaces can be customized by some docker images: for example java runtime, nodejs runtime, etc. are provided on top of docker images.&lt;/p&gt;
+
+&lt;p&gt;But as it may be difficult to start by writing or providing first a Docker image, there are default ready-to-use workspace templates.&lt;/p&gt;
+
+&lt;p&gt;These ready-to-use workspaces are provided on top of community Docker images and are great to start to work on a given technology.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-a-workspace&quot;&gt;Create a workspace&lt;/h4&gt;
+
+&lt;p&gt;Let’s create a simple go application&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;On the dashboard, click “Create Workspace”&lt;/li&gt;
+  &lt;li&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select stack&lt;/code&gt; section, click on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Check that in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;projects&lt;/code&gt; section, example is selected&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*cO5DKBY8AK_SV3pkbyJR8Q.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After clicking on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create &amp;amp; open&lt;/code&gt; button we’re redirected to the IDE&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ephemeral mode&lt;/code&gt; flag as we don’t care about persisting changes for demos and want the fastest I/O storage.&lt;/p&gt;
+
+&lt;h3 id=&quot;discover-the-newide&quot;&gt;Discover the new IDE!&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*lLTYUqtjMbGwq74hW2bxRw.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the IDE, there are several useful areas/panels.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*hojbuZ8bNivG9Z191fxI9w.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Clicking on the top left file icon will display all the files of the current workspace.&lt;/p&gt;
+
+&lt;h4 id=&quot;command-palette&quot;&gt;Command palette&lt;/h4&gt;
+
+&lt;p&gt;Press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F1&lt;/code&gt; key or click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command palette&lt;/code&gt; link in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Welcome Panel&lt;/code&gt;. Enter some keyword to filter out commands. Formatting can be done easily with a specific command invoked from command palette. Keyboard shortcuts are displayed on the right of the command. No need to bring command palette and select a command if you already know its shortcut.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*vV-Hbn81mE6uwmIOGMcNzA.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;workspace-panel&quot;&gt;Workspace panel&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*YnWLY1ritG5ox-uB39vLGQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The workspace panel is a quick view allowing to interact with the workspace like launching pre-defined commands for this workspace or opening terminals.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*RR_dBL6BgRdNEBf20HLNEQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are two kind of containers:&lt;br /&gt;
+ — &lt;em&gt;Plugin’s runtime containers&lt;/em&gt;: containers provided by plug-ins. It’s the execution runtime used by these plugins&lt;/p&gt;
+
+&lt;p&gt;— &lt;em&gt;User runtime container&lt;/em&gt;: We may not have it at all or more than one. It’s used to run some commands you would like. All these commands can be found by using the command palette and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Run Task&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;By clicking on a command name (single click, no double-click), like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run outyet&lt;/code&gt; it will invoke this command in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go-cli&lt;/code&gt; container. You may open a terminal as well from this view by clicking on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New terminal&lt;/code&gt; link. Terminals can be opened on any containers.&lt;/p&gt;
+
+&lt;h4 id=&quot;status-bar&quot;&gt;Status bar&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*3oqbKbfKGs1fJ6DypUYfjg.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Blue bar means that IDE is remotely connected to the workspace server. In case of connection failures, the bar will turn into orange and there is a text saying &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;offline&lt;/code&gt;. Information like git information or&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ephemeral mode&lt;/code&gt; are also displayed.&lt;/p&gt;
+
+&lt;h3 id=&quot;language-tooling&quot;&gt;Language tooling&lt;/h3&gt;
+
+&lt;p&gt;Ready-to-go workspaces are already providing the tooling for the selected language so no need to install plug-ins after in order to work on a project.&lt;/p&gt;
+
+&lt;p&gt;From the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;view/Plugins&lt;/code&gt; panel we can see that we already have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go&lt;/code&gt; plug-in installed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*XBcHoTOTvi693F3UqVCx9w.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*kCMiGIFWI-ZmDUM6kJwvLQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;by opening file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/github.com/golang/example/outyet/main.go&lt;/code&gt; there is already syntax highlighting in the go file.&lt;/p&gt;
+
+&lt;p&gt;Debugging is also easy. Just create a new launch configuration for go.&lt;/p&gt;
+
+&lt;h4 id=&quot;debugging-the-application&quot;&gt;Debugging the application&lt;/h4&gt;
+
+&lt;p&gt;After opening the debugger panel by going into the menu: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;View --&amp;gt; Debug&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*zvqxk2R7Cfe9QopVGpiEHw.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, in the Debugger panel, click on the dropdown of the configurations and click on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add Configuration...&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;note: it’s also possible to add configurations by clicking in menu&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Debug/Add Configuration...&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Using the code completion, select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Go: Launch file&lt;/code&gt; entry and let the default.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*i9er0ybeODHJTCRbVRJvEw.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, just hit some breakpoints in the code by clicking on the space before the line number&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*UyEyKnAxQ8m5B6Kgh2OA4A.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And launch the debug configuration (default name will &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Launch File&lt;/code&gt; )&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*_id4uipZuON1XSJVA08vCg.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All options like step-in, step-out, resume, etc. are available in the debugger.&lt;/p&gt;
+
+&lt;p&gt;Inline operations are also available in the editor when you edit test files.&lt;/p&gt;
+
+&lt;p&gt;Opening file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/github.com/golang/example/outyet/main_test.go&lt;/code&gt; file and then going on test functions will display run/debug options.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*p_H8IYlp74poxhyyLSg3xQ.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, you’re ready to experiment Eclipse Che on your own!&lt;/p&gt;
+
+&lt;h3 id=&quot;get-involved&quot;&gt;Get Involved!&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.eclipse.org/che/docs/#getting-started&quot;&gt;Quick Start with Eclipse Che&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Join the community:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Support&lt;/strong&gt;: You can ask questions, report bugs, and request features using &lt;a href=&quot;https://github.com/eclipse/che/issues&quot;&gt;GitHub issues&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Public Chat&lt;/strong&gt;: Join the public &lt;a href=&quot;https://mattermost.eclipse.org/eclipse/channels/eclipse-che&quot;&gt;eclipse-che&lt;/a&gt; Mattermost channel to discuss with community and contributors.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Weekly Meetings&lt;/strong&gt;: Join us in our &lt;a href=&quot;https://github.com/eclipse/che/wiki/Che-Dev-Meetings&quot;&gt;Che community meeting&lt;/a&gt; every second monday.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Mailing list&lt;/strong&gt;: che-dev@eclipse.org&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che 7 has been announced few days ago, if you have not yet tried it, it’s time to experiment with all the new exciting capabilities!</summary></entry></feed>

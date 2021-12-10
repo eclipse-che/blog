@@ -10,20 +10,20 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Generate a locally-trusted certificate using mkcert and configure Che to use it." />
 <meta property="og:description" content="Generate a locally-trusted certificate using mkcert and configure Che to use it." />
-<link rel="canonical" href="https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
-<meta property="og:url" content="https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
+<link rel="canonical" href="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" />
 <meta property="og:site_name" content="Eclipse Che Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-01-07T00:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Use mkcert to Trust Local Che Certificates" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Mario Loriedo"},"description":"Generate a locally-trusted certificate using mkcert and configure Che to use it.","url":"https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html","headline":"Use mkcert to Trust Local Che Certificates","@type":"BlogPosting","dateModified":"2021-01-07T00:00:00+00:00","datePublished":"2021-01-07T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Mario Loriedo"},"description":"Generate a locally-trusted certificate using mkcert and configure Che to use it.","url":"https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html","@type":"BlogPosting","headline":"Use mkcert to Trust Local Che Certificates","dateModified":"2021-01-07T00:00:00+00:00","datePublished":"2021-01-07T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/eclipse-che-blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/eclipse-che-blog/feed.xml" title="Eclipse Che Blog" /></head>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
 <body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/eclipse-che-blog/">Eclipse Che Blog</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -33,7 +33,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/eclipse-che-blog/about/">About</a></div>
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -48,7 +48,7 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><img src="https://che.eclipseprojects.io/eclipse-che-blog//assets/img/mkcert/header.png" alt="Locally trusted certs" /></p>
+    <p><img src="https://che.eclipseprojects.io//assets/img/mkcert/header.png" alt="Locally trusted certs" /></p>
 
 <p>When deploying Che locally, on minikube for example, its TLS certificate will be self-signed and not trusted by the local browsers.</p>
 
@@ -176,7 +176,7 @@ configmap/custom-certs labeled
 
 <h2 id="verification">Verification</h2>
 
-<p><img src="https://che.eclipseprojects.io/eclipse-che-blog//assets/img/mkcert/trusted-cert.png" alt="Trusted Certificate" /></p>
+<p><img src="https://che.eclipseprojects.io//assets/img/mkcert/trusted-cert.png" alt="Trusted Certificate" /></p>
 
 <p>If you have followed the steps described above, when opening the Che dashboard in your local browser, you should see that the certificate is considered valid. Starting a workspace should also work without any issue.</p>
 
@@ -193,12 +193,12 @@ configmap/custom-certs labeled
   </ol>
 </div>
 
-  </div><a class="u-url" href="/eclipse-che-blog/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" hidden></a>
+  </div><a class="u-url" href="/2021/01/07/@mario.loriedo-use-mkcert-to-trust-local-che-certificates.html" hidden></a>
 </article>
 
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/eclipse-che-blog/"></data>
+  <data class="u-url" href="/"></data>
 
   <div class="wrapper">
 
@@ -210,7 +210,7 @@ configmap/custom-certs labeled
           <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/eclipse-che-blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/eclipse-che-blog/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">
