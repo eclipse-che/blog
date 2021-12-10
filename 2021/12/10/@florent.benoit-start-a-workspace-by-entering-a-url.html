@@ -54,7 +54,7 @@
 <p>As a user, you can create a workspace containing a clone of a Git repository by entering a custom URL in the address bar of your browser.</p>
 </div>
 <div class="paragraph">
-<p>As a user, you can also create a workspace containing a clone of a Git repository by entering the URL of the Git repository on the Eclipse Che dashboard page.</p>
+<p>As a user, you can also create a workspace containing a clone of a Git repository by entering the URL of the Git repository on the Eclipse Foo dashboard page.</p>
 </div>
 </div>
 </div>
@@ -62,13 +62,13 @@
 <h2 id="short-url-syntax-for-cloning-hosted-git-repositories">Short URL syntax for cloning hosted git repositories</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the earlier versions of Eclipse Che, the Che URL syntax began with <code>/f/?url=</code>, for example <code><a href="https://che-host:che-port/f/?url=https://github.com/my/repository" class="bare">https://che-host:che-port/f/?url=https://github.com/my/repository</a></code>, but it was complex and error-prone. While that syntax is still supported, short syntax should be used as follows:</p>
+<p>In the earlier versions of Eclipse Foo, the Foo URL syntax began with <code>/f/?url=</code>, for example <code><a href="https://che-host:che-port/f/?url=https://github.com/my/repository" class="bare">https://che-host:che-port/f/?url=https://github.com/my/repository</a></code>, but it was complex and error-prone. While that syntax is still supported, short syntax should be used as follows:</p>
 </div>
 <div class="paragraph">
-<p>To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser&#8217;s address bar and enter the Che URL, prepended with a <code>#</code> character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: <a href="https://workspaces.openshift.com#https://github.com/eclipse-che/che-server" class="bare">https://workspaces.openshift.com#https://github.com/eclipse-che/che-server</a>. Then Eclipse Che starts a workspace and clones the repository, <code>https://github.com/eclipse-che/che-server</code> in this example.</p>
+<p>To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser&#8217;s address bar and enter the Foo URL, prepended with a <code>#</code> character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: <a href="https://workspaces.openshift.com#https://github.com/eclipse-che/che-server" class="bare">https://workspaces.openshift.com#https://github.com/eclipse-che/che-server</a>. Then Eclipse Foo starts a workspace and clones the repository, <code>https://github.com/eclipse-che/che-server</code> in this example.</p>
 </div>
 <div class="paragraph">
-<p>Eclipse Che also searches for a <code>.devfile.yaml</code> or <code>devfile.yaml</code> file in the given repository. The devfile describes the containers and commands to use for that project. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including <code>curl</code>, <code>jq</code>, <code>yq</code>, etc).</p>
+<p>Eclipse Foo also searches for a <code>.devfile.yaml</code> or <code>devfile.yaml</code> file in the given repository. The devfile describes the containers and commands to use for that project. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including <code>curl</code>, <code>jq</code>, <code>yq</code>, etc).</p>
 </div>
 <div class="paragraph">
 <p>For more information on devfiles, see the <a href="https://devfile.io/">Devfile Documentation</a>.</p>
@@ -137,7 +137,7 @@
 <h2 id="using-a-different-editor-or-ide">Using a different editor or <code>IDE</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The default IDE is a property of Eclipse Che, and the default value is <code>eclipse/che-theia/latest</code>. See the docs for the <a href="https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/#devfile-defaults">Devfile defaults</a>.</p>
+<p>The default IDE is a property of Eclipse Foo, and the default value is <code>eclipse/che-theia/latest</code>. See the docs for the <a href="https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/#devfile-defaults">Devfile defaults</a>.</p>
 </div>
 <div class="paragraph">
 <p>Overriding the default editor is possible with the <code>?che-editor=&lt;editor-id&gt;</code> parameter. The <code>editor-id</code> comes from the identifier of the IDE in the plug-in registry.
@@ -173,19 +173,19 @@
 <p>With DevWorkspace Operator enabled:</p>
 </div>
 <div class="paragraph">
-<p>If you enter a URL such as <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> and you don’t have any workspace named <code>bar</code>, Eclipse Che creates a workspace named <code>bar</code> and clones the GitHub repository.</p>
+<p>If you enter a URL such as <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> and you don’t have any workspace named <code>bar</code>, Eclipse Foo creates a workspace named <code>bar</code> and clones the GitHub repository.</p>
 </div>
 <div class="paragraph">
-<p>Each time you enter a URL such as <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> again, Eclipse Che reopens the previously created workspace <code>bar</code>. (If you deleted the previously created <code>bar</code> workspace, entering <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> results in Eclipse Che creating another workspace named <code>bar</code>.)</p>
+<p>Each time you enter a URL such as <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> again, Eclipse Foo reopens the previously created workspace <code>bar</code>. (If you deleted the previously created <code>bar</code> workspace, entering <code><a href="https://che-host:che-port#http://github.com/foo/bar" class="bare">https://che-host:che-port#http://github.com/foo/bar</a></code> results in Eclipse Foo creating another workspace named <code>bar</code>.)</p>
 </div>
 <div class="paragraph">
-<p>To create another workspace each time you enter the same URL, enter the URL appended with <code>?new</code> in the URL format <code><a href="https://che-host:che-port#http://github.com/foo/bar?new" class="bare">https://che-host:che-port#http://github.com/foo/bar?new</a></code>. Even if you already have a workspace named <code>bar</code>, each time you enter such URL, Eclipse Che will create another, sequentially named workspace (example: <code>bar-abcde</code>).</p>
+<p>To create another workspace each time you enter the same URL, enter the URL appended with <code>?new</code> in the URL format <code><a href="https://che-host:che-port#http://github.com/foo/bar?new" class="bare">https://che-host:che-port#http://github.com/foo/bar?new</a></code>. Even if you already have a workspace named <code>bar</code>, each time you enter such URL, Eclipse Foo will create another, sequentially named workspace (example: <code>bar-abcde</code>).</p>
 </div>
 <div class="sect1">
 <h2 id="support-of-devfiles">Support of devfiles</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Eclipse Che uses DevWorkspace Operator that targets devfiles v2 with <code>schemaVersion: 2.1.0</code>.
+<p>Eclipse Foo uses DevWorkspace Operator that targets devfiles v2 with <code>schemaVersion: 2.1.0</code>.
 Use of devfile v1 is deprecated. Under the hood, the <a href="https://github.com/che-incubator/devfile-converter">converter library</a> converts devfiles v1 to devfiles v2.</p>
 </div>
 </div>
