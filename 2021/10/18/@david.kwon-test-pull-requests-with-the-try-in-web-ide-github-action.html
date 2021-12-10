@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Test pull requests with the Try in Web IDE GitHub action | Eclipse Che Blog</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Test pull requests with the Try in Web IDE GitHub action" />
+<meta name="author" content="David Kwon" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to integrate the Try in Web IDE GitHub action to your GitHhub repository, making it easier for collaborators to test pull requests in Red Hat CodeReady Workspaces." />
+<meta property="og:description" content="How to integrate the Try in Web IDE GitHub action to your GitHhub repository, making it easier for collaborators to test pull requests in Red Hat CodeReady Workspaces." />
+<link rel="canonical" href="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" />
+<meta property="og:site_name" content="Eclipse Che Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-18T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Test pull requests with the Try in Web IDE GitHub action" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"David Kwon"},"description":"How to integrate the Try in Web IDE GitHub action to your GitHhub repository, making it easier for collaborators to test pull requests in Red Hat CodeReady Workspaces.","url":"https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html","@type":"BlogPosting","headline":"Test pull requests with the Try in Web IDE GitHub action","dateModified":"2021-10-18T00:00:00+00:00","datePublished":"2021-10-18T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Test pull requests with the Try in Web IDE GitHub action</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-10-18T00:00:00+00:00" itemprop="datePublished">Oct 18, 2021
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">David Kwon</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>Cross posted from the <a href="https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository">Red Hat Developer blog</a>.</em></p>
+
+<p>Web-based, cloud-hosted integrated development environments (IDEs) can make development and collaboration more efficient if they are well integrated with version control. This blog post shows you how to use the <a href="https://github.com/marketplace/actions/try-in-web-ide">Try in Web IDE GitHub action</a> to make it easier for collaborators to test pull requests on <a href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/">Eclipse Che hosted by Red Hat</a>.</p>
+
+<p>Note: The instance of Eclipse Che used by the Try in Web IDE GitHub action can be configured. The default instance is <a href="https://workspaces.openshift.com">workspaces.openshift.com</a> (Eclipse Che hosted by Red Hat).</p>
+
+<h2 id="the-try-in-web-ide-github-action">The Try in Web IDE GitHub action</h2>
+<p>The Try in Web IDE GitHub action makes it easy to try a pull request in your browser-based developer environment. The GitHub action listens to pull request events and provides a comment or status check with a link. When you click the link, it opens the branch in a new web IDE workspace.</p>
+
+<p>The <a href="https://github.com/eclipse/che-docs">Eclipse Che documentation</a> repository has recently integrated this GitHub action into its workflow. You can view a recent pull request to try it yourself. Figure 1 shows a pull request comment created by the GitHub action. Clicking the badge opens a new workspace to try the pull request in the web browser.</p>
+
+<p><img src="https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/comment.png" alt="GitHub PR comment with badge to open PR branch in new workspace" />
+<span style="color:grey"><em>Figure 1: Clicking the badge opens a web IDE workspace for testing the pull request.</em></span></p>
+
+<p>Figure 2 shows a status check done by the GitHub action. Clicking the Details link opens a new workspace to try the pull request in the web browser.</p>
+
+<p><img src="https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/status-check.png" alt="GitHub PR status check with link to open PR branch in new workspace" />
+<span style="color:grey"><em>Figure 2: Clicking the Details link opens a web IDE workspace for testing the pull request.</em></span></p>
+
+<p>Figure 3 shows the workspace created in Eclipse Che hosted by Red Hat. This is the web IDE workspace that opens in the web browser when you click either the badge from Figure 1 or the link from Figure 2. From here, you can try the pull request and test its correctness.</p>
+
+<p><img src="https://che.eclipseprojects.io//assets/img/test-pull-requests-with-the-try-in-web-ide-github-action/crw.png" alt="PR branch opened in a new workspace" />
+<span style="color:grey"><em>Figure 3: Try the pull request and test its correctness.</em></span></p>
+
+<h2 id="integrate-the-try-in-web-ide-action-with-your-github-repository">Integrate the Try in Web IDE action with your GitHub repository</h2>
+<p>This section shows you how to add the Try in Web IDE GitHub action to your GitHub repository’s workflow. We will configure the action to automatically create a comment (Figure 1) and status check (Figure 2) on new pull requests.</p>
+
+<h3 id="prerequisites-and-setup">Prerequisites and setup</h3>
+<p>You will need a Red Hat account to use Eclipse Che hosted by Red Hat. Navigate to <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox for Red Hat OpenShift</a>, register for a free account, and launch your Developer Sandbox environment. Note that you must verify your identity with a phone number.</p>
+
+<p>You also need an account on GitHub and a repository where you can integrate GitHub actions.</p>
+
+<p>Finally, although not mandatory, you can add a <a href="https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-1/">devfile</a> in the root of your GitHub repository to specify the features of the development environment and IDE. We’ll use the devfile very shortly.</p>
+
+<h3 id="step-1-create-the-github-workflow-file">Step 1: Create the GitHub workflow file</h3>
+<p>In your GitHub repository, create a <code class="language-plaintext highlighter-rouge">.github/workflows</code> directory if it does not exist already. Then, create a file named <code class="language-plaintext highlighter-rouge">example.yml</code> in <code class="language-plaintext highlighter-rouge">.github/workflows</code> with the following content:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Try in Web IDE example</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">pull_request_target</span><span class="pi">:</span>
+    <span class="c1"># Triggers workflow on pull request open</span>
+    <span class="na">types</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">opened</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">add-link</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-20.04</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Web IDE Pull Request Check</span>
+        <span class="na">id</span><span class="pi">:</span> <span class="s">try-in-web-ide</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">redhat-actions/try-in-web-ide@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="c1"># GitHub action inputs</span>
+
+          <span class="c1"># required</span>
+          <span class="na">github_token</span><span class="pi">:</span> <span class="s">$</span>
+
+          <span class="c1"># optional - defaults to true</span>
+          <span class="na">add_comment</span><span class="pi">:</span> <span class="no">true</span>
+
+          <span class="c1"># optional - defaults to true</span>
+          <span class="na">add_status</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>This file defines a workflow named <code class="language-plaintext highlighter-rouge">Try in Web IDE example</code>, with a job that runs the <code class="language-plaintext highlighter-rouge">v1</code> version of the Try in Web IDE GitHub action. The workflow is triggered on the <a href="https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows"><code class="language-plaintext highlighter-rouge">pull_request_target</code></a> event on the <code class="language-plaintext highlighter-rouge">opened</code> activity type.</p>
+
+<h3 id="step-2-configure-the-github-workflow-file">Step 2: Configure the GitHub workflow file</h3>
+<p>You can further configure the workflow defined in <code class="language-plaintext highlighter-rouge">example.yml</code> to fit your needs. Consider adding more activity types within the <code class="language-plaintext highlighter-rouge">on.pull_request_target.types</code> field. Alongside the <code class="language-plaintext highlighter-rouge">opened</code> event, other events that you might find useful are <code class="language-plaintext highlighter-rouge">reopened</code> (which is triggered when the pull request is reopened) and <code class="language-plaintext highlighter-rouge">synchronize</code> (which is triggered when the pull request’s tracking branch synchronizes with its source branch). The new types are added in the following code snippet:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">pull_request_target</span><span class="pi">:</span>
+    <span class="c1"># Add multiple activity types</span>
+    <span class="na">types</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">opened</span><span class="pi">,</span> <span class="nv">reopened</span><span class="pi">,</span> <span class="nv">synchronize</span><span class="pi">]</span>
+
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">add_comment</code> and <code class="language-plaintext highlighter-rouge">add_status</code> GitHub action inputs can also be configured to customize whether the comment or status check is created in the pull request. For example, the following code snippet disables pull request comments:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="s">...</span>
+
+        <span class="s">with</span><span class="err">:</span>
+          <span class="na">github_token</span><span class="pi">:</span> <span class="s">${{ secrets.GITHUB_TOKEN }}</span>
+          <span class="na">add_comment</span><span class="pi">:</span> <span class="no">false</span>
+          <span class="na">add_status</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+<p>The full table of inputs is available in the Try in Web IDE GitHub action <a href="https://github.com/marketplace/actions/try-in-web-ide#action-inputs">documentation</a>.</p>
+
+<h3 id="step-3-optional-create-a-devfile">Step 3 (optional): Create a devfile</h3>
+<p>To define the development environment of the web IDE workspace, creating a devfile in the root of the repository is highly recommended. Configuring a devfile ensures that the workspace contains everything you need to effectively try and test the pull request, such as plug-ins, development commands, Kubernetes objects, and other aspects of the environment setup.</p>
+
+<p>For example, specifying the Red Hat Java plug-in in the devfile provides features that Java developers use (for things like debugging, code completion, and so on) within the web IDE workspace.</p>
+
+<p>Here is an example of a minimal devfile.yml file for a Java project:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">1.0.0</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">project-dev-environment</span>
+<span class="na">projects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">project-name-here</span>
+    <span class="na">source</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">git</span>
+      <span class="na">location</span><span class="pi">:</span> <span class="s1">'</span><span class="s">GITHUB</span><span class="nv"> </span><span class="s">REPOSITORY</span><span class="nv"> </span><span class="s">URL</span><span class="nv"> </span><span class="s">HERE'</span>
+<span class="na">components</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">chePlugin</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">redhat/java/latest</span>
+</code></pre></div></div>
+
+<p>This devfile defines the project name and source location, as well as the Java plug-in. Many more <a href="https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-1/#adding-components-to-a-devfile_che">components</a> can be added in a devfile to fine-tune the development environment for your specific project.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>After you have completed the steps in this blog post, creating a new pull request will trigger the Try in Web IDE GitHub action and create a comment, status check, or both, depending on how you’ve configured the action inputs. With a Red Hat account, you can now try pull requests in a web-based IDE with the click of a link.</p>
+
+  </div><a class="u-url" href="/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

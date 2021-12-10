@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Devfile v2 and the DevWorkspace Operator - Part 1 | Eclipse Che Blog</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Devfile v2 and the DevWorkspace Operator - Part 1" />
+<meta name="author" content="Mario Loriedo" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to enable the DevWorkspace engine and what it means from a user point of view" />
+<meta property="og:description" content="How to enable the DevWorkspace engine and what it means from a user point of view" />
+<link rel="canonical" href="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html" />
+<meta property="og:site_name" content="Eclipse Che Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Devfile v2 and the DevWorkspace Operator - Part 1" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Mario Loriedo"},"description":"How to enable the DevWorkspace engine and what it means from a user point of view","url":"https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html","@type":"BlogPosting","headline":"Devfile v2 and the DevWorkspace Operator - Part 1","dateModified":"2021-10-12T00:00:00+00:00","datePublished":"2021-10-12T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Devfile v2 and the DevWorkspace Operator - Part 1</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-10-12T00:00:00+00:00" itemprop="datePublished">Oct 12, 2021
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Mario Loriedo</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="https://che.eclipseprojects.io//assets/img/devfile-v2-and-the-devworkspace-operator-part1/che-workspace-engines.png" alt="Locally trusted certs" /></p>
+
+<p>With version <a href="https://github.com/eclipse/che/releases/tag/7.28.0">7.28 of Che</a> we have introduced a new workspace engine, <a href="https://github.com/devfile/devworkspace-operator">the DevWorkspace Operator</a>, that supports v2 of the Devfile specification. Although the default engine is still the che-server we plan to replace it with the DevWorkspace in the next few months.</p>
+
+<p>Switching to the DevWorkspace engine has some important consequences. Notably on the authentication subsystem that will be lighter and more flexible, on the workspaces network managed by a central gateway powered by <a href="https://github.com/traefik/traefik">Traefik</a> and simpler configuration options for Che administrators.</p>
+
+<p>This is the first of a series of three articles reviewing the changes introduced with the DevWorkspace. Here we will discuss the changes from the point of view of a Che user. The second part will be about the point of view of a Che administrator. The last part will be dedicated to the DevWorkspace Operator.</p>
+
+<h2 id="how-to-enable-the-devworkspace-operator">How to enable the DevWorkspace Operator</h2>
+<p>Che default workspace engine is the che-server. The DevWorkspace engine needs to be explicitly enabled. The following <a href="https://github.com/che-incubator/chectl">chectl</a> command deploys Che on OpenShift configured with the DevWorkspace Operator as workspace engine:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chectl server:deploy <span class="nt">-p</span> openshift <span class="se">\</span>
+                     <span class="nt">--workspace-engine</span><span class="o">=</span>dev-workspace
+</code></pre></div></div>
+
+<p>The command above works for other Kubernetes distributions too (<code class="language-plaintext highlighter-rouge">-p openshift</code> should be replaced) but, after chectl has completed, the CheCluster CustomResource requires a patch:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># For vanilla Kubernetes only</span>
+kubectl patch checluster/eclipse-che <span class="nt">--type</span><span class="o">=</span>merge <span class="nt">-n</span> eclipse-che <span class="se">\ </span>
+           <span class="nt">--patch</span> <span class="s1">'{"spec": {"server": { "customCheProperties": {"CHE_INFRA_KUBERNETES_ENABLE__UNSUPPORTED__K8S": "true"}}}}'</span> 
+</code></pre></div></div>
+
+<h2 id="changes-from-a-che-user-perspective">Changes from a Che user perspective</h2>
+
+<h3 id="new-devfile-spec-v21">New Devfile spec (v2.1)</h3>
+
+<p>Here is an example of v2.1 Devfile:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">schemaVersion</span><span class="pi">:</span> <span class="s">2.1.0</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">python-hello-world</span>
+<span class="na">attributes</span><span class="pi">:</span>
+  <span class="na">che-theia.eclipse.org/sidecar-policy</span><span class="pi">:</span> <span class="s">USE_DEV_CONTAINER</span>
+<span class="na">components</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">python</span>
+    <span class="na">container</span><span class="pi">:</span>
+      <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/devfile/base-developer-image:ubi8-7bd4fe3</span>
+      <span class="na">volumeMounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">venv</span>
+          <span class="na">path</span><span class="pi">:</span> <span class="s">/home/user/.venv</span>
+      <span class="na">memoryLimit</span><span class="pi">:</span> <span class="s">512Mi</span>
+      <span class="na">mountSources</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">venv</span>
+    <span class="na">volume</span><span class="pi">:</span>
+      <span class="na">size</span><span class="pi">:</span> <span class="s">1G</span>
+</code></pre></div></div>
+
+<p>The Devfile specification has gone through the release of v2. Here are a few notable changes:</p>
+<ul>
+  <li>It is compatible with the specification of a Kubernetes API. The DevWorkspace CRD is an extension of the Kubernetes API and it’s generated from the Devfile specification.</li>
+  <li>It removes <a href="https://github.com/eclipse/che/issues/18669">chePlugin and cheEditor component types</a>.</li>
+  <li>It introduces the volume component type.</li>
+  <li>Events and parent are two new top level devfile properties.</li>
+  <li>Besides Che it’s used by the OpenShift Developer Console, <code class="language-plaintext highlighter-rouge">odo</code> and the <a href="https://github.com/devfile/devfile-docker-plugin">Devfile Docker plugin</a>.</li>
+</ul>
+
+<p>The documentation for Devfile v2.1 is <a href="https://devfile.io/docs/devfile/2.1.0/user-guide/index.html">https://devfile.io/docs/devfile/2.1.0/</a>. A <a href="https://devfile.io/docs/devfile/2.1.0/user-guide/migrating-to-devfile-v2.html">migration guide from v1 to v2 of the specification</a> is included.</p>
+
+<h3 id="a-new-way-to-specify-the-editor-and-its-plugins">A new way to specify the editor and its plugins</h3>
+<p>As mentioned above, version 2 of the Devfile, doesn’t include cheEditor and chePlugins component types anymore.</p>
+
+<p>The recommended way to specify the editor of a workspace is to include the file <code class="language-plaintext highlighter-rouge">.che/che-editor.yaml</code> at the root of the workspace git repository:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">id</span><span class="pi">:</span> <span class="s">eclipse/che-theia/latest</span>          <span class="c1"># mandatory</span>
+<span class="na">registryUrl</span><span class="pi">:</span> <span class="s">https://my-registry.com</span>  <span class="c1"># optional</span>
+<span class="na">override</span><span class="pi">:</span>                             <span class="c1"># optional</span>
+  <span class="na">containers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">theia-ide</span>
+      <span class="na">memoryLimit</span><span class="pi">:</span> <span class="s">1280Mi</span>
+</code></pre></div></div>
+
+<p>The recommended way to specify a che-theia plugin in a workspace is to include the file <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> at the root of the workspace git repository:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"recommendations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"ms-python.python"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>It is also possible to define a Che editor and its plugins inline in Devfile attributes, but that’s recommended only when it is not possible to colocate the devile with the source code. More informations about IDEs plugins with v2 of the Devfile can be found <a href="https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html">in this blog post</a> and at <a href="https://github.com/eclipse/che/issues/18669">https://github.com/eclipse/che/issues/18669</a>.</p>
+
+<h3 id="the-devfile-should-live-at-the-root-of-the-git-repo-not-in-a-registry">The Devfile should live at the root of the git repo, not in a registry</h3>
+<p>The recommended place to publish the Devfile is within the project source code. Along with the files that we have just seen above to specify che-theia plugins and the editor:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  |--- devfile.yaml
+  |___ .che
+         |___ che-editor.yaml
+         |___ che-theia-plugins.yaml
+  |___ .vscode
+         |___ extensions.json
+</code></pre></div></div>
+
+<p>Having the Devfile at the root of a repository makes it possible to use a simple factory link to the repository to start the workspace. For example <a href="https://workspaces.openshift.com/#https://github.com/eclipse/che-docs">workspaces.openshift.com/#https://github.com/eclipse/che-docs</a> is a factory link: when a user click on it, a workspace defined by the Devfile in the repo <a href="https://github.com/eclipse/che-docs">github.com/eclipse/che-docs</a> will be started on the public Che instance hosted by Red Hat at workspaces.openshift.com.</p>
+
+<p>Recommending to colocate and evolve a v2 Devfile with the source code has two consequences:</p>
+<ul>
+  <li>the <code class="language-plaintext highlighter-rouge">project</code> section of a Devfile can be omitted: it’s implicitly set to the git repo where the Devfile lives</li>
+  <li>Che samples will include a Devfile at their root (those Devfiles used to be published in the Devfile registry)</li>
+</ul>
+
+<h3 id="only-one-running-workspace-per-user">Only one running workspace per user</h3>
+<p>A user cannot have more than one running workspace at a time. This limitation is related to the persistent volume strategy (“common”) that is used by Che. The same Volume is mounted by every workspace of the same user. This is implemented using Pods <code class="language-plaintext highlighter-rouge">volumeMounts.subPath</code> property and guarantees that the number of Volumes mounted by Che matches the number of users.</p>
+
+<h2 id="current-limitations-and-timeline">Current limitations and Timeline</h2>
+
+<p>Although most of the work has been completed, Che with the DevWorkspace enabled is not ready for production yet. Here is a list of open issues:</p>
+<ul>
+  <li><a href="https://github.com/eclipse/che/issues/20501">An admin should be able to specify secrets or config maps that need to be provisioned on each user’s namespace #20501</a></li>
+  <li><a href="https://github.com/eclipse/che/issues/20528">Support custom certificates for git hosts for devworkspaces #20528</a></li>
+  <li><a href="https://github.com/devfile/devworkspace-operator/issues/614">Support Pod tolerations for DevWorkspace Pods devfile/devworkspace-operator#614</a></li>
+  <li><a href="https://github.com/eclipse/che/issues/20362">Che with Devworkspaces should be able to use Dex as identity provider on OIDC enabled k8s #20362</a></li>
+  <li><a href="https://github.com/eclipse/che/issues/19341">Create v2 devfiles for Getting Started samples</a></li>
+  <li><a href="https://github.com/eclipse/che/issues/20596">Support overriding Che Theia plugins preferences and sidecar through .che/che-theia-plugins.yaml</a></li>
+  <li><a href="https://github.com/eclipse/che/issues/20460">Adapt Che-Theia Activity Tracker extension to DevWorkspace mode (idling)</a></li>
+</ul>
+
+<p>The complete list of issues and the due date can be tracked on the <a href="https://github.com/eclipse/che/milestone/140">GitHub milestone</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this post we have described how to enable the DevWorkspace engine and reviewed the changes from the point of view of a user of Che.</p>
+
+<p>In the second part of this series we are going to look at the changes from an administrator point of view:</p>
+<ul>
+  <li>It’s possible to deploy only one Che instance per Kubernetes cluster</li>
+  <li>Devfiles are not in the registry anymore</li>
+  <li>Keycloak is not required anymore and Che users have to be Kubernetes users</li>
+  <li>Simpler configuration: namespace, persistent volumes, network</li>
+  <li>Use of external routes not supported</li>
+  <li>Metrics</li>
+</ul>
+
+<p>The third part of this series will be about the DevWorkspace Operator:</p>
+<ul>
+  <li>Extending the Kubernetes API to provision Development Environments</li>
+  <li>Relationship between the DevWorkspace CRD and the Devfile v2</li>
+  <li>Relationship between the DevWorkspace Operator and the OpenShift WebTerminal</li>
+  <li>Comparison between the DevWorkspace controller and the che-server:
+    <ul>
+      <li>single tenant</li>
+      <li>no knowledge of IDEs and their extensions</li>
+    </ul>
+  </li>
+  <li>DevWorkspaceTemplate and Plugins</li>
+  <li>Auto-mounting Secrets and ConfigMaps</li>
+</ul>
+
+
+  </div><a class="u-url" href="/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

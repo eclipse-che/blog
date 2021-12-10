@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Discover Eclipse Che 7 | Eclipse Che Blog</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Discover Eclipse Che 7" />
+<meta name="author" content="Florent Benoit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Get a tour of Eclipse Che 7 and discover the new capabilities" />
+<meta property="og:description" content="Get a tour of Eclipse Che 7 and discover the new capabilities" />
+<link rel="canonical" href="https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html" />
+<meta property="og:site_name" content="Eclipse Che Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-26T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Discover Eclipse Che 7" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Florent Benoit"},"description":"Get a tour of Eclipse Che 7 and discover the new capabilities","url":"https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html","@type":"BlogPosting","headline":"Discover Eclipse Che 7","dateModified":"2019-09-26T00:00:00+00:00","datePublished":"2019-09-26T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2019/09/26/@florent.benoit-discover-eclipse-che-7.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Discover Eclipse Che 7</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-09-26T00:00:00+00:00" itemprop="datePublished">Sep 26, 2019
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Eclipse Che 7 has been announced few days ago, if you have not yet tried it, it’s time to experiment with all the new exciting capabilities!</p>
+
+<p>This guide will drive you through different steps and allow you to experiment Che 7. To follow this guide, you’ll not need to install Che on your machine or your K8S cluster, we’ll just be using a free online instance of Eclipse Che that is running at <a href="https://che.openshift.io">https://che.openshift.io</a></p>
+
+<p>It’s a free-to-use instance that is powered by latest Eclipse Che 7 version and providing 3GB of memory for a single workspace. It requires a Red Hat Developer account but you can log-in with different third parties accounts like github, facebook, google, twitter, etc.</p>
+
+<h3 id="pre-requisities">Pre-requisities</h3>
+
+<ul>
+  <li>Go to <a href="https://che.openshift.io">https://che.openshift.io</a> and log-in or create an account.</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zP2mhFXfO1JpH6LWA3ElYQ.png" alt="" /></p>
+
+<ul>
+  <li>After creating a new account or simply log-in, you’re redirected to the dashboard page of Eclipse Che</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*K5GPheEfQ0cBPlt2f8ZcDA.png" alt="" /></p>
+
+<h3 id="discovering-che-workspaces">Discovering Che Workspaces</h3>
+
+<p>Eclipse Che is using containers under the hood. It means all runtimes used in workspaces can be customized by some docker images: for example java runtime, nodejs runtime, etc. are provided on top of docker images.</p>
+
+<p>But as it may be difficult to start by writing or providing first a Docker image, there are default ready-to-use workspace templates.</p>
+
+<p>These ready-to-use workspaces are provided on top of community Docker images and are great to start to work on a given technology.</p>
+
+<h4 id="create-a-workspace">Create a workspace</h4>
+
+<p>Let’s create a simple go application</p>
+
+<ul>
+  <li>On the dashboard, click “Create Workspace”</li>
+  <li>In the <code class="language-plaintext highlighter-rouge">select stack</code> section, click on <code class="language-plaintext highlighter-rouge">go</code></li>
+  <li>Check that in <code class="language-plaintext highlighter-rouge">projects</code> section, example is selected</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*cO5DKBY8AK_SV3pkbyJR8Q.gif" alt="" /></p>
+
+<ul>
+  <li>After clicking on <code class="language-plaintext highlighter-rouge">create &amp; open</code> button we’re redirected to the IDE</li>
+</ul>
+
+<p><em>Note</em>: we use <code class="language-plaintext highlighter-rouge">ephemeral mode</code> flag as we don’t care about persisting changes for demos and want the fastest I/O storage.</p>
+
+<h3 id="discover-the-newide">Discover the new IDE!</h3>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*lLTYUqtjMbGwq74hW2bxRw.png" alt="" /></p>
+
+<p>In the IDE, there are several useful areas/panels.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hojbuZ8bNivG9Z191fxI9w.png" alt="" /></p>
+
+<p>Clicking on the top left file icon will display all the files of the current workspace.</p>
+
+<h4 id="command-palette">Command palette</h4>
+
+<p>Press <code class="language-plaintext highlighter-rouge">F1</code> key or click on the <code class="language-plaintext highlighter-rouge">command palette</code> link in the <code class="language-plaintext highlighter-rouge">Welcome Panel</code>. Enter some keyword to filter out commands. Formatting can be done easily with a specific command invoked from command palette. Keyboard shortcuts are displayed on the right of the command. No need to bring command palette and select a command if you already know its shortcut.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*vV-Hbn81mE6uwmIOGMcNzA.png" alt="" /></p>
+
+<h4 id="workspace-panel">Workspace panel</h4>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YnWLY1ritG5ox-uB39vLGQ.png" alt="" /></p>
+
+<p>The workspace panel is a quick view allowing to interact with the workspace like launching pre-defined commands for this workspace or opening terminals.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*RR_dBL6BgRdNEBf20HLNEQ.png" alt="" /></p>
+
+<p>There are two kind of containers:<br />
+ — <em>Plugin’s runtime containers</em>: containers provided by plug-ins. It’s the execution runtime used by these plugins</p>
+
+<p>— <em>User runtime container</em>: We may not have it at all or more than one. It’s used to run some commands you would like. All these commands can be found by using the command palette and using <code class="language-plaintext highlighter-rouge">Run Task</code></p>
+
+<p>By clicking on a command name (single click, no double-click), like <code class="language-plaintext highlighter-rouge">run outyet</code> it will invoke this command in the <code class="language-plaintext highlighter-rouge">go-cli</code> container. You may open a terminal as well from this view by clicking on <code class="language-plaintext highlighter-rouge">New terminal</code> link. Terminals can be opened on any containers.</p>
+
+<h4 id="status-bar">Status bar</h4>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*3oqbKbfKGs1fJ6DypUYfjg.png" alt="" /></p>
+
+<p>Blue bar means that IDE is remotely connected to the workspace server. In case of connection failures, the bar will turn into orange and there is a text saying <code class="language-plaintext highlighter-rouge">offline</code>. Information like git information or<code class="language-plaintext highlighter-rouge">ephemeral mode</code> are also displayed.</p>
+
+<h3 id="language-tooling">Language tooling</h3>
+
+<p>Ready-to-go workspaces are already providing the tooling for the selected language so no need to install plug-ins after in order to work on a project.</p>
+
+<p>From the <code class="language-plaintext highlighter-rouge">view/Plugins</code> panel we can see that we already have <code class="language-plaintext highlighter-rouge">go</code> plug-in installed.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*XBcHoTOTvi693F3UqVCx9w.png" alt="" />
+<img src="https://cdn-images-1.medium.com/max/800/1*kCMiGIFWI-ZmDUM6kJwvLQ.png" alt="" /></p>
+
+<p>by opening file <code class="language-plaintext highlighter-rouge">src/github.com/golang/example/outyet/main.go</code> there is already syntax highlighting in the go file.</p>
+
+<p>Debugging is also easy. Just create a new launch configuration for go.</p>
+
+<h4 id="debugging-the-application">Debugging the application</h4>
+
+<p>After opening the debugger panel by going into the menu: <code class="language-plaintext highlighter-rouge">View --&gt; Debug</code></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zvqxk2R7Cfe9QopVGpiEHw.png" alt="" /></p>
+
+<p>Then, in the Debugger panel, click on the dropdown of the configurations and click on <code class="language-plaintext highlighter-rouge">Add Configuration...</code></p>
+
+<p>note: it’s also possible to add configurations by clicking in menu<code class="language-plaintext highlighter-rouge">Debug/Add Configuration...</code></p>
+
+<p>Using the code completion, select the <code class="language-plaintext highlighter-rouge">Go: Launch file</code> entry and let the default.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*i9er0ybeODHJTCRbVRJvEw.gif" alt="" /></p>
+
+<p>Now, just hit some breakpoints in the code by clicking on the space before the line number</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*UyEyKnAxQ8m5B6Kgh2OA4A.gif" alt="" /></p>
+
+<p>And launch the debug configuration (default name will <code class="language-plaintext highlighter-rouge">Launch File</code> )</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*_id4uipZuON1XSJVA08vCg.gif" alt="" /></p>
+
+<p>All options like step-in, step-out, resume, etc. are available in the debugger.</p>
+
+<p>Inline operations are also available in the editor when you edit test files.</p>
+
+<p>Opening file <code class="language-plaintext highlighter-rouge">src/github.com/golang/example/outyet/main_test.go</code> file and then going on test functions will display run/debug options.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*p_H8IYlp74poxhyyLSg3xQ.gif" alt="" /></p>
+
+<p>Now, you’re ready to experiment Eclipse Che on your own!</p>
+
+<h3 id="get-involved">Get Involved!</h3>
+
+<p><a href="http://www.eclipse.org/che/docs/#getting-started">Quick Start with Eclipse Che</a>.</p>
+
+<p>Join the community:</p>
+
+<ul>
+  <li><strong>Support</strong>: You can ask questions, report bugs, and request features using <a href="https://github.com/eclipse/che/issues">GitHub issues</a>.</li>
+  <li><strong>Public Chat</strong>: Join the public <a href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che">eclipse-che</a> Mattermost channel to discuss with community and contributors.</li>
+  <li><strong>Weekly Meetings</strong>: Join us in our <a href="https://github.com/eclipse/che/wiki/Che-Dev-Meetings">Che community meeting</a> every second monday.</li>
+  <li><strong>Mailing list</strong>: che-dev@eclipse.org</li>
+</ul>
+
+  </div><a class="u-url" href="/2019/09/26/@florent.benoit-discover-eclipse-che-7.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

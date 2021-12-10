@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Apache OpenWhisk, Eclipse Che and OpenShift / MiniShift | Eclipse Che Blog</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Apache OpenWhisk, Eclipse Che and OpenShift / MiniShift" />
+<meta name="author" content="Florent Benoit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In this blog post, we’ll demonstrate how to use the serverless capabilities of Apache OpenWhisk by writing actions within Eclipse Che." />
+<meta property="og:description" content="In this blog post, we’ll demonstrate how to use the serverless capabilities of Apache OpenWhisk by writing actions within Eclipse Che." />
+<link rel="canonical" href="https://che.eclipseprojects.io/2018/01/12/@florent.benoit-apache-openwhisk-eclipse-che-and-openshift-minishift.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2018/01/12/@florent.benoit-apache-openwhisk-eclipse-che-and-openshift-minishift.html" />
+<meta property="og:site_name" content="Eclipse Che Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-12T14:03:47+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Apache OpenWhisk, Eclipse Che and OpenShift / MiniShift" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Florent Benoit"},"description":"In this blog post, we’ll demonstrate how to use the serverless capabilities of Apache OpenWhisk by writing actions within Eclipse Che.","url":"https://che.eclipseprojects.io/2018/01/12/@florent.benoit-apache-openwhisk-eclipse-che-and-openshift-minishift.html","@type":"BlogPosting","headline":"Apache OpenWhisk, Eclipse Che and OpenShift / MiniShift","dateModified":"2018-01-12T14:03:47+00:00","datePublished":"2018-01-12T14:03:47+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2018/01/12/@florent.benoit-apache-openwhisk-eclipse-che-and-openshift-minishift.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Apache OpenWhisk, Eclipse Che and OpenShift / MiniShift</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-01-12T14:03:47+00:00" itemprop="datePublished">Jan 12, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="https://cdn-images-1.medium.com/max/800/1*9kUKM1qnsM8n53Ue6uSyUw.png" alt="" /></p>
+
+<p>In this blog post, we’ll demonstrate how to use the serverless capabilities of Apache OpenWhisk by writing actions within Eclipse Che.</p>
+
+<p><a href="https://openwhisk.incubator.apache.org/" title="https://openwhisk.incubator.apache.org/"><strong>Apache OpenWhisk is a serverless, open source cloud platform</strong><br />
+_An open source platform for serverless, event-driven code at any scale. We handle the infrastructure &amp; servers so you…_openwhisk.incubator.apache.org</a><a href="https://openwhisk.incubator.apache.org/"></a></p>
+
+<p>There are several ways to deploy Apache OpenWhisk. I’ve followed the MiniShift setup which deploys both Eclipse Che and Apache OpenWhisk on top of MiniShift. It’s easy to setup and to reproduce.</p>
+
+<h3 id="setup-of-apache-openwhisk">Setup of Apache OpenWhisk</h3>
+
+<p>Here is the installation guide for Apache OpenWhisk on MiniShift</p>
+
+<p><a href="https://github.com/projectodd/incubator-openwhisk-deploy-kube/blob/simplify-deployment-openshift/resources/README.md#oc-minishift" title="https://github.com/projectodd/incubator-openwhisk-deploy-kube/blob/simplify-deployment-openshift/resources/README.md#oc-minishift"><strong>projectodd/incubator-openwhisk-deploy-kube</strong><br />
+_incubator-openwhisk-deploy-kube - This project can be used to deploy Apache OpenWhisk to a Kubernetes cluster_github.com</a><a href="https://github.com/projectodd/incubator-openwhisk-deploy-kube/blob/simplify-deployment-openshift/resources/README.md#oc-minishift"></a></p>
+
+<p>Note: do not forget to launch this command after MiniShift startup (else pods won’t start correctly)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ minishift ssh -- sudo ip link set docker0 promisc on
+</code></pre></div></div>
+
+<p>We can check OpenWhisk is running by using the following command (it can take time as there are a lot of docker images to download)</p>
+
+<p>$ oc logs -f controller-0 | grep “invoker status changed”<br />
+[2018-01-05T10:05:29.844Z] [INFO] [#sid_121] [InvokerPool] invoker status changed to 0 -&gt; UnHealthy<br />
+[2018-01-05T10:06:30.243Z] [INFO] [#sid_121] [InvokerPool] invoker status changed to 0 -&gt; Healthy</p>
+
+<p>We can check actions as well. We’re using <code class="language-plaintext highlighter-rouge">-i</code> flag as the HTTP certificate is self signed.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">wsk</code> binary can be downloaded from <a href="https://github.com/apache/incubator-openwhisk-cli/releases">https://github.com/apache/incubator-openwhisk-cli/releases</a></p>
+
+<p>The CLI will be installed as well in the workspace’s image of Eclipse Che, so there is no extra download step.</p>
+
+<p>$ wsk -i list</p>
+
+<p>Entities in namespace: **default<br />
+packages<br />
+**/whisk.system/combinators                                              shared<br />
+/whisk.system/utils                                                    shared<br />
+/whisk.system/websocket                                                shared<br />
+/whisk.system/github                                                   shared<br />
+/whisk.system/watson-speechToText                                      shared<br />
+/whisk.system/weather                                                  shared<br />
+/whisk.system/watson-translator                                        shared<br />
+/whisk.system/slack                                                    shared<br />
+/whisk.system/samples                                                  shared<br />
+/whisk.system/watson-textToSpeech                                      shared</p>
+
+<p><strong>actions</strong></p>
+
+<p>/whisk.system/samples/curl                                             private nodejs:6<br />
+/whisk.system/utils/head                                               private nodejs:6<br />
+/whisk.system/utils/echo                                               private nodejs:6<br />
+/whisk.system/utils/date                                               private nodejs:6<br />
+/whisk.system/samples/greeting                                         private nodejs:6<br />
+/whisk.system/watson-speechToText/speechToText                         private nodejs:6<br />
+/whisk.system/combinators/retry                                        private nodejs:6<br />
+/whisk.system/utils/sort                                               private nodejs:6<br />
+/whisk.system/utils/cat                                                private nodejs:6<br />
+/whisk.system/combinators/forwarder                                    private nodejs:6<br />
+/whisk.system/utils/hosturl                                            private nodejs:6<br />
+/whisk.system/utils/namespace                                          private nodejs:6<br />
+/whisk.system/watson-translator/translator                             private nodejs:6<br />
+/whisk.system/combinators/eca                                          private nodejs:6<br />
+/whisk.system/combinators/trycatch                                     private nodejs:6<br />
+/whisk.system/utils/smash                                              private nodejs:6<br />
+/whisk.system/samples/wordCount                                        private nodejs:6<br />
+/whisk.system/samples/helloWorld                                       private nodejs:6<br />
+/whisk.system/github/webhook                                           private nodejs:6<br />
+/whisk.system/utils/split                                              private nodejs:6<br />
+/whisk.system/watson-translator/languageId                             private nodejs:6<br />
+/whisk.system/watson-textToSpeech/textToSpeech                         private nodejs:6<br />
+/whisk.system/websocket/send                                           private nodejs:6<br />
+/whisk.system/slack/post                                               private nodejs:6<br />
+/whisk.system/weather/forecast                                         private nodejs:6</p>
+
+<p><strong>triggers</strong></p>
+
+<p><strong>rules</strong></p>
+
+<h3 id="setup-of-eclipseche">Setup of Eclipse Che</h3>
+
+<p>Using shell scripts, we can deploy easily Eclipse Che on top of MiniShift.</p>
+
+<p><a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/modules/openshift/files/scripts/deploy_che.sh" title="https://github.com/eclipse/che/blob/master/dockerfiles/init/modules/openshift/files/scripts/deploy_che.sh"><strong>eclipse/che</strong><br />
+_che - Eclipse Che: Next-generation Eclipse IDE. Open source workspace server and cloud IDE._github.com</a><a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/modules/openshift/files/scripts/deploy_che.sh"></a></p>
+
+<p>Let’s run <code class="language-plaintext highlighter-rouge">./deploy_che.sh</code> script from the previous link.</p>
+
+<p>Now we have two MiniShift projects, <code class="language-plaintext highlighter-rouge">openwhisk</code> with all Apache OpenWhisk deployments and <code class="language-plaintext highlighter-rouge">eclipse-che</code> with Eclipse Che images running.</p>
+
+<p>Eclipse Che can be reached at <a href="http://che-eclipse-che.192.168.64.5.nip.io/dashboard">http://che-eclipse-che.192.168.64.5.nip.io/dashboard</a> on my current setup. (the link is displayed at the end of the run of the sh script)</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*MvjCGP94kzRBRDVsqtCtVA.png" alt="" /></p>
+
+<p>Let’s create a workspace by using the following docker image: <code class="language-plaintext highlighter-rouge">florentbenoit/centos_openwhisk</code> This image integrates Java, NodeJS and Python runtime but also OpenShift client <code class="language-plaintext highlighter-rouge">(oc)</code>and OpenWhisk client <code class="language-plaintext highlighter-rouge">(wsk)</code></p>
+
+<p>Once the workspace is created, let’s import a maven Java project so we will be able to create a Java action with OpenWhisk. The project source code is at <a href="https://github.com/benoitf/openwhisk-action">https://github.com/benoitf/openwhisk-action</a></p>
+
+<p><a href="https://github.com/benoitf/openwhisk-action" title="https://github.com/benoitf/openwhisk-action"><strong>benoitf/openwhisk-action</strong><br />
+_Contribute to openwhisk-action development by creating an account on GitHub._github.com</a><a href="https://github.com/benoitf/openwhisk-action"></a></p>
+
+<p>Let’s build the maven project:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8ak-embtGh0s7EZNqrIh3w.gif" alt="" /></p>
+
+<p>In the target folder, the jar file was generated.</p>
+
+<p>Now, let’s connect Eclipse Che to OpenWhisk.</p>
+
+<p>First, we login from the Che terminal to MiniShift (192.168.64.5 being the IP that is displayed by using <code class="language-plaintext highlighter-rouge">$ minishift ip</code> command)</p>
+
+<p><em>$ oc login</em> <a href="https://192.168.64"><em>https://192.168.64.5:8443</em></a>_<br />
+(we use developer/developer as login and password)_</p>
+
+<p>Authentication required for <a href="https://192.168.64.5:8443">https://192.168.64.5:8443</a> (openshift)<br />
+Username: developer<br />
+Password:<br />
+Login successful.</p>
+
+<p>You have access to the following projects and can switch between them with ‘oc<br />
+project <projectname>':</projectname></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eclipse-che
+    myproject
+    openwhisk
+  <span class="se">\*</span> workspacewdsw9iop4nubfh7m
+</code></pre></div></div>
+
+<p>Using project “workspacewdsw9iop4nubfh7m”.</p>
+
+<p>We need to get data from OpenWhisk, so we enter the command <code class="language-plaintext highlighter-rouge">oc project openwhisk</code></p>
+
+<p>$ oc project openwhisk<br />
+Now using project “openwhisk” on server “<a href="https://192.168.64.5:8443">https://192.168.64.5:8443</a>”.</p>
+
+<p>Then we’re able to configure OpenWhisk client</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ AUTH_SECRET</span><span class="o">=</span><span class="si">$(</span>oc get secret openwhisk <span class="nt">-o</span> yaml | <span class="nb">grep</span> <span class="s2">"system:"</span> | <span class="nb">awk</span> <span class="s1">'{print $2}'</span> | <span class="nb">base64</span> <span class="nt">--decode</span><span class="si">)</span><span class="nv">$ </span>wsk property <span class="nb">set</span> <span class="nt">--auth</span> <span class="nv">$AUTH_SECRET</span> <span class="nt">--apihost</span> <span class="si">$(</span>oc get route/openwhisk <span class="nt">--template</span><span class="o">={{</span> .spec.host <span class="o">}}</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>then we can build the action from the JAR file</p>
+
+<p>$ cd target/<br />
+$ wsk -i action create helloJava openwhisk-action-1.0-SNAPSHOT.jar –main Hello<br />
+$ wsk -i action invoke –result helloJava –param name “Eclipse Che”</p>
+
+<p>so we were able to write an action from Eclipse Che, create it in OpenWhisk and invoke it by providing “Eclipse Che” parameter.</p>
+
+<p>[user@workspacewdsw9iop4nubfh7m target]$ wsk -i action invoke –result helloJava –param name “Eclipse Che”<br />
+{<br />
+    “greeting”: “Hello Eclipse Che!”<br />
+}<br />
+[user@workspacewdsw9iop4nubfh7m target]$ wsk -i action invoke –result helloJava –param name “Eclipse Che test”<br />
+{<br />
+    “greeting”: “Hello Eclipse Che test!”<br />
+}</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*5KCftW_aMynTi6hYxHFnUw.gif" alt="" /></p>
+
+<p>As always please let us know your thoughts by connecting with us on twitter @eclipse_che or by filing issues in the Che GitHub repo at <a href="https://github.com/eclipse/che">https://github.com/eclipse/che</a></p>
+
+  </div><a class="u-url" href="/2018/01/12/@florent.benoit-apache-openwhisk-eclipse-che-and-openshift-minishift.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

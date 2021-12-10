@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Eclipse Che 7 — Extending developer workspaces to run VS Code extensions in the cloud | Eclipse Che Blog</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Eclipse Che 7 — Extending developer workspaces to run VS Code extensions in the cloud" />
+<meta name="author" content="Florent Benoit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A plug-in model added to Eclipse Theia to support VS Code extensions and run them in cloud developer workspaces with Eclipse Che." />
+<meta property="og:description" content="A plug-in model added to Eclipse Theia to support VS Code extensions and run them in cloud developer workspaces with Eclipse Che." />
+<link rel="canonical" href="https://che.eclipseprojects.io/2019/01/17/@florent.benoit-eclipse-che-7-extending-developer-workspaces-to-run-vs-code-extensions-in-the-cloud.html" />
+<meta property="og:url" content="https://che.eclipseprojects.io/2019/01/17/@florent.benoit-eclipse-che-7-extending-developer-workspaces-to-run-vs-code-extensions-in-the-cloud.html" />
+<meta property="og:site_name" content="Eclipse Che Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-17T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Eclipse Che 7 — Extending developer workspaces to run VS Code extensions in the cloud" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Florent Benoit"},"description":"A plug-in model added to Eclipse Theia to support VS Code extensions and run them in cloud developer workspaces with Eclipse Che.","url":"https://che.eclipseprojects.io/2019/01/17/@florent.benoit-eclipse-che-7-extending-developer-workspaces-to-run-vs-code-extensions-in-the-cloud.html","@type":"BlogPosting","headline":"Eclipse Che 7 — Extending developer workspaces to run VS Code extensions in the cloud","dateModified":"2019-01-17T00:00:00+00:00","datePublished":"2019-01-17T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://che.eclipseprojects.io/2019/01/17/@florent.benoit-eclipse-che-7-extending-developer-workspaces-to-run-vs-code-extensions-in-the-cloud.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://che.eclipseprojects.io/feed.xml" title="Eclipse Che Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Eclipse Che Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Eclipse Che 7 — Extending developer workspaces to run VS Code extensions in the cloud</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-01-17T00:00:00+00:00" itemprop="datePublished">Jan 17, 2019
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Florent Benoit</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Over the last month, the Eclipse Che community has been adopting Eclipse Theia as the default web IDE provided with Che developer workspaces. We’ve enriched the Eclipse Theia with a plug-in model to provide VS Code extension compatibility. This blog post explain why we decided to add the plug-in model to Eclipse Theia and what are the benefits when it’s used with Eclipse Che developer workspaces .</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/0*lQP7_HqXIafdcecV.jpg" alt="" /></p>
+
+<p>In <a href="https://www.eclipse.org/che">Eclipse Che</a> 6, it is possible to develop and plug-ins on top of the GWT IDE but it is not possible to load them at runtime without stopping/recompiling and then reloading the IDE.</p>
+
+<h3 id="the-requirements">The Requirements</h3>
+
+<p>A lot of people wanted to improve that extensibility model. For the upcoming version of <a href="http://eclipse.org/che">Eclipse Che</a>, Che 7, we ended up with the following requirements:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*G2fjiJG3NWqw8hPWJgVDfg.png" alt="" /></p>
+
+<ol>
+  <li>Plug-ins should be loaded at runtime easily and it should not involve any compilation step at that time. Plug-in should be already compiled and IDE should only load the code.</li>
+</ol>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*vUEntDKhbofTukMqGgyKkg.png" alt="" /></p>
+
+<p>2. A plug-in shouldn’t break the whole IDE if it is not well written. For example if I load a broken plug-in, I should still be able to use the current IDE</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*rNDJzvEAo17bvtMVjEdQ0g.png" alt="" /></p>
+
+<p>3. In <a href="http://eclipse.org/che">Eclipse Che</a>, we wanted to guarantee that any plug-in shouldn’t block the main functions of the IDE like opening a file or typing. It could allow to identify if it’s the main product that has issue or if it’s due to a specific plug-in. Also, if two plug-ins are relying on the same dependency but in different versions it shouldn’t be a problem as well, each plug-in using its own dependency.</p>
+
+<h3 id="existing-ide">Existing IDE</h3>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*DAEuLnhX-i4Xy0rbuQfLiQ.png" alt="" /></p>
+
+<p>The current IDE (Eclipse Che 6) requires to recompile the whole IDE when a new plug-in is added. Some experiments were made to use <a href="http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsJsInterop.html">JS-Interop</a> to dynamically load JavaScript plug-ins. But we need to take into consideration that many people dislike GWT, by saying it’s a technology of the past.</p>
+
+<p>The API provided is a low-level API. It’s a great API but as you can change everything you can also break everything. And it is difficult to know each entry point.</p>
+
+<h3 id="alternative">Alternative</h3>
+
+<p><a href="https://www.eclipse.org/theia">Eclipse Theia</a> has been considered to be the alternative IDE in <a href="http://eclipse.org/che">Eclipse Che</a>. This IDE can be embedded and used in <a href="http://eclipse.org/che">Eclipse Che</a> as it’s a web based IDE and use modern technologies like <a href="https://reactjs.org/">React</a> and is written in <a href="https://www.typescriptlang.org/">TypeScript</a>. This IDE had only a single extension model: Theia extension.</p>
+
+<p>The problem is that this extension model was mainly designed to develop customs IDE so it has issues for our requirements:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*RkQfX6SQfxESxkNPdcBXaw.png" alt="" /></p>
+
+<p>With Eclipse Theia extensions, once a new Theia extension is added, the whole IDE is recompiled. If an extension is not so clean, you may broke the full IDE. It’s a problem when you want to allow users to add custom plug-ins.<br />
+Let’s imagine you open a Che workspace and you see a blank page due to a compilation failure instead of the IDE…</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*iL2dsirgV1lc9hnEv4uE3g.png" alt="" /></p>
+
+<p>Extensions are retrieved from npmjs repository. It’s nice but npmjs has tons of libraries and when you install an extension, it will download all dependencies again and again. If you’ve many dependencies, it may break. You might want to use a local repository easily as well.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*v9Q4xIot0okskDI8IfXmPw.png" alt="" /></p>
+
+<p>Theia extensions allow to customize the whole IDE but as for the GWT IDE in Eclipse Che 6, extensions may easily break the full IDE.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*WGG-1miS8yq1iguGoDip4w.png" alt="" /></p>
+
+<p>It’s very nice when you are advanced users or power users but when you want to write your first extension, you’ve to master <a href="http://inversify.io/">inversify</a> and dependency injection and also you need to know which class is doing what and which interface you need to implement.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*eapMvHtrxK92E9wYh9CV-A.png" alt="" /></p>
+
+<p>So this extension model was not matching the requirements. At Red Hat, we decided to bring another extensibility model into Eclipse Theia: the Theia plug-ins</p>
+
+<h3 id="theia-plug-ins">Theia plug-ins</h3>
+
+<p>This new extensibility model has been integrated into Eclipse Theia upstream.</p>
+
+<p>Here are key aspects of Theia plug-ins:</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hgD983O-549v2IzMMmx-SA.png" alt="" /></p>
+
+<p>Plug-ins can be loaded at any time at the runtime without having to restart/refresh the IDE.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*5Gyw2iLfSa-bIdwoVS5czQ.png" alt="" /></p>
+
+<p>Eclipse Theia plug-ins are packaged into <code class="language-plaintext highlighter-rouge">.theia</code> files and contain all the runtime code for the plug-ins. No need to download anything else when you load this plug-in at runtime.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*9l4NrkIGBqwvCR1ibEOUtQ.png" alt="" /></p>
+
+<p>You might want to bring a dependency injection framework into your plug-in but it’s up to you. The model is as simple as importing only once namespace <code class="language-plaintext highlighter-rouge">@theia/plugin</code> (through npmjs package <code class="language-plaintext highlighter-rouge">@theia/plugin</code>) and you can get all stuff from this entry point with code completion on this object. Then you implement the lifecycle of your plug-in by implementing <code class="language-plaintext highlighter-rouge">start</code>and <code class="language-plaintext highlighter-rouge">stop</code> functions.</p>
+
+<h4 id="sample-code-of-a-theiaplug-in">Sample code of a theia plug-in</h4>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zY8tCWOmX4YpUF5M0DtfOw.png" alt="" /></p>
+
+<p>It is a protocol. It means that we can run plug-ins anywhere. Some plug-ins can run in worker threads of the browser (they are called frontend plug-ins) or it can run on server side on separate processes (backend plug-ins). It’s easy to handle other kind of namespace, including VS Code extensions.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*N7ch7PdCcOkKtcknz-5jkQ.png" alt="" />
+<img src="https://cdn-images-1.medium.com/max/800/1*HbPE-preYemMYHCBHeSX9g.png" alt="" /></p>
+
+<p>It’s backward compliant. As plug-in model is provided through a TypeScript declaration file, even if the implementation of this model is entirely rewritten or if code refactoring is done on many Eclipse Theia classes, the model stay unchanged.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hKt1gsZTkWN0glPnJKfu4w.png" alt="" /></p>
+
+<p>As it’s a high level API, you may not be able to break the whole IDE but you may not do what you want in the way you want but surely there are many possibilities.</p>
+
+<h4 id="container-ready">Container Ready</h4>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*n5Acsc2XWmy9RJVy6vSWQw.png" alt="" /></p>
+
+<p>Eclipse Che is using containers for the tooling. Theia plug-ins are written in TypeScript/Javascript and it works well. But sometimes, plug-ins writers need some dependencies that are not only pure <code class="language-plaintext highlighter-rouge">npmjs</code> dependencies. For example if people write a Language Server for Java, this plug-in will probably require java. So it might implies that the container that runs Eclipse Theia should have java already installed on it.</p>
+
+<p>This is why in Eclipse Che, it’s possible to run each Eclipse Theia plug-in in its own container, allowing to use any system dependency from this plug-in.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jWMXjumXc-n3dH2UvTyDug.png" alt="" /></p>
+
+<p>By default all plug-ins are executed as separate processes in the Theia container.</p>
+
+<h3 id="vs-code-extensions">VS Code Extensions</h3>
+
+<p><img src="https://cdn-images-1.medium.com/max/600/1*kPPtr8GFjknmji2-pTECEQ.png" alt="" /></p>
+
+<p>Eclipse Theia Plug-in protocol being extensible, support of VS Code API is being added inside Eclipse Theia. It allows to have some VS Code extensions running inside Eclipse Theia.</p>
+
+<p>For example it’s possible to use SonarLint VS Code extension from VS Code marketplace</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/0*gZ8B07jSd6On5t--" alt="" />
+<img src="https://cdn-images-1.medium.com/max/800/1*BCuitm8DmPZIR8zqm5bVrA.gif" alt="" />
+<img src="https://cdn-images-1.medium.com/max/800/0*PHuAGo4Blrt99k_q" alt="" /></p>
+
+<h3 id="try-eclipse-che-7now">Try Eclipse Che 7 Now!</h3>
+
+<p>Want to give a try to the new version of Eclipse Che 7? Try the following:</p>
+
+<p><strong>Click on</strong> the following factory URL : <a href="https://che.openshift.io/f?id=factoryvbwekkducozn3jsn">https://che.openshift.io/f?id=factoryvbwekkducozn3jsn</a></p>
+
+<p><strong>Or Create your account</strong> on <a href="https://che.openshift.io">che.openshift.io</a>, <strong>create a new workspace</strong> and select “Che 7” stack.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*PChYzMeZ55Q7dJ4c3A1WSA.png" alt="" /></p>
+
+<p>You can also test that <strong>locally</strong>, by installing the latest version of Eclipse Che: <a href="http://www.eclipse.org/che/docs/#getting-started">Quick Start with Eclipse Che</a>.</p>
+
+<h3 id="want-to-learnmore">Want to learn more?</h3>
+
+<p>Blog post about Eclipse Che 7:</p>
+
+<ul>
+  <li>Read the <a href="https://medium.com/p/64d79b75ca02">blog post serie about Eclipse Che 7</a>.</li>
+</ul>
+
+<h3 id="get-involved">Get Involved!</h3>
+
+<p><a href="http://www.eclipse.org/che/docs/#getting-started">Quick Start with Eclipse Che</a>.</p>
+
+<p>Join the community:</p>
+
+<ul>
+  <li><strong>Support</strong>: You can ask questions, report bugs, and request features using <a href="https://github.com/eclipse/che/issues">GitHub issues</a>.</li>
+  <li><strong>Public Chat</strong>: Join the public <a href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che">eclipse-che</a> Mattermost channel to discuss with community and contributors.</li>
+  <li><strong>Weekly Meetings</strong>: Join us in our <a href="https://github.com/eclipse/che/wiki/Che-Dev-Meetings">Che community meeting</a> every second monday.</li>
+  <li><strong>Mailing list</strong>: che-dev@eclipse.org</li>
+</ul>
+
+  </div><a class="u-url" href="/2019/01/17/@florent.benoit-eclipse-che-7-extending-developer-workspaces-to-run-vs-code-extensions-in-the-cloud.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Eclipse Che Blog</li><li><a class="u-email" href="mailto:che-dev@eclipse.org">che-dev@eclipse.org</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eclipse"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eclipse</span></a></li><li><a href="https://www.twitter.com/eclipse_che"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eclipse_che</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Eclipse Che runs IDEs in Kubernetes.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
