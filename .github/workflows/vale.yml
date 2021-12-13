@@ -9,7 +9,7 @@
 
 name: Linting with Vale
 on:
-  - pull_request_target
+  - push
 jobs:
   vale:
     runs-on: ubuntu-20.04
