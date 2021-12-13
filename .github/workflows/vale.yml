@@ -8,22 +8,54 @@
 #
 
 name: Linting with Vale
+
 on:
-  - push
+  workflow_run:
+    workflows: ["Build PR check"]
+    types:
+      - completed
+
 jobs:
   vale:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Vale Linter
-        uses: errata-ai/vale-action@v1.4.2
+      - name: download modified files
+        uses: dawidd6/action-download-artifact@v2
         with:
-          files: __onlyModified
-          styles: | 
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: modified-files
+          path: modified-files/
+      - id: read-modified-files
+        run: |
+          echo 'CHANGED_FILES<<EOF' >> $GITHUB_ENV
+          jq -cr '.' modified-files/modified_files.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: PR sha
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pull-request-sha
+      - name: Grab pull request sha1
+        run: |
+          pr_sha=$(cat "PR_SHA")
+          echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
+      - name: download blog posts source
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: blog-post-source
+          path: _posts
+      - name: display
+        run:
+          echo using '${{ env.CHANGED_FILES }}' files
+      - name: Vale Linter
+        uses: benoitf/vale-action@comment-pr
+        with:
+          files: '${{ env.CHANGED_FILES }}'
+          styles: |
             https://github.com/vale-at-red-hat/vale-at-red-hat/releases/latest/download/RedHat.zip
             https://github.com/vale-at-red-hat/chedocs/releases/latest/download/CheDocs.zip
           config: https://raw.githubusercontent.com/vale-at-red-hat/vale-at-red-hat/master/.vale-for-github-action.ini
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          OVERRIDE_GITHUB_SHA: ${{env.PR_SHA}}

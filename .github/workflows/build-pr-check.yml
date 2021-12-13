@@ -24,6 +24,11 @@ jobs:
       with:
         ruby-version: 2.7
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: blog-post-source
+        path: _posts
+
     - name: 🔨 install dependencies & build site
       uses: limjh16/jekyll-action-ts@v2
       with:
@@ -36,7 +41,6 @@ jobs:
         path: ./_site
   pull-request-info:
     runs-on: ubuntu-20.04
-    needs: [jekyll-pr-check]
     steps:
      - name: Store PR info
        run: |
@@ -50,3 +54,13 @@ jobs:
        with:
          name: pull-request-sha
          path: PR_SHA
+     - uses: jitterbit/get-changed-files@v1
+       id: get-files
+       with:
+         format: 'json'
+     - run: |
+         jq -r '.' <<< '${{ steps.get-files.outputs.all }}' > modified_files.json
+     - uses: actions/upload-artifact@v2
+       with:
+         name: modified-files
+         path: modified_files.json
