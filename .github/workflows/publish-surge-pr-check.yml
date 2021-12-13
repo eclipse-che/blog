@@ -25,7 +25,7 @@ jobs:
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: blog-content
-          path: content.zip
+          path: _site
       - name: PR number
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -56,8 +56,6 @@ jobs:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: |
           npm install -g surge
-          ls -la content*
-          unzip content.zip
           export DEPLOY_DOMAIN=https://pr-check-${PR_NUMBER}-${{matrix.dist}}-che-blog.surge.sh
           echo "DEPLOY_DOMAIN=$DEPLOY_DOMAIN" >> $GITHUB_ENV
           surge ./_site --domain $DEPLOY_DOMAIN
