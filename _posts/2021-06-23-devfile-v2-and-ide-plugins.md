@@ -27,7 +27,7 @@ Devfile v2 support in Eclipse Che can be followed by milestones.
 
 *   [Milestone 1](https://github.com/eclipse/che/milestone/136) introduced the first support of Devfile v2 (start a basic workspace)
 *   [Milestone 2](https://github.com/eclipse/che/milestone/139) just landed in Eclipse Che 7.32.0 with the support of Theia plug-ins for DevWorkspaces
-*   [Milestone 3](https://github.com/eclipse/che/milestone/140) is the next target, including vanilla Kubernetes support (currently only OpenShift is supported) and more.
+*   [End Game](https://github.com/eclipse/che/issues/20830) is the End Game issue.
 
 ### How to test ?
 
@@ -164,13 +164,7 @@ Although excluding the IDE plug-ins from the Devfile specification represents a 
 
 #### Deploy plug-ins in existing containers
 
-By default, in Eclipse Che and when using Eclipse Theia editor, IDE plug-ins are deployed either in the Che-Theia container (when it only requires nodejs runtime) or through a new sidecar container (for example for Java, Go, Python, Php, etc.)
-
-Now, there is a new attribute of the devfile specific to Che-Theia:
-```yaml
-attributes:  
-  che-theia.eclipse.org/sidecar-policy: USE_DEV_CONTAINER
-```
+By default, in Eclipse Che and when using Eclipse Theia editor, IDE plug-ins were deployed either in the Che-Theia container (when it only requires nodejs runtime) or through a new sidecar container (for example for Java, Go, Python, Php, etc.)
 
 In that case, all plugins requiring a sidecar will be deployed in the `user defined container` and not in their specific sidecar container.
 
@@ -183,8 +177,6 @@ If a repository contains these two files:
 schemaVersion: 2.1.0  
 metadata:  
   name: my-example  
-attributes:  
-  che-theia.eclipse.org/sidecar-policy: USE_DEV_CONTAINER
 components:  
   - name: tools  
     container:  
@@ -204,6 +196,13 @@ components:
 The plug-in `redhat.java` will be started inside the tools container and in its own sidecar container.
 
 For this to work the tools container should include the plug pre-requisites otherwise the VS Code java extension will fail to start.
+
+To disable this behaviour, use the following attribute:
+
+```yaml
+attributes:  
+  che-theia.eclipse.org/sidecar-policy: mergeImage
+```
 
 #### Prebuilt DevWorkspace templates
 
