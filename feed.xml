@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2021-12-13T10:12:50+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Test pull requests with the Try in Web IDE GitHub action</title><link href="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" rel="alternate" type="text/html" title="Test pull requests with the Try in Web IDE GitHub action" /><published>2021-10-18T00:00:00+00:00</published><updated>2021-10-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/10/18/@david.kwon/test-pull-requests-with-the-try-in-web-ide-github-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html">&lt;p&gt;&lt;em&gt;Cross posted from the &lt;a href=&quot;https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository&quot;&gt;Red Hat Developer blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2021-12-13T11:03:03+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Test pull requests with the Try in Web IDE GitHub action</title><link href="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html" rel="alternate" type="text/html" title="Test pull requests with the Try in Web IDE GitHub action" /><published>2021-10-18T00:00:00+00:00</published><updated>2021-10-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/10/18/@david.kwon/test-pull-requests-with-the-try-in-web-ide-github-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html">&lt;p&gt;&lt;em&gt;Cross posted from the &lt;a href=&quot;https://developers.redhat.com/articles/2021/10/07/test-pull-requests-try-web-ide-github-action#integrate_the_try_in_web_ide_action_with_your_github_repository&quot;&gt;Red Hat Developer blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Web-based, cloud-hosted integrated development environments (IDEs) can make development and collaboration more efficient if they are well integrated with version control. This blog post shows you how to use the &lt;a href=&quot;https://github.com/marketplace/actions/try-in-web-ide&quot;&gt;Try in Web IDE GitHub action&lt;/a&gt; to make it easier for collaborators to test pull requests on &lt;a href=&quot;https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/&quot;&gt;Eclipse Che hosted by Red Hat&lt;/a&gt;.&lt;/p&gt;
 
@@ -491,7 +491,7 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/eclipse/che/milestone/136&quot;&gt;Milestone 1&lt;/a&gt; introduced the first support of Devfile v2 (start a basic workspace)&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/eclipse/che/milestone/139&quot;&gt;Milestone 2&lt;/a&gt; just landed in Eclipse Che 7.32.0 with the support of Theia plug-ins for DevWorkspaces&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/eclipse/che/milestone/140&quot;&gt;Milestone 3&lt;/a&gt; is the next target, including vanilla Kubernetes support (currently only OpenShift is supported) and more.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/eclipse/che/issues/20830&quot;&gt;End Game&lt;/a&gt; is the End Game issue.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;how-to-test&quot;&gt;How to test ?&lt;/h3&gt;
@@ -623,12 +623,7 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 
 &lt;h4 id=&quot;deploy-plug-ins-in-existing-containers&quot;&gt;Deploy plug-ins in existing containers&lt;/h4&gt;
 
-&lt;p&gt;By default, in Eclipse Che and when using Eclipse Theia editor, IDE plug-ins are deployed either in the Che-Theia container (when it only requires nodejs runtime) or through a new sidecar container (for example for Java, Go, Python, Php, etc.)&lt;/p&gt;
-
-&lt;p&gt;Now, there is a new attribute of the devfile specific to Che-Theia:&lt;/p&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;che-theia.eclipse.org/sidecar-policy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;USE_DEV_CONTAINER&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;By default, in Eclipse Che and when using Eclipse Theia editor, IDE plug-ins were deployed either in the Che-Theia container (when it only requires nodejs runtime) or through a new sidecar container (for example for Java, Go, Python, Php, etc.)&lt;/p&gt;
 
 &lt;p&gt;In that case, all plugins requiring a sidecar will be deployed in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user defined container&lt;/code&gt; and not in their specific sidecar container.&lt;/p&gt;
 
@@ -641,8 +636,6 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
     &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;schemaVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2.1.0&lt;/span&gt;  
 &lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
   &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-example&lt;/span&gt;  
-&lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;che-theia.eclipse.org/sidecar-policy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;USE_DEV_CONTAINER&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;components&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tools&lt;/span&gt;  
  &lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
@@ -664,6 +657,12 @@ However, it is possible to restore from a specific snapshot by adding &lt;code c
 &lt;p&gt;The plug-in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redhat.java&lt;/code&gt; will be started inside the tools container and in its own sidecar container.&lt;/p&gt;
 
 &lt;p&gt;For this to work the tools container should include the plug pre-requisites otherwise the VS Code java extension will fail to start.&lt;/p&gt;
+
+&lt;p&gt;To disable this behaviour, use the following attribute:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
+  &lt;span class=&quot;na&quot;&gt;che-theia.eclipse.org/sidecar-policy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mergeImage&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;prebuilt-devworkspace-templates&quot;&gt;Prebuilt DevWorkspace templates&lt;/h4&gt;
 

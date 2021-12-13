@@ -172,11 +172,10 @@
                 plug-ins for DevWorkspaces
               </li>
               <li>
-                <a href="https://github.com/eclipse/che/milestone/140"
-                  >Milestone 3</a
+                <a href="https://github.com/eclipse/che/issues/20830"
+                  >End Game</a
                 >
-                is the next target, including vanilla Kubernetes support
-                (currently only OpenShift is supported) and more.
+                is the End Game issue.
               </li>
             </ul>
 
@@ -542,24 +541,10 @@
 
             <p>
               By default, in Eclipse Che and when using Eclipse Theia editor,
-              IDE plug-ins are deployed either in the Che-Theia container (when
+              IDE plug-ins were deployed either in the Che-Theia container (when
               it only requires nodejs runtime) or through a new sidecar
               container (for example for Java, Go, Python, Php, etc.)
             </p>
-
-            <p>
-              Now, there is a new attribute of the devfile specific to
-              Che-Theia:
-            </p>
-            <div class="language-yaml highlighter-rouge">
-              <div class="highlight">
-                <pre
-                  class="highlight"
-                ><code><span class="na">attributes</span><span class="pi">:</span>  
-  <span class="na">che-theia.eclipse.org/sidecar-policy</span><span class="pi">:</span> <span class="s">USE_DEV_CONTAINER</span>
-</code></pre>
-              </div>
-            </div>
 
             <p>
               In that case, all plugins requiring a sidecar will be deployed in
@@ -587,8 +572,6 @@
                     ><code><span class="na">schemaVersion</span><span class="pi">:</span> <span class="s">2.1.0</span>  
 <span class="na">metadata</span><span class="pi">:</span>  
   <span class="na">name</span><span class="pi">:</span> <span class="s">my-example</span>  
-<span class="na">attributes</span><span class="pi">:</span>  
-  <span class="na">che-theia.eclipse.org/sidecar-policy</span><span class="pi">:</span> <span class="s">USE_DEV_CONTAINER</span>
 <span class="na">components</span><span class="pi">:</span>  
   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">tools</span>  
  <span class="na">container</span><span class="pi">:</span>  
@@ -633,6 +616,18 @@
               pre-requisites otherwise the VS Code java extension will fail to
               start.
             </p>
+
+            <p>To disable this behaviour, use the following attribute:</p>
+
+            <div class="language-yaml highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code><span class="na">attributes</span><span class="pi">:</span>  
+  <span class="na">che-theia.eclipse.org/sidecar-policy</span><span class="pi">:</span> <span class="s">mergeImage</span>
+</code></pre>
+              </div>
+            </div>
 
             <h4 id="prebuilt-devworkspace-templates">
               Prebuilt DevWorkspace templates
