@@ -90,7 +90,6 @@ The short name for the `devfilePath` parameter is `df`.
 
 == URL syntax for workspace names
 
-With DevWorkspace Operator enabled:
 
 If you enter a URL such as `{prod-url}#http://github.com/foo/bar` and you don’t have any workspace named `bar`, {prod} creates a workspace named `bar` and clones the GitHub repository.
 
