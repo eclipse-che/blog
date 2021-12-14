@@ -35,6 +35,7 @@ URL syntax for cloning GitHub-hosted repositories to the starting workspace:
 +
 `#https://github.com/_<user_or_org>_/_<repository>_`
 +
+.Cloning the default branch of the link:https://github.com/eclipse-che/che-plugin-registry[Plug-in registry repository].
 ====
 `#https://github.com/eclipse-che/che-plugin-registry`
 ====
@@ -43,6 +44,7 @@ URL syntax for cloning GitHub-hosted repositories to the starting workspace:
 +
 `#https://github.com/_<user_or_org>_/_<repository>_/tree/_<branch-name>_`
 +
+.Cloning the `7.39.x` branch of the link:https://github.com/eclipse-che/che-plugin-registry[Plug-in registry repository].
 ====
 `#https://github.com/eclipse-che/che-plugin-registry/tree/7.39.x`
 ====
