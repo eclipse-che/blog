@@ -87,7 +87,7 @@ Some available IDE keys:
 The parameter `?che-editor` accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
 
 ====
-`++{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml++`
+`pass:c,a,q[{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml]`
 ====
 
 === Using a different devfile file from the repository
@@ -97,13 +97,13 @@ If the devfile file name is different from the default search pattern, which is 
 Use the parameter `?devfilePath=mydevfile.yaml` at the end of `{prod-url}#__<git_repository_url>__`.
 
 ====
-`++{prod-url}#https://github.com/example/foo?devfilePath=mydevfile.yaml++`
+`pass:c,a,q[{prod-url}#https://github.com/example/foo?devfilePath=mydevfile.yaml]`
 ====
 
 The short name for the `devfilePath` parameter is `df`.
 
 ====
-`++{prod-url}#https://github.com/example/foo?df=mydevfile.yaml++`
+`pass:c,a,q[{prod-url}#https://github.com/example/foo?df=mydevfile.yaml]`
 ====
 
 
