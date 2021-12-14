@@ -53,6 +53,7 @@ URL syntax for cloning GitHub-hosted repositories to the starting workspace:
 +
 `#https://github.com/_<user_or_org>_/_<repository>_/pull/_<pull-request-id>_`
 +
+.Cloning the link:https://github.com/eclipse-che/che-plugin-registry/pull/1097[Plug-in registry repository pull request `#1097`].
 ====
 `#https://github.com/eclipse-che/che-plugin-registry/pull/1097`
 ====
