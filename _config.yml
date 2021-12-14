@@ -107,7 +107,7 @@ asciidoc:
     prod-prev-ver: "7.39"
     prod-short: Che
     prod-upstream: Eclipse{nbsp}Che
-    prod-url: https://_<che-host>_
+    prod-url: https://__<che-host>__
     prod-ver-major: "7"
     prod-ver-patch: "7.40.1"
     prod-ver: "7.40"
