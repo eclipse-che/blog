@@ -66,7 +66,13 @@ URL syntax for cloning GitLab-hosted repositories:
 Overriding the default editor is possible with the `?che-editor=__<editor-id>__` parameter. The `editor-id` comes from the identifier of the IDE in the plug-in registry.
 * Example: `{prod-url}#https://github.com/example/foo?che-editor=eclipse/che-theia/next` to use the next version of Theia (build after each commit) 
 
-Some of IDE keys are `eclipse/che-theia/latest`, `eclipse/che-theia/next`, `che-incubator/intellij-community/latest`, `che-incubator/pycharm/latest` or `che-incubator/che-code/insiders`
+Some available IDE keys:
+
+* `eclipse/che-theia/latest`
+* `eclipse/che-theia/next`
+* `che-incubator/intellij-community/latest`
+* `che-incubator/pycharm/latest` 
+* `che-incubator/che-code/insiders`
 
 The parameter `?che-editor` accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
 * Example: `{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml`
