@@ -65,7 +65,7 @@ URL syntax for cloning GitLab-hosted repositories:
 `#https://gitlab.com/_<user_or_org>_/_<repository>_/-/tree/_<branch>_`
 
 
-=== Using a different editor or `IDE`
+=== Using a different editor or Integrated Development Environment (IDE)
 
 {prod} starts workspaces with a default IDE: {prod-short} Theia.
 
