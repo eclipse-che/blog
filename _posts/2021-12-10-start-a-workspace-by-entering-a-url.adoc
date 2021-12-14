@@ -93,7 +93,7 @@ The short name for the `devfilePath` parameter is `df`.
 
 If you enter a URL such as `{prod-url}#http://github.com/foo/bar` and you don’t have any workspace named `bar`, {prod} creates a workspace named `bar` and clones the GitHub repository.
 
-Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, {prod} reopens the previously created workspace `bar`. (If you deleted the previously created `bar` workspace, entering `{prod-url}#http://github.com/foo/bar` results in {prod} creating another workspace named `bar`.)
+Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, {prod} reopens the existing workspace `bar`.
 
 To create another workspace each time you enter the same URL, enter the URL appended with `?new` in the URL format `{prod-url}#http://github.com/foo/bar?new`. Even if you already have a workspace named `bar`, each time you enter such URL, {prod} will create another, sequentially named workspace (example: `bar-abcde`).
 
