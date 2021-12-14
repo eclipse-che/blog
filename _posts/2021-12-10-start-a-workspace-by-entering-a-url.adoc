@@ -11,9 +11,10 @@ slug: /@florent.benoit/start-a-workspace-by-entering-a-url
 
 == Starting a workspace by entering a URL
 
-As a user, you can create a workspace containing a clone of a Git repository by entering a custom URL in the address bar of your browser.
+As a user, you can create a workspace containing a clone of a Git repository by entering:
 
-As a user, you can also create a workspace containing a clone of a Git repository by entering the URL of the Git repository on the {prod} dashboard page.
+* a custom URL in the address bar of your browser.
+* the URL of the Git repository on the {prod} dashboard page.
 
 === Short URL syntax for cloning hosted Git repositories
 
