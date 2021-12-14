@@ -79,7 +79,10 @@ Some available IDE keys:
 * `che-incubator/che-code/insiders`
 
 The parameter `?che-editor` accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
-* Example: `{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml`
+
+====
+`++{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml++`
+====
 
 === Using a different devfile file from the repository
 
@@ -92,7 +95,10 @@ Use the parameter `?devfilePath=mydevfile.yaml` at the end of `{prod-url}#__<git
 ====
 
 The short name for the `devfilePath` parameter is `df`.
-* Example: `{prod-url}#https://github.com/example/foo?df=mydevfile.yaml`
+
+====
+`++{prod-url}#https://github.com/example/foo?df=mydevfile.yaml++`
+====
 
 
 == URL syntax for workspace names
