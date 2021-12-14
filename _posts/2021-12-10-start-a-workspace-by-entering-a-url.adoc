@@ -61,7 +61,7 @@ URL syntax for cloning GitLab-hosted repositories:
 
 === Using a different editor or `IDE`
 
-The default IDE is a property of {prod}, and the default value is `eclipse/che-theia/latest`. See the docs for the link:https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/#devfile-defaults[Devfile defaults].
+{prod} starts workspaces with a default IDE: {prod-short} Theia.
 
 Overriding the default editor is possible with the `?che-editor=__<editor-id>__` parameter. The `editor-id` comes from the identifier of the IDE in the plug-in registry.
 * Example: `{prod-url}#https://github.com/example/foo?che-editor=eclipse/che-theia/next` to use the next version of Theia (build after each commit) 
