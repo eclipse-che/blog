@@ -123,4 +123,4 @@ To create another workspace each time you enter the same URL, enter the URL appe
 === Support of devfiles
 
 {prod} uses {devworkspace} Operator that targets devfiles v2 with `schemaVersion: 2.1.0`.
-Use of devfile v1 is deprecated. Under the hood, the https://github.com/che-incubator/devfile-converter[converter library] converts devfiles v1 to devfiles v2.
+Use of devfile v1 is deprecated. Under the hood, the https://github.com/che-incubator/devfile-converter[converter library] transforms devfiles v1 into devfiles v2.
