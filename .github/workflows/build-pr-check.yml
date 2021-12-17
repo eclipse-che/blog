@@ -34,6 +34,7 @@ jobs:
       with:
         enable_cache: true
         format_output: true
+        custom_opts: '--drafts --future'
 
     - uses: actions/upload-artifact@v2
       with:
