@@ -9,16 +9,19 @@ keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
 slug: /@florent.benoit/start-a-workspace-by-entering-a-url
 ---
 
-// https://excalidraw.com/#json=Z4gT6H3GoZwJkfvVCajad,Qtltwy9uKpQOtosF8mh00g
-image::../../../assets/img/start-a-workspace/start-workspace-link.png[Start a workspace link,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
 
 == Authoring a URL to start a workspace
 
-As a user, you can create a workspace containing a clone of a Git repository by entering:
+As a user, you can create a workspace using a direct URL rather than navigating the user dashboard. 
+This blog post describes how to author a URL to start a workspace.
 
-* a custom URL in the address bar of your browser.
-* the URL of the Git repository on the {prod} dashboard page.
+To use a URL to start a workspace you can choose to:
 
+* Paste the URL in the address bar of your browser.
+* Distribute the URL as a link (in an onboarding procedure, in a pull request comment).
+
+// https://excalidraw.com/#json=Z4gT6H3GoZwJkfvVCajad,Qtltwy9uKpQOtosF8mh00g
+image::../../../assets/img/start-a-workspace/start-workspace-link.png[Authoring a URL to start a workspace,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
 
 .Mandatory repository parameter:
 [options="header"]
@@ -41,9 +44,9 @@ In the last part of the URL, parameter list preceded by ? and using the & separa
 
 __<{prod-url}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
 
-=== Defining the Git repository to clone
+=== Defining the Git repository URL
 
-Short syntax is available when using {devworkspace} Operator.
+This syntax is available when using {devworkspace} Operator.
 
 To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser's address bar and enter the {prod-short} URL, prepended with a `#` character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: link:https://workspaces.openshift.com#https://github.com/eclipse-che/che-server[]. Then {prod} starts a workspace and clones the repository, `\https://github.com/eclipse-che/che-server` in this example.
 
