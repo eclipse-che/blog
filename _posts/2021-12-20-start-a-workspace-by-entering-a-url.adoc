@@ -9,16 +9,40 @@ keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
 slug: /@florent.benoit/start-a-workspace-by-entering-a-url
 ---
 
-== Starting a workspace by entering a URL
+// https://excalidraw.com/#json=3zYwB9DOAkwySS_Mj5coI,-DRn9IliQXj1slGJWAdqFw
+image::../../../assets/img/start-a-workspace/start-workspace-link.png[Start a workspace link,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
+
+Table 1. Mandatory repository parameter:
+[options="header"]
+|=======================
+|parameter|Description|example
+| `#__<repository_URL>__` | Repository URL | `#https://github.com/eclipse-che/che-server/tree/7.40.x`
+|=======================
+
+Table 2. Optional parameters: (`?` followed by `keyword=value`)
+[options="header"]
+|=======================
+|Keyword |Description |Example
+|.`che-editor=__<ide>__`| IDE | `?che-editor=eclipse/che-theia/latest`
+|.`devfilePath=__<devfile>__`| Devfile path | `?devfilePath=.che/my-devfile.yaml`
+|.`new`| Always create a new workspace|`?new`
+|=======================
+Note: `?new` keyword has no value
+
+
+In the last part of the URL, parameter list preceded by ? and using the & separator.
+__<{che-host}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
+
+== Authoring a URL to start a workspace
 
 As a user, you can create a workspace containing a clone of a Git repository by entering:
 
 * a custom URL in the address bar of your browser.
 * the URL of the Git repository on the {prod} dashboard page.
 
-=== Short URL syntax for cloning hosted Git repositories
+=== Defining the Git repository to clone
 
-In the earlier versions of {prod}, the {prod-short} URL syntax began with `/f/?url=`, for example `pass:c,a,q[{prod-url}/f/?url=https://github.com/my/repository]`, but it was complex and error-prone. While that syntax is still supported, short syntax should be used as follows:
+Short syntax is available when using {devworkspace} Operator.
 
 To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser's address bar and enter the {prod-short} URL, prepended with a `#` character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: link:https://workspaces.openshift.com#https://github.com/eclipse-che/che-server[]. Then {prod} starts a workspace and clones the repository, `\https://github.com/eclipse-che/che-server` in this example.
 
@@ -68,8 +92,12 @@ URL syntax for cloning GitLab-hosted repositories:
 +
 `#https://gitlab.com/_<user_or_org>_/_<repository>_/-/tree/_<branch>_`
 
+URL syntax for cloning BitBucket-hosted repositories:
 
-=== Using a different editor or Integrated Development Environment (IDE)
+WARNING: {prod} supports only on premises BitBucket instances.
+
+
+=== Defining the editor or Integrated Development Environment (IDE)
 
 {prod} starts workspaces with a default IDE: {prod-short} Theia.
 
@@ -87,6 +115,11 @@ Some available IDE keys:
 * `che-incubator/intellij-community/latest`
 * `che-incubator/pycharm/latest` 
 * `che-incubator/che-code/insiders`
+
+Obtain IDE keys from the plug-in registry by looking at `Che Editor` type entries.
+====
+`pass:c,a,q[{prod-url}/che-plugin-registry/main/index.json]`
+====
 
 The parameter `?che-editor` accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).
 
@@ -111,16 +144,24 @@ The short name for the `devfilePath` parameter is `df`.
 ====
 
 
-== URL syntax for workspace names
+=== Creating or reusing a workspace
 
 
 If you enter a URL such as `pass:c,a,q[{prod-url}#http://github.com/foo/bar]` and you don’t have any workspace named `bar`, {prod} creates a workspace named `bar` and clones the GitHub repository.
 
 Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, {prod} reopens the existing workspace `bar`.
 
+=== Always creating a new workspace
+
 To create another workspace each time you enter the same URL, enter the URL appended with `?new` in the URL format `pass:c,a,q[{prod-url}#http://github.com/foo/bar?new]`. Even if you already have a workspace named `bar`, each time you enter such URL, {prod} will create another, sequentially named workspace (example: `bar-abcde`).
 
-=== Support of devfiles
+== Authoring URL syntax reference
 
-{prod} uses {devworkspace} Operator that targets devfiles v2 with `schemaVersion: 2.1.0`.
-Use of devfile v1 is deprecated. Under the hood, the https://github.com/che-incubator/devfile-converter[converter library] transforms devfiles v1 into devfiles v2.
+[options="header"]
+|=======================
+|parameter|description|example
+|`#` followed by `URL_of_the_repository`|Repository to clone|`#https://github.com/eclipse-che/che-server/tree/7.40.x`
+|`che-editor`|IDE to open by the workspace|`?che-editor=eclipse/che-theia/latest`
+|`devfilePath`|override devfile path|`?devfilePath=.che/my-devfile.yaml`
+|`new`|do not use existing workspace|`?new` 
+|=======================
