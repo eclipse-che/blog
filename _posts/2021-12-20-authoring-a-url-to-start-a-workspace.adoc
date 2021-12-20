@@ -38,7 +38,7 @@ As a user, you can create a workspace containing a clone of a Git repository by 
 Note: `?new` keyword has no value
 
 In the last part of the URL, parameter list preceded by ? and using the & separator.
-__<{che-host}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
+__<{prod-url}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
 
 === Defining the Git repository to clone
 
