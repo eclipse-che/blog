@@ -28,6 +28,9 @@ jobs:
       with:
         name: blog-post-source
         path: _posts
+        path: |
+          _posts
+          assets/img/
 
     - name: 🔨 install dependencies & build site
       uses: limjh16/jekyll-action-ts@v2
