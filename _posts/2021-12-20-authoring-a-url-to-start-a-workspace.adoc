@@ -51,7 +51,7 @@ This syntax is available when using {devworkspace} Operator.
 The Git repository URL is mandatory.
 {prod-short} supports following Git providers: GitHub, GitLab, or on-premise Bitbucket.
 
-Add a `#` character and append the repository URL: `#__<repository_URL>__`.
+Add a `\#` character and append the repository URL: `#__<repository_URL>__`.
 
 .Open Eclipse Che Server repository in Eclipse Che hosted by Red Hat
 ====
