@@ -1,5 +1,5 @@
 ---
-title: Start a workspace by entering a URL
+title: Authoring a URL to start a workspace
 layout: post
 author: Florent Benoit
 description: >-
