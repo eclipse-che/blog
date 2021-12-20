@@ -27,7 +27,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: blog-post-source
-        path: _posts
         path: |
           _posts
           assets/img/
