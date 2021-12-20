@@ -12,20 +12,27 @@ slug: /@florent.benoit/start-a-workspace-by-entering-a-url
 // https://excalidraw.com/#json=3zYwB9DOAkwySS_Mj5coI,-DRn9IliQXj1slGJWAdqFw
 image::../../../assets/img/start-a-workspace/start-workspace-link.png[Start a workspace link,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
 
-Table 1. Mandatory repository parameter:
+== Authoring a URL to start a workspace
+
+As a user, you can create a workspace containing a clone of a Git repository by entering:
+
+* a custom URL in the address bar of your browser.
+* the URL of the Git repository on the {prod} dashboard page.
+
+.Table 1. Mandatory repository parameter:
 [options="header"]
 |=======================
 |parameter|Description|example
 | `#__<repository_URL>__` | Repository URL | `#https://github.com/eclipse-che/che-server/tree/7.40.x`
 |=======================
 
-Table 2. Optional parameters: (`?` followed by `keyword=value`)
+.Table 2. Optional parameters: (`?` followed by `keyword=value`)
 [options="header"]
 |=======================
 |Keyword |Description |Example
-|.`che-editor=__<ide>__`| IDE | `?che-editor=eclipse/che-theia/latest`
-|.`devfilePath=__<devfile>__`| Devfile path | `?devfilePath=.che/my-devfile.yaml`
-|.`new`| Always create a new workspace|`?new`
+|`che-editor=__<ide>__`| IDE | `?che-editor=eclipse/che-theia/latest`
+|`devfilePath=__<devfile>__`| Devfile path | `?devfilePath=.che/my-devfile.yaml`
+|`new`| Always create a new workspace|`?new`
 |=======================
 Note: `?new` keyword has no value
 
@@ -33,12 +40,6 @@ Note: `?new` keyword has no value
 In the last part of the URL, parameter list preceded by ? and using the & separator.
 __<{che-host}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
 
-== Authoring a URL to start a workspace
-
-As a user, you can create a workspace containing a clone of a Git repository by entering:
-
-* a custom URL in the address bar of your browser.
-* the URL of the Git repository on the {prod} dashboard page.
 
 === Defining the Git repository to clone
 
