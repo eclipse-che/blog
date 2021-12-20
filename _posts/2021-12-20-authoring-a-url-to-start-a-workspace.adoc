@@ -51,7 +51,7 @@ In the last part of the URL, parameter list preceded by ? and using the & separa
 
 __<{prod-url}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
 
-=== Defining the Git repository URL
+== Defining the Git repository URL
 
 This syntax is available when using {devworkspace} Operator.
 
