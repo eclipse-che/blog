@@ -6,7 +6,7 @@ description: >-
   How to start a workspace by customizing the URL.
 categories: []
 keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
-slug: /@florent.benoit/start-a-workspace-by-entering-a-url
+slug: /@florent.benoit/authoring-a-url-to-start-a-workspace
 ---
 
 
