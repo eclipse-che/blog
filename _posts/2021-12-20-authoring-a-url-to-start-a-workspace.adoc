@@ -22,7 +22,7 @@ To use a URL to start a workspace you can choose to:
 
 When you click on a URL to start a workspace, {prod}:
 
-. Creates or reuses a workspace.
+. Creates or reuses a workspace. A parameter can request to always create a new workspace.
 . Clones the repository.
 . Searches for a devfile in the given repository. A parameter can override the default location: `.devfile.yaml` or `devfile.yaml`. The devfile describes the containers and commands to use for that project. See the link:https://devfile.io/[Devfile Documentation]. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including `curl`, `jq`, `yq`, etc).
 . Starts the containers to use for that project.
