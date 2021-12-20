@@ -9,7 +9,7 @@ keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
 slug: /@florent.benoit/start-a-workspace-by-entering-a-url
 ---
 
-// https://excalidraw.com/#json=3zYwB9DOAkwySS_Mj5coI,-DRn9IliQXj1slGJWAdqFw
+// https://excalidraw.com/#json=Z4gT6H3GoZwJkfvVCajad,Qtltwy9uKpQOtosF8mh00g
 image::../../../assets/img/start-a-workspace/start-workspace-link.png[Start a workspace link,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
 
 == Authoring a URL to start a workspace
