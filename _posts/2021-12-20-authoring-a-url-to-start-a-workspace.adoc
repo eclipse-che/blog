@@ -9,9 +9,6 @@ keywords: ['GitHub', 'GitLab', 'Bitbucket', 'start', 'workspace']
 slug: /@florent.benoit/authoring-a-url-to-start-a-workspace
 ---
 
-
-== Authoring a URL to start a workspace
-
 As a user, you can create a workspace using a direct URL rather than navigating the user dashboard. 
 This blog post describes how to author a URL to start a workspace.
 
