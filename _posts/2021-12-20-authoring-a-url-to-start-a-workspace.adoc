@@ -48,7 +48,17 @@ __<{prod-url}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
 
 This syntax is available when using {devworkspace} Operator.
 
-To start a workspace with a clone of a GitHub, GitLab, or Bitbucket repository, go to your browser's address bar and enter the {prod-short} URL, prepended with a `#` character and appended with the repository link. Using the example of Eclipse Che hosted by Red Hat: link:https://workspaces.openshift.com#https://github.com/eclipse-che/che-server[]. Then {prod} starts a workspace and clones the repository, `\https://github.com/eclipse-che/che-server` in this example.
+The Git repository URL is mandatory.
+{prod-short} supports following Git providers: GitHub, GitLab, or on-premise Bitbucket.
+
+Add a `#` character and append the repository URL: `#__<repository_URL>__`.
+
+.Open Eclipse Che Server repository in Eclipse Che hosted by Red Hat
+====
+link:https://workspaces.openshift.com#https://github.com/eclipse-che/che-server[].
+====
+
+Then {prod} starts a workspace and clones the repository, `\https://github.com/eclipse-che/che-server` in this example.
 
 
 {prod} also searches for a `.devfile.yaml` or `devfile.yaml` file in the given repository. The devfile describes the containers and commands to use for that project. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including `curl`, `jq`, `yq`, etc).
