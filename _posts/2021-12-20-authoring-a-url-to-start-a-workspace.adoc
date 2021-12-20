@@ -142,7 +142,7 @@ The parameter `?che-editor` accepts a link to the devfile hosted on a public ser
 `pass:c,a,q[{prod-url}#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml]`
 ====
 
-=== Using a different devfile file from the repository
+== Using a different devfile file from the repository
 
 If the devfile file name is different from the default search pattern, which is `.devfile.yaml` or `devfile.yaml`, it is possible to override that name.
 
