@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>Authoring a URL to start a workspace | Eclipse Che Blog</title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta property="og:title" content="Authoring a URL to start a workspace" />
+    <meta name="author" content="Florent Benoit" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="How to start a workspace by customizing the URL."
+    />
+    <meta
+      property="og:description"
+      content="How to start a workspace by customizing the URL."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2021-12-20T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Authoring a URL to start a workspace"
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Florent Benoit" },
+        "description": "How to start a workspace by customizing the URL.",
+        "url": "https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html",
+        "headline": "Authoring a URL to start a workspace",
+        "@type": "BlogPosting",
+        "dateModified": "2021-12-20T00:00:00+00:00",
+        "datePublished": "2021-12-20T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Authoring a URL to start a workspace
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2021-12-20T00:00:00+00:00"
+                itemprop="datePublished"
+                >Dec 20, 2021 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Florent Benoit</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="paragraph">
+              <p>
+                As a user, you can create a workspace using a direct URL rather
+                than navigating the user dashboard. This blog post describes how
+                to author a URL to start a workspace. The coordinates are
+                organized into the standard sequence shown below.
+              </p>
+            </div>
+            <div class="imageblock">
+              <div class="content">
+                <a
+                  class="image"
+                  href="../../assets/img/start-a-workspace/start-workspace-link.png"
+                  ><img
+                    src="../../../assets/img/start-a-workspace/start-workspace-link.png"
+                    alt="Authoring a URL to start a workspace"
+                /></a>
+              </div>
+            </div>
+            <div class="paragraph">
+              <p>To use a URL to start a workspace you can choose to:</p>
+            </div>
+            <div class="ulist">
+              <ul>
+                <li>
+                  <p>Paste the URL in the address bar of your browser.</p>
+                </li>
+                <li>
+                  <p>
+                    Distribute the URL as a link (in an onboarding procedure, in
+                    a pull request comment).
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="paragraph">
+              <p>
+                When you click on a URL to start a workspace, Eclipse&#160;Che:
+              </p>
+            </div>
+            <div class="olist arabic">
+              <ol class="arabic">
+                <li>
+                  <p>
+                    Creates or reuses a workspace. A parameter can request to
+                    always create a new workspace.
+                  </p>
+                </li>
+                <li>
+                  <p>Clones the repository.</p>
+                </li>
+                <li>
+                  <p>
+                    Searches for a devfile in the given repository. A parameter
+                    can override the default location:
+                    <code>.devfile.yaml</code> or <code>devfile.yaml</code>. The
+                    devfile describes the containers and commands to use for
+                    that project. See the
+                    <a href="https://devfile.io/">Devfile Documentation</a>.
+                    Omitting this file will result in a default container, which
+                    provides different languages (including Java, Node.js,
+                    Python, PHP, Golang, etc) and tools (including
+                    <code>curl</code>, <code>jq</code>, <code>yq</code>, etc).
+                  </p>
+                </li>
+                <li>
+                  <p>Starts the containers to use for that project.</p>
+                </li>
+                <li>
+                  <p>
+                    Starts the IDE. A parameter can override the default IDE.
+                  </p>
+                </li>
+              </ol>
+            </div>
+            <div class="sect1">
+              <h2 id="url-parameters-reference">URL parameters reference</h2>
+              <div class="sectionbody">
+                <table class="tableblock frame-all grid-all stretch">
+                  <caption class="title">
+                    Table 1. Mandatory repository parameter:
+                  </caption>
+                  <colgroup>
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3334%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th class="tableblock halign-left valign-top">
+                        parameter
+                      </th>
+                      <th class="tableblock halign-left valign-top">
+                        Description
+                      </th>
+                      <th class="tableblock halign-left valign-top">example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>#<em>&lt;repository_URL&gt;</em></code>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Repository URL</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code
+                            >#https://github.com/eclipse-che/che-server/tree/7.40.x</code
+                          >
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="tableblock frame-all grid-all stretch">
+                  <caption class="title">
+                    Table 2. Optional parameters: (<code>?</code>
+                    followed by
+                    <code>keyword=value</code
+                    >)
+                  </caption>
+                  <colgroup>
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3334%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th class="tableblock halign-left valign-top">Keyword</th>
+                      <th class="tableblock halign-left valign-top">
+                        Description
+                      </th>
+                      <th class="tableblock halign-left valign-top">Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>che-editor=<em>&lt;ide&gt;</em></code>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">IDE</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>?che-editor=eclipse/che-theia/latest</code>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>devfilePath=<em>&lt;devfile&gt;</em></code>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Devfile path</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>?devfilePath=.che/my-devfile.yaml</code>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>new</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Always create a new workspace</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>?new</code></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="paragraph">
+                  <p>Note: <code>?new</code> keyword has no value</p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    In the last part of the URL, parameter list preceded by ?
+                    and using the &amp; separator.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    <em
+                      ><a href="https://che-host" class="bare"
+                        >https://che-host</a
+                      ></em
+                    >#<em>&lt;repository_url&gt;</em>?<em>&lt;parameter_1&gt;</em>&amp;<em
+                      >&lt;parameter_2&gt;</em
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="defining-the-git-repository-url">
+                Defining the Git repository URL
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    This syntax is available when using DevWorkspace Operator.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The Git repository URL is mandatory. Che supports following
+                    Git providers: GitHub, GitLab, or on-premise Bitbucket.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Add a <code>#</code> character and append the repository
+                    URL: <code>#<em>&lt;repository_URL&gt;</em></code
+                    >.
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="title">
+                    Example 1. Open Eclipse Che Server repository in Eclipse Che
+                    hosted by Red Hat
+                  </div>
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <a
+                          href="https://workspaces.openshift.com#https://github.com/eclipse-che/che-server"
+                          class="bare"
+                          >https://workspaces.openshift.com#https://github.com/eclipse-che/che-server</a
+                        >.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="url-syntax-by-git-provider">
+                    URL syntax by Git provider
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      URL syntax for cloning GitHub-hosted repositories to the
+                      starting workspace:
+                    </p>
+                  </div>
+                  <div class="ulist">
+                    <ul>
+                      <li>
+                        <p>
+                          To clone the default branch on GitHub to the starting
+                          workspace:
+                        </p>
+                        <div class="paragraph">
+                          <p>
+                            <code
+                              >#https://github.com/<em>&lt;user_or_org&gt;</em>/<em
+                                >&lt;repository&gt;</em
+                              ></code
+                            >
+                          </p>
+                        </div>
+                        <div class="exampleblock">
+                          <div class="title">
+                            Example 2. Cloning the default branch of the
+                            <a
+                              href="https://github.com/eclipse-che/che-plugin-registry"
+                              >Plug-in registry repository</a
+                            >.
+                          </div>
+                          <div class="content">
+                            <div class="paragraph">
+                              <p>
+                                <code
+                                  >#https://github.com/eclipse-che/che-plugin-registry</code
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <p>
+                          To clone a specified branch on GitHub to the starting
+                          workspace:
+                        </p>
+                        <div class="paragraph">
+                          <p>
+                            <code
+                              >#https://github.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/tree/<em
+                                >&lt;branch-name&gt;</em
+                              ></code
+                            >
+                          </p>
+                        </div>
+                        <div class="exampleblock">
+                          <div class="title">
+                            Example 3. Cloning the <code>7.39.x</code> branch of
+                            the
+                            <a
+                              href="https://github.com/eclipse-che/che-plugin-registry"
+                              >Plug-in registry repository</a
+                            >.
+                          </div>
+                          <div class="content">
+                            <div class="paragraph">
+                              <p>
+                                <code
+                                  >#https://github.com/eclipse-che/che-plugin-registry/tree/7.39.x</code
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <p>
+                          To clone the branch of a pull request on GitHub to the
+                          starting workspace:
+                        </p>
+                        <div class="paragraph">
+                          <p>
+                            <code
+                              >#https://github.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/pull/<em
+                                >&lt;pull-request-id&gt;</em
+                              ></code
+                            >
+                          </p>
+                        </div>
+                        <div class="exampleblock">
+                          <div class="title">
+                            Example 4. Cloning the
+                            <a
+                              href="https://github.com/eclipse-che/che-plugin-registry/pull/1097"
+                              >Plug-in registry repository pull request
+                              <code>#1097</code></a
+                            >.
+                          </div>
+                          <div class="content">
+                            <div class="paragraph">
+                              <p>
+                                <code
+                                  >#https://github.com/eclipse-che/che-plugin-registry/pull/1097</code
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="paragraph">
+                    <p>URL syntax for cloning GitLab-hosted repositories:</p>
+                  </div>
+                  <div class="ulist">
+                    <ul>
+                      <li>
+                        <p>
+                          To clone the default branch on GitLab to the starting
+                          workspace:
+                        </p>
+                        <div class="paragraph">
+                          <p>
+                            <code
+                              >#https://gitlab.com/<em>&lt;user_or_org&gt;</em>/<em
+                                >&lt;repository&gt;</em
+                              ></code
+                            >
+                          </p>
+                        </div>
+                      </li>
+                      <li>
+                        <p>
+                          To clone a specified branch on GitLab to the starting
+                          workspace:
+                        </p>
+                        <div class="paragraph">
+                          <p>
+                            <code
+                              >#https://gitlab.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/-/tree/<em
+                                >&lt;branch&gt;</em
+                              ></code
+                            >
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="paragraph">
+                    <p>URL syntax for cloning BitBucket-hosted repositories:</p>
+                  </div>
+                  <div class="admonitionblock warning">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Warning</div>
+                        </td>
+                        <td class="content">
+                          Eclipse&#160;Che supports only on premises BitBucket
+                          instances.
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2
+                id="defining-the-editor-or-integrated-development-environment-ide"
+              >
+                Defining the editor or Integrated Development Environment (IDE)
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Eclipse&#160;Che starts workspaces with a default IDE: Che
+                    Theia.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Overriding the default editor is possible with the
+                    <code>?che-editor=<em>&lt;editor-id&gt;</em></code>
+                    parameter. The <code>editor-id</code> comes from the
+                    identifier of the IDE in the plug-in registry.
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="title">
+                    Example 5. Using the next version of Theia (build after each
+                    commit)
+                  </div>
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <code
+                          >https://che-host#https://github.com/example/foo?che-editor=eclipse/che-theia/next</code
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Some available IDE keys:</p>
+                </div>
+                <div class="ulist">
+                  <ul>
+                    <li>
+                      <p><code>eclipse/che-theia/latest</code></p>
+                    </li>
+                    <li>
+                      <p><code>eclipse/che-theia/next</code></p>
+                    </li>
+                    <li>
+                      <p>
+                        <code>che-incubator/intellij-community/latest</code>
+                      </p>
+                    </li>
+                    <li>
+                      <p><code>che-incubator/pycharm/latest</code></p>
+                    </li>
+                    <li>
+                      <p><code>che-incubator/che-code/insiders</code></p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Obtain IDE keys from the plug-in registry by looking at
+                    <code>Che Editor</code> type entries.
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <code
+                          >https://che-host/che-plugin-registry/main/index.json</code
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The parameter <code>?che-editor</code> accepts a link to the
+                    devfile hosted on a public server (with Cross-Origin
+                    Resource Sharing (CORS) enabled).
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <code
+                          >https://che-host#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml</code
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="using-a-different-devfile-file-from-the-repository">
+                Using a different devfile file from the repository
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    If the devfile file name is different from the default
+                    search pattern, which is <code>.devfile.yaml</code> or
+                    <code>devfile.yaml</code>, it is possible to override that
+                    name.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Use the parameter
+                    <code>?devfilePath=mydevfile.yaml</code> at the end of
+                    <code
+                      ><a href="https://che-host#" class="bare"
+                        >https://che-host#</a
+                      ><em>&lt;git_repository_url&gt;</em></code
+                    >.
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <code
+                          >https://che-host#https://github.com/example/foo?devfilePath=mydevfile.yaml</code
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The short name for the <code>devfilePath</code> parameter is
+                    <code>df</code>.
+                  </p>
+                </div>
+                <div class="exampleblock">
+                  <div class="content">
+                    <div class="paragraph">
+                      <p>
+                        <code
+                          >https://che-host#https://github.com/example/foo?df=mydevfile.yaml</code
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="creating-or-reusing-a-workspace">
+                Creating or reusing a workspace
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    If you enter a URL such as
+                    <code>https://che-host#http://github.com/foo/bar</code> and
+                    you don’t have any workspace named <code>bar</code>,
+                    Eclipse&#160;Che creates a workspace named
+                    <code>bar</code> and clones the GitHub repository.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Each time you enter a URL such as
+                    <code
+                      ><a
+                        href="https://che-host#http://github.com/foo/bar"
+                        class="bare"
+                        >https://che-host#http://github.com/foo/bar</a
+                      ></code
+                    >
+                    again, Eclipse&#160;Che reopens the existing workspace
+                    <code>bar</code>.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="always-creating-a-new-workspace">
+                Always creating a new workspace
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    To create another workspace each time you enter the same
+                    URL, enter the URL appended with <code>?new</code> in the
+                    URL format
+                    <code>https://che-host#http://github.com/foo/bar?new</code>.
+                    Even if you already have a workspace named <code>bar</code>,
+                    each time you enter such URL, Eclipse&#160;Che will create
+                    another, sequentially named workspace (example:
+                    <code>bar-abcde</code>).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
