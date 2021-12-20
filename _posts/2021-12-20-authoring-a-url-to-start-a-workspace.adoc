@@ -29,6 +29,8 @@ When you click on a URL to start a workspace, {prod}:
 . Starts the containers to use for that project.
 . Starts the IDE. A parameter can override the default IDE.
 
+== URL parameters reference
+
 
 .Mandatory repository parameter:
 [options="header"]
@@ -112,7 +114,7 @@ URL syntax for cloning BitBucket-hosted repositories:
 
 WARNING: {prod} supports only on premises BitBucket instances.
 
-=== Defining the editor or Integrated Development Environment (IDE)
+== Defining the editor or Integrated Development Environment (IDE)
 
 {prod} starts workspaces with a default IDE: {prod-short} Theia.
 
@@ -159,13 +161,13 @@ The short name for the `devfilePath` parameter is `df`.
 ====
 
 
-=== Creating or reusing a workspace
+== Creating or reusing a workspace
 
 
 If you enter a URL such as `pass:c,a,q[{prod-url}#http://github.com/foo/bar]` and you don’t have any workspace named `bar`, {prod} creates a workspace named `bar` and clones the GitHub repository.
 
 Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, {prod} reopens the existing workspace `bar`.
 
-=== Always creating a new workspace
+== Always creating a new workspace
 
 To create another workspace each time you enter the same URL, enter the URL appended with `?new` in the URL format `pass:c,a,q[{prod-url}#http://github.com/foo/bar?new]`. Even if you already have a workspace named `bar`, each time you enter such URL, {prod} will create another, sequentially named workspace (example: `bar-abcde`).
