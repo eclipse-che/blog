@@ -19,14 +19,15 @@ As a user, you can create a workspace containing a clone of a Git repository by 
 * a custom URL in the address bar of your browser.
 * the URL of the Git repository on the {prod} dashboard page.
 
-.Table 1. Mandatory repository parameter:
+
+.Mandatory repository parameter:
 [options="header"]
 |=======================
 |parameter|Description|example
 | `#__<repository_URL>__` | Repository URL | `#https://github.com/eclipse-che/che-server/tree/7.40.x`
 |=======================
 
-.Table 2. Optional parameters: (`?` followed by `keyword=value`)
+.Optional parameters: (`?` followed by `keyword=value`)
 [options="header"]
 |=======================
 |Keyword |Description |Example
@@ -36,10 +37,8 @@ As a user, you can create a workspace containing a clone of a Git repository by 
 |=======================
 Note: `?new` keyword has no value
 
-
 In the last part of the URL, parameter list preceded by ? and using the & separator.
 __<{che-host}>__#__<repository_url>__?__<parameter_1>__&__<parameter_2>__
-
 
 === Defining the Git repository to clone
 
@@ -96,7 +95,6 @@ URL syntax for cloning GitLab-hosted repositories:
 URL syntax for cloning BitBucket-hosted repositories:
 
 WARNING: {prod} supports only on premises BitBucket instances.
-
 
 === Defining the editor or Integrated Development Environment (IDE)
 
@@ -155,14 +153,3 @@ Each time you enter a URL such as `{prod-url}#http://github.com/foo/bar` again, 
 === Always creating a new workspace
 
 To create another workspace each time you enter the same URL, enter the URL appended with `?new` in the URL format `pass:c,a,q[{prod-url}#http://github.com/foo/bar?new]`. Even if you already have a workspace named `bar`, each time you enter such URL, {prod} will create another, sequentially named workspace (example: `bar-abcde`).
-
-== Authoring URL syntax reference
-
-[options="header"]
-|=======================
-|parameter|description|example
-|`#` followed by `URL_of_the_repository`|Repository to clone|`#https://github.com/eclipse-che/che-server/tree/7.40.x`
-|`che-editor`|IDE to open by the workspace|`?che-editor=eclipse/che-theia/latest`
-|`devfilePath`|override devfile path|`?devfilePath=.che/my-devfile.yaml`
-|`new`|do not use existing workspace|`?new` 
-|=======================
