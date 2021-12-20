@@ -15,6 +15,10 @@ slug: /@florent.benoit/authoring-a-url-to-start-a-workspace
 As a user, you can create a workspace using a direct URL rather than navigating the user dashboard. 
 This blog post describes how to author a URL to start a workspace.
 
+
+// https://excalidraw.com/#json=Z4gT6H3GoZwJkfvVCajad,Qtltwy9uKpQOtosF8mh00g
+image::../../../assets/img/start-a-workspace/start-workspace-link.png[Authoring a URL to start a workspace,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
+
 To use a URL to start a workspace you can choose to:
 
 * Paste the URL in the address bar of your browser.
@@ -28,8 +32,6 @@ When you click on a URL to start a workspace, {prod}:
 . Starts the containers to use for that project.
 . Starts the IDE. A parameter can override the default IDE.
 
-// https://excalidraw.com/#json=Z4gT6H3GoZwJkfvVCajad,Qtltwy9uKpQOtosF8mh00g
-image::../../../assets/img/start-a-workspace/start-workspace-link.png[Authoring a URL to start a workspace,link="../../assets/img/start-a-workspace/start-workspace-link.png"]
 
 .Mandatory repository parameter:
 [options="header"]
