@@ -27,6 +27,8 @@ url: "https://che.eclipseprojects.io" # the base hostname & protocol for your si
 twitter_username: eclipse_che
 github_username:  eclipse
 
+google_analytics: "UA-215676970-1"
+
 # Build settings
 theme: minima
 plugins:

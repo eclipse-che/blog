@@ -30,6 +30,8 @@ jobs:
 
     - name: 🔨 install dependencies & build site
       uses: limjh16/jekyll-action-ts@v2
+      env:
+        JEKYLL_ENV: production
       with:
         enable_cache: true
         format_output: true
