@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>
+      Contributing for the first time to a project | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta
+      property="og:title"
+      content="Contributing for the first time to a project"
+    />
+    <meta name="author" content="Ilya Buziuk" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="The article describes how to easily contribute to a project using Eclipse Che"
+    />
+    <meta
+      property="og:description"
+      content="The article describes how to easily contribute to a project using Eclipse Che"
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2022-01-11T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Contributing for the first time to a project"
+    />
+    <script type="application/ld+json">
+      {
+        "author": { "@type": "Person", "name": "Ilya Buziuk" },
+        "description": "The article describes how to easily contribute to a project using Eclipse Che",
+        "url": "https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html",
+        "headline": "Contributing for the first time to a project",
+        "@type": "BlogPosting",
+        "dateModified": "2022-01-11T00:00:00+00:00",
+        "datePublished": "2022-01-11T00:00:00+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
+        },
+        "@context": "https://schema.org"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+            <a class="page-link" href="/about/">About</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Contributing for the first time to a project
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2022-01-11T00:00:00+00:00"
+                itemprop="datePublished"
+                >Jan 11, 2022 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Ilya Buziuk</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="sect2">
+              <h3 id="introduction">Introduction</h3>
+              <div class="paragraph">
+                <p>
+                  The complexity of applications has changed dramatically over
+                  the last decade, and nowadays it is not always straightforward
+                  to contribute to a new project for the first time. At the
+                  beginning, developers need to properly set up the local
+                  environment including:
+                </p>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>build tools</p>
+                  </li>
+                  <li>
+                    <p>runtimes</p>
+                  </li>
+                  <li>
+                    <p>dependencies</p>
+                  </li>
+                  <li>
+                    <p>IDEs</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="paragraph">
+                <p>
+                  For complex projects, it could easily take weeks for new
+                  developers to get the builds running on their machines. In
+                  general, a significant amount of the team&#8217;s week is
+                  spent on building and maintaining developer environments. With
+                  Eclipse&#160;Che we are solving the complexity of the
+                  onboarding, configuration, and setup by defining a new
+                  cloud-native, zero-install, and repeatable concept of a
+                  workspace.
+                </p>
+              </div>
+            </div>
+            <div class="sect2">
+              <h3
+                id="contributing-for-the-first-time-to-a-project-using-eclipseche"
+              >
+                Contributing for the first time to a project using
+                Eclipse&#160;Che
+              </h3>
+              <div class="paragraph">
+                <p>
+                  The motto of Eclipse&#160;Che is that anyone anytime can
+                  contribute to a project without installing software. In order
+                  to contribute to a project, just click on the badge defined in
+                  the <code>README.md</code> file of the repository, and within
+                  a minute you will get a workspace ready for development with
+                  all the tools and runtimes available out of the box.
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/contribute.png"
+                    alt="Contribute Badge"
+                  />
+                </div>
+                <div class="title">
+                  Figure 1. The Eclipse&#160;Che contribute badge in
+                  <code>README.md</code>
+                </div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  By default, Eclipse&#160;Che is using a customized version of
+                  <a href="https://theia-ide.org/">Theia</a>, which provides
+                  <a href="https://code.visualstudio.com/">VS Code</a>-like
+                  experience including the support of extensions:
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/ide.png"
+                    alt="Eclipse&#160;Che Theia IDE"
+                  />
+                </div>
+                <div class="title">Figure 2. Eclipse&#160;Che Theia IDE</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Programming languages facilities like code completion,
+                  navigation, and CodeLens are provided using the
+                  <a
+                    href="https://microsoft.github.io/language-server-protocol/"
+                    >Language Server Protocol</a
+                  >. Eclipse&#160;Che benefits from a growing ecosystem of over
+                  60 available language servers, delivering intelligent editing
+                  support for all major programming languages.
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/content-assist.png"
+                    alt="Content Assist"
+                  />
+                </div>
+                <div class="title">Figure 3. Java Content Assist</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Pre-defined commands (<code>Terminal</code> &#8594;
+                  <code>Run Task&#8230;&#8203;</code>) allow you to easily
+                  build, run, debug, and test the application.
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/commands.png"
+                    alt="IDE Commands"
+                  />
+                </div>
+                <div class="title">Figure 4. Pre-defined commands</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Additional extensions can be enabled by using the
+                  <code>Ctrl+Shift+J</code> shortcut or
+                  <code>View</code> &#8594; <code>Plugins</code> menu items:
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/plugins.png"
+                    alt="The 'Plugins' view"
+                  />
+                </div>
+                <div class="title">Figure 5. The 'Plugins' view</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Debug the application by using the <code>F5</code> shortcut or
+                  <code>Run</code> &#8594; <code>Start Debugging</code> menu
+                  items:
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/debug.png"
+                    alt="Debugging the application"
+                  />
+                </div>
+                <div class="title">Figure 6. Debugging Java application</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Commit and push the changes from the terminal or use the
+                  <code>Source Control</code> view:
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/source-control.png"
+                    alt="[The 'Source Control' view"
+                  />
+                </div>
+                <div class="title">Figure 7. The 'Source Control' view</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Now you are ready for the first contribution. For GitHub, a
+                  dedicated plugin is available that allows opening pull
+                  requests right from the IDE:
+                </p>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="/assets/img/contribute-to-a-project/github-plugin.png"
+                    alt="[The 'GitHub' plugin"
+                  />
+                </div>
+                <div class="title">Figure 8. The 'GitHub' plugin</div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+            </div>
+            <div class="sect2">
+              <h3
+                id="how-can-maintainers-set-up-their-projects-to-use-eclipseche"
+              >
+                How can maintainers set up their projects to use
+                Eclipse&#160;Che?
+              </h3>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Deploy Eclipse&#160;Che on a Kubernetes cluster or use
+                      <a href="https://workspaces.openshift.com/"
+                        >Eclipse Che hosted by Red Hat</a
+                      >.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="admonitionblock warning">
+                <table>
+                  <tr>
+                    <td class="icon">
+                      <div class="title">Warning</div>
+                    </td>
+                    <td class="content">
+                      At the moment,
+                      <a href="https://workspaces.openshift.com/"
+                        >Eclipse Che hosted by Red Hat</a
+                      >
+                      does not use the DevWorkspace Operator that is in charge
+                      of the devfile v2 support. The switch to the DevWorkspace
+                      engine is planned for spring 2022. Currently, devfiles v2
+                      are automatically converted to devfile v1 equivalents via
+                      the
+                      <a
+                        href="https://github.com/che-incubator/devfile-converter"
+                        >converter library</a
+                      >
+                      under the hood during workspace startup.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="listingblock">
+                <div class="title">
+                  The recommended file structure of the repository
+                </div>
+                <div class="content">
+                  <pre>
+  |--- devfile.yaml
+  |--- README.md
+  |___ .che
+         |___ che-editor.yaml
+         |___ che-theia-plugins.yaml
+  |___ .vscode
+         |___ extensions.json
+         |___ launch.json</pre
+                  >
+                </div>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add <code>.devfile.yaml</code> or
+                      <code>devfile.yaml</code> file to the root of the project
+                      in order to specify the relevant components and commands
+                      in a declarative way.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="paragraph">
+                <p>
+                  The devfile provides easy to configure, highly reproducible
+                  definitions of portable developer environments. For more
+                  information about devfiles, see the
+                  <a href="https://devfile.io/">Devfile Documentation</a>.
+                </p>
+              </div>
+              <div class="admonitionblock note">
+                <table>
+                  <tr>
+                    <td class="icon">
+                      <div class="title">Note</div>
+                    </td>
+                    <td class="content">
+                      Omitting the creation of the devfile file will result in
+                      using a default container based on the
+                      <a
+                        href="https://quay.io/repository/devfile/universal-developer-image"
+                        >Universal Developer Image</a
+                      >, which provides various languages (including Java,
+                      Node.js, Python, PHP, Golang, etc) and tools (including
+                      <code>curl</code>, <code>jq</code>, <code>git</code>,
+                      etc).
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add the <code>.vscode/extensions.json</code> file to the
+                      root of the project in order to add VS Code extensions if
+                      the editor is Theia (the default) or VS Code:
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="listingblock">
+                <div class="content">
+                  <pre
+                    class="highlight"
+                  ><code class="language-json" data-lang="json">{
+  "recommendations": [
+    "redhat.java"
+  ]
+}</code></pre>
+                </div>
+              </div>
+              <div class="admonitionblock important">
+                <table>
+                  <tr>
+                    <td class="icon">
+                      <div class="title">Important</div>
+                    </td>
+                    <td class="content">
+                      The list of VS Code extensions is available in the
+                      Eclipse&#160;Che plug-in registry. If the specified
+                      extensions are not available in the registry, the
+                      workspace will start, but the extensions will not be added
+                      to the workspace.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add the <code>.vscode/launch.json</code> file for
+                      specifying <code>Run</code> and
+                      <code>Debug</code> commands if the editor is Theia or VS
+                      Code:
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="listingblock">
+                <div class="content">
+                  <pre
+                    class="highlight"
+                  ><code class="language-json" data-lang="json">{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Attach) - Remote",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ]
+}</code></pre>
+                </div>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add the <code>.che/che-theia-plugins.yaml</code> file if
+                      extra customizations of Theia plugins are required.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="admonitionblock note">
+                <table>
+                  <tr>
+                    <td class="icon">
+                      <div class="title">Note</div>
+                    </td>
+                    <td class="content">
+                      Eclipse&#160;Che uses
+                      <code>.che/che-theia-plugins.yaml</code> file only if the
+                      editor is Theia.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="paragraph">
+                <p>
+                  For example, overriding the default memory limit of
+                  <code>redhat.java</code> sidecar container:
+                </p>
+              </div>
+              <div class="listingblock">
+                <div class="content">
+                  <pre
+                    class="highlight"
+                  ><code class="language-yaml" data-lang="yaml">- id: redhat/java
+  override:
+    sidecar:
+      memoryLimit: 2Gi</code></pre>
+                </div>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add the <code>.che/che-editor.yaml</code> file to override
+                      the default editor (Theia) with a different one (e.g. VS
+                      Code or JetBrains IntelliJ) and specify the editor
+                      container properties. For example, overriding the default
+                      memory limit of the <code>theia-ide</code> container:
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="listingblock">
+                <div class="content">
+                  <pre
+                    class="highlight"
+                  ><code class="language-yaml" data-lang="yaml">id: eclipse/che-theia/latest          # mandatory
+registryUrl: https://my-registry.com  # optional
+override:                             # optional
+  containers:
+    - name: theia-ide
+      memoryLimit: 1280Mi</code></pre>
+                </div>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Add the Eclipse&#160;Che badge to the project
+                      <code>README.md</code> file with a link for starting a
+                      workspace:
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://www.eclipse.org/che/contribute.svg"
+                    alt="Contribute Badge"
+                  />
+                </div>
+                <div class="title">
+                  Figure 9. The official Eclipse&#160;Che badge
+                </div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="exampleblock">
+                <div class="content">
+                  <div class="paragraph">
+                    <p>
+                      <code
+                        >[![Contribute](<a
+                          href="https://www.eclipse.org/che/contribute.svg"
+                          class="bare"
+                          >https://www.eclipse.org/che/contribute.svg</a
+                        >)](https://che-host#https://github.com/my/repository)</code
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="paragraph">
+                <p>
+                  Once the line above is added to the <code>README.md</code>, it
+                  will be possible to start a workspace by simply clicking on
+                  the badge icon.
+                </p>
+              </div>
+              <div class="admonitionblock note">
+                <table>
+                  <tr>
+                    <td class="icon">
+                      <div class="title">Note</div>
+                    </td>
+                    <td class="content">
+                      Eclipse&#160;Che images from
+                      <a href="https://simpleicons.org/?q=eclipse-che"
+                        >Simple Icons</a
+                      >
+                      can be also used for generation of the custom badges via
+                      <a href="https://shields.io/">Shields IO</a>.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="listingblock">
+                <div class="content">
+                  <pre>
+https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche
+https://img.shields.io/static/v1?label=code%20with&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86
+https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86&amp;style=plastic
+https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86&amp;style=flat-square
+https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;style=social</pre
+                  >
+                </div>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche"
+                    alt="Contribute Badge"
+                  />
+                </div>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://img.shields.io/static/v1?label=code%20with&message=che&logo=eclipseche&color=FDB940&labelColor=525C86"
+                    alt="Contribute Badge"
+                  />
+                </div>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=plastic"
+                    alt="Contribute Badge"
+                  />
+                </div>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=flat-square"
+                    alt="Contribute Badge"
+                  />
+                </div>
+              </div>
+              <div class="imageblock">
+                <div class="content">
+                  <img
+                    src="https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&style=social"
+                    alt="Contribute Badge"
+                  />
+                </div>
+              </div>
+              <div class="paragraph">
+                <p></p>
+              </div>
+              <div class="ulist">
+                <ul>
+                  <li>
+                    <p>
+                      Set up
+                      <a
+                        href="https://github.com/marketplace/actions/try-in-web-ide"
+                        >Try in Web IDE</a
+                      >
+                      GitHub action in the repository in order to test and
+                      review pull requests with Eclipse&#160;Che. More details
+                      about the GitHub action can be found in the
+                      <a
+                        href="https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html"
+                        >Test pull requests with the Try in Web IDE GitHub
+                        action</a
+                      >
+                      blog post.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="paragraph">
+                <p>Now you are all set. Happy Coding!</p>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

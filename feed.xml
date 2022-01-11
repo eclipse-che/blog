@@ -1,4 +1,377 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2021-12-21T07:50:59+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Authoring a URL to start a workspace</title><link href="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html" rel="alternate" type="text/html" title="Authoring a URL to start a workspace" /><published>2021-12-20T00:00:00+00:00</published><updated>2021-12-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/12/20/@florent.benoit/authoring-a-url-to-start-a-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html">&lt;div class=&quot;paragraph&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-01-11T08:41:27+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Contributing for the first time to a project</title><link href="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html" rel="alternate" type="text/html" title="Contributing for the first time to a project" /><published>2022-01-11T00:00:00+00:00</published><updated>2022-01-11T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk/contributing-for-the-first-time-to-a-project</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html">&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The complexity of applications has changed dramatically over the last decade, and nowadays it is not always straightforward to contribute to a new project for the first time.
+At the beginning, developers need to properly set up the local environment including:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;build tools&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;runtimes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dependencies&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IDEs&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For complex projects, it could easily take weeks for new developers to get the builds running on their machines.
+In general, a significant amount of the team&amp;#8217;s week is spent on building and maintaining developer environments.
+With Eclipse&amp;#160;Che we are solving the complexity of the onboarding, configuration, and setup by defining a new cloud-native, zero-install, and repeatable concept of a workspace.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;contributing-for-the-first-time-to-a-project-using-eclipseche&quot;&gt;Contributing for the first time to a project using Eclipse&amp;#160;Che&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The motto of Eclipse&amp;#160;Che is that anyone anytime can contribute to a project without installing software.
+In order to contribute to a project, just click on the badge defined in the &lt;code&gt;README.md&lt;/code&gt; file of the repository, and within a minute you will get a workspace ready for development with all the tools and runtimes available out of the box.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/contribute.png&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. The Eclipse&amp;#160;Che contribute badge in &lt;code&gt;README.md&lt;/code&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default, Eclipse&amp;#160;Che is using a customized version of &lt;a href=&quot;https://theia-ide.org/&quot;&gt;Theia&lt;/a&gt;, which provides &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;VS Code&lt;/a&gt;-like experience including the support of extensions:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/ide.png&quot; alt=&quot;Eclipse&amp;#160;Che Theia IDE&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. Eclipse&amp;#160;Che Theia IDE&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Programming languages facilities like code completion, navigation, and CodeLens are provided using the &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/&quot;&gt;Language Server Protocol&lt;/a&gt;. Eclipse&amp;#160;Che benefits from a growing ecosystem of over 60 available language servers, delivering intelligent editing support for all major programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/content-assist.png&quot; alt=&quot;Content Assist&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 3. Java Content Assist&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pre-defined commands (&lt;code&gt;Terminal&lt;/code&gt; &amp;#8594; &lt;code&gt;Run Task&amp;#8230;&amp;#8203;&lt;/code&gt;) allow you to easily build, run, debug, and test the application.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/commands.png&quot; alt=&quot;IDE Commands&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 4. Pre-defined commands&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Additional extensions can be enabled by using the &lt;code&gt;Ctrl+Shift+J&lt;/code&gt; shortcut or &lt;code&gt;View&lt;/code&gt; &amp;#8594; &lt;code&gt;Plugins&lt;/code&gt; menu items:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/plugins.png&quot; alt=&quot;The 'Plugins' view&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 5. The 'Plugins' view&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Debug the application by using the &lt;code&gt;F5&lt;/code&gt; shortcut or &lt;code&gt;Run&lt;/code&gt; &amp;#8594; &lt;code&gt;Start Debugging&lt;/code&gt; menu items:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/debug.png&quot; alt=&quot;Debugging the application&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 6. Debugging Java application&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Commit and push the changes from the terminal or use the &lt;code&gt;Source Control&lt;/code&gt; view:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/source-control.png&quot; alt=&quot;[The 'Source Control' view&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 7. The 'Source Control' view&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now you are ready for the first contribution. For GitHub, a dedicated plugin is available that allows opening pull requests right from the IDE:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/img/contribute-to-a-project/github-plugin.png&quot; alt=&quot;[The 'GitHub' plugin&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 8. The 'GitHub' plugin&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;how-can-maintainers-set-up-their-projects-to-use-eclipseche&quot;&gt;How can maintainers set up their projects to use Eclipse&amp;#160;Che?&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Deploy Eclipse&amp;#160;Che on a Kubernetes cluster or use &lt;a href=&quot;https://workspaces.openshift.com/&quot;&gt;Eclipse Che hosted by Red Hat&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock warning&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+At the moment, &lt;a href=&quot;https://workspaces.openshift.com/&quot;&gt;Eclipse Che hosted by Red Hat&lt;/a&gt; does not use the DevWorkspace Operator that is in charge of the devfile v2 support.
+The switch to the DevWorkspace engine is planned for spring 2022.
+Currently, devfiles v2 are automatically converted to devfile v1 equivalents via the &lt;a href=&quot;https://github.com/che-incubator/devfile-converter&quot;&gt;converter library&lt;/a&gt; under the hood during workspace startup.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;The recommended file structure of the repository&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;  |--- devfile.yaml
+  |--- README.md
+  |___ .che
+         |___ che-editor.yaml
+         |___ che-theia-plugins.yaml
+  |___ .vscode
+         |___ extensions.json
+         |___ launch.json&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add &lt;code&gt;.devfile.yaml&lt;/code&gt; or &lt;code&gt;devfile.yaml&lt;/code&gt; file to the root of the project in order to specify the relevant components and commands in a declarative way.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The devfile provides easy to configure, highly reproducible definitions of portable developer environments.
+For more information about devfiles, see the &lt;a href=&quot;https://devfile.io/&quot;&gt;Devfile Documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Omitting the creation of the devfile file will result in using a default container based on the &lt;a href=&quot;https://quay.io/repository/devfile/universal-developer-image&quot;&gt;Universal Developer Image&lt;/a&gt;,
+which provides various languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including &lt;code&gt;curl&lt;/code&gt;, &lt;code&gt;jq&lt;/code&gt;, &lt;code&gt;git&lt;/code&gt;, etc).
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;code&gt;.vscode/extensions.json&lt;/code&gt; file to the root of the project in order to add VS Code extensions if the editor is Theia (the default) or VS Code:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;{
+  &quot;recommendations&quot;: [
+    &quot;redhat.java&quot;
+  ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+The list of VS Code extensions is available in the Eclipse&amp;#160;Che plug-in registry.
+If the specified extensions are not available in the registry, the workspace will start, but the extensions will not be added to the workspace.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;code&gt;.vscode/launch.json&lt;/code&gt; file for specifying &lt;code&gt;Run&lt;/code&gt; and &lt;code&gt;Debug&lt;/code&gt; commands if the editor is Theia or VS Code:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;java&quot;,
+            &quot;name&quot;: &quot;Debug (Attach) - Remote&quot;,
+            &quot;request&quot;: &quot;attach&quot;,
+            &quot;hostName&quot;: &quot;localhost&quot;,
+            &quot;port&quot;: 5005
+        }
+    ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;code&gt;.che/che-theia-plugins.yaml&lt;/code&gt; file if extra customizations of Theia plugins are required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Eclipse&amp;#160;Che uses &lt;code&gt;.che/che-theia-plugins.yaml&lt;/code&gt; file only if the editor is Theia.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example, overriding the default memory limit of &lt;code&gt;redhat.java&lt;/code&gt; sidecar container:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;- id: redhat/java
+  override:
+    sidecar:
+      memoryLimit: 2Gi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;code&gt;.che/che-editor.yaml&lt;/code&gt; file to override the default editor (Theia) with a different one (e.g. VS Code or JetBrains IntelliJ) and specify the editor container properties. For example, overriding the default memory limit of the &lt;code&gt;theia-ide&lt;/code&gt; container:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;id: eclipse/che-theia/latest          # mandatory
+registryUrl: https://my-registry.com  # optional
+override:                             # optional
+  containers:
+    - name: theia-ide
+      memoryLimit: 1280Mi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add the Eclipse&amp;#160;Che badge to the project &lt;code&gt;README.md&lt;/code&gt; file with a link for starting a workspace:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://www.eclipse.org/che/contribute.svg&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 9. The official Eclipse&amp;#160;Che badge&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;exampleblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;[![Contribute](&lt;a href=&quot;https://www.eclipse.org/che/contribute.svg&quot; class=&quot;bare&quot;&gt;https://www.eclipse.org/che/contribute.svg&lt;/a&gt;)](https://che-host#https://github.com/my/repository)&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once the line above is added to the &lt;code&gt;README.md&lt;/code&gt;, it will be possible to start a workspace by simply clicking on the badge icon.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Eclipse&amp;#160;Che images from &lt;a href=&quot;https://simpleicons.org/?q=eclipse-che&quot;&gt;Simple Icons&lt;/a&gt; can be also used for generation of the custom badges via &lt;a href=&quot;https://shields.io/&quot;&gt;Shields IO&lt;/a&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;https://img.shields.io/static/v1?label=eclipse&amp;amp;message=che&amp;amp;logo=eclipseche
+https://img.shields.io/static/v1?label=code%20with&amp;amp;message=che&amp;amp;logo=eclipseche&amp;amp;color=FDB940&amp;amp;labelColor=525C86
+https://img.shields.io/static/v1?label=eclipse&amp;amp;message=che&amp;amp;logo=eclipseche&amp;amp;color=FDB940&amp;amp;labelColor=525C86&amp;amp;style=plastic
+https://img.shields.io/static/v1?label=eclipse&amp;amp;message=che&amp;amp;logo=eclipseche&amp;amp;color=FDB940&amp;amp;labelColor=525C86&amp;amp;style=flat-square
+https://img.shields.io/static/v1?label=eclipse&amp;amp;message=che&amp;amp;logo=eclipseche&amp;amp;style=social&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://img.shields.io/static/v1?label=code%20with&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86&amp;style=plastic&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;color=FDB940&amp;labelColor=525C86&amp;style=flat-square&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipseche&amp;style=social&quot; alt=&quot;Contribute Badge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Set up &lt;a href=&quot;https://github.com/marketplace/actions/try-in-web-ide&quot;&gt;Try in Web IDE&lt;/a&gt; GitHub action in the repository in order to test and review pull requests with Eclipse&amp;#160;Che.
+More details about the GitHub action can be found in the &lt;a href=&quot;https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html&quot;&gt;Test pull requests with the Try in Web IDE GitHub action&lt;/a&gt; blog post.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now you are all set. Happy Coding!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Ilya Buziuk</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Authoring a URL to start a workspace</title><link href="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html" rel="alternate" type="text/html" title="Authoring a URL to start a workspace" /><published>2021-12-20T00:00:00+00:00</published><updated>2021-12-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/12/20/@florent.benoit/authoring-a-url-to-start-a-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html">&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;As a user, you can create a workspace using a direct URL rather than navigating the user dashboard.
 This blog post describes how to author a URL to start a workspace.
 The coordinates are organized into the standard sequence shown below.&lt;/p&gt;
@@ -1813,120 +2186,4 @@ Note: your cluster might be different so the URL might be different as well.&lt;
 
 &lt;p&gt;When we’re done working we can double-check that the rsync script has finished to copy all files to my laptop, then stop the Eclipse Che workspace. We can even delete the stopped Che workspace as we have all the up-to-date changes saved on our local drive.&lt;/p&gt;
 
-&lt;p&gt;Note: With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;persistVolumes=false&lt;/code&gt; , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</summary></entry><entry><title type="html">Discover Che 7: devfile</title><link href="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html" rel="alternate" type="text/html" title="Discover Che 7: devfile" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2019/10/02/@florent.benoit/discover-che-7-devfile</id><content type="html" xml:base="https://che.eclipseprojects.io/2019/10/02/@florent.benoit-discover-che-7-devfile.html">&lt;p&gt;&lt;a href=&quot;https://che.eclipse.org/discover-eclipse-che-7-7515e74a99ca&quot;&gt;In a previous blog post&lt;/a&gt;, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.&lt;/p&gt;
-
-&lt;p&gt;But when we are open a ready-to-use workspace, it seems that there is some magic:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The runtime already has language tooling&lt;/li&gt;
-  &lt;li&gt;There is code completion with pre-installed plug-ins for the given language&lt;/li&gt;
-  &lt;li&gt;The project is already cloned into the workspace, and we have commands to build, debug and manipulate the runtime&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In this blog post, we’ll discover what drives this workspace magic: the devfile.&lt;/p&gt;
-
-&lt;h4 id=&quot;definition&quot;&gt;Definition&lt;/h4&gt;
-
-&lt;p&gt;A devfile defines the configuration of the workspace, which is the developer’s environment. This definition is portable - we can create any number of identical workspaces from the same devfile. Anyone can share a devfile and everyone using this devfile will get the same workspace including projects, tooling, commands, etc…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/0*o_SxIc5VuMqc0BtS.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;explore&quot;&gt;Explore&lt;/h4&gt;
-
-&lt;p&gt;To make exploration easier, we’ll use the hosted Eclipse Che service (version 7) run by Red Hat at &lt;a href=&quot;https://che.openshift.io&quot;&gt;https://che.openshift.io&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;For our example, let’s start with a pre-built workspace Stack: From the user dashboard, click on Stacks in the left nav bar.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*edyrQNdKqzpJC9jhh3MQLA.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now click on Python stack:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*8rOhOHjaU4cdimuJXeGjlA.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The raw configuration section shows the devfile content:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*rYww8WAOL7YbRjhNzFwWxQ.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/benoitf/660dbe69a2098cbc9653829a38d33bcb.js&quot;&gt;&lt;/script&gt;
-
-&lt;h3 id=&quot;deconstructing-thedevfile&quot;&gt;Deconstructing the devfile&lt;/h3&gt;
-
-&lt;h4 id=&quot;metadata&quot;&gt;Metadata&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;metadata.generateName&lt;/code&gt; is used for the workspace prefix name. When a user creates a workspace from the devfile, their workspace name will be named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python-&amp;lt;random-4-digits-id&amp;gt;&lt;/code&gt;. By using instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;generateName metadata.name&lt;/code&gt; there will be no prefix so workspace names will all use only that name, however, if a single user tries to create a second workspace from the same devile, they’ll get an error notifying them that they can’t create another workspace because one with that name already exists.&lt;/p&gt;
-
-&lt;h4 id=&quot;projects&quot;&gt;Projects&lt;/h4&gt;
-
-&lt;p&gt;Describes the projects to clone into the workspace. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; field can be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zip&lt;/code&gt;. In this case, we’re using git so we specify the repository URL (there can be multiple URLs to clone in multiple projects).&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;projects&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
- &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;python-hello-world&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
-   &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;  
-   &lt;span class=&quot;na&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[https://github.com/che-samples/python-hello-world.git'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;(https://github.com/che-samples/python-hello-world.git%27)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Alternatively, when using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zip&lt;/code&gt; type you can link to a zip file containing the project source code.&lt;/p&gt;
-
-&lt;h4 id=&quot;components&quot;&gt;Components&lt;/h4&gt;
-
-&lt;p&gt;This example devfile uses two kind of components: a Che plug-in and a docker image.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;chePlugin&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ms-python/python/latest&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;memoryLimit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;512Mi&lt;/span&gt;  
- &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;dockerimage&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;python&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;quay.io/eclipse/che-python-3.6:nightly'&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;memoryLimit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;512Mi&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;mountSources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cheplugin&lt;/code&gt; type is used for plugins in the Eclipse Che plug-in registry. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id&lt;/code&gt; field includes the vendor name, name and version divided by slashes. In this case, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latest&lt;/code&gt; is an alias to the latest stable definition of the plug-in. This Che Plug-in is a VS Code extension that is instantiated in a sidecar container with its own code and dependencies. This is held outside the source code container so that it doesn’t “pollute” the behaviour of the project itself.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dockerimage&lt;/code&gt; type is used to generate the runtime container. In this case that includes everything in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;che-python-3.6&lt;/code&gt; nightly container build. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alias&lt;/code&gt; is what will be used to identify this container when we want commands executed in it (we’ll cover that in the next section). Setting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mountSources&lt;/code&gt; flag to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; will make the projects source code available inside this container. Typically in the&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/projects&lt;/code&gt; folder. If you make it &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; then there will be no folder that uses attached storage (this is fine for certain use cases like teaching examples where code changes don’t need to be retained after the course unit is completed).&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memoryLimit&lt;/code&gt; can be given in either case to change the default memory allocation.&lt;/p&gt;
-
-&lt;h4 id=&quot;commands&quot;&gt;Commands&lt;/h4&gt;
-
-&lt;p&gt;Commands defined in the devfile will be available in the IDE.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
-&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;  
-  &lt;span class=&quot;na&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
-   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt;  
-    &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;  
-    &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;python&lt;/span&gt;  
-    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;python hello-world.py&lt;/span&gt;  
-    &lt;span class=&quot;na&quot;&gt;workdir&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${CHE_PROJECTS_ROOT}/python-hello-world'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In this example a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run&lt;/code&gt; command is defined. It is executing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hello-world.py&lt;/code&gt; source file with the python interpreter. The working directory is set with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workdir&lt;/code&gt; line.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;component: python&lt;/code&gt; line tells Che to execute this command in the container with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt; alias (we defined that in the section above).&lt;/p&gt;
-
-&lt;p&gt;Variables can be used in commands like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${CHE_PROJECTS_ROOT}&lt;/code&gt; to specify the folder where the source code is mounted in the container.&lt;/p&gt;
-
-&lt;h4 id=&quot;experiment-with-devfiles-foryourself&quot;&gt;Experiment with devfiles for yourself&lt;/h4&gt;
-
-&lt;p&gt;You can click on different stacks from the Che user dashboard and see the associated devfile — this is a great way to discover more examples.&lt;/p&gt;
-
-&lt;p&gt;Read about the full devfile schema at &lt;a href=&quot;https://redhat-developer.github.io/devfile/devfile&quot;&gt;https://redhat-developer.github.io/devfile/devfile&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;get-involved&quot;&gt;Get Involved!&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.eclipse.org/che/docs/#getting-started&quot;&gt;Quick Start with Eclipse Che&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Join the community:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Support&lt;/strong&gt;: You can ask questions, report bugs, and request features using &lt;a href=&quot;https://github.com/eclipse/che/issues&quot;&gt;GitHub issues&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Public Chat&lt;/strong&gt;: Join the public &lt;a href=&quot;https://mattermost.eclipse.org/eclipse/channels/eclipse-che&quot;&gt;eclipse-che&lt;/a&gt; Mattermost channel to discuss with community and contributors.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Weekly Meetings&lt;/strong&gt;: Join us in our &lt;a href=&quot;https://github.com/eclipse/che/wiki/Che-Dev-Meetings&quot;&gt;Che community meeting&lt;/a&gt; every second monday.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Mailing list&lt;/strong&gt;: che-dev@eclipse.org&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Florent Benoit</name></author><summary type="html">In a previous blog post, we’ve experimented ready-to-use workspaces and how to write/run/debug code easily.</summary></entry></feed>
+&lt;p&gt;Note: With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;persistVolumes=false&lt;/code&gt; , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.&lt;/p&gt;</content><author><name>Florent Benoit</name></author><summary type="html">Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</summary></entry></feed>
