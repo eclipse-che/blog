@@ -55,7 +55,7 @@ jobs:
           styles: |
             https://github.com/redhat-documentation/vale-at-red-hat/releases/latest/download/RedHat.zip
             https://github.com/redhat-documentation/CheDocs/releases/latest/download/RedHat.zip
-          config: https://raw.githubusercontent.com/vale-at-red-hat/vale-at-red-hat/master/.vale-for-github-action.ini
+          config: https://raw.githubusercontent.com/redhat-documentation/vale-at-red-hat/master/.vale-for-github-action.ini
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           OVERRIDE_GITHUB_SHA: ${{env.PR_SHA}}
