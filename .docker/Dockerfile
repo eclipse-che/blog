@@ -27,7 +27,7 @@ COPY --from=vale-builder /vale/bin/vale /usr/local/bin/vale
 RUN mkdir -p /home/jekyll/.vale/styles
 WORKDIR /home/jekyll/.vale/styles
 RUN wget -qO- https://github.com/redhat-documentation/vale-at-red-hat/releases/latest/download/RedHat.zip | unzip -
-RUN wget -qO-  https://github.com/redhat-documentation/chedocs/releases/latest/download/CheDocs.zip | unzip -
+RUN wget -qO-  https://github.com/eclipse-che/che-docs-vale-style/releases/latest/download/CheDocs.zip | unzip -
 COPY --chown=jekyll:jekyll .docker/.vale.ini /home/jekyll/.vale.ini
 COPY --chown=jekyll:jekyll Gemfile .
 COPY --chown=jekyll:jekyll Gemfile.lock .
