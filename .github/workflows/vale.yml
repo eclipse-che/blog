@@ -54,7 +54,7 @@ jobs:
           files: '${{ env.CHANGED_FILES }}'
           styles: |
             https://github.com/redhat-documentation/vale-at-red-hat/releases/latest/download/RedHat.zip
-            https://github.com/redhat-documentation/CheDocs/releases/latest/download/RedHat.zip
+            https://github.com/eclipse-che/che-docs-vale-style/releases/latest/download/RedHat.zip
           config: https://raw.githubusercontent.com/redhat-documentation/vale-at-red-hat/master/.vale-for-github-action.ini
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
