@@ -1,0 +1,195 @@
+---
+title: Contributing for the first time to a project
+layout: post
+author: Ilya Buziuk
+description: >-
+  The article describes how to easily contribute to a project using Eclipse Che
+categories: []
+keywords: ['workspace', 'contribute', 'GitHub']
+slug: /@ilya.buziuk/contributing-for-the-first-time-to-a-project
+---
+
+=== Introduction
+
+The complexity of applications has changed dramatically over the last decade, and nowadays it is not always straightforward to contribute to a new project for the first time.
+At the beginning, developers need to properly set up the local environment including:
+
+- build tools
+- runtimes
+- dependencies
+- IDEs
+
+For complex projects, it could easily take weeks for new developers to get the builds running on their machines.
+In general, a significant amount of the team's week is spent on building and maintaining developer environments.
+With {prod} we are solving the complexity of the onboarding, configuration, and setup by defining a new cloud-native, zero-install, and repeatable concept of a workspace.
+
+=== Contributing for the first time to a project using {prod}
+
+The motto of {prod} is that anyone anytime can contribute to a project without installing software.
+In order to contribute to a project, just click on the badge defined in the `README.md` file of the repository, and within a minute you will get a workspace ready for development with all the tools and runtimes available out of the box.
+
+.The {prod} contribute badge in `README.md`
+image::/assets/img/contribute-to-a-project/contribute.png[Contribute Badge]
+{empty}
+
+By default, {prod} is using a customized version of link:https://theia-ide.org/[Theia], which provides link:https://code.visualstudio.com/[VS Code]-like experience including the support of extensions:
+
+.{prod} Theia IDE
+image::/assets/img/contribute-to-a-project/ide.png[{prod} Theia IDE]
+{empty}
+
+Programming languages facilities like code completion, navigation, and CodeLens are provided using the link:https://microsoft.github.io/language-server-protocol/[Language Server Protocol]. {prod} benefits from a growing ecosystem of over 60 available language servers, delivering intelligent editing support for all major programming languages. 
+
+.Java Content Assist
+image::/assets/img/contribute-to-a-project/content-assist.png[Content Assist]
+{empty}
+
+Pre-defined commands (`Terminal` -> `Run Task...`) allow you to easily build, run, debug, and test the application.
+
+.Pre-defined commands
+image::/assets/img/contribute-to-a-project/commands.png[IDE Commands]
+{empty}
+
+Additional extensions can be enabled by using the `Ctrl+Shift+J` shortcut or `View` -> `Plugins` menu items:
+
+.The 'Plugins' view
+image::/assets/img/contribute-to-a-project/plugins.png[The 'Plugins' view]
+{empty}
+
+Debug the application by using the `F5` shortcut or `Run` -> `Start Debugging` menu items:
+
+.Debugging Java application
+image::/assets/img/contribute-to-a-project/debug.png[Debugging the application]
+{empty}
+
+Commit and push the changes from the terminal or use the `Source Control` view:
+
+.The 'Source Control' view
+image::/assets/img/contribute-to-a-project/source-control.png[[The 'Source Control' view]
+{empty}
+
+Now you are ready for the first contribution. For GitHub, a dedicated plugin is available that allows opening pull requests right from the IDE:
+
+.The 'GitHub' plugin
+image::/assets/img/contribute-to-a-project/github-plugin.png[[The 'GitHub' plugin]
+{empty}
+
+=== How can maintainers set up their projects to use {prod}?
+
+- Deploy {prod} on a {orch-name} cluster or use link:https://workspaces.openshift.com/[Eclipse Che hosted by Red Hat].
+
+WARNING: At the moment, link:https://workspaces.openshift.com/[Eclipse Che hosted by Red Hat] does not use the {devworkspace} Operator that is in charge of the devfile v2 support.
+The switch to the {devworkspace} engine is planned for spring 2022.
+Currently, devfiles v2 are automatically converted to devfile v1 equivalents via the link:https://github.com/che-incubator/devfile-converter[converter library] under the hood during workspace startup.
+
+.The recommended file structure of the repository
+----
+  |--- devfile.yaml
+  |--- README.md
+  |___ .che
+         |___ che-editor.yaml
+         |___ che-theia-plugins.yaml
+  |___ .vscode
+         |___ extensions.json
+         |___ launch.json
+----
+
+- Add `.devfile.yaml` or `devfile.yaml` file to the root of the project in order to specify the relevant components and commands in a declarative way.
+
+The devfile provides easy to configure, highly reproducible definitions of portable developer environments.
+For more information about devfiles, see the link:https://devfile.io/[Devfile Documentation].
+
+NOTE: Omitting the creation of the devfile file will result in using a default container based on the link:https://quay.io/repository/devfile/universal-developer-image[Universal Developer Image],
+which provides various languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including `curl`, `jq`, `git`, etc).
+
+- Add the `.vscode/extensions.json` file to the root of the project in order to add VS Code extensions if the editor is Theia (the default) or VS Code:
+
+[source,json]
+----
+{  
+  "recommendations": [
+    "redhat.java"  
+  ]  
+}
+----
+
+IMPORTANT: The list of VS Code extensions is available in the {prod} plug-in registry.
+If the specified extensions are not available in the registry, the workspace will start, but the extensions will not be added to the workspace. 
+
+- Add the `.vscode/launch.json` file for specifying `Run` and `Debug` commands if the editor is Theia or VS Code:
+
+[source,json]
+----
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Attach) - Remote",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ]
+}
+----
+
+- Add the `.che/che-theia-plugins.yaml` file if extra customizations of Theia plugins are required. 
+
+NOTE: {prod} uses `.che/che-theia-plugins.yaml` file only if the editor is Theia.
+
+For example, overriding the default memory limit of `redhat.java` sidecar container:
+
+[source,yaml]
+----
+- id: redhat/java  
+  override:  
+    sidecar:  
+      memoryLimit: 2Gi
+----
+
+- Add the `.che/che-editor.yaml` file to override the default editor (Theia) with a different one (e.g. VS Code or JetBrains IntelliJ) and specify the editor container properties. For example, overriding the default memory limit of the `theia-ide` container:
+
+[source,yaml]
+----
+id: eclipse/che-theia/latest          # mandatory
+registryUrl: https://my-registry.com  # optional
+override:                             # optional
+  containers:
+    - name: theia-ide
+      memoryLimit: 1280Mi
+----
+
+- Add the {prod} badge to the project `README.md` file with a link for starting a workspace:
+
+.The official {prod} badge
+image::https://www.eclipse.org/che/contribute.svg[Contribute Badge]
+{empty}
+
+====
+`[![Contribute](https://www.eclipse.org/che/contribute.svg)](pass:c,a,q[{prod-url}#https://github.com/my/repository])`
+====
+
+Once the line above is added to the `README.md`, it will be possible to start a workspace by simply clicking on the badge icon.
+
+NOTE: {prod} images from link:https://simpleicons.org/?q=eclipse-che[Simple Icons] can be also used for generation of the custom badges via link:https://shields.io/[Shields IO].
+
+----
+https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche
+https://img.shields.io/static/v1?label=code%20with&message=che&logo=eclipseche&color=FDB940&labelColor=525C86
+https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=plastic
+https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=flat-square
+https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&style=social
+----
+
+image::https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche[Contribute Badge]
+image::https://img.shields.io/static/v1?label=code%20with&message=che&logo=eclipseche&color=FDB940&labelColor=525C86[Contribute Badge]
+image::https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=plastic[Contribute Badge]
+image::https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=flat-square[Contribute Badge]
+image::https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&style=social[Contribute Badge]
+{empty}
+
+- Set up link:https://github.com/marketplace/actions/try-in-web-ide[Try in Web IDE] GitHub action in the repository in order to test and review pull requests with {prod}.
+More details about the GitHub action can be found in the link:https://che.eclipseprojects.io/2021/10/18/@david.kwon-test-pull-requests-with-the-try-in-web-ide-github-action.html[Test pull requests with the Try in Web IDE GitHub action] blog post.
+
+Now you are all set. Happy Coding!
