@@ -1,0 +1,179 @@
+---
+title: Reviewing pull requests
+layout: post
+author: David Kwon
+description: >-
+  Reviewing pull requests with Eclipse Che.
+categories: []
+keywords: ['GitHub', 'pull request', 'review', 'reviewng', 'PR']
+slug: /@david.kwon/reviewing-pull-requests
+---
+
+Reviewing pull requests for a GitHub project integrated with {prod}.
+
+=== Using {prod} to review pull requests
+
+As long as you're using a supported web browser like Google Chrome, {prod} can make it possible to review a pull request (PR) without setting up runtimes, build tools, or any additional software on the local machine.
+
+This blog post will showcase the typical workflow on how PRs can be reviewed using {prod} for a GitHub project that is well-integrated with {prod}.
+The GitHub project used in this blog post is located here: link:https://github.com/che-incubator/quarkus-api-example[www.github.com/che-incubator/quarkus-api-example].
+
+Please refer to these references on how to set up your project with {prod}:
+
+* <<../../01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project#set-up-project,How can maintainers set up their projects to use Eclipse Che?>>
+* link:https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-2[Authoring a devfile v2]
+
+NOTE: It is crucial that your project contains a well-defined devfile.yaml file to make the most out of your development experience with {prod}. The devfile should define your project's development environment such as development commands, containers, endpoints etc.
+
+WARNING: In the following scenario devfile v2 is used and {prod} has been deployed alongside the {devworkspace} engine, which is currently not in use on link:https://workspaces.openshift.com/[Eclipse Che Hosted by Red Hat]. To open the example GitHub project on Eclipse Che Hosted by Red Hat, please use the link:https://github.com/che-incubator/quarkus-api-example/tree/devfilev1[devfilev1] branch which provides support for the deprecated devfile v1.
+
+=== The scenario
+
+Let's imagine that we are developing a REST API with Quarkus that interacts with `Food` resources from a PostgreSQL database.
+[source,java]
+----
+/* Food.java */
+
+@Entity
+public class Food extends PanacheEntity {
+
+    @Column(length = 40)
+    public String name;
+
+    @Column(length = 40)
+    public String restaurantName;
+
+    public double price;
+
+}
+----
+
+In the current state of the project, there are four endpoints:
+[cols="1,1,1"]
+|===
+|Method |Endpoint |Description
+
+|`GET`
+|`/food`
+|Lists all Food resources
+
+|`GET`
+|`/food/{id}`
+|Retrieves the Food resource with the specified ID
+
+|`GET`
+|`/food/search/{name}`
+|Retrieves a Food resource with the specified name
+
+|`POST`
+|`/food`
+|Creates a Food resource
+|===
+
+It looks like a "colleague" has opened a new PR that adds a new `GET` endpoint, `/food/restaurant/{restaurantName}` that retrieves a list of all `Food` resources served from a specified restaurant:
+
+image::/assets/img/reviewing-pull-requests/pr.png[The pull request to review]
+Figure 1: The GitHub PR that we need to review.
+
+Let's review this PR by launching a new {prod} workspace. From the {prod} workspace, we can verify the PR by running unit tests, running the application, accessing the endpoint, building the application, all without leaving our web browser.
+
+The workspace and IDE editor can be launched on link:https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/[Eclipse Che Hosted by Red Hat] by clicking the {prod} badge from the base GitHub repository's `README`:
+
+image::/assets/img/reviewing-pull-requests/badge.png[Badge used to launch workspace]
+Figure 2: A badge from the base repository's `README.md` that launches a developer workspace when clicked.
+
+=== Launching a workspace and reviewing the PR
+image::/assets/img/reviewing-pull-requests/ide.png[The Che-theia editor]
+Figure 3: The Che-Theia editor.
+
+Once the workspace has launched and the Web IDE has opened, you will see that the project has been cloned already (see the Explorer view on the bottom-right).
+
+To leverage the link:https://github.com/Microsoft/vscode-pull-request-github[GitHub Pull Requests and Issues] plugin, we must first authenticate with GitHub by clicking on the Accounts icon on the bottom left of the editor. The extension adds the GitHub view to the sidebar, and provides integration with GitHub.
+As a result, we can make PR comments, in-editor comments, approve PRs, and much more, all from the IDE.
+
+Click on "Sign in to user GitHub Pull Requests and Issues (1)".
+You will be prompted to enter your GitHub credentials to sign in.
+
+image::/assets/img/reviewing-pull-requests/sign-in.png[The context menu that appears after clicking the Accounts icon, 600]
+Figure 4: The context menu that appears after clicking the Accounts icon.
+
+After signing in successfully, navigate to the GitHub view from the sidebar to see an overview of PRs against the base repository. Under the "Assigned To Me" drop-down, we can see the PR that we will review.
+
+image::/assets/img/reviewing-pull-requests/github-view.png[Viewing the PR within the IDE, 400]
+Figure 5: The GitHub view, opened by clicking on the fifth icon from the top.
+
+WARNING: If the workspace was launched with a badge generated with the link:https://github.com/marketplace/actions/try-in-web-ide[Try in Web IDE] GitHub action on PR coming from a forked repository, git remotes must be manually set up in order to use the GitHub Pull Requests and Issues plugin. Please see link:https://github.com/redhat-actions/try-in-web-ide/issues/14[redhat-actions/try-in-web-ide#14].
+
+In the drop-down menu underneath the PR, we see a "Description" menu item, as well as a file hierarchy displaying all of the changed files in the PR.
+In this case, the files that were changed were: `FoodResource.java`, `FoodEndpointTest.java` and `README.md`. Clicking on these files will open a diff view within the IDE.
+Taking a look at these files, we can verify that the PR adds the new endpoint, as well as a unit test. Let's checkout the feature branch and take a closer look at the PR.
+
+Clicking on the "Description" menu item opens a new webview displaying the PR in a similar UI as to what we would see on GitHub.
+Checkout the branch by clicking "Checkout" at the top right on Figure 6.
+
+image::/assets/img/reviewing-pull-requests/pr-view.png[Viewing the PR within the IDE]
+Figure 6: A webview that displays details about the PR. This webview appears after clicking the "Description" menu item from Figure 5.
+
+Since the link:https://github.com/redhat-developer/vscode-java[Language support for Java ™] plugin is already installed in our IDE (as defined for our project),once the plugin is running we can verify right away that it reports no compilation errors like syntax errors by referring to the Problems view.
+
+image::/assets/img/reviewing-pull-requests/no-problems.png[No problems reported by the Java plugin]
+Figure 7: No problems reported by the Java plugin in the Problems view.
+
+=== Running unit tests and building
+The devfile also defines commands for testing, building, and launching the application.
+Let's run the unit tests by opening the Workspace view from the right-hand side and clicking `(User Runtimes -> tools -> runtests)`.
+
+This runs the test command (`./mvnw test`) within the `tools` container as specified in the devfile. The test output can be viewed in the output panel.
+
+image::/assets/img/reviewing-pull-requests/run-tests.png[Running the unit tests]
+Figure 8: Unit testing by clicking `runtests` from the Workspace view on the right.
+
+As we can see in the output from Figure 8, all of the tests pass!
+
+You can also run other commands such as `(User Runtimes -> tools -> package)` to build the application.
+
+image::/assets/img/reviewing-pull-requests/build.png[Successfully building the application]
+Figure 9: Successfully building the application.
+
+NOTE: Please note, the `packagenative` command is used to build a native image with GraalVM. This command would fail for our example project on link:https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/[Eclipse Che Hosted by Red Hat] due to the 7GB memory usage limit.
+
+=== Running the application
+Let's run the Quarkus application in link:https://quarkus.io/guides/getting-started#development-mode[development mode] by running the `(User Runtimes -> tools -> startdev)` command to try accessing the endpoint ourselves.
+
+image::/assets/img/reviewing-pull-requests/start-dev.png[Starting the application in development mode]
+Figure 10: Starting the Quarkus project in development mode by clicking `startdev` from the Workspace view on the right.
+
+Next, let's access the new `/food/restaurant/{restaurantName}` endpoint. Here, we access `/food/restaurant/Local Deli` to get all `Food` resources from the restaurant named `Local Deli`. 
+
+image::/assets/img/reviewing-pull-requests/access-endpoint.png[Accessing the new endpoint]
+Figure 11: Response from `/food/restaurant/Local Deli`.
+
+There are two `Food` resources from the `Local Deli` restaurant from the response, which is what we would expect given that these are the only `Food` resources from the specified restaurant in our link:https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql[`import.sql`] file.
+
+=== Providing feedback and merging the PR
+So far, we have successfully run tests, ran the build, as well as ran the application in development mode to verify that the PR is working correctly.
+Next, let's merge the PR from the IDE.
+
+Going back to the GitHub PR view (see Figure 5), we can provide any additional comments, and approve the PR. Let's merge this PR to `main`.
+
+image::/assets/img/reviewing-pull-requests/merge.png[Merging to main from the IDE]
+Figure 12: Clicking "Merge Pull Request" to merge.
+
+image::/assets/img/reviewing-pull-requests/merged.png[Merged to main from the IDE]
+Figure 13: PR has been merged.
+
+=== Conclusion
+And that's it! We have finished reviewing the PR and have successfully merged it from the IDE editor.
+In summary, we have:
+
+* Opened a new {prod} workspace to review the PR
+* Checked out the feature branch
+* Ran the unit tests
+* Built the application
+* Ran the application in development mode to verify that the feature works as intended
+* Leveraged the GitHub Pull Requests and Issues plugin and the Language support for Java ™ plugin
+* Merged the PR from the IDE
+
+without any prior setup on our local machine.
+
+Thank you for reading!
