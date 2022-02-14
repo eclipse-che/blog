@@ -36,10 +36,15 @@ Vale and AsciiDoc Visual Studio Code extensions will report problems directly in
 Click on the `surge` check and browse the content online
 
 
+[![Contribute](https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche)](https://che-host#https://github.com/my/repository)
+[![Contribute](https://img.shields.io/static/v1?label=code%20with&message=che&logo=eclipseche&color=FDB940&labelColor=525C86)](https://che-host#https://github.com/my/repository)
+[![Contribute](https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=plastic)](https://che-host#https://github.com/my/repository)
+[![Contribute](https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=flat-square)](https://che-host#https://github.com/my/repository)
+[![Contribute](https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&style=social)](https://che-host#https://github.com/my/repository)
 
-https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche
-https://img.shields.io/static/v1?label=code%20with&message=che&logo=eclipseche&color=FDB940&labelColor=525C86
-https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=plastic
-https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&color=FDB940&labelColor=525C86&style=flat-square
-https://img.shields.io/static/v1?label=eclipse&message=che&logo=eclipseche&style=social
+
+
+
+
+
 
