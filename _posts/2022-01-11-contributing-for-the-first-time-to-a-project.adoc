@@ -74,7 +74,7 @@ Now you are ready for the first contribution. For GitHub, a dedicated plugin is 
 image::/assets/img/contribute-to-a-project/github-plugin.png[[The 'GitHub' plugin]
 {empty}
 
-=== How can maintainers set up their projects to use {prod}?
+=== How can maintainers set up their projects to use {prod}? [[set-up-project]]
 
 - Deploy {prod} on a {orch-name} cluster or use link:https://workspaces.openshift.com/[Eclipse Che hosted by Red Hat].
 
