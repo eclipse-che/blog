@@ -1,4 +1,352 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-01-25T15:33:37+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Contributing for the first time to a project</title><link href="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html" rel="alternate" type="text/html" title="Contributing for the first time to a project" /><published>2022-01-11T00:00:00+00:00</published><updated>2022-01-11T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk/contributing-for-the-first-time-to-a-project</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"><![CDATA[<div class="sect2">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-02-16T16:56:56+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
+<p>Reviewing pull requests for a GitHub project integrated with Eclipse&#160;Che.</p>
+</div>
+<div class="sect2">
+<h3 id="using-eclipseche-to-review-pull-requests">Using Eclipse&#160;Che to review pull requests</h3>
+<div class="paragraph">
+<p>With Google Chrome, Eclipse&#160;Che makes it possible to review a pull request (PR) without setting up runtimes, build tools, or any extra software on the local machine.</p>
+</div>
+<div class="paragraph">
+<p>This blog post will showcase the typical workflow of reviewing PRs of a GitHub project that is well-integrated with Eclipse Che. Here is the GitHub project used in this blog post: <a href="https://github.com/che-incubator/quarkus-api-example">www.github.com/che-incubator/quarkus-api-example</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can refer to these articles on how to set up your project with Eclipse&#160;Che:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../../01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html#set-up-project">How can maintainers set up their projects to use Eclipse Che?</a></p>
+</li>
+<li>
+<p><a href="https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-2">Authoring a devfile v2</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Your project must contain a well-defined <code>devfile.yaml</code> file to make the most out of your development experience with Eclipse&#160;Che. Use the devfile to define your project’s development environment such as development commands, containers, endpoints, and so on.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+The following scenario uses devfile v2, and Eclipse&#160;Che is deployed alongside the DevWorkspace engine which is currently not used on <a href="https://workspaces.openshift.com/">Eclipse Che Hosted by Red Hat</a>. To open the test GitHub project on Eclipse Che Hosted by Red Hat, please use the <a href="https://github.com/che-incubator/quarkus-api-example/tree/devfilev1">devfilev1</a> branch which supports the deprecated devfile v1.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-scenario">The scenario</h3>
+<div class="paragraph">
+<p>Imagine that you&#8217;re developing a REST API with Quarkus that interacts with <code>Food</code> resources from a PostgreSQL database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">/* Food.java */
+
+@Entity
+public class Food extends PanacheEntity {
+
+    @Column(length = 40)
+    public String name;
+
+    @Column(length = 40)
+    public String restaurantName;
+
+    public double price;
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the current state of the project, there are four endpoints:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Endpoint</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/food</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all Food resources</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/food/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieves the Food resource with the specified ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/food/search/{name}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieves a Food resource with the specified name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>POST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/food</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates a Food resource</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>It looks like your colleague has opened a new PR that adds a new <code>GET</code> endpoint, <code>/food/restaurant/{restaurantName}</code>. The endpoint retrieves a list of all <code>Food</code> resources served from a specified restaurant:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/pr.png" alt="The pull request to review">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: The GitHub PR you need to review.</p>
+</div>
+<div class="paragraph">
+<p>Review this PR by launching a new Eclipse&#160;Che workspace. Here you can verify the PR by running unit tests, running the application, accessing the endpoint, and building the application, all within your web browser.</p>
+</div>
+<div class="paragraph">
+<p>Start the workspace and Web IDE editor on <a href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/">Eclipse Che Hosted by Red Hat</a> by clicking the Eclipse&#160;Che badge from the base GitHub repository&#8217;s <code>README</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/badge.png" alt="Badge used to start workspaces">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 2: Clicking on a badge from the base repository&#8217;s <code>README.md</code> launches a developer workspace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="launching-a-workspace-and-reviewing-the-pr">Launching a workspace and reviewing the PR</h3>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/ide.png" alt="The Che-theia editor">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3: The Che-Theia editor.</p>
+</div>
+<div class="paragraph">
+<p>After you start the workspace, the web IDE will open automatically and you&#8217;ll see that the project has been cloned already (see the Explorer view on the left-hand side).</p>
+</div>
+<div class="paragraph">
+<p>To use the <a href="https://github.com/Microsoft/vscode-pull-request-github">GitHub Pull Requests and Issues</a> extension, you must first authenticate with GitHub by clicking on the Accounts icon on the bottom left of the editor. The extension adds the GitHub view to the sidebar and provides integration with GitHub. As a result, you can make PR comments, in-editor comments, approve PRs, and much more, all from the web IDE.</p>
+</div>
+<div class="paragraph">
+<p>Click on "Sign in to user GitHub Pull Requests and Issues (1)".
+You will be prompted to enter your GitHub credentials to sign in.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/sign-in.png" alt="The context menu appears after clicking the Accounts icon" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 4: The menu appears after clicking the Accounts icon.</p>
+</div>
+<div class="paragraph">
+<p>After signing in, navigate to the GitHub view from the sidebar to see an overview of PRs against the base repository. Under the "Assigned To Me" drop-down, you can see the PR that you&#8217;ll review.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/github-view.png" alt="Viewing the PR within the web IDE" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 5: The GitHub view, opened by clicking on the fifth icon from the top.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+If you start a workspace with a badge generated using the <a href="https://github.com/marketplace/actions/try-in-web-ide">Try in Web IDE</a> GitHub action on a PR from a forked repository, you must manually set up Git remotes to use the GitHub Pull Requests and Issues extension. Please see <a href="https://github.com/redhat-actions/try-in-web-ide/issues/14">redhat-actions/try-in-web-ide#14</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The "Description" menu item, as well as a file hierarchy with all changed files, are in the drop-down menu below the PR. In this case, the changed files are <code>FoodResource.java</code>, <code>FoodEndpointTest.java</code>, and <code>README.md</code>. Click on the files to open a diff view within the web IDE. Examine these files and verify that the PR adds a new endpoint, as well as a unit test.</p>
+</div>
+<div class="paragraph">
+<p>Click on the "Description" menu item to open a new web view displaying the PR in a UI similar to GitHub. Check out the branch by clicking "Checkout" at the top right of Figure 6.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/pr-view.png" alt="Viewing the PR within the web IDE">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 6: A webview displaying details about the PR. This web view appears after clicking the "Description" menu item from Figure 5.</p>
+</div>
+<div class="paragraph">
+<p>The test project includes a preinstalled <a href="https://github.com/redhat-developer/vscode-java">Language support for Java ™</a> extension in the web IDE. With this extension, you can check the Problem view to verify that there are no compilation problems such as syntax errors.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/no-problems.png" alt="No problems reported by the Java extension">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 7: No problems reported by the Java extension in the Problems view.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running-unit-tests-and-building">Running unit tests and building</h3>
+<div class="paragraph">
+<p>The devfile also defines commands for testing, building, and launching the application. Run the unit tests by opening the Workspace view from the right side and clicking <code>(User Runtimes &#8594; tools &#8594; runtests)</code>.</p>
+</div>
+<div class="paragraph">
+<p>This runs the test command (<code>./mvnw test</code>) within the <code>tools</code> container as specified in the devfile. You can view the test output in the output panel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/run-tests.png" alt="Running the unit tests">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 8: Unit testing by clicking <code>runtests</code> from the Workspace view on the right.</p>
+</div>
+<div class="paragraph">
+<p>As you can see in the output from Figure 8, you passed the tests successfully.</p>
+</div>
+<div class="paragraph">
+<p>You can also run other commands such as <code>(User Runtimes &#8594; tools &#8594; package)</code> to build the application.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/build.png" alt="Successfully building the application">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 9: Successfully building the application.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The <code>packagenative</code> command is used to build a native image with GraalVM. The command would fail for this test project on <a href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/">Eclipse Che Hosted by Red Hat</a> due to the 7GB memory usage limit.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running-the-application">Running the application</h3>
+<div class="paragraph">
+<p>Run the Quarkus application in <a href="https://quarkus.io/guides/getting-started#development-mode">development mode</a> by running the <code>(User Runtimes &#8594; tools &#8594; startdev)</code> command to access the endpoint.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/start-dev.png" alt="Starting the application in development mode">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 10: Starting the Quarkus project in development mode by clicking <code>startdev</code> from the Workspace view on the right.</p>
+</div>
+<div class="paragraph">
+<p>Next, access the new <code>/food/restaurant/{restaurantName}</code> endpoint. Here, you access <code>/food/restaurant/Local Deli</code> to get all <code>Food</code> resources from the restaurant named <code>Local Deli</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/access-endpoint.png" alt="Accessing the new endpoint">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 11: Response from <code>/food/restaurant/Local Deli</code>.</p>
+</div>
+<div class="paragraph">
+<p>The response contains two <code>Food</code> resources from the <code>Local Deli</code> restaurant. This is a match with the <code>Food</code> resources from this restaurant in the <a href="https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql"><code>import.sql</code></a> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="providing-feedback-and-merging-the-pr">Providing feedback and merging the PR</h3>
+<div class="paragraph">
+<p>So far, you have successfully run tests, ran the build, as well as ran the application in development mode to verify that the PR is working correctly.
+Next, merge the PR from the web IDE.</p>
+</div>
+<div class="paragraph">
+<p>Go back to the GitHub PR view (see Figure 5) to provide more comments, and approve the PR. Merge the PR to <code>main</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/merge.png" alt="Merging to main from the web IDE">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 12: Clicking "Merge Pull Request" to merge.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/reviewing-pull-requests/merged.png" alt="Merged to main from the web IDE">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 13: PR has been merged.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>You have finished reviewing the PR and have successfully merged it from the web IDE editor.
+In summary, we have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Opened a new Eclipse&#160;Che workspace to review the PR</p>
+</li>
+<li>
+<p>Checked out the feature branch</p>
+</li>
+<li>
+<p>Ran the unit tests</p>
+</li>
+<li>
+<p>Built the application</p>
+</li>
+<li>
+<p>Ran the application in development mode to verify that the feature works as intended</p>
+</li>
+<li>
+<p>Used the GitHub Pull Requests and Issues extension and the Language support for Java ™ extension</p>
+</li>
+<li>
+<p>Merged the PR from the web IDE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>without any prior setup on your local machine.</p>
+</div>
+<div class="paragraph">
+<p>Thank you for reading!</p>
+</div>
+</div>]]></content><author><name>David Kwon</name></author><summary type="html"><![CDATA[Reviewing pull requests with Eclipse Che.]]></summary></entry><entry><title type="html">Contributing for the first time to a project</title><link href="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html" rel="alternate" type="text/html" title="Contributing for the first time to a project" /><published>2022-01-11T00:00:00+00:00</published><updated>2022-01-11T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk/contributing-for-the-first-time-to-a-project</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"><![CDATA[<div class="sect2">
 <h3 id="introduction">Introduction</h3>
 <div class="paragraph">
 <p>The complexity of applications has changed dramatically over the last decade, and nowadays it is not always straightforward to contribute to a new project for the first time.
@@ -127,7 +475,7 @@ In order to contribute to a project, just click on the badge defined in the <cod
 </div>
 </div>
 <div class="sect2">
-<h3 id="how-can-maintainers-set-up-their-projects-to-use-eclipseche">How can maintainers set up their projects to use Eclipse&#160;Che?</h3>
+<h3 id="set-up-project">How can maintainers set up their projects to use Eclipse&#160;Che?</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1940,250 +2288,4 @@ Logged into <span class="s2">"https://api.starter-us-east-2.openshift.com:443"</
 
 <p>When we’re done working we can double-check that the rsync script has finished to copy all files remotely and then delete the project on our laptop.</p>
 
-<p>One you have this all set up it’s easy to either leave it running all the time and fluidly move from editing on your laptop and editing in the cloud. Or only turn it on when you know you’ll be offline for awhile (like for a trip).</p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Learn how to work offline with Che and sync back changes when you’re back online.]]></summary></entry><entry><title type="html">Import a project from your laptop to an Eclipse Che workspace.</title><link href="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html" rel="alternate" type="text/html" title="Import a project from your laptop to an Eclipse Che workspace." /><published>2020-04-02T00:00:00+00:00</published><updated>2020-04-02T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2020/04/02/@florent.benoit/work-on-my-laptops-project-from-a-remote-eclipse-che-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/2020/04/02/@florent.benoit-work-on-my-laptops-project-from-a-remote-eclipse-che-workspace.html"><![CDATA[<p>Eclipse Che is a Kubernetes-Native IDE. It might be interesting to work on your project using remote resources instead of consuming your laptop resources. Another interesting way is to use containers that might be used in production as well.</p>
-
-<p>Also let say you’re running out of battery, you may spare CPU and get extra time !</p>
-
-<p>In this article we’ll cover how to set this up, by:</p>
-
-<ol>
-  <li>Defining an Eclipse Che workspace for a project (create a <code class="language-plaintext highlighter-rouge">devfile</code>).</li>
-  <li>Starting an Eclipse Che workspace ready to receive the project.</li>
-  <li>Pushing / importing the local files into the remote Eclipse Che workspace.</li>
-  <li>Coding using Eclipse Che.</li>
-  <li>Synchronizing all code changes with <code class="language-plaintext highlighter-rouge">rsync</code>.</li>
-  <li>Stopping the Che workspace and even deleting it without impacting the local copy.</li>
-</ol>
-
-<h3 id="prerequisites">Prerequisites</h3>
-
-<h4 id="1-on-my-laptop-check-all-tools-are-available">1. On my laptop: check all tools are available</h4>
-
-<ul>
-  <li>Check local installation of <code class="language-plaintext highlighter-rouge">rsync</code> on the laptop by trying to execute the command <code class="language-plaintext highlighter-rouge">$ rsync</code></li>
-  <li>Check installation of <code class="language-plaintext highlighter-rouge">kubectl</code> to execute <code class="language-plaintext highlighter-rouge">rsync</code> command.</li>
-  <li>Check installation of <code class="language-plaintext highlighter-rouge">oc</code> if Eclipse Che is running on top of OpenShift.</li>
-</ul>
-
-<p>If these tools are not installed, please install them.</p>
-
-<h4 id="2-in-eclipse-che-workspace">2. In Eclipse Che Workspace</h4>
-
-<p><code class="language-plaintext highlighter-rouge">rsync</code>tool needs to be part of the workspace.</p>
-
-<p>Note: with OpenShift we could use<code class="language-plaintext highlighter-rouge">oc rsync</code> command. But there is no exclude filter taken into account for example. So in this blog post I will use only <code class="language-plaintext highlighter-rouge">kubectl</code>and <code class="language-plaintext highlighter-rouge">rsync</code>tools</p>
-
-<p>Eclipse Che workspaces may include several running containers. (Workspace pod). Let’s add a new container that will manage only <code class="language-plaintext highlighter-rouge">rsync</code> operations.</p>
-
-<p>For the demo, I will create a custom OCI image based on alpine. In this custom image, I will install <code class="language-plaintext highlighter-rouge">rsync tool.</code></p>
-
-<p>I’ve published this image under <code class="language-plaintext highlighter-rouge">quay.io/fbenoit/rsync-simple</code> so no need to build it.</p>
-
-<p>The image includes the following:</p>
-
-<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> alpine:latest  </span>
-...  
-<span class="k">RUN </span>apk add <span class="nt">--no-cache</span> rsync  
-...
-</code></pre></div></div>
-
-<p>As you can see this just adds the<code class="language-plaintext highlighter-rouge">rsync</code> tool inside the smallest container possible (based on <code class="language-plaintext highlighter-rouge">alpine</code> linux).</p>
-
-<p>I’ve also added an entry-point to keep the container always-on. I added extra permissions to make it compliant with random user-id for OpenShift.</p>
-
-<h4 id="3-a-localproject">3. A local project</h4>
-
-<p>To make sure that everyone can reproduce the test, it’s important to use the same local project :-)</p>
-
-<p>The project I’m using is a clone of <a href="https://github.com/che-samples/react-web-app">https://github.com/che-samples/react-web-app</a></p>
-
-<p>I’ve cloned it into <code class="language-plaintext highlighter-rouge">$HOME/react-web-app</code> folder.</p>
-
-<p>The application is a Nodejs example.</p>
-
-<h3 id="workflow">Workflow</h3>
-
-<h4 id="1-define-an-eclipse-che-workspace-for-my-project-create-adevfile">1. Define an Eclipse Che workspace for my project (create a devfile)</h4>
-
-<p>Let’s start with a minimalist devfile. The devfile is responsible of creating the Eclipse Che workspace.</p>
-
-<script src="https://gist.github.com/benoitf/c910348251322bb1155bea7cfed7057f.js"></script>
-
-<p>I set <code class="language-plaintext highlighter-rouge">persistVolumes</code> to false as the storage will be our laptop. I don’t want to use remote storage to save my project files.</p>
-
-<p>As seen in prerequisites, <code class="language-plaintext highlighter-rouge">rsync</code>tool needs to be part of the workspace. Let’s add a new <code class="language-plaintext highlighter-rouge">rsync</code> component and let it have access to <code class="language-plaintext highlighter-rouge">/projects</code> folder using <code class="language-plaintext highlighter-rouge">mountSources: true</code></p>
-
-<script src="https://gist.github.com/benoitf/73748447b14f499e49180ff61baa6678.js"></script>
-
-<p>The workspace now includes the <code class="language-plaintext highlighter-rouge">rsync</code> tool.</p>
-
-<p>Let’s add new components to work on the project with Eclipse Che.</p>
-
-<p>The project that I want to import is a Nodejs project.</p>
-
-<p>Now I add :</p>
-
-<ul>
-  <li>Intellisense with a typescript plugin</li>
-  <li><code class="language-plaintext highlighter-rouge">nodejs</code> component to have node tools.</li>
-</ul>
-
-<script src="https://gist.github.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290.js"></script>
-
-<h4 id="2-start-an-eclipse-che-workspace-ready-to-receive-myproject">2. Start an Eclipse Che workspace ready to receive my project</h4>
-
-<p>The workspace definition is ready with the devfile.</p>
-
-<p>There are a few ways we can start the Che workspace:</p>
-
-<ul>
-  <li>Importing this devfile into the Eclipse Che dashboard</li>
-  <li>Using <code class="language-plaintext highlighter-rouge">chectl</code> with the devfile</li>
-  <li>Opening this <a href="http://che.openshift.io/f/?url=https://gist.githubusercontent.com/benoitf/90499b50bf081ef4eb43a5cb3bb39290/raw/6b5fcb5fa9abf28693dc74ac20cb8d6c01cc4345/devfile.yaml">direct link</a> that creates and starts the workspace</li>
-</ul>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*LsTwkOIAEZ1N_R4xcOB2zg.png" alt="" /></p>
-
-<p>After the startup of the workspace, we can see the IDE. We can see that there are no files in project tree. This is normal because we want to import our local project folder.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*aQdSPCSpzoy8GWf2r4LlKQ.png" alt="" /></p>
-
-<h4 id="3-pushimport-into-the-remote-eclipse-che-workspace-the-localfiles">3. Push/Import into the remote Eclipse Che workspace the local files</h4>
-
-<p>To push files to the remote workspace and use rsync, we will need some information.</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">kubectl</code> ready-to-use (authentication performed)</li>
-  <li>The name of the workspace pod</li>
-  <li>A rsync bash script</li>
-</ol>
-
-<h4 id="31-kubectl">3.1. kubectl</h4>
-
-<p>In my example, I am using the online Eclipse Che instance hosted on <code class="language-plaintext highlighter-rouge">che.openshift.io.</code> I will copy the command to be able to log into OpenShift instance.</p>
-
-<p>I can use the OpenShift web console to do that. To get the web console link, open a terminal inside the IDE by using the Workspace panel within the IDE</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*8tRQjynD-Vz105I7QAEMMg.gif" alt="" /></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="k">${</span><span class="nv">CHE_OSO_CLUSTER</span><span class="p">//api/console</span><span class="k">}</span>
-</code></pre></div></div>
-
-<p>It will display the URL of the console</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*t40cl9LnEzFjKK308q6CdQ.png" alt="" /></p>
-
-<p>Use command+click on <a href="https://console.starter-us-east-2.openshift.com/">https://console.starter-us-east-2.openshift.com/</a><br />
-It will open link in default browser.<br />
-Note: your cluster might be different so the URL might be different as well.</p>
-
-<p>When logged in in the OpenShift console:</p>
-
-<ul>
-  <li>Open the top right corner link</li>
-  <li>Click on <code class="language-plaintext highlighter-rouge">copy Login command</code> and execute that command on your laptop.</li>
-</ul>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*74zeKYsoqUWIr6hIMx3keQ.png" alt="" /></p>
-
-<p>You should be now connected from your laptop to the OpenShift cluster.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*hejFl6A3OUzstkjPNjZDUg.png" alt="" /></p>
-
-<h4 id="32-name-of-the-workspace-pod">3.2. Name of the workspace pod</h4>
-
-<p>We will copy files from the remote workspace.</p>
-
-<p>We need the name of the workspace. It is available from a terminal with the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
-</code></pre></div></div>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*e94TBeKu3SR2HLmA5AXrRg.png" alt="" /></p>
-
-<p>Another way is to use<code class="language-plaintext highlighter-rouge">kubectl</code> or <code class="language-plaintext highlighter-rouge">oc</code>tool to find the workspace pod name (<code class="language-plaintext highlighter-rouge">$ kubectl get pods</code>or <code class="language-plaintext highlighter-rouge">$ oc get pods</code>).</p>
-
-<p>Name of the container that includes <code class="language-plaintext highlighter-rouge">rsync</code> is rsync as it’s the alias name we defined in the devfile.</p>
-
-<h4 id="33-the-rsyncscript">3.3. The rsync script</h4>
-
-<p>To import the project files into Eclipse Che workspace, we will now use <code class="language-plaintext highlighter-rouge">rsync.</code></p>
-
-<p>We will need a shell script to perform the copy and this script will use <code class="language-plaintext highlighter-rouge">kubectl exec</code> command.</p>
-
-<p>Create a new file <code class="language-plaintext highlighter-rouge">kubectl-rsync.sh</code> with the following content:</p>
-
-<script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
-
-<p>And make it executable: <code class="language-plaintext highlighter-rouge">chmod u+x kubectl-rsync.sh</code> and now let’s assume you copy it to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder.</p>
-
-<p>Now, let’s create another script named <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code></p>
-
-<script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
-
-<p>Apply permissions by using <code class="language-plaintext highlighter-rouge">chmod u+x workspace-sync.sh</code></p>
-
-<p>Copy it for example to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder. We’re using the <code class="language-plaintext highlighter-rouge">-e</code> option in rsync parameters to specify another shell.</p>
-
-<p>Now that our scripts have been setup, it’s time to use them.</p>
-
-<p>First, we store the workspace pod into an env variable:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">WORKSPACE_POD</span><span class="o">=</span>workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
-</code></pre></div></div>
-
-<p>Let’s proceed to the first import.</p>
-
-<p>Assuming our local Nodejs app is in <code class="language-plaintext highlighter-rouge">${HOME}/react-web-app</code>, execute the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--progress --stats --exclude 'node</span><span class="se">\_</span><span class="s2">modules'"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>Files are being transferred into the remote workspace.</p>
-
-<p>We see progress due to <code class="language-plaintext highlighter-rouge">--progress</code> option.</p>
-
-<p>In the UI now we see <code class="language-plaintext highlighter-rouge">react-web-app</code> folder:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*0ILdTv5LWAp_oHzVmIrO1A.png" alt="" /></p>
-
-<h4 id="4-code-using-eclipseche">4. Code using Eclipse Che</h4>
-
-<p>Let’s use yarn command to launch the project inside Eclipse Che.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*stAPWxgcnhcvPkSgqTto4g.gif" alt="" /></p>
-
-<p>And now start the webapp using <code class="language-plaintext highlighter-rouge">yarn start</code> command inside <code class="language-plaintext highlighter-rouge">/projects/react-web-app</code></p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*1MlP-Ejs6JS8fBniZZUMHw.gif" alt="" /></p>
-
-<p>And edit <code class="language-plaintext highlighter-rouge">src/App.tsx</code> file and see the result.</p>
-
-<h4 id="5-synchronize-back-all-thechanges">5. Synchronize back all the changes</h4>
-
-<p>All modified files are in my Eclipse Che workspace. But I want to keep my local folder on my laptop in sync with my new remote changes.</p>
-
-<p>We’ll use the same <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code> script but we’ll reverse the source and destination. Because now we want to copy remote changes to the laptop and not the previous way. Also, we’ll set this time <code class="language-plaintext highlighter-rouge">RSYNC_INFINITE=true</code> to do rsync every 15s (to never miss remote changes).</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--exclude node_modules"</span> <span class="nv">RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/react-web-app/"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/react-web-app/"</span> <span class="nv">RSYNC_INFINITE</span><span class="o">=</span><span class="s2">"true"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>I dropped <code class="language-plaintext highlighter-rouge">--progress --stats</code> from <code class="language-plaintext highlighter-rouge">RSYNC_OPTIONS</code> to not generate too much output.</p>
-
-<p>One issue is that when syncing back the changes, we don’t want to download the whole node_modules folder. Adding the <code class="language-plaintext highlighter-rouge">--exclude node_modules</code> parameter takes care of that.</p>
-
-<p>The script now checks all the changes every 15 seconds.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*f8fhfbCvpuX2FX7RRDF-9A.png" alt="" /></p>
-
-<p>All changes from Eclipse Che workspace are now inside my filesystem.</p>
-
-<p>Let’s check:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*ukJ137UX5FqrEehw3jd-7g.png" alt="" /></p>
-
-<h4 id="6-finishing">6. Finishing</h4>
-
-<p>When we’re done working we can double-check that the rsync script has finished to copy all files to my laptop, then stop the Eclipse Che workspace. We can even delete the stopped Che workspace as we have all the up-to-date changes saved on our local drive.</p>
-
-<p>Note: With <code class="language-plaintext highlighter-rouge">persistVolumes=false</code> , restarting the workspace will result in an empty project tree again until you re-run the laptop-to-remote-Che sync script.</p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Here is the use-case: I have a project on my laptop that I am working on by using a local IDE. And now, I want to work on that project…]]></summary></entry></feed>
+<p>One you have this all set up it’s easy to either leave it running all the time and fluidly move from editing on your laptop and editing in the cloud. Or only turn it on when you know you’ll be offline for awhile (like for a trip).</p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Learn how to work offline with Che and sync back changes when you’re back online.]]></summary></entry></feed>
