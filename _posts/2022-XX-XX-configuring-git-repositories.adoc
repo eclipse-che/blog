@@ -1,5 +1,5 @@
 ---
-title: Configuring git repositories
+title: Configuring Git repositories
 layout: post
 author: Pavol Baran
 description: >-
@@ -13,28 +13,28 @@ slug: /@pavol.baran/configuring-git-repositories
 
 {prod} allows for accessing and contributing to popular SCM (source code management) servers like GitHub, GitLab and Bitbucket. In this blog post we'll take a look at how one can create workspace from public or private repository, and then how to commit and push your changes, as to contribute to a project.
 
-=== Accessing a public Git repository
+=== Starting a new workspace with a clone of a public Git repository
 
 Accessing a public Git repository is very straight forward. For example let's create workspace from link:https://github.com/eclipse-che/blog[this blog's repository] on GitHub.
 
 I recommend to first fork the repository, so we can later try commit and push our changes.
 
-.Fork of this blog's repository on GitHub
-image::/assets/img/configuring-git-repositories/blog-github-fork.png[Fork of blog repository]
+.Viewing my fork of the Git repository of this blog on GitHub
+image::/assets/img/configuring-git-repositories/blog-github-fork.png[My fork of the Git repository of this blog]
 {empty}
 
 In this repo we can find a file called `devfile.yaml` containing specification for our workspace. You should know about the meaning of this file from previous blog posts.
 
 Now just simply copy the git repo URL, paste it in the `Import from Git` part of {prod-short} dashboard and click `Create & Open`.
 
-.Importing a workspace from Git
-image::/assets/img/configuring-git-repositories/importing-from-git.png[Importing from Git]
+.Entering the URL of the Git repository to be cloned to a new workspace
+image::/assets/img/configuring-git-repositories/importing-from-git.png[Entering the URL of the Git repository to be cloned to a new workspace]
 {empty}
 
 {prod-short} should first find the devfile in your repository and then begin to create a workspace based on it.
 
-.Workspace being created
-image::/assets/img/configuring-git-repositories/workspace-starting.png[Workspace creation]
+.Starting workspace
+image::/assets/img/configuring-git-repositories/workspace-starting.png[Starting workspace]
 {empty}
 
 After successful creation of the workspace, you should be able to read and change the blog's content in {prod} Theia IDE. Accessing public repository from GitLab or Bitbucket would include the same steps.
@@ -43,7 +43,7 @@ After successful creation of the workspace, you should be able to read and chang
 image::/assets/img/configuring-git-repositories/blog-workspace.png[Blog in Theia]
 {empty}
 
-=== Contributing to a Git repository
+=== Contributing to the remote Git repository from the workspace
 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[GitHub]/
 https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html[GitLab]/
@@ -54,23 +54,23 @@ So what comes out of all of this? To authenticate your git operations to SCM ser
 
 So you are back and ready to contribute. I am assuming you have your project opened in {prod} Theia and understand the user interface. Let's do some change in the project. I've created new branch called `test` and added some empty lines to the `README.md` file.
 
-.Source control options
-image::/assets/img/configuring-git-repositories/source-control.png[Source control]
+.Source control options in Che-Theia
+image::/assets/img/configuring-git-repositories/source-control.png[Source control in Che-Theia]
 {empty}
 
 Before you are able to commit any changes, you'll have to set git name and email (if you have not done so already) which will be recorded in any new commits.
 
-.Configuring git name and email
-image::/assets/img/configuring-git-repositories/git-config.png[Git config]
+.Configuring Git user name and user email in Che-Theia
+image::/assets/img/configuring-git-repositories/git-config.png[Git config in Che-Theia]
 {empty}
 
 Now the only thing left to do is commit your changes and push them to a remote repository.
 
-.Push to the test branch
-image::/assets/img/configuring-git-repositories/source-control.png[Push to test branch]
+.Using the Push option in Che-Theia to push to the test branch
+image::/assets/img/configuring-git-repositories/source-control.png[Using the Push option in Che-Theia]
 {empty}
 
-From here you can create pull request to the https://github.com/eclipse-che/blog[eclipse-che/blog] repository or continue however you like.
+From here, I can open a pull request to the https://github.com/eclipse-che/blog[eclipse-che/blog] repository.
 
 
 === Accessing a private Git repository
@@ -78,45 +78,44 @@ From here you can create pull request to the https://github.com/eclipse-che/blog
 There is some action required both from you as a non-privileged user and from your {prod-short} admin in order to access private Git repository. We are going to configure OAuth authorization so that {prod-short} can act on behalf of your account on SCM server. GitHub and GitLab use OAuth2, while Bitbucket is a little behind, still using OAuth1.
 
 ==== User side
-First, you'll need to create reference to {prod-short} in your SCM server account. This reference is called:
+First, you need to create a reference to {prod-short} in your Git SCM server account:
 
 - https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app[OAuth App] (GitHub)
 
 - https://docs.gitlab.com/ee/integration/oauth_provider.html#authorized-applications[Authorized Application] (GitLab)
 
-- https://confluence.atlassian.com/adminjiraserver/using-applinks-to-link-to-other-applications-938846918.html[Application Link] (Bitbucket).
+- https://confluence.atlassian.com/adminjiraserver/using-applinks-to-link-to-other-applications-938846918.html[Application Link] (Bitbucket)
 
-===== Creating GitHub OAuth App
+===== Creating the GitHub OAuth App
 
-Fill the OAuth App form in following way:
+Fill the OAuth App details as follows:
 
-* {prod-short} as the *Application name*.
+* Enter *{prod-short}* as the *Application name*.
 
-* {prod-short} URL as the *Homepage URL*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/.
+* Enter the {prod-short} URL as the *Homepage URL*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/.
 
-* {prod-short} OAuth callback URL as the *Authorization callback URL*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/api/oauth/callback.
+* Enter the {prod-short} OAuth callback URL as the *Authorization callback URL*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/api/oauth/callback.
 
 Click *Register application*. The OAuth App should be created, and you should be able to see *Client ID*. After that click on *Generate new client secret* and store the value of the *Client ID* and *Client Secret*. You will have to provide them to {prod-short} admin.
 
-===== Creating GitLab Authorized Application
+===== Creating the GitLab Authorized Application
 
-Creating the reference on GitLab is similar to GitHub, except you'll have to choose allowed scopes.
+Creating the reference on GitLab is similar to how it's done on GitHub. Additionally, you must choose the allowed scopes.
 
-* {prod-short} as the *Name*.
+* Enter *{prod-short}* as the *Name*.
 
-* {prod-short} OAuth callback URL as the *Redirect URI*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/api/oauth/callback.
+* Enter the {prod-short} OAuth callback URL as the *Redirect URI*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/api/oauth/callback.
 
 * Check the *Confidential* and *Expire* access tokens checkboxes.
 
-* Under *Scopes*, check the _api_, _write_repository_, and _openid_ checkboxes.
+* Under *Scopes*, check the `api`, `write_repository`, and `openid` checkboxes.
 
 Click *Save application*. The Authorized Application should be created, and you should be able to see *Application ID* and *Secret*. Copy and store their values, you will have to provide them to {prod-short} admin.
 
-===== Creating Bitbucket Application Link
+===== Creating the Bitbucket Application Link
 
-Creating the reference to {prod-short} on Bitbucket is a little more cumbersome.
 
-First, we'll create RSA key-pair:
+Create an RSA key-value pair:
 ----
 openssl genrsa -out private.pem 2048
 openssl rsa -in private.pem -pubout > public.pub
@@ -134,50 +133,54 @@ openssl rand -base64 24 > bitbucket-consumer-key
 openssl rand -base64 24 > bitbucket-shared-secret
 ----
 
-Now we can go ahead and create the Application link.
+Create the *Application* link:
 
 Type {prod-short} URL as the *Application URL*. The default value is \https://che-eclipse-che.__<domain>__/ and click *[ Create new link ]*.
 
-In the warning stating _"The supplied Application URL has redirected once"_ check the *Use this URL* checkbox and click *[ Continue ]*
+Under *The supplied Application URL has redirected once*, check the *Use this URL* checkbox and click *Continue*.
 
-Continue by filling the Application link form in this way:
+Enter the following details for the *Application* link:
 
-* {prod-short} as *Application Name*.
+* Enter *{prod-short}* as the *Application Name*.
 
-* Generic Application as *Application Type*.
+* Select *Generic Application* as the *Application Type*.
 
-* {prod-short} as *Service Provider Name*.
+* Enter *{prod-short}* as the *Service Provider Name*.
 
-* Paste the content of the `bitbucket-consumer-key` file as *Consumer key*.
+* Paste the content of the *bitbucket-consumer-key* file as the *Consumer key*.
 
-* Paste the content of the `bitbucket-shared-secret` file as *Shared secret*.
+* Paste the content of the *bitbucket-shared-secret* file as the *Shared secret*.
 
-* _<Bitbucket Server URL>_/plugins/servlet/oauth/request-token as *Request Token URL*.
+* Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/request-token` as the *Request Token URL*.
 
-* _<Bitbucket Server URL>_/plugins/servlet/oauth/access-token as *Access token URL*.
+* Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/access-token` as the *Access token URL*.
 
-* _<Bitbucket Server URL>_/plugins/servlet/oauth/access-token as *Authorize URL*.
+* Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/access-token` as the *Authorize URL*.
 
 * Check the *Create incoming link* checkbox.
 
-Click *[ Continue ]* and another smaller form should appear which you should fill out in this manner:
+Click *Continue* and enter the following details:
 
-* Paste the content of the `bitbucket_consumer_key` file as *Consumer Key*
+* Paste the content of the *bitbucket_consumer_key* file as the *Consumer Key*.
 
-* {prod-short} as *Consumer name*
+* Enter *{prod-short}* as the *Consumer name*.
 
-* Paste the content of the `public-stripped.pub` file as *Public Key*
+* Paste the content of the *public-stripped.pub* file as the *Public Key*.
 
-And after clicking *[ Continue ]* button you should be all set. You can now continue with the admin section.
+Click *Continue*.
+
+This completes your user steps. Additional steps are now required from your {prod-short} administrator.
 
 
 ==== Admin side
 
-After you've created connection on the git service provider side, your {prod-short} admin will need to create following Kubernetes secret.
+After you've created the reference on the Git SCM, your {prod-short} administrator will create the following Kubernetes secret.
 
 ===== GitHub and GitLab
 
 Creating secret for GitHub and GitLab is similar. The only difference between them is the inclusion of `scm-server-endpoint` annotation. Since on prem GitLab is supported, URL of the GitLab server needs to be provided.
+
+The administrator can apply the secret by using `{orch-cli}` on a command line:
 
 [source, bash]
 ----
@@ -185,31 +188,33 @@ Creating secret for GitHub and GitLab is similar. The only difference between th
 kind: Secret
 apiVersion: v1
 metadata:
-  name: <...> <1>
-  namespace: <...> <2>
+  name: __<...>__ <1>
+  namespace: __<...>__ <2>
   labels:
     app.kubernetes.io/part-of: che.eclipse.org
     app.kubernetes.io/component: oauth-scm-configuration
   annotations:
-    che.eclipse.org/oauth-scm-server: <...> <3>
-    che.eclipse.org/scm-server-endpoint: <...> //only for GitLab <4>
+    che.eclipse.org/oauth-scm-server: __<...>__ <3>
+    che.eclipse.org/scm-server-endpoint: __<gitlab_server_url>__ <4>
 type: Opaque
 data:
-  id: <...> <5>
-  secret: <...> <6>
+  id: __<...>__ <5>
+  secret: __<...>__ <6>
 EOF
 ----
-<1> Depending on service provider: github-oauth-config or gitlab-oauth-config
-<2> {prod-short} namespace. The default is {prod-namespace}.
-<3> Depending on service provider: github or gitlab
-<4> GitLab server URL
-<5> GitHub OAuth Client ID or GitLab Application ID, Base64 encoded
-<6> GitHub OAuth Client Secret or GitLab Client Secret, Base64 encoded
+<1> Depending on your choice of the Git SCM service provider: `github-oauth-config` or `gitlab-oauth-config`.
+<2> The {prod-short} namespace. The default is `{prod-namespace}`.
+<3> Depending on your choice of the Git SCM service provider: `github` or `gitlab`.
+<4> The GitLab server URL (only for GitLab).
+<5> Base64 encoded: the GitHub OAuth Client ID or GitLab Application ID.
+<6> Base64-encoded: the GitHub OAuth Client Secret or GitLab Client Secret.
 
 
 ==== Bitbucket
 
-Secret for Bitbucket differs from GitHub and GitLab mainly in the data section.
+A secret for Bitbucket differs from the GitHub and GitLab secrets mainly in the `data` section.
+
+The administrator can apply the secret by using `{orch-cli}` on a command line:
 
 [source, bash]
 ----
@@ -218,37 +223,37 @@ kind: Secret
 apiVersion: v1
 metadata:
   name: bitbucket-oauth-config
-  namespace: <...> <1>
+  namespace: __<...>__ <1>
   labels:
     app.kubernetes.io/component: oauth-scm-configuration
     app.kubernetes.io/part-of: che.eclipse.org
   annotations:
     che.eclipse.org/oauth-scm-server: bitbucket
-    che.eclipse.org/scm-server-endpoint: <...> <2>
+    che.eclipse.org/scm-server-endpoint: __<...>__ <2>
 type: Opaque
 data:
-  private.key: <...> <3>
-  consumer.key: <...> <4>
+  private.key: __<...>__ <3>
+  consumer.key: __<...>__ <4>
 EOF
 ----
-<1> {prod-short} namespace. The default is {prod-namespace}
-<2> Bitbucket server URL
-<3> Base64 encoded content of the `privatepkcs8-stripped.pem`
-<4> Base64 encoded content of the `bitbucket_server_consumer_key` file
+<1> The {prod-short} namespace. The default is `{prod-namespace}`.
+<2> The Bitbucket server URL.
+<3> Base64-encoded content of the `privatepkcs8-stripped.pem` file.
+<4> Base64-encoded content of the `bitbucket_server_consumer_key` file.
 
 ==== Completing the OAuth authorization
 
 After creating the reference to {prod-short} and your admin has created the Kubernetes oauth-config secret, you are ready to go ahead and create a workspace from private git repo. Follow the steps in <<Accessing a public Git repository>> except this time use a private repository. You will be redirected to the SCM server oauth site. And after authorizing {prod-short}, your workspace will be created.
 
-.Authorization of {prod-short} on GitHub
+.Authorizing {prod-short} on GitHub
 image::/assets/img/configuring-git-repositories/github-oauth.png[GitHub OAuth]
 {empty}
 
-.Authorization of {prod-short} on GitLab
+.Authorizing {prod-short} on GitLab
 image::/assets/img/configuring-git-repositories/gitlab-oauth.png[GitLab OAuth]
 {empty}
 
-.Authorization of {prod-short} on Bitbucket
+.Authorizing {prod-short} on Bitbucket
 image::/assets/img/configuring-git-repositories/bitbucket-oauth.png[Bitbucket OAuth]
 {empty}
 
