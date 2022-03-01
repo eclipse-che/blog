@@ -11,60 +11,57 @@ slug: /@pavol.baran/configuring-git-repositories
 
 === Introduction
 
-{prod} allows for accessing and contributing to popular SCM (source code management) servers like GitHub, GitLab and Bitbucket. In this blog post we'll take a look at how one can create workspace from public or private repository, and then how to commit and push your changes, as to contribute to a project.
+With {prod}, you can clone and contribute to a remote repository on popular source code management (SCM) servers like GitHub, GitLab, and Bitbucket. In this blog post, I'll expain how you can start a new workspace with a clone of a public or private repository and how you can commit and push your changes as a contributor to a project.
 
 === Starting a new workspace with a clone of a public Git repository
 
-Accessing a public Git repository is very straight forward. For example let's create workspace from link:https://github.com/eclipse-che/blog[this blog's repository] on GitHub.
+Starting a new workspace that will contain a clone of a public Git repository is simple. In this example, I will start a new workspace with a clone of my fork of the link:https://github.com/eclipse-che/blog[Git repository of this blog] on GitHub. (Starting a new workspace with a clone of a public Git repository that is hosted on a GitLab or Bitbucket server would involve the same steps.)
 
-I recommend to first fork the repository, so we can later try commit and push our changes.
+First, I fork the Git repository of this blog so that I can have my own fork to commit and push my changes to.
 
 .Viewing my fork of the Git repository of this blog on GitHub
 image::/assets/img/configuring-git-repositories/blog-github-fork.png[My fork of the Git repository of this blog]
 {empty}
 
-In this repo we can find a file called `devfile.yaml` containing specification for our workspace. You should know about the meaning of this file from previous blog posts.
+I can see that this repository contains `devfile.yaml` that provides a specification for a new workspace. (You can read another link:https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html[post in this blog] about `devfile.yaml`.)
 
-Now just simply copy the git repo URL, paste it in the `Import from Git` part of {prod-short} dashboard and click `Create & Open`.
+Now I copy the URL of the Git repository. I go to the {prod-short} dashboard to paste the URL into the *Import from Git* field. And then, I click *Create & Open*.
 
 .Entering the URL of the Git repository to be cloned to a new workspace
 image::/assets/img/configuring-git-repositories/importing-from-git.png[Entering the URL of the Git repository to be cloned to a new workspace]
 {empty}
 
-{prod-short} should first find the devfile in your repository and then begin to create a workspace based on it.
+{prod-short} first locates the devfile in the Git repository to be cloned and then creates a new workspace with a clone of the Git repository in it.
 
 .Starting workspace
 image::/assets/img/configuring-git-repositories/workspace-starting.png[Starting workspace]
 {empty}
 
-After successful creation of the workspace, you should be able to read and change the blog's content in {prod} Theia IDE. Accessing public repository from GitLab or Bitbucket would include the same steps.
+When the workspace has started, I can view and edit the blog files in the Che-Theia IDE.
 
 .Blog workspace opened in Theia
-image::/assets/img/configuring-git-repositories/blog-workspace.png[Blog in Theia]
+image::/assets/img/configuring-git-repositories/blog-workspace.png[Working on the blog repository files in Che-Theia]
 {empty}
 
 === Contributing to the remote Git repository from the workspace
 
-https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[GitHub]/
-https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html[GitLab]/
-https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html[Bitbucket]
-authentication is based on using personal access tokens (PAT). Each user is able to request several PATs with different names, permissions, expiration times, and so on. Those tokens can be used to sign REST API calls and perform Git repository operations. {prod-short} needs a PAT in form of Kubernetes secret to create workspace from a private repository. From this secret another secret is automatically created, allowing authorization to Git operations. This secret is mounted into a workspace container as a Git credentials file. You could request a PAT from SCM server and create the secret yourself. There is however preferred method through OAuth. With this method {prod-short} can ask for access token on behalf of you and manage its renewal.
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[GitHub], https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html[GitLab], and https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html[Bitbucket] authentication is based on using personal access tokens (PAT). Each user is able to request several PATs with different names, permissions, expiration times, and so on. Those tokens can be used to sign REST API calls and perform Git repository operations. {prod-short} requires a PAT in a Kubernetes secret for starting a new workspace with a clone of a private Git repository in it. From this secret, another secret is automatically generated, allowing authorization for Git operations. The automatically generated secret is mounted into a workspace container as a Git credentials file. You could request a PAT from a Git SCM server and create the secret yourself; however, the preferred method is to use OAuth. With OAuth, {prod-short} can request an access token on your behalf and manage its renewal.
 
 So what comes out of all of this? To authenticate your git operations to SCM server (pushing to a remote branch for example) you need the Git credentials file. So continue to <<Accessing a private Git repository>> where we'll talk about setting the OAuth authorization. Completing it will give rise to the credentials secret and from it, file in a workspace container.
 
-So you are back and ready to contribute. I am assuming you have your project opened in {prod} Theia and understand the user interface. Let's do some change in the project. I've created new branch called `test` and added some empty lines to the `README.md` file.
+Now that I can view my project's source code in the Che-Theia IDE, I'll go ahead and make some change in the project source code. I'm creating a new branch called `test` and adding a few empty lines to the `README.md` file.
 
 .Source control options in Che-Theia
 image::/assets/img/configuring-git-repositories/source-control.png[Source control in Che-Theia]
 {empty}
 
-Before you are able to commit any changes, you'll have to set git name and email (if you have not done so already) which will be recorded in any new commits.
+But first, I must set my Git user name and user email (if I haven't done so already) that will identify my commits.
 
 .Configuring Git user name and user email in Che-Theia
 image::/assets/img/configuring-git-repositories/git-config.png[Git config in Che-Theia]
 {empty}
 
-Now the only thing left to do is commit your changes and push them to a remote repository.
+ I commit my changes and push them to the remote Git repository.
 
 .Using the Push option in Che-Theia to push to the test branch
 image::/assets/img/configuring-git-repositories/source-control.png[Using the Push option in Che-Theia]
@@ -75,7 +72,7 @@ From here, I can open a pull request to the https://github.com/eclipse-che/blog[
 
 === Accessing a private Git repository
 
-There is some action required both from you as a non-privileged user and from your {prod-short} admin in order to access private Git repository. We are going to configure OAuth authorization so that {prod-short} can act on behalf of your account on SCM server. GitHub and GitLab use OAuth2, while Bitbucket is a little behind, still using OAuth1.
+Before you can access a private Git repository, some actions are required from you as a non-privileged user and from your {prod-short} administrator. Those actions are required for configuring the OAuth authorization so that {prod-short} can act on behalf of the user account on the Git SCM server. GitHub and GitLab use OAuth2, whereas Bitbucket uses OAuth1.
 
 ==== User side
 First, you need to create a reference to {prod-short} in your Git SCM server account:
@@ -116,26 +113,33 @@ Click *Save application*. The Authorized Application should be created, and you 
 
 
 Create an RSA key-value pair:
+Use a command line to generate the *public-stripped.pub* and *privatepkcs8-stripped.pem* keys in the required format:
 ----
-openssl genrsa -out private.pem 2048
-openssl rsa -in private.pem -pubout > public.pub
-openssl pkcs8 -topk8 -inform pem -outform pem -nocrypt -in private.pem -out privatepkcs8.pem
-cat public.pub | sed 's/-----BEGIN PUBLIC KEY-----//g' | sed 's/-----END PUBLIC KEY-----//g' | tr -d '\n' > public-stripped.pub
-cat privatepkcs8.pem | sed 's/-----BEGIN PRIVATE KEY-----//g' |  sed 's/-----END PRIVATE KEY-----//g' | tr -d '\n' > privatepkcs8-stripped.pem
+$ openssl genrsa -out private.pem 2048
+
+$ openssl rsa -in private.pem -pubout > public.pub
+
+$ openssl pkcs8 -topk8 -inform pem -outform pem -nocrypt -in private.pem -out privatepkcs8.pem
+
+$ cat public.pub | sed 's/-----BEGIN PUBLIC KEY-----//g' | sed 's/-----END PUBLIC KEY-----//g' | tr -d '\n' > public-stripped.pub
+
+$ cat privatepkcs8.pem | sed 's/-----BEGIN PRIVATE KEY-----//g' |  sed 's/-----END PRIVATE KEY-----//g' | tr -d '\n' > privatepkcs8-stripped.pem
 ----
 
-These commands result in creation of some intermediary files which we can ignore, but also _public-stripped.pub_ and _privatepkcs8-stripped.pem_ keys in the format we'll need.
 
-Next, we'll have to create consumer key and shared secret:
+Use a command line to generate a consumer key and a shared secret:
 
 ----
-openssl rand -base64 24 > bitbucket-consumer-key
-openssl rand -base64 24 > bitbucket-shared-secret
+$ openssl rand -base64 24 > bitbucket-consumer-key
+
+$ openssl rand -base64 24 > bitbucket-shared-secret
 ----
 
 Create the *Application* link:
 
-Type {prod-short} URL as the *Application URL*. The default value is \https://che-eclipse-che.__<domain>__/ and click *[ Create new link ]*.
+Enter the {prod-short} URL as the *Application URL*. The default value is `\https://che-eclipse-che.__<domain>__/ ` .
+
+Click *Create new link*.
 
 Under *The supplied Application URL has redirected once*, check the *Use this URL* checkbox and click *Continue*.
 
@@ -178,7 +182,7 @@ After you've created the reference on the Git SCM, your {prod-short} administrat
 
 ===== GitHub and GitLab
 
-Creating secret for GitHub and GitLab is similar. The only difference between them is the inclusion of `scm-server-endpoint` annotation. Since on prem GitLab is supported, URL of the GitLab server needs to be provided.
+Creating a secret for GitHub and GitLab by a {prod-short} administrator is similar. The only difference between them is the inclusion of the `scm-server-endpoint` annotation. The {prod-short} administrator must enter the URL of the GitLab server because {prod-short} supports the on-prem GitLab.
 
 The administrator can apply the secret by using `{orch-cli}` on a command line:
 
@@ -243,7 +247,7 @@ EOF
 
 ==== Completing the OAuth authorization
 
-After creating the reference to {prod-short} and your admin has created the Kubernetes oauth-config secret, you are ready to go ahead and create a workspace from private git repo. Follow the steps in <<Accessing a public Git repository>> except this time use a private repository. You will be redirected to the SCM server oauth site. And after authorizing {prod-short}, your workspace will be created.
+After you set up the reference to {prod-short} and after your {prod-short} administrator sets up the Kubernetes oauth-config secret, you are ready to start a new workspace with a clone of a private Git repository in it by following the steps in <<Starting a new workspace with a clone of a public Git repository>>, except this time using a private repository. You will be redirected to the SCM server oauth site. And after authorizing {prod-short}, your new workspace will be started.
 
 .Authorizing {prod-short} on GitHub
 image::/assets/img/configuring-git-repositories/github-oauth.png[GitHub OAuth]
