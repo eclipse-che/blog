@@ -39,7 +39,7 @@ image::/assets/img/configuring-git-repositories/workspace-starting.png[Starting 
 
 When the workspace has started, I can view and edit the blog files in the Che-Theia IDE.
 
-.Blog workspace opened in Theia
+.New workspace with the repository files accessible in Che-Theia
 image::/assets/img/configuring-git-repositories/blog-workspace.png[Working on the blog repository files in Che-Theia]
 {empty}
 
@@ -47,7 +47,7 @@ image::/assets/img/configuring-git-repositories/blog-workspace.png[Working on th
 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[GitHub], https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html[GitLab], and https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html[Bitbucket] authentication is based on using personal access tokens (PAT). Each user is able to request several PATs with different names, permissions, expiration times, and so on. Those tokens can be used to sign REST API calls and perform Git repository operations. {prod-short} requires a PAT in a Kubernetes secret for starting a new workspace with a clone of a private Git repository in it. From this secret, another secret is automatically generated, allowing authorization for Git operations. The automatically generated secret is mounted into a workspace container as a Git credentials file. You could request a PAT from a Git SCM server and create the secret yourself; however, the preferred method is to use OAuth. With OAuth, {prod-short} can request an access token on your behalf and manage its renewal.
 
-So what comes out of all of this? To authenticate your git operations to SCM server (pushing to a remote branch for example) you need the Git credentials file. So continue to <<Accessing a private Git repository>> where we'll talk about setting the OAuth authorization. Completing it will give rise to the credentials secret and from it, file in a workspace container.
+To authenticate my Git operations to a Git SCM server (such as pushing to a remote branch), I need the Git credentials file. I explain how to set up the OAuth authorization in <<Accessing a private Git repository>>.
 
 Now that I can view my project's source code in the Che-Theia IDE, I'll go ahead and make some change in the project source code. I'm creating a new branch called `test` and adding a few empty lines to the `README.md` file.
 
@@ -55,7 +55,7 @@ Now that I can view my project's source code in the Che-Theia IDE, I'll go ahead
 image::/assets/img/configuring-git-repositories/source-control.png[Source control in Che-Theia]
 {empty}
 
-But first, I must set my Git user name and user email (if I haven't done so already) that will identify my commits.
+I must also set my Git user name and user email (if I haven't done so already) that will identify my commits.
 
 .Configuring Git user name and user email in Che-Theia
 image::/assets/img/configuring-git-repositories/git-config.png[Git config in Che-Theia]
@@ -93,7 +93,9 @@ Fill the OAuth App details as follows:
 
 * Enter the {prod-short} OAuth callback URL as the *Authorization callback URL*. The default value is \https://{prod-deployment}-{prod-namespace}.__<domain>__/api/oauth/callback.
 
-Click *Register application*. The OAuth App should be created, and you should be able to see *Client ID*. After that click on *Generate new client secret* and store the value of the *Client ID* and *Client Secret*. You will have to provide them to {prod-short} admin.
+Click *Register application* to create the OAuth App.
+
+Click *Generate new client secret* and save the values of the *Client ID* and *Client Secret* because you will provide them to your {prod-short} administrator.
 
 ===== Creating the GitLab Authorized Application
 
@@ -107,7 +109,9 @@ Creating the reference on GitLab is similar to how it's done on GitHub. Addition
 
 * Under *Scopes*, check the `api`, `write_repository`, and `openid` checkboxes.
 
-Click *Save application*. The Authorized Application should be created, and you should be able to see *Application ID* and *Secret*. Copy and store their values, you will have to provide them to {prod-short} admin.
+Click *Save application* to create the Authorized Application.
+
+Copy and save the *Application ID* and *Secret* values because you will provide them to your {prod-short} administrator.
 
 ===== Creating the Bitbucket Application Link
 
