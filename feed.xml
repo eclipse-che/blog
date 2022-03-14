@@ -1,5 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-02-16T16:56:56+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-03-14T21:23:38+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
 <p>Reviewing pull requests for a GitHub project integrated with Eclipse&#160;Che.</p>
+</div>
+<div class="sect2">
+<h3 id="demo-video">Demo Video</h3>
+<div class="videoblock">
+<div class="content">
+<iframe width="480" height="270" src="https://www.youtube.com/embed/GpxdvDkMWlU?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="using-eclipseche-to-review-pull-requests">Using Eclipse&#160;Che to review pull requests</h3>
