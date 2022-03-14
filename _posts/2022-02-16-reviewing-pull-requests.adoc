@@ -11,8 +11,10 @@ slug: /@david.kwon/reviewing-pull-requests
 
 Reviewing pull requests for a GitHub project integrated with {prod}.
 
-=== Using {prod} to review pull requests
+=== Demo Video
+video::GpxdvDkMWlU[youtube,width=480,height=270]
 
+=== Using {prod} to review pull requests
 With Google Chrome, {prod} makes it possible to review a pull request (PR) without setting up runtimes, build tools, or any extra software on the local machine.
 
 This blog post will showcase the typical workflow of reviewing PRs of a GitHub project that is well-integrated with Eclipse Che. Here is the GitHub project used in this blog post: link:https://github.com/che-incubator/quarkus-api-example[www.github.com/che-incubator/quarkus-api-example].
@@ -27,7 +29,6 @@ NOTE: Your project must contain a well-defined `devfile.yaml` file to make the m
 WARNING: The following scenario uses devfile v2, and {prod} is deployed alongside the {devworkspace} engine which is currently not used on link:https://workspaces.openshift.com/[Eclipse Che Hosted by Red Hat]. To open the test GitHub project on Eclipse Che Hosted by Red Hat, please use the link:https://github.com/che-incubator/quarkus-api-example/tree/devfilev1[devfilev1] branch which supports the deprecated devfile v1.
 
 === The scenario
-
 Imagine that you're developing a REST API with Quarkus that interacts with `Food` resources from a PostgreSQL database.
 [source,java]
 ----
