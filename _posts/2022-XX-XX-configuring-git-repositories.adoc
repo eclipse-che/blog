@@ -141,7 +141,7 @@ $ openssl rand -base64 24 > bitbucket-shared-secret
 
 Create the *Application* link:
 
-Enter the {prod-short} URL as the *Application URL*. The default value is `\https://che-eclipse-che.__<domain>__/ ` .
+Enter the {prod-short} URL as the *Application URL*. The default value is `https://{prod-deployment}-{prod-namespace}.__<domain>__/ ` .
 
 Click *Create new link*.
 
@@ -242,12 +242,14 @@ type: Opaque
 data:
   private.key: __<...>__ <3>
   consumer.key: __<...>__ <4>
+  shared_secret: __<...>__ <5>
 EOF
 ----
 <1> The {prod-short} namespace. The default is `{prod-namespace}`.
 <2> The Bitbucket server URL.
 <3> Base64-encoded content of the `privatepkcs8-stripped.pem` file.
 <4> Base64-encoded content of the `bitbucket_consumer_key` file.
+<5> Base64-encoded content of the `bitbucket-shared-secret` file.
 
 ==== Completing the OAuth authorization
 
