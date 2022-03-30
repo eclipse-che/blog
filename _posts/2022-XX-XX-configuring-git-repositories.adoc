@@ -163,7 +163,7 @@ Enter the following details for the *Application* link:
 
 * Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/access-token` as the *Access token URL*.
 
-* Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/access-token` as the *Authorize URL*.
+* Enter `__<bitbucket_server_url>__/plugins/servlet/oauth/authorize` as the *Authorize URL*.
 
 * Check the *Create incoming link* checkbox.
 
