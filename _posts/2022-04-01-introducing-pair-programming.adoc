@@ -1,0 +1,113 @@
+---
+title: Pair programming using VS Code extension
+layout: post
+author: Florent Benoit
+description: >-
+  How to do pair programming using a VS Code extension.
+categories: []
+keywords: ['VSCode', 'codetogether', 'pair programming']
+slug: /@florent.benoit/pair-programming-using-vscode-editor
+---
+
+One of the most wanted feature on Eclipse Che is to be able to do pair programming.
+
+This blog post describes how it is possible to achieve that by using a third-party extension, link:https://open-vsx.org/extension/genuitecllc/codetogether[CodeTogether].
+
+There are different pricing plans available for this extension, but there is one free item when connecting to a maximum of 60 minutes and 3 shares which may be enough for most of the case.
+
+This is only possible using Eclipse Che starting with 7.46+ and using Visual Studio Code editor, not Che-Theia.
+
+
+== Quick start from an example
+
+. Go the dashboard page of Eclipse Che. For example URL will be following this format https://eclipse-che-my-instance.com/dashboard/#/
+
+. Replace the last part of the URL containing `/dashboard/#` by `#https://github.com/benoitf/codetogether-che-petclinic`. URL should look like `https://eclipse-che-my-instance.com#https://github.com/benoitf/codetogether-che-petclinic``
+
+. Press enter key to open this URL in the browser.
+
+. Workspace will start and it will open automatically Visual Studio Code using a sample project based on `Petclinic` application.
+
+. As link:https://open-vsx.org/extension/genuitecllc/codetogether[CodeTogether] is a recommended extension, accept the prompt asking to install this extension.
+
+. CodeTogether will ask to access Visual Studio Code, click on `No`
+
+. A new prompt will ask to redirect port 1593: Click on `No`
+
+. Bring the command palette using for example `F1` key and select `CodeTogether: Start Hosting Session`
+
+. Keep default on all properties and click on the `start` button
+
+. Click "No" on "CodeTogether requires access to Visual Studio Code Proposed APIs"
+
+. `Pair programming` link is then available in the clipboard.
+
+. Now, share this link with your team members. They will be able to join your workspace.
+
+. It is possible to join from different IDEs or from a running Eclipse Che workspace (like the one we are using). But click on joining a session rather than starting a new session: 'CodeTogether: Join Session' and paste the link in the input field.
+
+== Enabling pair programming settings on your own example
+
+In the previous section, a pre-configured workspace was used but it is also possible to use your own example
+
+This feature works only with Visual Studio Code IDE (not for example with Che-Theia).
+
+=== Use Visual Studio Code as IDE inside Eclipse Che
+
+To use Visual Studio Code IDE when starting a workspace there are two ways: 
+
+* Adds `?che-editor=che-incubator/che-code/insiders` at the end of your existing workspace URL
+
+* Adds a `.che/che-editor.yaml` file with the following content:
++
+[source,yaml,subs="+quotes"]
+----
+sid: che-incubator/che-code/insiders
+----
+
+=== Enable CodeTogether as recommended extension
+
+Adds CodeTogether as being a recommended extension.
+
+. Create `.vscode/extensions.json` file with the following content:
++
+[source,json,subs="+quotes"]
+----
+  {
+    "recommendations": [
+      "genuitecllc.codetogether",
+    ]
+  }
+----
+
+Then CodeTogether extension is now a recommended extension and on workspace startup it will prompt the user to install it.
+
+=== Adds a devfile
+
+Probably you don't have any devfile in your repository so you should add a very simple one using the Eclipse Che universal developer image (most of common tools already installed)
+
+. Create a `.devfile.yaml` file with the following content:
++
+[source,yaml,subs="+quotes"]
+----
+schemaVersion: 2.1.0
+metadata:
+  name: my-workspace
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-0e189d9
+      memoryLimit: 3Gi
+
+----
+
+. Do not forget to update the `name` attribute of the devfile to match your project.
+
+
+=== Share your workspace
+
+Once you have committed these changes on a repository, you can share your workspace with your team members by sharing the URL to your repository.
+
+URL will be like this: `https://eclipse-che-my-instance.com#https://github.com/<your-repository>`
+
+Or to share the pair-programming link, start first your workspace and then starts a CodeTogether session from there.
