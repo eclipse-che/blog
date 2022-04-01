@@ -17,6 +17,7 @@ There are different pricing plans available for this extension, but there is one
 
 This is only possible using Eclipse Che starting with 7.46+ and using Visual Studio Code editor, not Che-Theia.
 
+image::/assets/img/pair-programming-vscode/pair-programming-vscode.gif[Pair programming using Che]
 
 == Quick start from an example
 
