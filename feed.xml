@@ -1,4 +1,162 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-03-14T21:23:38+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-04-01T07:07:59+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Pair programming using VS Code</title><link href="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html" rel="alternate" type="text/html" title="Pair programming using VS Code" /><published>2022-04-01T00:00:00+00:00</published><updated>2022-04-01T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/04/01/@florent.benoit/pair-programming-using-vscode-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html"><![CDATA[<div class="paragraph">
+<p>One of Eclipse Che most requested feature is to be able to do pair programming.</p>
+</div>
+<div class="paragraph">
+<p>This blog post describes how it is possible to achieve that by using <a href="https://open-vsx.org/extension/genuitecllc/codetogether">CodeTogether</a>, a third-party VS Code extension.</p>
+</div>
+<div class="paragraph">
+<p>There are different pricing plans available for this extension, but there is one free item when connecting to a maximum of 60 minutes and 3 shares which may be enough for most use cases.</p>
+</div>
+<div class="paragraph">
+<p>This is only possible using Eclipse Che starting with 7.46+ and using Visual Studio Code editor, not Che-Theia.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/pair-programming-vscode/pair-programming-vscode.gif" alt="Pair programming using Che">
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start-from-an-example">Quick start from an example</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to Eclipse Che dashboard page. The URL looks like <a href="https://eclipse-che-my-instance.com/dashboard/#/" class="bare">https://eclipse-che-my-instance.com/dashboard/#/</a></p>
+</li>
+<li>
+<p>Replace the last part of the URL containing <code>/dashboard/#</code> with <code>#https://github.com/benoitf/codetogether-che-petclinic</code> and press enter.</p>
+</li>
+<li>
+<p>A workspace starts and Visual Studio Code loads with a sample based on the <code>Petclinic</code> application.</p>
+</li>
+<li>
+<p>As <a href="https://open-vsx.org/extension/genuitecllc/codetogether">CodeTogether</a> is a recommended extension, accept the prompt asking to install this extension.</p>
+</li>
+<li>
+<p>CodeTogether will ask to access Visual Studio Code, click on <code>No</code></p>
+</li>
+<li>
+<p>A new prompt will ask to redirect port 1593: Click on <code>No</code></p>
+</li>
+<li>
+<p>Open the command palette (pressing <code>F1</code> for example) and select <code>CodeTogether: Start Hosting Session</code></p>
+</li>
+<li>
+<p>Keep the defaults for all properties and click on the <code>start</code> button</p>
+</li>
+<li>
+<p>Click "No" on "CodeTogether requires access to Visual Studio Code Proposed APIs"</p>
+</li>
+<li>
+<p>A <code>Pair programming</code> link is then available in the clipboard.</p>
+</li>
+<li>
+<p>You can share this link with your team members. They will be able to join your workspace.</p>
+</li>
+<li>
+<p>It is possible to use this link to join from different IDEs or from a running Eclipse Che workspace (like the one we are using). To do that select 'CodeTogether: Join Session' rather than starting a new session.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-pair-programming-settings-on-your-own-example">Enabling pair programming settings on your own example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the previous section, a pre-configured repository was used but it is also possible to use your own git repository.</p>
+</div>
+<div class="paragraph">
+<p>This feature works only with Visual Studio Code IDE (not for example with Che-Theia).</p>
+</div>
+<div class="sect2">
+<h3 id="use-visual-studio-code-as-the-ide-of-an-eclipse-che-workspace">Use Visual Studio Code as the IDE of an Eclipse Che workspace</h3>
+<div class="paragraph">
+<p>There are 2 ways to use Visual Studio Code IDE in a Che workspace:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>?che-editor=che-incubator/che-code/insiders</code> at the end of the workspace URL</p>
+</li>
+<li>
+<p>Add a <code>.che/che-editor.yaml</code> file with the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">id: che-incubator/che-code/insiders</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recommend-the-installation-of-codetogether">Recommend the installation of CodeTogether</h3>
+<div class="paragraph">
+<p>Include CodeTogether among the recommended extension.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the file <code>.vscode/extensions.json</code> with the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">  {
+    "recommendations": [
+      "genuitecllc.codetogether",
+    ]
+  }</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>That will trigger a prompt to install CodeTogether at workspace startup.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-a-devfile">Add a Devfile</h3>
+<div class="paragraph">
+<p>If you don&#8217;t have a Devfile at the root of your repository you should add one with a <a href="https://github.com/devfile/developer-images/">Universal Developer Image</a> component (it includes the most popular development tools and languages).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <code>.devfile.yaml</code> file with the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">schemaVersion: 2.1.0
+metadata:
+  name: my-workspace
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-0e189d9
+      memoryLimit: 3Gi</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Do not forget to update the <code>name</code> attribute of the devfile to match your project.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="share-your-workspace">Share your workspace</h3>
+<div class="paragraph">
+<p>Once you have committed these changes on a repository, you can share your workspace URL with your team.</p>
+</div>
+<div class="paragraph">
+<p>The URL looks like this: <code><a href="https://eclipse-che-my-instance.com#https://github.com/&lt;your-repository&gt" class="bare">https://eclipse-che-my-instance.com#https://github.com/&lt;your-repository&gt</a>;</code></p>
+</div>
+<div class="paragraph">
+<p>Or to share the pair-programming link, start your workspace first and then start a CodeTogether session.</p>
+</div>
+</div>
+</div>
+</div>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[How to do pair programming using a VS Code extension.]]></summary></entry><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
 <p>Reviewing pull requests for a GitHub project integrated with Eclipse&#160;Che.</p>
 </div>
 <div class="sect2">
@@ -2082,218 +2240,4 @@ plugin.yaml
 
 <p>I can now code with nice brackets :-)</p>
 
-<p><img src="https://cdn-images-1.medium.com/max/800/1*T0IcGezki-m-bHM8DB3V7A.gif" alt="" /></p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Introduction]]></summary></entry><entry><title type="html">Working offline with Eclipse Che</title><link href="https://che.eclipseprojects.io/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html" rel="alternate" type="text/html" title="Working offline with Eclipse Che" /><published>2020-04-29T00:00:00+00:00</published><updated>2020-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2020/04/29/@florent.benoit/working-offline-with-eclipse-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2020/04/29/@florent.benoit-working-offline-with-eclipse-che.html"><![CDATA[<p>Eclipse Che has many thousands of users. Most of them use the VS Code-inspired browser IDE, but sometimes you know you’re going to be offline for awhile and want to be able to work with a local editor, then sync back your changes when you’re back online.</p>
-
-<p>Obviously if you only care about changes to the source code then git will handle this just fine. But if you want to run it offline, make changes to your tools, runtimes or dependencies then it’s great to be able to have all that synced back to Eclipse Che.</p>
-
-<p>In this article we’ll cover how to set this up, by:</p>
-
-<ol>
-  <li>Updating your Eclipse Che workspace to allow rsync.</li>
-  <li>Importing files into your local computer/laptop.</li>
-  <li>Edit/work with your project on your laptop</li>
-  <li>Synchronize back all code changes from your laptop to the remote workspace.</li>
-</ol>
-
-<h3 id="prerequisites">Prerequisites</h3>
-
-<h3 id="1-on-my-laptop-check-all-tools-are-available">1. On my laptop: check all tools are available</h3>
-
-<ul>
-  <li>Check local installation of <code class="language-plaintext highlighter-rouge">rsync</code> on the laptop by trying to execute the command <code class="language-plaintext highlighter-rouge">$ rsync</code>.</li>
-  <li>Check installation of <code class="language-plaintext highlighter-rouge">kubectl</code> to execute remote <code class="language-plaintext highlighter-rouge">rsync</code> command.</li>
-  <li>Check installation of the<code class="language-plaintext highlighter-rouge">oc</code> CLI if Eclipse Che is running on OpenShift.</li>
-</ul>
-
-<p>These tools will need to be on your local machine if they’re not already.</p>
-
-<h3 id="2-in-eclipse-che-workspace">2. In Eclipse Che Workspace</h3>
-
-<p>The <code class="language-plaintext highlighter-rouge">rsync</code> tool needs to be part of the workspace.</p>
-
-<p>Note: with OpenShift we could use <code class="language-plaintext highlighter-rouge">oc rsync</code> command. But there is no exclude filter taken into account, for example. So in this blog post I will use only <code class="language-plaintext highlighter-rouge">kubectl</code> and <code class="language-plaintext highlighter-rouge">rsync</code>.</p>
-
-<p>Your Eclipse Che workspaces may include several running containers. (Workspace pod). Let’s add a new container that will manage only <code class="language-plaintext highlighter-rouge">rsync</code> operations.</p>
-
-<p>I will use the <code class="language-plaintext highlighter-rouge">rsync</code> tool included in the image <code class="language-plaintext highlighter-rouge">quay.io/fbenoit/rsync-simple</code> so no need to build it.</p>
-
-<p>The image includes the following:</p>
-
-<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> alpine:latest  </span>
-...  
-<span class="k">RUN </span>apk add <span class="nt">--no-cache</span> rsync  
-...
-</code></pre></div></div>
-
-<p>As you can see this just adds the <code class="language-plaintext highlighter-rouge">rsync</code> tool inside the smallest container possible (based on <code class="language-plaintext highlighter-rouge">alpine</code> linux).</p>
-
-<p>I’ve also added an entry-point to keep the container always-on, and an extra permissions to make it compliant with the random user-id generated by OpenShift.</p>
-
-<h3 id="workflow">Workflow</h3>
-
-<h3 id="1-updating-your-eclipse-che-workspace-to-allowrsync">1. Updating your Eclipse Che workspace to allow rsync</h3>
-
-<p>The <code class="language-plaintext highlighter-rouge">devfile</code> is responsible of the definition of the Eclipse Che workspace.</p>
-
-<p>Edit the <code class="language-plaintext highlighter-rouge">devfile</code> of the workspace from the Eclipse Che dashboard:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*S4LpqN66DslDBspmSlejwQ.gif" alt="" /></p>
-
-<p>As seen in prerequisites, <code class="language-plaintext highlighter-rouge">rsync</code> tool needs to be part of the workspace and by default it’s not there. Let’s add a new <code class="language-plaintext highlighter-rouge">rsync</code> component and let it have access to <code class="language-plaintext highlighter-rouge">/projects</code> folder using <code class="language-plaintext highlighter-rouge">mountSources: true</code></p>
-
-<p>Add this component into <code class="language-plaintext highlighter-rouge">components</code> section (or create a new <code class="language-plaintext highlighter-rouge">components</code> section first if it’s not there).</p>
-
-<script src="https://gist.github.com/benoitf/e27a11502d0b7215beb77b922fae8c52.js"></script>
-
-<p>Now restart the workspace to finish the inclusion of this new <code class="language-plaintext highlighter-rouge">rsync</code> component. You can check if you’ve been successful by opening the workspace in an IDE and opening the Workspace panel (the cube icon on the right of the IDE):</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*GTpgDTQKdz5EIaKhFb4qAA.gif" alt="" /></p>
-
-<h3 id="3-importing-files-into-your-local-computerlaptop">3. Importing files into your local computer/laptop</h3>
-
-<p>To share files on our laptop and use <code class="language-plaintext highlighter-rouge">rsync</code>, we will need some information.</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">kubectl</code> ready-to-use (authentication performed)</li>
-  <li>The name of the running remote workspace pod</li>
-  <li>An <code class="language-plaintext highlighter-rouge">rsync</code> bash script</li>
-</ol>
-
-<h3 id="31-kubectl">3.1. kubectl</h3>
-
-<p>In my example, I am using the online Eclipse Che instance hosted on <code class="language-plaintext highlighter-rouge">che.openshift.io.</code> I will copy the command to be able to log into OpenShift instance.</p>
-
-<p>I can use the OpenShift web console to do that. To get the web console link, open a terminal inside the IDE by using the Workspace panel within the IDE.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/0*MhsYrMqF5OTUPDqI.gif" alt="" /></p>
-
-<p>Open a terminal inside the Theia IDE container for example. Then type:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="k">${</span><span class="nv">CHE</span><span class="p">\_OSO\_CLUSTER//api/console</span><span class="k">}</span>
-</code></pre></div></div>
-
-<p>It will display the URL of the console:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/0*i0COfDvwSTNLulHk.png" alt="" /></p>
-
-<p>Use command+click on <a href="https://console.starter-us-east-2.openshift.com/">https://console.starter-us-east-2.openshift.com/</a><br />
-It will open link in default browser. Note that your workspace might be assigned to a different cluster, so the URL might be different as well.</p>
-
-<p>When logged in in the OpenShift console:</p>
-
-<ul>
-  <li>Open the top right corner link</li>
-  <li>Click on <code class="language-plaintext highlighter-rouge">copy Login command</code> and execute that command on your laptop.</li>
-</ul>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/0*cW62ijAisPJtRFrD.png" alt="" /></p>
-
-<p>copy the <code class="language-plaintext highlighter-rouge">oc</code> login command and execute it on your laptop:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>oc login https://api.starter-us-east-2.openshift.com — <span class="nv">token</span><span class="o">=</span>tHeEnCoDeDtOkEn  
-Logged into <span class="s2">"https://api.starter-us-east-2.openshift.com:443"</span> using the token provided.
-</code></pre></div></div>
-
-<p>Then use your namespace (ending with -che) using <code class="language-plaintext highlighter-rouge">oc project &lt;namespace&gt;</code> command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>oc project &lt;namespace&gt;-che
-</code></pre></div></div>
-
-<p>And we can check that the workspace pod is there by using <code class="language-plaintext highlighter-rouge">oc get pods</code> or <code class="language-plaintext highlighter-rouge">kubectl get pods</code> commands.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/0*H1wbQjKPG9855lJK.png" alt="" /></p>
-
-<h3 id="32-name-of-the-workspace-pod">3.2. Name of the workspace pod</h3>
-
-<p>We will copy files from the remote workspace to our local machine.</p>
-
-<p>We need the name of the workspace. It is available from a terminal with the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
-</code></pre></div></div>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/0*FNc5U92npf5UhCs8.png" alt="" /></p>
-
-<p>Another way is to use the <code class="language-plaintext highlighter-rouge">kubectl</code> or <code class="language-plaintext highlighter-rouge">oc</code> tool to find the workspace pod name (<code class="language-plaintext highlighter-rouge">$ kubectl get pods</code> or <code class="language-plaintext highlighter-rouge">$ oc get pods</code>).</p>
-
-<p>The name of the container that includes <code class="language-plaintext highlighter-rouge">rsync</code> is “rsync” as it’s the alias name we defined in the <code class="language-plaintext highlighter-rouge">devfile</code>.</p>
-
-<h3 id="33-the-rsyncscript">3.3. The rsync script</h3>
-
-<p>To import the project files into Eclipse Che workspace, we will now use <code class="language-plaintext highlighter-rouge">rsync.</code></p>
-
-<p>We will need a shell script to perform the copy and this script will use <code class="language-plaintext highlighter-rouge">kubectl exec</code> command.</p>
-
-<p>Create a new file <code class="language-plaintext highlighter-rouge">kubectl-rsync.sh</code> with the following content:</p>
-
-<script src="https://gist.github.com/benoitf/0189f4399beb9fc72392e5cbd9655add.js"></script>
-
-<p>Don’t forget to make it executable: <code class="language-plaintext highlighter-rouge">chmod u+x kubectl-rsync.sh</code> and now let’s assume you copy it to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder.</p>
-
-<p>Now, let’s create another script named <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code></p>
-
-<script src="https://gist.github.com/benoitf/abb5b1d13105eab0d8a357ee75cbaacc.js"></script>
-
-<p>Apply permissions by using <code class="language-plaintext highlighter-rouge">chmod u+x workspace-sync.sh</code>.</p>
-
-<p>Copy it, for example, to <code class="language-plaintext highlighter-rouge">${HOME}/bin</code> folder. We’re using the <code class="language-plaintext highlighter-rouge">-e</code> option in rsync parameters to specify another shell.</p>
-
-<p>Now that our scripts have been setup, it’s time to use them.</p>
-
-<p>First, we store the workspace pod into an env variable:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">WORKSPACE_POD</span><span class="o">=</span>workspacelmog4zkmikhxpc87.workspace-74d787cf95-xbd26
-</code></pre></div></div>
-
-<p>Let’s proceed to the first import.</p>
-
-<p>Assuming our remote workspace has files in <code class="language-plaintext highlighter-rouge">/projects/</code> and that we want to copy workspace files it to <code class="language-plaintext highlighter-rouge">${HOME}/my-workspace</code> on our laptop, execute the following command:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--progress --stats"</span> RSYNC<span class="se">\_</span><span class="nv">FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/my-workspace"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>Now files are being transferred into our laptop.</p>
-
-<p>We see progress due to <code class="language-plaintext highlighter-rouge">--progress</code> option. You may add<code class="language-plaintext highlighter-rouge">--exclude ‘node_modules'</code> in <code class="language-plaintext highlighter-rouge">RSYNC_OPTIONS</code> for nodejs projects to exclude unwanted files.</p>
-
-<p>In your laptop you should see <code class="language-plaintext highlighter-rouge">my-project</code> folder in <code class="language-plaintext highlighter-rouge">${HOME}</code> directory.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*ts2FYhqX1f_MI4umWvhPiw.png" alt="" /></p>
-
-<h3 id="4-editwork-with-your-project-on-yourlaptop">4. Edit/work with your project on your laptop</h3>
-
-<p>Well here, you can do whatever you like with your project that has been synchronized to <code class="language-plaintext highlighter-rouge">${HOME}/my-workspace/my-project</code></p>
-
-<p>For example if it’s a java/maven project you can run <code class="language-plaintext highlighter-rouge">mvn</code> command there or run <code class="language-plaintext highlighter-rouge">yarn</code> for nodejs project, etc.</p>
-
-<h3 id="5-synchronize-back-all-thechanges">5. Synchronize back all the changes</h3>
-
-<p>All modified files are now on your local computer so you can edit them. But at some point you’ll want those changes back in the remote Che workspace.</p>
-
-<p>We’ll use the same <code class="language-plaintext highlighter-rouge">workspace-sync.sh</code> script but we’ll reverse the source and destination. Because now we want to copy laptop’s changes to the remote workspace and not the previous way. Also, we’ll set this time <code class="language-plaintext highlighter-rouge">RSYNC_INFINITE=true</code> to do rsync every 15s (to never miss local changes).</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ RSYNC_FROM</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/</span><span class="sb">`</span>my-workspace<span class="sb">`</span><span class="s2">/"</span> <span class="nv">RSYNC_TO</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">WORKSPACE_POD</span><span class="k">}</span><span class="s2">:/projects/"</span> <span class="nv">RSYNC_INFINITE</span><span class="o">=</span><span class="s2">"true"</span> <span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/bin/workspace-sync.sh
-</code></pre></div></div>
-
-<p>You can drop <code class="language-plaintext highlighter-rouge">--progress --stats</code> from <code class="language-plaintext highlighter-rouge">RSYNC_OPTIONS</code> so you don’t generate too much output now that you’ve confirmed it works.</p>
-
-<p>One issue is that when syncing back the changes, we don’t want to upload the whole node_modules folder. Adding the <code class="language-plaintext highlighter-rouge">--exclude node_modules</code> parameter takes care of that.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">RSYNC_OPTIONS</span><span class="o">=</span><span class="s2">"--exclude node</span><span class="se">\_</span><span class="s2">modules"</span>
-</code></pre></div></div>
-
-<p>The script now checks all the changes every 15 seconds.</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*pvDlDYPzSFvS1GJoiWpkiA.png" alt="" /></p>
-
-<p>All changes from my filesystem are now inside my remote workspace.</p>
-
-<p>Let’s check:</p>
-
-<p><img src="https://cdn-images-1.medium.com/max/800/1*HaCqORV_sD3gozrIE847oQ.png" alt="" /></p>
-
-<h3 id="6-finishing">6. Finishing</h3>
-
-<p>When we’re done working we can double-check that the rsync script has finished to copy all files remotely and then delete the project on our laptop.</p>
-
-<p>One you have this all set up it’s easy to either leave it running all the time and fluidly move from editing on your laptop and editing in the cloud. Or only turn it on when you know you’ll be offline for awhile (like for a trip).</p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Learn how to work offline with Che and sync back changes when you’re back online.]]></summary></entry></feed>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*T0IcGezki-m-bHM8DB3V7A.gif" alt="" /></p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[Introduction]]></summary></entry></feed>
