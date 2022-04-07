@@ -37,8 +37,6 @@ image::/assets/img/pair-programming-vscode/pair-programming-vscode.gif[Pair prog
 
 . Keep the defaults for all properties and click on the `start` button
 
-. Click "No" on "CodeTogether requires access to Visual Studio Code Proposed APIs"
-
 . A `Pair programming` link is then available in the clipboard.
 
 . You can share this link with your team members. They will be able to join your workspace.
