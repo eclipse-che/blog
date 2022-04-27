@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-04-01T07:07:59+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Pair programming using VS Code</title><link href="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html" rel="alternate" type="text/html" title="Pair programming using VS Code" /><published>2022-04-01T00:00:00+00:00</published><updated>2022-04-01T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/04/01/@florent.benoit/pair-programming-using-vscode-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-04-27T12:12:09+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Pair programming using VS Code</title><link href="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html" rel="alternate" type="text/html" title="Pair programming using VS Code" /><published>2022-04-01T00:00:00+00:00</published><updated>2022-04-01T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/04/01/@florent.benoit/pair-programming-using-vscode-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html"><![CDATA[<div class="paragraph">
 <p>One of Eclipse Che most requested feature is to be able to do pair programming.</p>
 </div>
 <div class="paragraph">
@@ -43,9 +43,6 @@
 </li>
 <li>
 <p>Keep the defaults for all properties and click on the <code>start</code> button</p>
-</li>
-<li>
-<p>Click "No" on "CodeTogether requires access to Visual Studio Code Proposed APIs"</p>
 </li>
 <li>
 <p>A <code>Pair programming</code> link is then available in the clipboard.</p>
