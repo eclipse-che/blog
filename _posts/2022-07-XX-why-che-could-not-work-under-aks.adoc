@@ -1,0 +1,56 @@
+---
+title: Why Eclipse Che version before 7.50 could not work under Azure AKS
+layout: post
+author: Serguei Gorokhov and Piotr Karatkevich
+description: >-
+  In this blog post, we'll tell the story how we installed Eclipse Che on Microsoft Azure, what problems we met and how solved them.
+categories: []
+keywords: ['AKS', 'Azure AD']
+slug: /@piotr.karatkevich/why-che-could-not-work-under-aks
+---
+
+We installed Eclipse Che on Azure AKS cluster integrated with Azure Active Directory according to link:https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/[instruction]. To our surprise it did not work. So, we decided to spend some time and made it workable.
+
+== Problem 1: AKS does not support id_token
+Eclipse Che sends `id_token` for installations made for Kubernetes. But in our case **Azure Kubernetes Service** requires `access_token`.
+
+image::/assets/img/why-che-could-not-work-under-aks/aks-does-not-support-id_token.png[AKS does not support id_token]
+
+1. Eclipse Che is configured to use Azure AD as Identity Provider.
+2. Azure AD provides an `access_token`, `id_token`, and a `refresh_token`.
+3. Eclipse Che sends the `id_token` to AKS API Server.
+4. AKS API Server requires `access_token` and returns auth error.
+
+=== How we solved problem 1
+We opened link:https://github.com/eclipse/che/issues/21450[enhancement] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[solution]. New configuration field `identityToken` has been introduced into Eclipse Che starting version 7.50+. Now user can easily configure what token to be passed to upstreams in CheCluster custom resource:
+[source,yaml,subs="+quotes"]
+----
+spec:
+  networking:
+    auth:
+      identityToken: access_token
+----
+There are two types of tokens supported: `id_token` and `access_token`. Default value is `id_token`.
+
+== Problem 2: No way to configure authorization scopes for 'Azure Kubernetes Service AAD Server' application.
+Eclipse Che sends default authorization scopes `openid email profile` for token acquiring. But in case of **Azure Kubernetes Service** we need to send predefined `6dae42f8-4368-4678-94ff-3960e28e3630/.default` authorization scope to get a proper audience.
+
+image::/assets/img/why-che-could-not-work-under-aks/incorrect-audience.png[Incorrect audience]
+
+1. Eclipse Che uses default authorization scopes `openid email profile` to get tokens.
+2. Azure AD provides an `access_token`, `id_token`, and a `refresh_token` based on requested authorization scopes.
+3. Eclipse Che sends the `access_token` to AKS API Server.
+4. Token validation fails due to incorrect audience.
+
+=== How we solved problem 2
+New configuration field `oAuthScope` has been introduced into Eclipse Che starting version 7.50+ in scope of already opened link:https://github.com/eclipse/che/issues/21450[enhancement] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[solution]. Now user can easily configure authorization scopes in CheCluster custom resource:
+[source,yaml,subs="+quotes"]
+----
+spec:
+  networking:
+    auth:
+      oAuthScope: openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/.default
+----
+Important note: This field is specific to Che installations made for Kubernetes only and ignored for OpenShift.
+
+== Problem 3: No way to configure authorization scopes for 'Azure Kubernetes Service AAD Server' application.
