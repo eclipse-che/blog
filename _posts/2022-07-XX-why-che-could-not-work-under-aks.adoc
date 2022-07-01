@@ -54,13 +54,6 @@ In order to obtain a token suitable for AKS, additional scope should be configur
 ----
 where GUID is a AppID for AKS registered in Azure AD.
 
-image::/assets/img/why-che-could-not-work-under-aks/incorrect-audience.png[Incorrect audience]
-
-1. Eclipse Che uses default authorization scopes `openid email profile` to get tokens.
-2. Azure AD provides an `access_token`, `id_token`, and a `refresh_token` based on requested authorization scopes.
-3. Eclipse Che sends the `access_token` to AKS API Server.
-4. Token validation fails due to incorrect audience.
-
 === How we solved second problem
 New configuration field `oAuthScope` has been introduced into Eclipse Che starting version 7.50+ in scope of already opened link:https://github.com/eclipse/che/issues/21450[che-operator enhancement] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[solution]. Now user can easily configure authorization scopes in CheCluster custom resource:
 [source,yaml]
