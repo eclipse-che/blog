@@ -65,12 +65,54 @@ spec:
 ----
 NOTE: The field `identityToken` is specific to Eclipse Che installations made for Kubernetes only and ignored for OpenShift.
 
-== Problem 3: Che server requires mandatory 'email' claim
-As was mentioned early our AKS cluster integrated with Azure AD. It means we need to use 'Azure Kubernetes Service AAD Server' enterprise application defined and managed by Azure itself.
+== Problem 3: Che server requires mandatory 'email' claim which is absent in AKS access_token
+Besides passing OIDC token to AKS for authorization purposes, Che server (one of the important Eclipse Che link:https://www.eclipse.org/che/docs/stable/administration-guide/server-components/[components]) also uses it for creating a 'user' record in internal database. There are two pieces of information (claims) about current user that Che server expects to extract from the token: name and email. Che allows configuring of user name's claim via CheCluster CDR in AKS (`CHE_OIDC_USERNAME__CLAIM` according to link:https://www.eclipse.org/che/docs/next/administration-guide/advanced-configuration-options-for-the-che-server-component/#_che_oidc_username_claim[documentation]), but email's claim's name is hardcoded to "email" and cannot be changed. This hardcode becomes a problem for AKS setup since access_token returned by AAD for AKS does not contain email claim (see current structure below), and customization is not possible here since AKS application registration in AAD is maintained by Microsoft.
+[source,json]
+----
+{
+  "typ": "JWT",
+  "alg": "RS256",
+  "x5t": "2ZQpJ3UpbjAYXYGaXEJl8lV0TOI",
+  "kid": "2ZQpJ3UpbjAYXYGaXEJl8lV0TOI"
+}.{
+  "aud": "6dae42f8-4368-4678-94ff-3960e28e3630",
+  "iss": "https://sts.windows.net/f974903a-f693-4ca2-aa63-45e5bd2d1318/",
+  "iat": 1656412511,
+  "nbf": 1656412511,
+  "exp": 1656417802,
+  "acr": "1",
+  "aio": "AUQAu/8TAABB1o0F/h6L8SJWLibrQqPKrVF7qpdIFiQ0qeIj/wNUfcLkM87v+wgvQ+I8uj0WC2Y6WEoHlBcsJdt0m+kJ4dFeNw==",
+  "amr": [
+    "pwd"
+  ],
+  "appid": "1c0b88a0-8ec2-4cca-a2b0-4f468110ef86",
+  "appidacr": "1",
+  "family_name": "Kluklu",
+  "given_name": "Tratata",
+  "groups": [
+    "73fdccdf-e10d-45f9-b7f6-31848842999f",
+    "5988d043-3af9-4e81-b041-90b3456f9f4e",
+    "bddcb049-0337-4dec-bbaf-7600b8c12623"
+  ],
+  "ipaddr": "10.123.51.3",
+  "name": "Tratata Kluklu",
+  "oid": "2cf0521c-c76d-4e7c-b41f-863674057db3",
+  "onprem_sid": "S-2-4-31-6364504-298352422-13854118-387761",
+  "puid": "3213CDFA3CAF2IA5",
+  "rh": "0.AQkA1NIbtJ39JkuKaqbJ82fCHscCrm1oG3hTlP47YOQHDjAJAHg.",
+  "scp": "user.read",
+  "sub": "qweBLvHX49QA5WlXpJzq_erXQ2NldnSqpgY93oALLDY",
+  "tid": "a385e78a-aedc-4033-82ba-e6ef88120591",
+  "unique_name": "Tratata.Kluklu@gmail.com",
+  "upn": "Tratata.Kluklu@gmail.com",
+  "uti": "lfZmPsgcWmS3dG78GpMjRA",
+  "ver": "1.0",
+  "wids": [
+    "c79abafb-610b-4a34-82e2-ef7a293db6ca"
+  ]
+}.[Signature]
+----
 
-Due to this fact we have no controls over `access_token` structure. We should use it as is. Provided `access_token` does not have `email` claim.
-
-At the same time Che server (one of the important Eclipse Che link:https://www.eclipse.org/che/docs/stable/administration-guide/server-components/[components]) requires `email` claim. Unfortunately, there is no way to configure Che server to use other attribute for 'email' claim. 
 
 === How we solved third problem
 Obviously we need a way to ask Che server to use other attribute instead of `email`. We opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement]. Right now we are working to poropose the solution.
