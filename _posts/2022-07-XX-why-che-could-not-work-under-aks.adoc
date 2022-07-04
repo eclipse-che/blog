@@ -25,9 +25,9 @@ image::/assets/img/why-che-could-not-work-under-aks/aks-does-not-support-id_toke
 . AKS API Server requires `access_token` and returns auth error.
 
 === How we solved first problem
-Obviously we need a way to ask {prod} to send `access_token` instead of `id_token`. We opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancement] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[solution].
+Obviously we need a way to ask {prod} to send `access_token` instead of `id_token`. We opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancement] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
 
-As result new configuration field `identityToken` has been introduced into {prod} starting version 7.50+. Now user can easily configure what token to be passed to upstreams in CheCluster custom resource:
+ In consequence of proposed improvements new configuration field `identityToken` has been introduced into {prod} starting version 7.50+. And user can easily configure what token to be passed to upstreams in CheCluster CR (Custom Resource):
 [source,yaml]
 ----
 spec:
@@ -57,7 +57,7 @@ In order to obtain a token suitable for AKS, additional scope should be configur
 where GUID is a Application ID for AKS registered in AAD.
 
 === How we solved second problem
-New configuration field `oAuthScope` has been introduced into {prod} starting version 7.50+ in scope of already opened link:https://github.com/eclipse/che/issues/21450[che-operator enhancement] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[solution]. Now user can easily configure authorization scopes in CheCluster custom resource:
+New configuration field `oAuthScope` has been introduced into {prod} starting version 7.50+ in scope of already opened link:https://github.com/eclipse/che/issues/21450[che-operator enhancement] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[improvements]. So user can easily configure authorization scopes in CheCluster CR:
 [source,yaml]
 ----
 spec:
@@ -68,7 +68,7 @@ spec:
 NOTE: The field `identityToken` is specific to {prod} installations made for {kubernetes} only and ignored for OpenShift.
 
 == Problem 3: Che server requires mandatory 'email' claim which is absent in AKS access_token
-Besides passing OIDC token to AKS for authorization purposes, Che server (one of the important {prod} link:https://www.eclipse.org/che/docs/stable/administration-guide/server-components/[components]) also uses it for creating a 'user' record in internal database. There are two pieces of information (claims) about current user that Che server expects to extract from the token: name and email. Che allows configuring of user name's claim via CheCluster CDR in AKS (`CHE_OIDC_USERNAME__CLAIM` according to link:https://www.eclipse.org/che/docs/next/administration-guide/advanced-configuration-options-for-the-che-server-component/#_che_oidc_username_claim[documentation]), but email's claim's name is hardcoded to "email" and cannot be changed. This hardcode becomes a problem for AKS setup since access_token returned by AAD for AKS does not contain email claim (see current structure below), and customization is not possible here since AKS application registration in AAD is maintained by Microsoft.
+Besides passing OIDC token to AKS for authorization purposes, Che server (one of the important {prod} link:https://www.eclipse.org/che/docs/stable/administration-guide/server-components/[components]) also uses it for creating a 'user' record in internal database. There are two pieces of information (claims) about current user that Che server expects to extract from the token: name and email. Che allows configuring of user name's claim via CheCluster CR in AKS (`CHE_OIDC_USERNAME__CLAIM` according to link:https://www.eclipse.org/che/docs/next/administration-guide/advanced-configuration-options-for-the-che-server-component/#_che_oidc_username_claim[documentation]), but email's claim's name is hardcoded to `email` and cannot be changed. This hardcode becomes a problem for AKS setup since `access_token` returned by AAD for AKS does not contain email claim (see current structure below), and customization is not possible here since AKS application registration in AAD is maintained by Microsoft.
 [source,jwt]
 ----
 {
@@ -117,4 +117,4 @@ Besides passing OIDC token to AKS for authorization purposes, Che server (one of
 
 
 === How we solved third problem
-Obviously we need a way to ask Che server to use other attribute instead of `email`. We opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement]. Right now we are working to poropose the solution.
+Obviously we need a way to ask Che server to use other attribute instead of `email`. We opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement]. Right now we are working to propose the solution.
