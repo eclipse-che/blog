@@ -117,4 +117,14 @@ Besides passing OIDC token to AKS for authorization purposes, Che server (one of
 
 
 === How we want to solve third problem
-We need a way to ask Che server to use other attribute instead of `email`. We opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement]. Right now we are working to propose the solution.
+We need a way to ask Che server to use other attribute instead of `email`. We opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement] and proposed the link:https://github.com/eclipse-che/che-server/pull/324[improvements].
+
+The idea is to make email claim name configurable via CheCluster CR:
+[source,yaml]
+----
+spec:
+  components:
+    cheServer:
+      extraProperties:
+        CHE_OIDC_EMAIL__CLAIM: unique_name
+----
