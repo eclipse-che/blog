@@ -131,9 +131,9 @@ spec:
 If not defined, the fallback value is `email`.
 
 == Conclusion
-In this post, we talked about the challenges we met during {prod} installation on AKS and explained how to passed them in the latest versions of the product.
+In this post, we talked about the challenges we met during {prod} installation on AKS and explained how to pass them using the latest versions of the product.
 
-Now, user has all needed things configurable to be able to successfully run {prod} on AKS. For example, in our particular case we prepared yaml file that overrides the default values in CheCluster CR.
+Now, user has all needed things configurable to be able to run successfully {prod} on AKS. For example, in our particular case we prepared yaml file that overrides the default values in CheCluster CR.
 [source,yaml]
 ----
 spec:
