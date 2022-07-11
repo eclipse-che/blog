@@ -24,7 +24,7 @@ image::/assets/img/why-che-could-not-work-under-aks/aks-does-not-support-id_toke
 . {prod} sends the `id_token` to AKS API Server.
 . AKS API Server requires `access_token` and returns auth error.
 
-=== How did we pass the first challenge
+=== How did we solve the first challenge
 Obviously we need a way to ask {prod} to send `access_token` instead of `id_token`. We opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
 
 In consequence of proposed improvements new configuration field `identityToken` has been introduced into {prod} starting version 7.50+. And user can easily configure what token to be passed to upstreams in CheCluster CR (Custom Resource):
@@ -56,7 +56,7 @@ In order to obtain a token suitable for AKS, additional scope should be configur
 ----
 where GUID is a Application ID for AKS registered in AAD.
 
-=== How did we pass the second challenge
+=== How did we solve the second challenge
 New configuration field `oAuthScope` has been introduced into {prod} starting version 7.50+ in scope of already opened link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and provided link:https://github.com/eclipse-che/che-operator/pull/1400[improvements]. So user can easily configure authorization scopes in CheCluster CR:
 [source,yaml]
 ----
@@ -116,7 +116,7 @@ Besides passing OIDC token to AKS for authorization purposes, Che server (one of
 ----
 
 
-=== How did we pass the third challenge
+=== How did we solve the third challenge
 The same as above, we need some enhancements on {prod} side to allow user to configure what token claim need to be used to extract user email. As we did it before, we opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement] and proposed the link:https://github.com/eclipse-che/che-server/pull/324[improvement].
 
 Now user can configure email claim to be used when parsing JWT token:
@@ -131,7 +131,7 @@ spec:
 If not defined, the fallback value is `email`.
 
 == Conclusion
-In this post, we talked about the challenges we met during {prod} installation on AKS and explained how to pass them using the latest versions of the product.
+In this post, we talked about the challenges we met during {prod} installation on AKS and explained how to solve them using the latest versions of the product.
 
 Now, user has all needed things configurable to be able to run successfully {prod} on AKS. For example, in our particular case we prepared yaml file that overrides the default values in CheCluster CR.
 [source,yaml]
