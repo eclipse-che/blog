@@ -42,7 +42,7 @@ http:
           to: Authorization
 ----
 
-And voila, we have it workable, like a magic. But what's about others who will also install {prod} on AKS? We already mentioned, that at Epam Systems we love complex challenges. And of course we love a coding. So, we opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
+And voila, we have it workable, like a magic. But what's about others who will also install {prod} on AKS? We already mentioned, that at Epam Systems we love complex challenges. And of course we love coding. So, we opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
 
 In consequence of proposed improvements new configuration field `identityToken` has been introduced into {prod} starting version 7.50+. And user can easily configure what token to be passed to upstreams in CheCluster CR (Custom Resource):
 [source,yaml]
