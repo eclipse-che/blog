@@ -19,18 +19,30 @@ Simplified architecture diagram below can be used to get a context about our cas
 image::/assets/img/why-che-could-not-work-under-aks/che-in-aks.png[Che components deployed on AKS]
 
 == Challenge 1: AKS does not accept id_token
-{prod} sends `id_token` for installations made for {kubernetes}. But in our case AKS does not accept `id_token` (it only accepts `access_token`) due to AAD integration enabled.
-
-.AKS rejects id_token
-image::/assets/img/why-che-could-not-work-under-aks/aks-does-not-support-id_token.png[AKS does not accept id_token]
-
-. {prod} is configured to use AAD as Identity Provider.
-. AAD provides an `access_token`, `id_token`, and a `refresh_token`.
-. {prod} sends the `id_token` to AKS API Server.
-. AKS API Server requires `access_token` and returns auth error.
+OAuth2 Proxy is configured to send `id_token` to Traefik for installations made for {kubernetes}. Traefik, in its turn, sends `id_token` to all upsteams, including AKS API Server via kube-rbac-proxy. But in case of AAD integration enabled for AKS, AKS API Server does not accept `id_token` (it only accepts `access_token`).
 
 === How did we solve the first challenge
-Obviously we need a way to ask {prod} to send `access_token` instead of `id_token`. We opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
+Obviously we need a way to ask OAuth2 Proxy to send `access_token` instead of `id_token`. But OAuth2 Proxy version before alpha configuration does not support token replacement. It can be configured to pass `access_token` via X-Forwarded-Access-Token header, but not to replace `id_token` in Authorization header. So, first step is to add `access_token` via X-Forwarded-Access-Token header:
+
+[source]
+----
+pass_access_token = true
+----
+
+Then we need somehow to replace Authorization header on X-Forwarded-Access-Token header. Fortunately, we have Traefik in place. So, let's ask Traefik to make a necessary replacement:
+[source,yaml]
+----
+http:
+  middlewares:
+    che-header-rewrite:
+      plugin:
+        header-rewrite:
+          from: X-Forwarded-Access-Token
+          prefix: 'Bearer '
+          to: Authorization
+----
+
+And voila, we have it workable, like a magic. But what's about others who will also install {prod} on AKS? We already mentioned, that at Epam Systems we love complex challenges. And of course we love a coding. So, we opened the link:https://github.com/eclipse/che/issues/21450[che-operator enhancements] and proposed the link:https://github.com/eclipse-che/che-operator/pull/1400[improvements].
 
 In consequence of proposed improvements new configuration field `identityToken` has been introduced into {prod} starting version 7.50+. And user can easily configure what token to be passed to upstreams in CheCluster CR (Custom Resource):
 [source,yaml]
@@ -156,8 +168,8 @@ spec:
         CHE_OIDC_EMAIL__CLAIM: unique_name 
 ----
 
-* `TENANT_ID` - Directory (tenant) ID, see Figure 4.
-* `CLIENT_ID` - Application (client) ID, see Figure 4.
+* `TENANT_ID` - Directory (tenant) ID, see Figure 3.
+* `CLIENT_ID` - Application (client) ID, see Figure 3.
 * `CLIENT_SECRET` - Client secret, you can manage it in 'Certificates & secret' section
 
 .Registered Che application
