@@ -19,7 +19,7 @@ Architecture diagram below can be used to get a context about our case. Please n
 image::/assets/img/why-che-could-not-work-under-aks/che-in-aks.png[Eclipse Che components deployed on AKS]
 
 == Challenge 1: AKS does not accept id_token
-OAuth2 Proxy is configured to send `id_token` to Traefik for installations made for {kubernetes}. Traefik, in its turn, sends `id_token` to all upsteams, including AKS API Server via kube-rbac-proxy. But in case of AAD integration enabled for AKS, AKS API Server does not accept `id_token` (it only accepts `access_token`).
+OAuth2 Proxy is configured to send `id_token` to Traefik for installations made for {kubernetes}. Traefik, in its turn, sends `id_token` to all upsteams, including such components like Che server and User Dashboard. Che server and User Dashboard call AKS API Server using provided `id_token`. But in case of AAD integration enabled for AKS, AKS API Server does not accept `id_token` (it only accepts `access_token`).
 
 === How did we solve the first challenge
 Obviously we need a way to ask OAuth2 Proxy to send `access_token` instead of `id_token`. But OAuth2 Proxy version before alpha configuration does not support token replacement. It can be configured to pass `access_token` via X-Forwarded-Access-Token header, but not to replace `id_token` in Authorization header. So, first step is to add `access_token` via X-Forwarded-Access-Token header:
