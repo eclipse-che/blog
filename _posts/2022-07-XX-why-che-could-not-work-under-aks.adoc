@@ -1,5 +1,5 @@
 ---
-title: Why Eclipse Che version before 7.50 could not work under AKS
+title: Installing Eclipse Che on the Azure Kubernetes Service (AKS)
 layout: post
 author: Serguei Gorokhov and Piotr Karatkevich
 description: >-
