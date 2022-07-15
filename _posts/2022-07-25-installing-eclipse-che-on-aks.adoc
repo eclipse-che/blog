@@ -6,7 +6,7 @@ description: >-
   In this blog post, we'll tell the story how we installed Eclipse Che on Microsoft Azure, what challenges we met and how solved them.
 categories: []
 keywords: ['AKS', 'Azure Kubernetes Service', 'AAD', 'Azure Active Directory']
-slug: /@piotr.karatkevich/why-che-could-not-work-under-aks
+slug: /@karatkep/installing-eclipse-che-on-aks
 ---
 
 We installed {prod} on AKS (Azure Kubernetes Service) cluster integrated with AAD (Azure Active Directory) according to link:https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/[instruction]. And to our surprise it did not work. Here at Epam Systems we love complex challenges, so we decided not to stop and deep dived into {prod} world to improve interaction with Microsoft Azure.
@@ -16,7 +16,7 @@ NOTE: Taking into account that {prod} calls {kubernetes} API server using user's
 Architecture diagram below can be used to get a context about our case. Please note that some of the components are omitted for the sake of simplicity. But it should be enough to get up to speed and dive into {prod} world together with us.
 
 .Eclipse Che components deployed on AKS
-image::/assets/img/why-che-could-not-work-under-aks/che-in-aks.png[Eclipse Che components deployed on AKS]
+image::/assets/img/installing-eclipse-che-on-aks/che-in-aks.png[Eclipse Che components deployed on AKS]
 
 == Challenge 1: AKS does not accept id_token
 OAuth2 Proxy is configured to send `id_token` to Traefik for installations made for {kubernetes}. Traefik, in its turn, sends `id_token` to all upsteams, including such components like Che server and User Dashboard. Che server and User Dashboard call AKS API Server using provided `id_token`. But in case of AAD integration enabled for AKS, AKS API Server does not accept `id_token` (it only accepts `access_token`).
@@ -62,7 +62,7 @@ This is a continuation of Challenge 1 in a way that after we taught {prod} to le
 When AKS integration with AAD is enabled, AKS expects OpenID Connect (OIDC) tokens issued to the certain application, pre-registered in AAD: 'Azure Kubernetes Service AAD Server'.
 
 .Azure Kubernetes Service AAD Server application
-image::/assets/img/why-che-could-not-work-under-aks/aks-aad-server-app.png[Azure Kubernetes Service AAD Server]
+image::/assets/img/installing-eclipse-che-on-aks/aks-aad-server-app.png[Azure Kubernetes Service AAD Server]
 
 If we leave default settings of OAuth2 Proxy, leveraged in Gateway, it uses standard set of OIDC scopes and for them AAD returns an `access_token` that can be used against Microsoft Graph, not AKS.
 
@@ -173,23 +173,23 @@ spec:
 * `CLIENT_SECRET` - Client secret, you can manage it in 'Certificates & secret' section
 
 .Registered Che application
-image::/assets/img/why-che-could-not-work-under-aks/azure-che-demo-app.png[Registered Che application]
+image::/assets/img/installing-eclipse-che-on-aks/azure-che-demo-app.png[Registered Che application]
 
 WARNING: Don't forget to configure API permissions to authorize your application to call AKS Server API.
 
 .AKS API permissions
-image::/assets/img/why-che-could-not-work-under-aks/aks-api-permissions.png[AKS API permissions]
+image::/assets/img/installing-eclipse-che-on-aks/aks-api-permissions.png[AKS API permissions]
 
 After all preparations are completed, `chectl` deploy command can be used to install {prod} on AKS using yaml file above:
 [source,shell]
 ----
 chectl server:deploy \
---platform=k8s \
---installer=operator \
---che-operator-cr-patch-yaml=che.yaml \
---skip-oidc-provider-check \
---skip-cert-manager \
---domain=eclipse-che-demo.mydomain.com
+       --platform=k8s \
+       --installer=operator \
+       --che-operator-cr-patch-yaml=che.yaml \
+       --skip-oidc-provider-check \
+       --skip-cert-manager \
+       --domain=eclipse-che-demo.mydomain.com
 ----
 
 NOTE: In our case we already configured `cert-manager` and created `domain` according to the link:https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/[instruction].
