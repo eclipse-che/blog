@@ -185,7 +185,7 @@ After all preparations are completed, `chectl` deploy command can be used to ins
 ----
 chectl server:deploy \
 --platform=k8s \
---installer=operator
+--installer=operator \
 --che-operator-cr-patch-yaml=che.yaml \
 --skip-oidc-provider-check \
 --skip-cert-manager \
