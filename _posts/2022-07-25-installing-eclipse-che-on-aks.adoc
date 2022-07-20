@@ -180,7 +180,7 @@ WARNING: Don't forget to configure API permissions to authorize your application
 .AKS API permissions
 image::/assets/img/installing-eclipse-che-on-aks/aks-api-permissions.png[AKS API permissions]
 
-After all preparations are completed, `chectl` deploy command can be used to install {prod} on AKS using yaml file above:
+After the {prod} App configuration in Azure is completed, the command `chectl server:deploy` can be used to install {prod} on AKS using the `YAML` file above:
 [source,shell]
 ----
 chectl server:deploy \
