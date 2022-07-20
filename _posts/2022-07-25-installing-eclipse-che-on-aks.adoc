@@ -18,7 +18,7 @@ Architecture diagram below can be used to get a context about our case. Please n
 .Eclipse Che components deployed on AKS
 image::/assets/img/installing-eclipse-che-on-aks/che-in-aks.png[Eclipse Che components deployed on AKS]
 
-== Challenge 1: AKS does not accept id_token
+== Challenge 1: AKS does not accept `id_token`
 OAuth2 Proxy is configured to send `id_token` to Traefik for installations made for {kubernetes}. Traefik, in its turn, sends `id_token` to all upsteams, including such components like Che server and User Dashboard. Che server and User Dashboard call AKS API Server using provided `id_token`. But in case of AAD integration enabled for AKS, AKS API Server does not accept `id_token` (it only accepts `access_token`).
 
 === How did we solve the first challenge
