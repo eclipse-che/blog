@@ -134,7 +134,7 @@ Besides passing OIDC token to AKS for authorization purposes, Che server also us
 
 
 === How did we solve the third challenge
-The same as above, we need some enhancements on {prod} side to allow user to configure what token claim need to be used to extract user email. As we did it before, we opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement] and proposed the link:https://github.com/eclipse-che/che-server/pull/324[improvement].
+As for the previous challenges, we need some enhancements on {prod} side here too. We want to allow administrators to configure what token claim need to be used to extract user email. As we did it before, we opened the link:https://github.com/eclipse/che/issues/21515[che-server enhancement] and proposed the link:https://github.com/eclipse-che/che-server/pull/324[improvement].
 
 Now user can configure email claim to be used when parsing JWT token:
 [source,yaml]
