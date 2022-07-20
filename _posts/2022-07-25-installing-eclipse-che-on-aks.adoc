@@ -192,4 +192,4 @@ chectl server:deploy \
        --domain=eclipse-che-demo.mydomain.com
 ----
 
-NOTE: In our case we already configured `cert-manager` and created `domain` according to the link:https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/[instruction].
+NOTE: In our case we already configured `cert-manager` and created `domain` according to the link:https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/[old (7.41) instructions].
