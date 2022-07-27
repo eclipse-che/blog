@@ -1,5 +1,7 @@
 ![GitHub deployments](https://img.shields.io/github/deployments/eclipse-che/che-incubator.github.io/github-pages)
 
+[![Contribute (nightly)](https://img.shields.io/static/v1?label=nightly%20Che&message=for%20maintainers&logo=eclipseche&color=FDB940&labelColor=525C86)](https://che-dogfooding.apps.che-dev.x6e0.p1.openshiftapps.com#https://github.com/eclipse-che/blog&storageType=ephemeral)
+
 ## How to submit and review a new blog post
 
 Add a new file in `_posts` folder. Images go in `assets/img/<blog-subfolder>`.
