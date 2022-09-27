@@ -16,12 +16,18 @@ components:
           protocol: http
           targetPort: 4000
 commands:
+  - id: jekyll-clean
+    exec:
+      component: jekyll
+      commandLine: bundle jekyll clean
+      group:
+        kind: run
+        isDefault: true
   - id: start-jekyll-server
     exec:
       component: jekyll
-      workingDir: ${PROJECTS_ROOT}/blog
-      commandLine: |
-        jekyll serve --incremental --watch --host 0.0.0.0 --livereload --livereload-port 35729
+      # commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0 --livereload --livereload-port 35729
+      commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0
       group:
         kind: run
         isDefault: true

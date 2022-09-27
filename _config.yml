@@ -25,14 +25,19 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://che.eclipseprojects.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: eclipse_che
-github_username:  eclipse
+github_username:  eclipse-che
+header_pages:
+  - index.markdown
 
 google_analytics: "UA-215676970-1"
 
 # Build settings
 theme: minima
 plugins:
+  - jekyll-asciidoc
   - jekyll-feed
+
+highlighter: rouge
 
 asciidoc:
   attributes:
@@ -121,6 +126,16 @@ asciidoc:
     theia-endpoint-image: eclipse/che-theia-endpoint-runtime:next
     url-devfile-registry-repo: https://github.com/eclipse/che-devfile-registry
     url-plug-in-registry-repo: https://github.com/eclipse/che-plugin-registry
+
+asciidoctor:
+  attributes:
+    idprefix: _
+    source-highlighter: rouge
+    rouge-css: style
+    rouge-style: monokai # <-- https://rouge-ruby.github.io/docs/Rouge/Themes.html
+    # rouge-css: class
+    # rouge-stylesheet: asciidoc-rouge.css
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
