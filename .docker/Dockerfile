@@ -22,7 +22,7 @@ RUN wget -qO- https://github.com/errata-ai/vale/archive/v${VALE_VERSION}.tar.gz 
     &&  /vale/bin/vale --version
 
 # use jekyll image
-FROM docker.io/jekyll/jekyll:4.2.0
+FROM docker.io/jekyll/jekyll:4.2.2
 COPY --from=vale-builder /vale/bin/vale /usr/local/bin/vale
 RUN mkdir -p /home/jekyll/.vale/styles
 WORKDIR /home/jekyll/.vale/styles
