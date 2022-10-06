@@ -23,7 +23,7 @@ Although it's now easy to link:https://github.com/containers/buildah/blob/main/d
 3. <<step_3>>
 4. <<step_4>>
 
-The first 3 steps setup the OpenShift cluster and Eclipse Che. These are administration tasks. The last step is for users that start a workspace: every workspace that requires `CAP_SETGID` and `CAP_SETUID` capability need that Devfile attribute.
+The first 3 steps setup the OpenShift cluster and Eclipse Che. These are administration tasks. The last step is for users that start a workspace: every workspace that requires `CAP_SETGID` and `CAP_SETUID` capability needs that Devfile attribute.
 
 == STEP 1: Creating an OpenShift Security Context Constraint [[step_1]]
 
