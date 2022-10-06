@@ -162,7 +162,7 @@ image::/assets/img/building-container-images/podman-build.gif[Running Podman bui
 
 == Current limitations and next steps
 
-The first 3 steps mentioned in this post are manual and can be error prone. In next releases of Eclipse Che we want to add a CheCluster field that controls if Eclipse Che is capable to do container builds or not. When enabled, Eclipse Che Operator automatically applies <<step_1>>, <<step_2>> and <<step_3>>.
+The first 3 steps mentioned in this post are manual and can be error-prone. In the next releases of Eclipse Che, we want to add a CheCluster field that controls if Eclipse Che is capable to do container builds or not. When enabled, Eclipse Che Operator automatically applies <<step_1>>, <<step_2>> and <<step_3>>.
 
 Step 4, <<step_4>>, should not be required. When containers build is enabled, every workspace Pod should have the required capabilities.
 
