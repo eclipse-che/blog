@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-08-22T10:51:30+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Installing Eclipse Che on the Azure Kubernetes Service (AKS)</title><link href="https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html" rel="alternate" type="text/html" title="Installing Eclipse Che on the Azure Kubernetes Service (AKS)" /><published>2022-07-25T00:00:00+00:00</published><updated>2022-07-25T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/07/25/@karatkep/installing-eclipse-che-on-aks</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2022-10-07T22:31:49+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Installing Eclipse Che on the Azure Kubernetes Service (AKS)</title><link href="https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html" rel="alternate" type="text/html" title="Installing Eclipse Che on the Azure Kubernetes Service (AKS)" /><published>2022-07-25T00:00:00+00:00</published><updated>2022-07-25T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/07/25/@karatkep/installing-eclipse-che-on-aks</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html"><![CDATA[<div class="paragraph">
 <p>We installed Eclipse&#160;Che on AKS (Azure Kubernetes Service) cluster integrated with AAD (Azure Active Directory) according to <a href="https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-microsoft-azure/">these old (7.41) instructions</a> (there is no recent version of AKS installation documentation). And to our surprise it did not work. Here at Epam Systems we love complex challenges, so we decided not to stop and deep dived into Eclipse&#160;Che world to improve interaction with Microsoft Azure.</p>
 </div>
 <div class="admonitionblock note">
@@ -23,19 +23,19 @@ Taking into account that Eclipse&#160;Che calls Kubernetes API server using user
 <div class="title">Figure 1. Eclipse Che components deployed on AKS</div>
 </div>
 <div class="sect1">
-<h2 id="challenge-1-aks-does-not-accept-id_token">Challenge 1: AKS does not accept <code>id_token</code></h2>
+<h2 id="_challenge-1-aks-does-not-accept-id_token">Challenge 1: AKS does not accept <code>id_token</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://oauth2-proxy.github.io/oauth2-proxy/">OAuth2 Proxy</a> is configured to send an <code>id_token</code> to Traefik for installations made for Kubernetes. <a href="https://traefik.io/traefik/">Traefik</a>, in turn, sends the <code>id_token</code> to all upstream services, including components such as Che server and User Dashboard. Che server and User Dashboard call AKS API Server using the provided <code>id_token</code>. But when AKS is configured to use AAD, its API Server does not accept <code>id_token</code> (it only accepts <code>access_token</code>).</p>
 </div>
 <div class="sect2">
-<h3 id="how-did-we-solve-the-first-challenge">How did we solve the first challenge</h3>
+<h3 id="_how-did-we-solve-the-first-challenge">How did we solve the first challenge</h3>
 <div class="paragraph">
 <p>We need a way to ask OAuth2 Proxy to send an <code>access_token</code> instead of an <code>id_token</code>. Token replacement is a OAuth2 Proxy alpha feature, hence it cannot be used in production. The alternative is to configure it to pass <code>access_token</code> via X-Forwarded-Access-Token header, but the <code>id_token</code> in the Authorization header won&#8217;t be replaced. So, first step is to add <code>access_token</code> via X-Forwarded-Access-Token header:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>pass_access_token = true</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>pass_access_token = true</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -43,14 +43,14 @@ Taking into account that Eclipse&#160;Che calls Kubernetes API server using user
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">http:
-  middlewares:
-    che-header-rewrite:
-      plugin:
-        header-rewrite:
-          from: X-Forwarded-Access-Token
-          prefix: 'Bearer '
-          to: Authorization</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">http</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">middlewares</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">che-header-rewrite</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">plugin</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">header-rewrite</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+          <span style="color: #a6e22e">from</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">X-Forwarded-Access-Token</span>
+          <span style="color: #a6e22e">prefix</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">'</span><span style="color: #e6db74">Bearer</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">'</span>
+          <span style="color: #a6e22e">to</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Authorization</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -61,10 +61,10 @@ Taking into account that Eclipse&#160;Che calls Kubernetes API server using user
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      identityToken: access_token</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">identityToken</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">access_token</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -86,7 +86,7 @@ The field <code>identityToken</code> is specific to Eclipse&#160;Che installatio
 </div>
 </div>
 <div class="sect1">
-<h2 id="challenge-2-no-way-to-obtain-a-proper-access-token-accepted-by-aks">Challenge 2: No way to obtain a proper access token accepted by AKS</h2>
+<h2 id="_challenge-2-no-way-to-obtain-a-proper-access-token-accepted-by-aks">Challenge 2: No way to obtain a proper access token accepted by AKS</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a follow up of Challenge 1: after configuring Eclipse&#160;Che to pass an <code>access_token</code> instead of an <code>id_token</code> we need to make sure that AKS considers it valid.</p>
@@ -108,23 +108,23 @@ The field <code>identityToken</code> is specific to Eclipse&#160;Che installatio
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">6dae42f8-4368-4678-94ff-3960e28e3630/user.read</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #e6db74">6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>where the ID is the Application ID of the AKS instance registered in AAD.</p>
 </div>
 <div class="sect2">
-<h3 id="how-did-we-solve-the-second-challenge">How did we solve the second challenge</h3>
+<h3 id="_how-did-we-solve-the-second-challenge">How did we solve the second challenge</h3>
 <div class="paragraph">
 <p>A new configuration field named <code>oAuthScope</code> has been introduced into Eclipse&#160;Che starting from version 7.50. That has been specified by the already opened <a href="https://github.com/eclipse/che/issues/21450">che-operator enhancements</a> and implemented through the provided <a href="https://github.com/eclipse-che/che-operator/pull/1400">improvement</a>. An Eclipse&#160;Che administrator can easily configure authorization scopes in CheCluster CR:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      oAuthScope: openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">oAuthScope</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -143,14 +143,14 @@ The field <code>oAuthScope</code> is specific to Eclipse&#160;Che installations 
 </div>
 </div>
 <div class="sect1">
-<h2 id="challenge-3-che-server-requires-mandatory-email-claim-which-is-absent-in-aks-access_token">Challenge 3: Che server requires mandatory 'email' claim which is absent in AKS access_token</h2>
+<h2 id="_challenge-3-che-server-requires-mandatory-email-claim-which-is-absent-in-aks-access_token">Challenge 3: Che server requires mandatory 'email' claim which is absent in AKS access_token</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Besides passing OIDC token to AKS for authorization purposes, Che server also uses it for creating a 'user' record in PostgreSQL database. There are two pieces of information (claims) about current user that Che server expects to extract from the token: name and email. Che allows configuring of user name claim via CheCluster CR in AKS (<code>CHE_OIDC_USERNAME__CLAIM</code> according to <a href="https://www.eclipse.org/che/docs/next/administration-guide/advanced-configuration-options-for-the-che-server-component/#_che_oidc_username_claim">documentation</a>), but email claim name is hardcoded to <code>email</code> and cannot be changed. This hardcode becomes a problem for AKS setup since <code>access_token</code> returned by AAD for AKS does not contain <code>email</code> claim (see current structure below), and customization is not possible here since AKS application registration in AAD is maintained by Microsoft.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-jwt" data-lang="jwt">{
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="jwt">{
   "typ": "JWT",
   "alg": "RS256",
   "x5t": "2ZQpJ3UpbjAYXYGaXEJl8lV0TOI",
@@ -195,7 +195,7 @@ The field <code>oAuthScope</code> is specific to Eclipse&#160;Che installations 
 </div>
 </div>
 <div class="sect2">
-<h3 id="how-did-we-solve-the-third-challenge">How did we solve the third challenge</h3>
+<h3 id="_how-did-we-solve-the-third-challenge">How did we solve the third challenge</h3>
 <div class="paragraph">
 <p>As for the previous challenges, we need some enhancements on Eclipse&#160;Che side here too. We want to allow administrators to configure what token claim need to be used to extract user email. As we did it before, we opened the <a href="https://github.com/eclipse/che/issues/21515">che-server enhancement</a> and proposed the <a href="https://github.com/eclipse-che/che-server/pull/324">improvement</a>.</p>
 </div>
@@ -204,11 +204,11 @@ The field <code>oAuthScope</code> is specific to Eclipse&#160;Che installations 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  components:
-    cheServer:
-      extraProperties:
-        CHE_OIDC_EMAIL__CLAIM: unique_name</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">extraProperties</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">CHE_OIDC_EMAIL__CLAIM</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">unique_name</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -218,7 +218,7 @@ The field <code>oAuthScope</code> is specific to Eclipse&#160;Che installations 
 </div>
 </div>
 <div class="sect1">
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this post, we walked through the challenges we faced to install Eclipse&#160;Che on AKS and how we contributed back to the project to address the issues.</p>
@@ -228,19 +228,19 @@ The field <code>oAuthScope</code> is specific to Eclipse&#160;Che installations 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      identityProviderURL: https://sts.windows.net/{TENANT_ID}/v2.0/
-      identityToken: access_token
-      oAuthClientName: {CLIENT_ID}
-      oAuthSecret: {CLIENT_SECRET}
-      oAuthScope: openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
-  components:
-    cheServer:
-      extraProperties:
-        CHE_OIDC_AUTH__SERVER__URL: https://sts.windows.net/{TENANT_ID}/v2.0/
-        CHE_OIDC_EMAIL__CLAIM: unique_name</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">identityProviderURL</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://sts.windows.net/{TENANT_ID}/v2.0/</span>
+      <span style="color: #a6e22e">identityToken</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">access_token</span>
+      <span style="color: #a6e22e">oAuthClientName</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">CLIENT_ID</span><span style="color: #f8f8f2;background-color: #49483e">}</span>
+      <span style="color: #a6e22e">oAuthSecret</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">CLIENT_SECRET</span><span style="color: #f8f8f2;background-color: #49483e">}</span>
+      <span style="color: #a6e22e">oAuthScope</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span>
+  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">extraProperties</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">CHE_OIDC_AUTH__SERVER__URL</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://sts.windows.net/{TENANT_ID}/v2.0/</span>
+        <span style="color: #a6e22e">CHE_OIDC_EMAIL__CLAIM</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">unique_name</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -285,13 +285,13 @@ Don&#8217;t forget to configure API permissions to authorize your application to
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">chectl server:deploy \
-       --platform=k8s \
-       --installer=operator \
-       --che-operator-cr-patch-yaml=che.yaml \
-       --skip-oidc-provider-check \
-       --skip-cert-manager \
-       --domain=eclipse-che-demo.mydomain.com</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">chectl server:deploy <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--platform</span><span style="color: #f92672;font-weight: bold">=</span>k8s <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--installer</span><span style="color: #f92672;font-weight: bold">=</span>operator <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--che-operator-cr-patch-yaml</span><span style="color: #f92672;font-weight: bold">=</span>che.yaml <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--skip-oidc-provider-check</span> <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--skip-cert-manager</span> <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--domain</span><span style="color: #f92672;font-weight: bold">=</span>eclipse-che-demo.mydomain.com</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -325,7 +325,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 </div>
 </div>
 <div class="sect1">
-<h2 id="quick-start-from-an-example">Quick start from an example</h2>
+<h2 id="_quick-start-from-an-example">Quick start from an example</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -367,7 +367,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 </div>
 </div>
 <div class="sect1">
-<h2 id="enabling-pair-programming-settings-on-your-own-example">Enabling pair programming settings on your own example</h2>
+<h2 id="_enabling-pair-programming-settings-on-your-own-example">Enabling pair programming settings on your own example</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the previous section, a pre-configured repository was used but it is also possible to use your own git repository.</p>
@@ -376,7 +376,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 <p>This feature works only with Visual Studio Code IDE (not for example with Che-Theia).</p>
 </div>
 <div class="sect2">
-<h3 id="use-visual-studio-code-as-the-ide-of-an-eclipse-che-workspace">Use Visual Studio Code as the IDE of an Eclipse Che workspace</h3>
+<h3 id="_use-visual-studio-code-as-the-ide-of-an-eclipse-che-workspace">Use Visual Studio Code as the IDE of an Eclipse Che workspace</h3>
 <div class="paragraph">
 <p>There are 2 ways to use Visual Studio Code IDE in a Che workspace:</p>
 </div>
@@ -389,7 +389,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 <p>Add a <code>.che/che-editor.yaml</code> file with the following content:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">id: che-incubator/che-code/insiders</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-incubator/che-code/insiders</span></code></pre>
 </div>
 </div>
 </li>
@@ -397,7 +397,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 </div>
 </div>
 <div class="sect2">
-<h3 id="recommend-the-installation-of-codetogether">Recommend the installation of CodeTogether</h3>
+<h3 id="_recommend-the-installation-of-codetogether">Recommend the installation of CodeTogether</h3>
 <div class="paragraph">
 <p>Include CodeTogether among the recommended extension.</p>
 </div>
@@ -407,11 +407,11 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 <p>Create the file <code>.vscode/extensions.json</code> with the following content:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">  {
-    "recommendations": [
-      "genuitecllc.codetogether",
-    ]
-  }</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="json"><span style="color: #f8f8f2">  </span><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;font-weight: bold">"recommendations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
+      </span><span style="color: #e6db74">"genuitecllc.codetogether"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
+  </span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
 </div>
 </div>
 </li>
@@ -422,7 +422,7 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-devfile">Add a Devfile</h3>
+<h3 id="_add-a-devfile">Add a Devfile</h3>
 <div class="paragraph">
 <p>If you don&#8217;t have a Devfile at the root of your repository you should add one with a <a href="https://github.com/devfile/developer-images/">Universal Developer Image</a> component (it includes the most popular development tools and languages).</p>
 </div>
@@ -432,14 +432,14 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 <p>Create a <code>.devfile.yaml</code> file with the following content:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">schemaVersion: 2.1.0
-metadata:
-  name: my-workspace
-components:
-  - name: tools
-    container:
-      image: quay.io/devfile/universal-developer-image:ubi8-0e189d9
-      memoryLimit: 3Gi</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.1.0</span>
+<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">my-workspace</span>
+<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
+    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:ubi8-0e189d9</span>
+      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">3Gi</span></code></pre>
 </div>
 </div>
 </li>
@@ -450,7 +450,7 @@ components:
 </div>
 </div>
 <div class="sect2">
-<h3 id="share-your-workspace">Share your workspace</h3>
+<h3 id="_share-your-workspace">Share your workspace</h3>
 <div class="paragraph">
 <p>Once you have committed these changes on a repository, you can share your workspace URL with your team.</p>
 </div>
@@ -465,16 +465,19 @@ components:
 </div>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[How to do pair programming using a VS Code extension.]]></summary></entry><entry><title type="html">Reviewing pull requests</title><link href="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html" rel="alternate" type="text/html" title="Reviewing pull requests" /><published>2022-02-16T00:00:00+00:00</published><updated>2022-02-16T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/02/16/@david.kwon/reviewing-pull-requests</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"><![CDATA[<div class="paragraph">
 <p>Reviewing pull requests for a GitHub project integrated with Eclipse&#160;Che.</p>
 </div>
-<div class="sect2">
-<h3 id="demo-video">Demo Video</h3>
+<div class="sect1">
+<h2 id="_demo-video">Demo Video</h2>
+<div class="sectionbody">
 <div class="videoblock">
 <div class="content">
 <iframe width="480" height="270" src="https://www.youtube.com/embed/GpxdvDkMWlU?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="using-eclipseche-to-review-pull-requests">Using Eclipse&#160;Che to review pull requests</h3>
+</div>
+<div class="sect1">
+<h2 id="_using-eclipseche-to-review-pull-requests">Using Eclipse&#160;Che to review pull requests</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>With Google Chrome, Eclipse&#160;Che makes it possible to review a pull request (PR) without setting up runtimes, build tools, or any extra software on the local machine.</p>
 </div>
@@ -519,27 +522,29 @@ The following scenario uses devfile v2, and Eclipse&#160;Che is deployed alongsi
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="the-scenario">The scenario</h3>
+</div>
+<div class="sect1">
+<h2 id="_the-scenario">The scenario</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Imagine that you&#8217;re developing a REST API with Quarkus that interacts with <code>Food</code> resources from a PostgreSQL database.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">/* Food.java */
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="java"><span style="color: #75715e;font-style: italic">/* Food.java */</span>
 
-@Entity
-public class Food extends PanacheEntity {
+<span style="color: #a6e22e;font-weight: bold">@Entity</span>
+<span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #66d9ef;font-weight: bold">class</span> <span style="color: #a6e22e;font-weight: bold">Food</span> <span style="color: #66d9ef;font-weight: bold">extends</span> <span style="color: #a6e22e;font-weight: bold">PanacheEntity</span> <span style="color: #f92672;font-weight: bold">{</span>
 
-    @Column(length = 40)
-    public String name;
+    <span style="color: #a6e22e;font-weight: bold">@Column</span><span style="color: #f92672;font-weight: bold">(</span><span style="color: #f8f8f2;background-color: #49483e">length</span> <span style="color: #f92672;font-weight: bold">=</span> <span style="color: #ae81ff">40</span><span style="color: #f92672;font-weight: bold">)</span>
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #a6e22e;font-weight: bold">String</span> <span style="color: #f8f8f2;background-color: #49483e">name</span><span style="color: #f92672;font-weight: bold">;</span>
 
-    @Column(length = 40)
-    public String restaurantName;
+    <span style="color: #a6e22e;font-weight: bold">@Column</span><span style="color: #f92672;font-weight: bold">(</span><span style="color: #f8f8f2;background-color: #49483e">length</span> <span style="color: #f92672;font-weight: bold">=</span> <span style="color: #ae81ff">40</span><span style="color: #f92672;font-weight: bold">)</span>
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #a6e22e;font-weight: bold">String</span> <span style="color: #f8f8f2;background-color: #49483e">restaurantName</span><span style="color: #f92672;font-weight: bold">;</span>
 
-    public double price;
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #66d9ef;font-weight: bold">double</span> <span style="color: #f8f8f2;background-color: #49483e">price</span><span style="color: #f92672;font-weight: bold">;</span>
 
-}</code></pre>
+<span style="color: #f92672;font-weight: bold">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -607,8 +612,10 @@ public class Food extends PanacheEntity {
 <p>Figure 2: Clicking on a badge from the base repository&#8217;s <code>README.md</code> launches a developer workspace.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="launching-a-workspace-and-reviewing-the-pr">Launching a workspace and reviewing the PR</h3>
+</div>
+<div class="sect1">
+<h2 id="_launching-a-workspace-and-reviewing-the-pr">Launching a workspace and reviewing the PR</h2>
+<div class="sectionbody">
 <div class="imageblock">
 <div class="content">
 <img src="/assets/img/reviewing-pull-requests/ide.png" alt="The Che-theia editor">
@@ -684,8 +691,10 @@ If you start a workspace with a badge generated using the <a href="https://githu
 <p>Figure 7: No problems reported by the Java extension in the Problems view.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="running-unit-tests-and-building">Running unit tests and building</h3>
+</div>
+<div class="sect1">
+<h2 id="_running-unit-tests-and-building">Running unit tests and building</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The devfile also defines commands for testing, building, and launching the application. Run the unit tests by opening the Workspace view from the right side and clicking <code>(User Runtimes &#8594; tools &#8594; runtests)</code>.</p>
 </div>
@@ -727,8 +736,10 @@ The <code>packagenative</code> command is used to build a native image with Graa
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="running-the-application">Running the application</h3>
+</div>
+<div class="sect1">
+<h2 id="_running-the-application">Running the application</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Run the Quarkus application in <a href="https://quarkus.io/guides/getting-started#development-mode">development mode</a> by running the <code>(User Runtimes &#8594; tools &#8594; startdev)</code> command to access the endpoint.</p>
 </div>
@@ -755,8 +766,10 @@ The <code>packagenative</code> command is used to build a native image with Graa
 <p>The response contains two <code>Food</code> resources from the <code>Local Deli</code> restaurant. This is a match with the <code>Food</code> resources from this restaurant in the <a href="https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql"><code>import.sql</code></a> file.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="providing-feedback-and-merging-the-pr">Providing feedback and merging the PR</h3>
+</div>
+<div class="sect1">
+<h2 id="_providing-feedback-and-merging-the-pr">Providing feedback and merging the PR</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>So far, you have successfully run tests, ran the build, as well as ran the application in development mode to verify that the PR is working correctly.
 Next, merge the PR from the web IDE.</p>
@@ -781,8 +794,10 @@ Next, merge the PR from the web IDE.</p>
 <p>Figure 13: PR has been merged.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="conclusion">Conclusion</h3>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>You have finished reviewing the PR and have successfully merged it from the web IDE editor.
 In summary, we have:</p>
@@ -818,8 +833,9 @@ In summary, we have:</p>
 <div class="paragraph">
 <p>Thank you for reading!</p>
 </div>
+</div>
 </div>]]></content><author><name>David Kwon</name></author><summary type="html"><![CDATA[Reviewing pull requests with Eclipse Che.]]></summary></entry><entry><title type="html">Contributing for the first time to a project</title><link href="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html" rel="alternate" type="text/html" title="Contributing for the first time to a project" /><published>2022-01-11T00:00:00+00:00</published><updated>2022-01-11T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk/contributing-for-the-first-time-to-a-project</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"><![CDATA[<div class="sect2">
-<h3 id="introduction">Introduction</h3>
+<h3 id="_introduction">Introduction</h3>
 <div class="paragraph">
 <p>The complexity of applications has changed dramatically over the last decade, and nowadays it is not always straightforward to contribute to a new project for the first time.
 At the beginning, developers need to properly set up the local environment including:</p>
@@ -847,7 +863,7 @@ With Eclipse&#160;Che we are solving the complexity of the onboarding, configura
 </div>
 </div>
 <div class="sect2">
-<h3 id="contributing-for-the-first-time-to-a-project-using-eclipseche">Contributing for the first time to a project using Eclipse&#160;Che</h3>
+<h3 id="_contributing-for-the-first-time-to-a-project-using-eclipseche">Contributing for the first time to a project using Eclipse&#160;Che</h3>
 <div class="paragraph">
 <p>The motto of Eclipse&#160;Che is that anyone anytime can contribute to a project without installing software.
 In order to contribute to a project, just click on the badge defined in the <code>README.md</code> file of the repository, and within a minute you will get a workspace ready for development with all the tools and runtimes available out of the box.</p>
@@ -1015,11 +1031,11 @@ which provides various languages (including Java, Node.js, Python, PHP, Golang, 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-  "recommendations": [
-    "redhat.java"
-  ]
-}</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="json"><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+  </span><span style="color: #f8f8f2;font-weight: bold">"recommendations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
+    </span><span style="color: #e6db74">"redhat.java"</span><span style="color: #f8f8f2">
+  </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
+</span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -1044,18 +1060,18 @@ If the specified extensions are not available in the registry, the workspace wil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Debug (Attach) - Remote",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 5005
-        }
-    ]
-}</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="json"><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;font-weight: bold">"version"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"0.2.0"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;font-weight: bold">"configurations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
+        </span><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"type"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"java"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"name"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"Debug (Attach) - Remote"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"request"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"attach"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"hostName"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"localhost"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"port"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">5005</span><span style="color: #f8f8f2">
+        </span><span style="color: #f8f8f2;background-color: #49483e">}</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
+</span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1082,10 +1098,10 @@ Eclipse&#160;Che uses <code>.che/che-theia-plugins.yaml</code> file only if the 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">- id: redhat/java
-  override:
-    sidecar:
-      memoryLimit: 2Gi</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">redhat/java</span>
+  <span style="color: #a6e22e">override</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">sidecar</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1097,12 +1113,12 @@ Eclipse&#160;Che uses <code>.che/che-theia-plugins.yaml</code> file only if the 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">id: eclipse/che-theia/latest          # mandatory
-registryUrl: https://my-registry.com  # optional
-override:                             # optional
-  containers:
-    - name: theia-ide
-      memoryLimit: 1280Mi</code></pre>
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">eclipse/che-theia/latest</span>          <span style="color: #75715e;font-style: italic"># mandatory</span>
+<span style="color: #a6e22e">registryUrl</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://my-registry.com</span>  <span style="color: #75715e;font-style: italic"># optional</span>
+<span style="color: #a6e22e">override</span><span style="color: #f8f8f2;background-color: #49483e">:</span>                             <span style="color: #75715e;font-style: italic"># optional</span>
+  <span style="color: #a6e22e">containers</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">theia-ide</span>
+      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1280Mi</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1237,7 +1253,7 @@ The coordinates are organized into the standard sequence shown below.</p>
 </ol>
 </div>
 <div class="sect1">
-<h2 id="url-parameters-reference">URL parameters reference</h2>
+<h2 id="_url-parameters-reference">URL parameters reference</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Mandatory repository parameter:</caption>
@@ -1305,7 +1321,7 @@ The coordinates are organized into the standard sequence shown below.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="defining-the-git-repository-url">Defining the Git repository URL</h2>
+<h2 id="_defining-the-git-repository-url">Defining the Git repository URL</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This syntax is available when using DevWorkspace Operator.</p>
@@ -1326,7 +1342,7 @@ Che supports following Git providers: GitHub, GitLab, or on-premise Bitbucket.</
 </div>
 </div>
 <div class="sect2">
-<h3 id="url-syntax-by-git-provider">URL syntax by Git provider</h3>
+<h3 id="_url-syntax-by-git-provider">URL syntax by Git provider</h3>
 <div class="paragraph">
 <p>URL syntax for cloning GitHub-hosted repositories to the starting workspace:</p>
 </div>
@@ -1414,7 +1430,7 @@ Eclipse&#160;Che supports only on premises BitBucket instances.
 </div>
 </div>
 <div class="sect1">
-<h2 id="defining-the-editor-or-integrated-development-environment-ide">Defining the editor or Integrated Development Environment (IDE)</h2>
+<h2 id="_defining-the-editor-or-integrated-development-environment-ide">Defining the editor or Integrated Development Environment (IDE)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Eclipse&#160;Che starts workspaces with a default IDE: Che Theia.</p>
@@ -1475,7 +1491,7 @@ Eclipse&#160;Che supports only on premises BitBucket instances.
 </div>
 </div>
 <div class="sect1">
-<h2 id="using-a-different-devfile-file-from-the-repository">Using a different devfile file from the repository</h2>
+<h2 id="_using-a-different-devfile-file-from-the-repository">Using a different devfile file from the repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If the devfile file name is different from the default search pattern, which is <code>.devfile.yaml</code> or <code>devfile.yaml</code>, it is possible to override that name.</p>
@@ -1503,7 +1519,7 @@ Eclipse&#160;Che supports only on premises BitBucket instances.
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-or-reusing-a-workspace">Creating or reusing a workspace</h2>
+<h2 id="_creating-or-reusing-a-workspace">Creating or reusing a workspace</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you enter a URL such as <code>https://che-host#http://github.com/foo/bar</code> and you don’t have any workspace named <code>bar</code>, Eclipse&#160;Che creates a workspace named <code>bar</code> and clones the GitHub repository.</p>
@@ -1514,7 +1530,7 @@ Eclipse&#160;Che supports only on premises BitBucket instances.
 </div>
 </div>
 <div class="sect1">
-<h2 id="always-creating-a-new-workspace">Always creating a new workspace</h2>
+<h2 id="_always-creating-a-new-workspace">Always creating a new workspace</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To create another workspace each time you enter the same URL, enter the URL appended with <code>?new</code> in the URL format <code>https://che-host#http://github.com/foo/bar?new</code>. Even if you already have a workspace named <code>bar</code>, each time you enter such URL, Eclipse&#160;Che will create another, sequentially named workspace (example: <code>bar-abcde</code>).</p>

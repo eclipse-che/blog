@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
     <title>Reviewing pull requests | Eclipse Che Blog</title>
-    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta name="generator" content="Jekyll v4.2.2" />
     <meta property="og:title" content="Reviewing pull requests" />
     <meta name="author" content="David Kwon" />
     <meta property="og:locale" content="en_US" />
@@ -36,18 +36,18 @@
     <meta property="twitter:title" content="Reviewing pull requests" />
     <script type="application/ld+json">
       {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
         "author": { "@type": "Person", "name": "David Kwon" },
-        "headline": "Reviewing pull requests",
         "dateModified": "2022-02-16T00:00:00+00:00",
         "datePublished": "2022-02-16T00:00:00+00:00",
         "description": "Reviewing pull requests with Eclipse Che.",
-        "url": "https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html",
+        "headline": "Reviewing pull requests",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"
         },
-        "@type": "BlogPosting",
-        "@context": "https://schema.org"
+        "url": "https://che.eclipseprojects.io/2022/02/16/@david.kwon-reviewing-pull-requests.html"
       }
     </script>
     <!-- End Jekyll SEO tag -->
@@ -108,9 +108,7 @@
             </span>
           </label>
 
-          <div class="trigger">
-            <a class="page-link" href="/about/">About</a>
-          </div>
+          <div class="trigger"></div>
         </nav>
       </div>
     </header>
@@ -150,657 +148,684 @@
                 Eclipse&#160;Che.
               </p>
             </div>
-            <div class="sect2">
-              <h3 id="demo-video">Demo Video</h3>
-              <div class="videoblock">
-                <div class="content">
-                  <iframe
-                    width="480"
-                    height="270"
-                    src="https://www.youtube.com/embed/GpxdvDkMWlU?rel=0"
-                    frameborder="0"
-                    allowfullscreen
-                  ></iframe>
+            <div class="sect1">
+              <h2 id="_demo-video">Demo Video</h2>
+              <div class="sectionbody">
+                <div class="videoblock">
+                  <div class="content">
+                    <iframe
+                      width="480"
+                      height="270"
+                      src="https://www.youtube.com/embed/GpxdvDkMWlU?rel=0"
+                      frameborder="0"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="using-eclipseche-to-review-pull-requests">
+            <div class="sect1">
+              <h2 id="_using-eclipseche-to-review-pull-requests">
                 Using Eclipse&#160;Che to review pull requests
-              </h3>
-              <div class="paragraph">
-                <p>
-                  With Google Chrome, Eclipse&#160;Che makes it possible to
-                  review a pull request (PR) without setting up runtimes, build
-                  tools, or any extra software on the local machine.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  This blog post will showcase the typical workflow of reviewing
-                  PRs of a GitHub project that is well-integrated with Eclipse
-                  Che. Here is the GitHub project used in this blog post:
-                  <a href="https://github.com/che-incubator/quarkus-api-example"
-                    >www.github.com/che-incubator/quarkus-api-example</a
-                  >.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  You can refer to these articles on how to set up your project
-                  with Eclipse&#160;Che:
-                </p>
-              </div>
-              <div class="ulist">
-                <ul>
-                  <li>
-                    <p>
-                      <a
-                        href="../../01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html#set-up-project"
-                        >How can maintainers set up their projects to use
-                        Eclipse Che?</a
-                      >
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <a
-                        href="https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-2"
-                        >Authoring a devfile v2</a
-                      >
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div class="admonitionblock note">
-                <table>
-                  <tr>
-                    <td class="icon">
-                      <div class="title">Note</div>
-                    </td>
-                    <td class="content">
-                      Your project must contain a well-defined
-                      <code>devfile.yaml</code> file to make the most out of
-                      your development experience with Eclipse&#160;Che. Use the
-                      devfile to define your project’s development environment
-                      such as development commands, containers, endpoints, and
-                      so on.
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="admonitionblock warning">
-                <table>
-                  <tr>
-                    <td class="icon">
-                      <div class="title">Warning</div>
-                    </td>
-                    <td class="content">
-                      The following scenario uses devfile v2, and
-                      Eclipse&#160;Che is deployed alongside the DevWorkspace
-                      engine which is currently not used on
-                      <a href="https://workspaces.openshift.com/"
-                        >Eclipse Che Hosted by Red Hat</a
-                      >. To open the test GitHub project on Eclipse Che Hosted
-                      by Red Hat, please use the
-                      <a
-                        href="https://github.com/che-incubator/quarkus-api-example/tree/devfilev1"
-                        >devfilev1</a
-                      >
-                      branch which supports the deprecated devfile v1.
-                    </td>
-                  </tr>
-                </table>
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    With Google Chrome, Eclipse&#160;Che makes it possible to
+                    review a pull request (PR) without setting up runtimes,
+                    build tools, or any extra software on the local machine.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    This blog post will showcase the typical workflow of
+                    reviewing PRs of a GitHub project that is well-integrated
+                    with Eclipse Che. Here is the GitHub project used in this
+                    blog post:
+                    <a
+                      href="https://github.com/che-incubator/quarkus-api-example"
+                      >www.github.com/che-incubator/quarkus-api-example</a
+                    >.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    You can refer to these articles on how to set up your
+                    project with Eclipse&#160;Che:
+                  </p>
+                </div>
+                <div class="ulist">
+                  <ul>
+                    <li>
+                      <p>
+                        <a
+                          href="../../01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html#set-up-project"
+                          >How can maintainers set up their projects to use
+                          Eclipse Che?</a
+                        >
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <a
+                          href="https://www.eclipse.org/che/docs/che-7/end-user-guide/authoring-devfiles-version-2"
+                          >Authoring a devfile v2</a
+                        >
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        Your project must contain a well-defined
+                        <code>devfile.yaml</code> file to make the most out of
+                        your development experience with Eclipse&#160;Che. Use
+                        the devfile to define your project’s development
+                        environment such as development commands, containers,
+                        endpoints, and so on.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="admonitionblock warning">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Warning</div>
+                      </td>
+                      <td class="content">
+                        The following scenario uses devfile v2, and
+                        Eclipse&#160;Che is deployed alongside the DevWorkspace
+                        engine which is currently not used on
+                        <a href="https://workspaces.openshift.com/"
+                          >Eclipse Che Hosted by Red Hat</a
+                        >. To open the test GitHub project on Eclipse Che Hosted
+                        by Red Hat, please use the
+                        <a
+                          href="https://github.com/che-incubator/quarkus-api-example/tree/devfilev1"
+                          >devfilev1</a
+                        >
+                        branch which supports the deprecated devfile v1.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="the-scenario">The scenario</h3>
-              <div class="paragraph">
-                <p>
-                  Imagine that you&#8217;re developing a REST API with Quarkus
-                  that interacts with <code>Food</code> resources from a
-                  PostgreSQL database.
-                </p>
-              </div>
-              <div class="listingblock">
-                <div class="content">
-                  <pre
-                    class="highlight"
-                  ><code class="language-java" data-lang="java">/* Food.java */
-
-@Entity
-public class Food extends PanacheEntity {
-
-    @Column(length = 40)
-    public String name;
-
-    @Column(length = 40)
-    public String restaurantName;
-
-    public double price;
-
-}</code></pre>
+            <div class="sect1">
+              <h2 id="_the-scenario">The scenario</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Imagine that you&#8217;re developing a REST API with Quarkus
+                    that interacts with <code>Food</code> resources from a
+                    PostgreSQL database.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  In the current state of the project, there are four endpoints:
-                </p>
-              </div>
-              <table class="tableblock frame-all grid-all stretch">
-                <colgroup>
-                  <col style="width: 33.3333%" />
-                  <col style="width: 33.3333%" />
-                  <col style="width: 33.3334%" />
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th class="tableblock halign-left valign-top">Method</th>
-                    <th class="tableblock halign-left valign-top">Endpoint</th>
-                    <th class="tableblock halign-left valign-top">
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>GET</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>/food</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock">Lists all Food resources</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>GET</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>/food/{id}</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock">
-                        Retrieves the Food resource with the specified ID
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>GET</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>/food/search/{name}</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock">
-                        Retrieves a Food resource with the specified name
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>POST</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock"><code>/food</code></p>
-                    </td>
-                    <td class="tableblock halign-left valign-top">
-                      <p class="tableblock">Creates a Food resource</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="paragraph">
-                <p>
-                  It looks like your colleague has opened a new PR that adds a
-                  new <code>GET</code> endpoint,
-                  <code>/food/restaurant/{restaurantName}</code>. The endpoint
-                  retrieves a list of all <code>Food</code> resources served
-                  from a specified restaurant:
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/pr.png"
-                    alt="The pull request to review"
-                  />
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="java"><span style="color: #75715e;font-style: italic">/* Food.java */</span>
+
+<span style="color: #a6e22e;font-weight: bold">@Entity</span>
+<span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #66d9ef;font-weight: bold">class</span> <span style="color: #a6e22e;font-weight: bold">Food</span> <span style="color: #66d9ef;font-weight: bold">extends</span> <span style="color: #a6e22e;font-weight: bold">PanacheEntity</span> <span style="color: #f92672;font-weight: bold">{</span>
+
+    <span style="color: #a6e22e;font-weight: bold">@Column</span><span style="color: #f92672;font-weight: bold">(</span><span style="color: #f8f8f2;background-color: #49483e">length</span> <span style="color: #f92672;font-weight: bold">=</span> <span style="color: #ae81ff">40</span><span style="color: #f92672;font-weight: bold">)</span>
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #a6e22e;font-weight: bold">String</span> <span style="color: #f8f8f2;background-color: #49483e">name</span><span style="color: #f92672;font-weight: bold">;</span>
+
+    <span style="color: #a6e22e;font-weight: bold">@Column</span><span style="color: #f92672;font-weight: bold">(</span><span style="color: #f8f8f2;background-color: #49483e">length</span> <span style="color: #f92672;font-weight: bold">=</span> <span style="color: #ae81ff">40</span><span style="color: #f92672;font-weight: bold">)</span>
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #a6e22e;font-weight: bold">String</span> <span style="color: #f8f8f2;background-color: #49483e">restaurantName</span><span style="color: #f92672;font-weight: bold">;</span>
+
+    <span style="color: #66d9ef;font-weight: bold">public</span> <span style="color: #66d9ef;font-weight: bold">double</span> <span style="color: #f8f8f2;background-color: #49483e">price</span><span style="color: #f92672;font-weight: bold">;</span>
+
+<span style="color: #f92672;font-weight: bold">}</span></code></pre>
+                  </div>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>Figure 1: The GitHub PR you need to review.</p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Review this PR by launching a new Eclipse&#160;Che workspace.
-                  Here you can verify the PR by running unit tests, running the
-                  application, accessing the endpoint, and building the
-                  application, all within your web browser.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Start the workspace and Web IDE editor on
-                  <a
-                    href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/"
-                    >Eclipse Che Hosted by Red Hat</a
-                  >
-                  by clicking the Eclipse&#160;Che badge from the base GitHub
-                  repository&#8217;s <code>README</code>:
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/badge.png"
-                    alt="Badge used to start workspaces"
-                  />
+                <div class="paragraph">
+                  <p>
+                    In the current state of the project, there are four
+                    endpoints:
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 2: Clicking on a badge from the base repository&#8217;s
-                  <code>README.md</code> launches a developer workspace.
-                </p>
+                <table class="tableblock frame-all grid-all stretch">
+                  <colgroup>
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3333%" />
+                    <col style="width: 33.3334%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th class="tableblock halign-left valign-top">Method</th>
+                      <th class="tableblock halign-left valign-top">
+                        Endpoint
+                      </th>
+                      <th class="tableblock halign-left valign-top">
+                        Description
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>GET</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>/food</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Lists all Food resources</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>GET</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>/food/{id}</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Retrieves the Food resource with the specified ID
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>GET</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <code>/food/search/{name}</code>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Retrieves a Food resource with the specified name
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>POST</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock"><code>/food</code></p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Creates a Food resource</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="paragraph">
+                  <p>
+                    It looks like your colleague has opened a new PR that adds a
+                    new <code>GET</code> endpoint,
+                    <code>/food/restaurant/{restaurantName}</code>. The endpoint
+                    retrieves a list of all <code>Food</code> resources served
+                    from a specified restaurant:
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/pr.png"
+                      alt="The pull request to review"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 1: The GitHub PR you need to review.</p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Review this PR by launching a new Eclipse&#160;Che
+                    workspace. Here you can verify the PR by running unit tests,
+                    running the application, accessing the endpoint, and
+                    building the application, all within your web browser.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Start the workspace and Web IDE editor on
+                    <a
+                      href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/"
+                      >Eclipse Che Hosted by Red Hat</a
+                    >
+                    by clicking the Eclipse&#160;Che badge from the base GitHub
+                    repository&#8217;s <code>README</code>:
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/badge.png"
+                      alt="Badge used to start workspaces"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 2: Clicking on a badge from the base
+                    repository&#8217;s <code>README.md</code> launches a
+                    developer workspace.
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="launching-a-workspace-and-reviewing-the-pr">
+            <div class="sect1">
+              <h2 id="_launching-a-workspace-and-reviewing-the-pr">
                 Launching a workspace and reviewing the PR
-              </h3>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/ide.png"
-                    alt="The Che-theia editor"
-                  />
+              </h2>
+              <div class="sectionbody">
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/ide.png"
+                      alt="The Che-theia editor"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>Figure 3: The Che-Theia editor.</p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  After you start the workspace, the web IDE will open
-                  automatically and you&#8217;ll see that the project has been
-                  cloned already (see the Explorer view on the left-hand side).
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  To use the
-                  <a
-                    href="https://github.com/Microsoft/vscode-pull-request-github"
-                    >GitHub Pull Requests and Issues</a
-                  >
-                  extension, you must first authenticate with GitHub by clicking
-                  on the Accounts icon on the bottom left of the editor. The
-                  extension adds the GitHub view to the sidebar and provides
-                  integration with GitHub. As a result, you can make PR
-                  comments, in-editor comments, approve PRs, and much more, all
-                  from the web IDE.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Click on "Sign in to user GitHub Pull Requests and Issues
-                  (1)". You will be prompted to enter your GitHub credentials to
-                  sign in.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/sign-in.png"
-                    alt="The context menu appears after clicking the Accounts icon"
-                    width="600"
-                  />
+                <div class="paragraph">
+                  <p>Figure 3: The Che-Theia editor.</p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 4: The menu appears after clicking the Accounts icon.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  After signing in, navigate to the GitHub view from the sidebar
-                  to see an overview of PRs against the base repository. Under
-                  the "Assigned To Me" drop-down, you can see the PR that
-                  you&#8217;ll review.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/github-view.png"
-                    alt="Viewing the PR within the web IDE"
-                    width="400"
-                  />
+                <div class="paragraph">
+                  <p>
+                    After you start the workspace, the web IDE will open
+                    automatically and you&#8217;ll see that the project has been
+                    cloned already (see the Explorer view on the left-hand
+                    side).
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 5: The GitHub view, opened by clicking on the fifth
-                  icon from the top.
-                </p>
-              </div>
-              <div class="admonitionblock warning">
-                <table>
-                  <tr>
-                    <td class="icon">
-                      <div class="title">Warning</div>
-                    </td>
-                    <td class="content">
-                      If you start a workspace with a badge generated using the
-                      <a
-                        href="https://github.com/marketplace/actions/try-in-web-ide"
-                        >Try in Web IDE</a
-                      >
-                      GitHub action on a PR from a forked repository, you must
-                      manually set up Git remotes to use the GitHub Pull
-                      Requests and Issues extension. Please see
-                      <a
-                        href="https://github.com/redhat-actions/try-in-web-ide/issues/14"
-                        >redhat-actions/try-in-web-ide#14</a
-                      >.
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="paragraph">
-                <p>
-                  The "Description" menu item, as well as a file hierarchy with
-                  all changed files, are in the drop-down menu below the PR. In
-                  this case, the changed files are
-                  <code>FoodResource.java</code>,
-                  <code>FoodEndpointTest.java</code>, and
-                  <code>README.md</code>. Click on the files to open a diff view
-                  within the web IDE. Examine these files and verify that the PR
-                  adds a new endpoint, as well as a unit test.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Click on the "Description" menu item to open a new web view
-                  displaying the PR in a UI similar to GitHub. Check out the
-                  branch by clicking "Checkout" at the top right of Figure 6.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/pr-view.png"
-                    alt="Viewing the PR within the web IDE"
-                  />
+                <div class="paragraph">
+                  <p>
+                    To use the
+                    <a
+                      href="https://github.com/Microsoft/vscode-pull-request-github"
+                      >GitHub Pull Requests and Issues</a
+                    >
+                    extension, you must first authenticate with GitHub by
+                    clicking on the Accounts icon on the bottom left of the
+                    editor. The extension adds the GitHub view to the sidebar
+                    and provides integration with GitHub. As a result, you can
+                    make PR comments, in-editor comments, approve PRs, and much
+                    more, all from the web IDE.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 6: A webview displaying details about the PR. This web
-                  view appears after clicking the "Description" menu item from
-                  Figure 5.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  The test project includes a preinstalled
-                  <a href="https://github.com/redhat-developer/vscode-java"
-                    >Language support for Java ™</a
-                  >
-                  extension in the web IDE. With this extension, you can check
-                  the Problem view to verify that there are no compilation
-                  problems such as syntax errors.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/no-problems.png"
-                    alt="No problems reported by the Java extension"
-                  />
+                <div class="paragraph">
+                  <p>
+                    Click on "Sign in to user GitHub Pull Requests and Issues
+                    (1)". You will be prompted to enter your GitHub credentials
+                    to sign in.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 7: No problems reported by the Java extension in the
-                  Problems view.
-                </p>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/sign-in.png"
+                      alt="The context menu appears after clicking the Accounts icon"
+                      width="600"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 4: The menu appears after clicking the Accounts icon.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    After signing in, navigate to the GitHub view from the
+                    sidebar to see an overview of PRs against the base
+                    repository. Under the "Assigned To Me" drop-down, you can
+                    see the PR that you&#8217;ll review.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/github-view.png"
+                      alt="Viewing the PR within the web IDE"
+                      width="400"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 5: The GitHub view, opened by clicking on the fifth
+                    icon from the top.
+                  </p>
+                </div>
+                <div class="admonitionblock warning">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Warning</div>
+                      </td>
+                      <td class="content">
+                        If you start a workspace with a badge generated using
+                        the
+                        <a
+                          href="https://github.com/marketplace/actions/try-in-web-ide"
+                          >Try in Web IDE</a
+                        >
+                        GitHub action on a PR from a forked repository, you must
+                        manually set up Git remotes to use the GitHub Pull
+                        Requests and Issues extension. Please see
+                        <a
+                          href="https://github.com/redhat-actions/try-in-web-ide/issues/14"
+                          >redhat-actions/try-in-web-ide#14</a
+                        >.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The "Description" menu item, as well as a file hierarchy
+                    with all changed files, are in the drop-down menu below the
+                    PR. In this case, the changed files are
+                    <code>FoodResource.java</code>,
+                    <code>FoodEndpointTest.java</code>, and
+                    <code>README.md</code>. Click on the files to open a diff
+                    view within the web IDE. Examine these files and verify that
+                    the PR adds a new endpoint, as well as a unit test.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Click on the "Description" menu item to open a new web view
+                    displaying the PR in a UI similar to GitHub. Check out the
+                    branch by clicking "Checkout" at the top right of Figure 6.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/pr-view.png"
+                      alt="Viewing the PR within the web IDE"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 6: A webview displaying details about the PR. This
+                    web view appears after clicking the "Description" menu item
+                    from Figure 5.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The test project includes a preinstalled
+                    <a href="https://github.com/redhat-developer/vscode-java"
+                      >Language support for Java ™</a
+                    >
+                    extension in the web IDE. With this extension, you can check
+                    the Problem view to verify that there are no compilation
+                    problems such as syntax errors.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/no-problems.png"
+                      alt="No problems reported by the Java extension"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 7: No problems reported by the Java extension in the
+                    Problems view.
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="running-unit-tests-and-building">
+            <div class="sect1">
+              <h2 id="_running-unit-tests-and-building">
                 Running unit tests and building
-              </h3>
-              <div class="paragraph">
-                <p>
-                  The devfile also defines commands for testing, building, and
-                  launching the application. Run the unit tests by opening the
-                  Workspace view from the right side and clicking
-                  <code>(User Runtimes &#8594; tools &#8594; runtests)</code>.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  This runs the test command (<code>./mvnw test</code>) within
-                  the <code>tools</code> container as specified in the devfile.
-                  You can view the test output in the output panel.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/run-tests.png"
-                    alt="Running the unit tests"
-                  />
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    The devfile also defines commands for testing, building, and
+                    launching the application. Run the unit tests by opening the
+                    Workspace view from the right side and clicking
+                    <code>(User Runtimes &#8594; tools &#8594; runtests)</code>.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 8: Unit testing by clicking <code>runtests</code> from
-                  the Workspace view on the right.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  As you can see in the output from Figure 8, you passed the
-                  tests successfully.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  You can also run other commands such as
-                  <code>(User Runtimes &#8594; tools &#8594; package)</code> to
-                  build the application.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/build.png"
-                    alt="Successfully building the application"
-                  />
+                <div class="paragraph">
+                  <p>
+                    This runs the test command (<code>./mvnw test</code>) within
+                    the <code>tools</code> container as specified in the
+                    devfile. You can view the test output in the output panel.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>Figure 9: Successfully building the application.</p>
-              </div>
-              <div class="admonitionblock note">
-                <table>
-                  <tr>
-                    <td class="icon">
-                      <div class="title">Note</div>
-                    </td>
-                    <td class="content">
-                      The <code>packagenative</code> command is used to build a
-                      native image with GraalVM. The command would fail for this
-                      test project on
-                      <a
-                        href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/"
-                        >Eclipse Che Hosted by Red Hat</a
-                      >
-                      due to the 7GB memory usage limit.
-                    </td>
-                  </tr>
-                </table>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/run-tests.png"
+                      alt="Running the unit tests"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 8: Unit testing by clicking
+                    <code>runtests</code> from the Workspace view on the right.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    As you can see in the output from Figure 8, you passed the
+                    tests successfully.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    You can also run other commands such as
+                    <code>(User Runtimes &#8594; tools &#8594; package)</code>
+                    to build the application.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/build.png"
+                      alt="Successfully building the application"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 9: Successfully building the application.</p>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        The <code>packagenative</code> command is used to build
+                        a native image with GraalVM. The command would fail for
+                        this test project on
+                        <a
+                          href="https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/"
+                          >Eclipse Che Hosted by Red Hat</a
+                        >
+                        due to the 7GB memory usage limit.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="running-the-application">Running the application</h3>
-              <div class="paragraph">
-                <p>
-                  Run the Quarkus application in
-                  <a
-                    href="https://quarkus.io/guides/getting-started#development-mode"
-                    >development mode</a
-                  >
-                  by running the
-                  <code>(User Runtimes &#8594; tools &#8594; startdev)</code>
-                  command to access the endpoint.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/start-dev.png"
-                    alt="Starting the application in development mode"
-                  />
+            <div class="sect1">
+              <h2 id="_running-the-application">Running the application</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Run the Quarkus application in
+                    <a
+                      href="https://quarkus.io/guides/getting-started#development-mode"
+                      >development mode</a
+                    >
+                    by running the
+                    <code>(User Runtimes &#8594; tools &#8594; startdev)</code>
+                    command to access the endpoint.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 10: Starting the Quarkus project in development mode by
-                  clicking <code>startdev</code> from the Workspace view on the
-                  right.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Next, access the new
-                  <code>/food/restaurant/{restaurantName}</code> endpoint. Here,
-                  you access <code>/food/restaurant/Local Deli</code> to get all
-                  <code>Food</code> resources from the restaurant named
-                  <code>Local Deli</code>.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/access-endpoint.png"
-                    alt="Accessing the new endpoint"
-                  />
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/start-dev.png"
+                      alt="Starting the application in development mode"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Figure 11: Response from
-                  <code>/food/restaurant/Local Deli</code>.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  The response contains two <code>Food</code> resources from the
-                  <code>Local Deli</code> restaurant. This is a match with the
-                  <code>Food</code> resources from this restaurant in the
-                  <a
-                    href="https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql"
-                    ><code>import.sql</code></a
-                  >
-                  file.
-                </p>
+                <div class="paragraph">
+                  <p>
+                    Figure 10: Starting the Quarkus project in development mode
+                    by clicking <code>startdev</code> from the Workspace view on
+                    the right.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Next, access the new
+                    <code>/food/restaurant/{restaurantName}</code> endpoint.
+                    Here, you access <code>/food/restaurant/Local Deli</code> to
+                    get all <code>Food</code> resources from the restaurant
+                    named <code>Local Deli</code>.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/access-endpoint.png"
+                      alt="Accessing the new endpoint"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 11: Response from
+                    <code>/food/restaurant/Local Deli</code>.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The response contains two <code>Food</code> resources from
+                    the <code>Local Deli</code> restaurant. This is a match with
+                    the <code>Food</code> resources from this restaurant in the
+                    <a
+                      href="https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql"
+                      ><code>import.sql</code></a
+                    >
+                    file.
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="providing-feedback-and-merging-the-pr">
+            <div class="sect1">
+              <h2 id="_providing-feedback-and-merging-the-pr">
                 Providing feedback and merging the PR
-              </h3>
-              <div class="paragraph">
-                <p>
-                  So far, you have successfully run tests, ran the build, as
-                  well as ran the application in development mode to verify that
-                  the PR is working correctly. Next, merge the PR from the web
-                  IDE.
-                </p>
-              </div>
-              <div class="paragraph">
-                <p>
-                  Go back to the GitHub PR view (see Figure 5) to provide more
-                  comments, and approve the PR. Merge the PR to
-                  <code>main</code>.
-                </p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/merge.png"
-                    alt="Merging to main from the web IDE"
-                  />
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    So far, you have successfully run tests, ran the build, as
+                    well as ran the application in development mode to verify
+                    that the PR is working correctly. Next, merge the PR from
+                    the web IDE.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>Figure 12: Clicking "Merge Pull Request" to merge.</p>
-              </div>
-              <div class="imageblock">
-                <div class="content">
-                  <img
-                    src="/assets/img/reviewing-pull-requests/merged.png"
-                    alt="Merged to main from the web IDE"
-                  />
+                <div class="paragraph">
+                  <p>
+                    Go back to the GitHub PR view (see Figure 5) to provide more
+                    comments, and approve the PR. Merge the PR to
+                    <code>main</code>.
+                  </p>
                 </div>
-              </div>
-              <div class="paragraph">
-                <p>Figure 13: PR has been merged.</p>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/merge.png"
+                      alt="Merging to main from the web IDE"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 12: Clicking "Merge Pull Request" to merge.</p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/reviewing-pull-requests/merged.png"
+                      alt="Merged to main from the web IDE"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 13: PR has been merged.</p>
+                </div>
               </div>
             </div>
-            <div class="sect2">
-              <h3 id="conclusion">Conclusion</h3>
-              <div class="paragraph">
-                <p>
-                  You have finished reviewing the PR and have successfully
-                  merged it from the web IDE editor. In summary, we have:
-                </p>
-              </div>
-              <div class="ulist">
-                <ul>
-                  <li>
-                    <p>
-                      Opened a new Eclipse&#160;Che workspace to review the PR
-                    </p>
-                  </li>
-                  <li>
-                    <p>Checked out the feature branch</p>
-                  </li>
-                  <li>
-                    <p>Ran the unit tests</p>
-                  </li>
-                  <li>
-                    <p>Built the application</p>
-                  </li>
-                  <li>
-                    <p>
-                      Ran the application in development mode to verify that the
-                      feature works as intended
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      Used the GitHub Pull Requests and Issues extension and the
-                      Language support for Java ™ extension
-                    </p>
-                  </li>
-                  <li>
-                    <p>Merged the PR from the web IDE</p>
-                  </li>
-                </ul>
-              </div>
-              <div class="paragraph">
-                <p>without any prior setup on your local machine.</p>
-              </div>
-              <div class="paragraph">
-                <p>Thank you for reading!</p>
+            <div class="sect1">
+              <h2 id="_conclusion">Conclusion</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    You have finished reviewing the PR and have successfully
+                    merged it from the web IDE editor. In summary, we have:
+                  </p>
+                </div>
+                <div class="ulist">
+                  <ul>
+                    <li>
+                      <p>
+                        Opened a new Eclipse&#160;Che workspace to review the PR
+                      </p>
+                    </li>
+                    <li>
+                      <p>Checked out the feature branch</p>
+                    </li>
+                    <li>
+                      <p>Ran the unit tests</p>
+                    </li>
+                    <li>
+                      <p>Built the application</p>
+                    </li>
+                    <li>
+                      <p>
+                        Ran the application in development mode to verify that
+                        the feature works as intended
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Used the GitHub Pull Requests and Issues extension and
+                        the Language support for Java ™ extension
+                      </p>
+                    </li>
+                    <li>
+                      <p>Merged the PR from the web IDE</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="paragraph">
+                  <p>without any prior setup on your local machine.</p>
+                </div>
+                <div class="paragraph">
+                  <p>Thank you for reading!</p>
+                </div>
               </div>
             </div>
           </div>
@@ -833,13 +858,13 @@ public class Food extends PanacheEntity {
           <div class="footer-col footer-col-2">
             <ul class="social-media-list">
               <li>
-                <a href="https://github.com/eclipse"
+                <a href="https://github.com/eclipse-che"
                   ><svg class="svg-icon">
                     <use
                       xlink:href="/assets/minima-social-icons.svg#github"
                     ></use>
                   </svg>
-                  <span class="username">eclipse</span></a
+                  <span class="username">eclipse-che</span></a
                 >
               </li>
               <li>

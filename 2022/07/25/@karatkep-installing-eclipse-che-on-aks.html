@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
     <title>
       Installing Eclipse Che on the Azure Kubernetes Service (AKS) | Eclipse Che
       Blog
     </title>
-    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta name="generator" content="Jekyll v4.2.2" />
     <meta
       property="og:title"
       content="Installing Eclipse Che on the Azure Kubernetes Service (AKS)"
@@ -45,21 +45,21 @@
     />
     <script type="application/ld+json">
       {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
         "author": {
           "@type": "Person",
           "name": "Serguei Gorokhov and Piotr Karatkevich"
         },
-        "headline": "Installing Eclipse Che on the Azure Kubernetes Service (AKS)",
         "dateModified": "2022-07-25T00:00:00+00:00",
         "datePublished": "2022-07-25T00:00:00+00:00",
         "description": "In this blog post, we’ll tell the story how we installed Eclipse Che on Microsoft Azure, what challenges we met and how solved them.",
-        "url": "https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html",
+        "headline": "Installing Eclipse Che on the Azure Kubernetes Service (AKS)",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html"
         },
-        "@type": "BlogPosting",
-        "@context": "https://schema.org"
+        "url": "https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html"
       }
     </script>
     <!-- End Jekyll SEO tag -->
@@ -120,9 +120,7 @@
             </span>
           </label>
 
-          <div class="trigger">
-            <a class="page-link" href="/about/">About</a>
-          </div>
+          <div class="trigger"></div>
         </nav>
       </div>
     </header>
@@ -212,7 +210,7 @@
               </div>
             </div>
             <div class="sect1">
-              <h2 id="challenge-1-aks-does-not-accept-id_token">
+              <h2 id="_challenge-1-aks-does-not-accept-id_token">
                 Challenge 1: AKS does not accept <code>id_token</code>
               </h2>
               <div class="sectionbody">
@@ -234,7 +232,7 @@
                   </p>
                 </div>
                 <div class="sect2">
-                  <h3 id="how-did-we-solve-the-first-challenge">
+                  <h3 id="_how-did-we-solve-the-first-challenge">
                     How did we solve the first challenge
                   </h3>
                   <div class="paragraph">
@@ -254,7 +252,8 @@
                   <div class="listingblock">
                     <div class="content">
                       <pre
-                        class="highlight"
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
                       ><code>pass_access_token = true</code></pre>
                     </div>
                   </div>
@@ -269,15 +268,16 @@
                   <div class="listingblock">
                     <div class="content">
                       <pre
-                        class="highlight"
-                      ><code class="language-yaml" data-lang="yaml">http:
-  middlewares:
-    che-header-rewrite:
-      plugin:
-        header-rewrite:
-          from: X-Forwarded-Access-Token
-          prefix: 'Bearer '
-          to: Authorization</code></pre>
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="yaml"><span style="color: #a6e22e">http</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">middlewares</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">che-header-rewrite</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">plugin</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">header-rewrite</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+          <span style="color: #a6e22e">from</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">X-Forwarded-Access-Token</span>
+          <span style="color: #a6e22e">prefix</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">'</span><span style="color: #e6db74">Bearer</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">'</span>
+          <span style="color: #a6e22e">to</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Authorization</span></code></pre>
                     </div>
                   </div>
                   <div class="paragraph">
@@ -310,11 +310,12 @@
                   <div class="listingblock">
                     <div class="content">
                       <pre
-                        class="highlight"
-                      ><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      identityToken: access_token</code></pre>
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">identityToken</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">access_token</span></code></pre>
                     </div>
                   </div>
                   <div class="paragraph">
@@ -343,7 +344,7 @@
             </div>
             <div class="sect1">
               <h2
-                id="challenge-2-no-way-to-obtain-a-proper-access-token-accepted-by-aks"
+                id="_challenge-2-no-way-to-obtain-a-proper-access-token-accepted-by-aks"
               >
                 Challenge 2: No way to obtain a proper access token accepted by
                 AKS
@@ -396,8 +397,9 @@
                 <div class="listingblock">
                   <div class="content">
                     <pre
-                      class="highlight"
-                    ><code class="language-yaml" data-lang="yaml">6dae42f8-4368-4678-94ff-3960e28e3630/user.read</code></pre>
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="yaml"><span style="color: #e6db74">6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span></code></pre>
                   </div>
                 </div>
                 <div class="paragraph">
@@ -407,7 +409,7 @@
                   </p>
                 </div>
                 <div class="sect2">
-                  <h3 id="how-did-we-solve-the-second-challenge">
+                  <h3 id="_how-did-we-solve-the-second-challenge">
                     How did we solve the second challenge
                   </h3>
                   <div class="paragraph">
@@ -430,11 +432,12 @@
                   <div class="listingblock">
                     <div class="content">
                       <pre
-                        class="highlight"
-                      ><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      oAuthScope: openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</code></pre>
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">oAuthScope</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span></code></pre>
                     </div>
                   </div>
                   <div class="admonitionblock note">
@@ -456,7 +459,7 @@
             </div>
             <div class="sect1">
               <h2
-                id="challenge-3-che-server-requires-mandatory-email-claim-which-is-absent-in-aks-access_token"
+                id="_challenge-3-che-server-requires-mandatory-email-claim-which-is-absent-in-aks-access_token"
               >
                 Challenge 3: Che server requires mandatory 'email' claim which
                 is absent in AKS access_token
@@ -486,8 +489,9 @@
                 <div class="listingblock">
                   <div class="content">
                     <pre
-                      class="highlight"
-                    ><code class="language-jwt" data-lang="jwt">{
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="jwt">{
   "typ": "JWT",
   "alg": "RS256",
   "x5t": "2ZQpJ3UpbjAYXYGaXEJl8lV0TOI",
@@ -532,7 +536,7 @@
                   </div>
                 </div>
                 <div class="sect2">
-                  <h3 id="how-did-we-solve-the-third-challenge">
+                  <h3 id="_how-did-we-solve-the-third-challenge">
                     How did we solve the third challenge
                   </h3>
                   <div class="paragraph">
@@ -561,12 +565,13 @@
                   <div class="listingblock">
                     <div class="content">
                       <pre
-                        class="highlight"
-                      ><code class="language-yaml" data-lang="yaml">spec:
-  components:
-    cheServer:
-      extraProperties:
-        CHE_OIDC_EMAIL__CLAIM: unique_name</code></pre>
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">extraProperties</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">CHE_OIDC_EMAIL__CLAIM</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">unique_name</span></code></pre>
                     </div>
                   </div>
                   <div class="paragraph">
@@ -578,7 +583,7 @@
               </div>
             </div>
             <div class="sect1">
-              <h2 id="conclusion">Conclusion</h2>
+              <h2 id="_conclusion">Conclusion</h2>
               <div class="sectionbody">
                 <div class="paragraph">
                   <p>
@@ -598,20 +603,21 @@
                 <div class="listingblock">
                   <div class="content">
                     <pre
-                      class="highlight"
-                    ><code class="language-yaml" data-lang="yaml">spec:
-  networking:
-    auth:
-      identityProviderURL: https://sts.windows.net/{TENANT_ID}/v2.0/
-      identityToken: access_token
-      oAuthClientName: {CLIENT_ID}
-      oAuthSecret: {CLIENT_SECRET}
-      oAuthScope: openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read
-  components:
-    cheServer:
-      extraProperties:
-        CHE_OIDC_AUTH__SERVER__URL: https://sts.windows.net/{TENANT_ID}/v2.0/
-        CHE_OIDC_EMAIL__CLAIM: unique_name</code></pre>
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">identityProviderURL</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://sts.windows.net/{TENANT_ID}/v2.0/</span>
+      <span style="color: #a6e22e">identityToken</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">access_token</span>
+      <span style="color: #a6e22e">oAuthClientName</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">CLIENT_ID</span><span style="color: #f8f8f2;background-color: #49483e">}</span>
+      <span style="color: #a6e22e">oAuthSecret</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">CLIENT_SECRET</span><span style="color: #f8f8f2;background-color: #49483e">}</span>
+      <span style="color: #a6e22e">oAuthScope</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">openid email profile 6dae42f8-4368-4678-94ff-3960e28e3630/user.read</span>
+  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">extraProperties</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">CHE_OIDC_AUTH__SERVER__URL</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://sts.windows.net/{TENANT_ID}/v2.0/</span>
+        <span style="color: #a6e22e">CHE_OIDC_EMAIL__CLAIM</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">unique_name</span></code></pre>
                   </div>
                 </div>
                 <div class="ulist">
@@ -678,14 +684,15 @@
                 <div class="listingblock">
                   <div class="content">
                     <pre
-                      class="highlight"
-                    ><code class="language-shell" data-lang="shell">chectl server:deploy \
-       --platform=k8s \
-       --installer=operator \
-       --che-operator-cr-patch-yaml=che.yaml \
-       --skip-oidc-provider-check \
-       --skip-cert-manager \
-       --domain=eclipse-che-demo.mydomain.com</code></pre>
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="shell">chectl server:deploy <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--platform</span><span style="color: #f92672;font-weight: bold">=</span>k8s <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--installer</span><span style="color: #f92672;font-weight: bold">=</span>operator <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--che-operator-cr-patch-yaml</span><span style="color: #f92672;font-weight: bold">=</span>che.yaml <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--skip-oidc-provider-check</span> <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--skip-cert-manager</span> <span style="color: #ae81ff">\</span>
+       <span style="color: #f92672">--domain</span><span style="color: #f92672;font-weight: bold">=</span>eclipse-che-demo.mydomain.com</code></pre>
                   </div>
                 </div>
                 <div class="admonitionblock note">
@@ -738,13 +745,13 @@
           <div class="footer-col footer-col-2">
             <ul class="social-media-list">
               <li>
-                <a href="https://github.com/eclipse"
+                <a href="https://github.com/eclipse-che"
                   ><svg class="svg-icon">
                     <use
                       xlink:href="/assets/minima-social-icons.svg#github"
                     ></use>
                   </svg>
-                  <span class="username">eclipse</span></a
+                  <span class="username">eclipse-che</span></a
                 >
               </li>
               <li>

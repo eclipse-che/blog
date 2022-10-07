@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
     <title>
       Contributing for the first time to a project | Eclipse Che Blog
     </title>
-    <meta name="generator" content="Jekyll v4.2.1" />
+    <meta name="generator" content="Jekyll v4.2.2" />
     <meta
       property="og:title"
       content="Contributing for the first time to a project"
@@ -44,18 +44,18 @@
     />
     <script type="application/ld+json">
       {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
         "author": { "@type": "Person", "name": "Ilya Buziuk" },
-        "headline": "Contributing for the first time to a project",
         "dateModified": "2022-01-11T00:00:00+00:00",
         "datePublished": "2022-01-11T00:00:00+00:00",
         "description": "The article describes how to easily contribute to a project using Eclipse Che",
-        "url": "https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html",
+        "headline": "Contributing for the first time to a project",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
         },
-        "@type": "BlogPosting",
-        "@context": "https://schema.org"
+        "url": "https://che.eclipseprojects.io/2022/01/11/@ilya.buziuk-contributing-for-the-first-time-to-a-project.html"
       }
     </script>
     <!-- End Jekyll SEO tag -->
@@ -116,9 +116,7 @@
             </span>
           </label>
 
-          <div class="trigger">
-            <a class="page-link" href="/about/">About</a>
-          </div>
+          <div class="trigger"></div>
         </nav>
       </div>
     </header>
@@ -153,7 +151,7 @@
 
           <div class="post-content e-content" itemprop="articleBody">
             <div class="sect2">
-              <h3 id="introduction">Introduction</h3>
+              <h3 id="_introduction">Introduction</h3>
               <div class="paragraph">
                 <p>
                   The complexity of applications has changed dramatically over
@@ -194,7 +192,7 @@
             </div>
             <div class="sect2">
               <h3
-                id="contributing-for-the-first-time-to-a-project-using-eclipseche"
+                id="_contributing-for-the-first-time-to-a-project-using-eclipseche"
               >
                 Contributing for the first time to a project using
                 Eclipse&#160;Che
@@ -476,12 +474,13 @@
               <div class="listingblock">
                 <div class="content">
                   <pre
-                    class="highlight"
-                  ><code class="language-json" data-lang="json">{
-  "recommendations": [
-    "redhat.java"
-  ]
-}</code></pre>
+                    class="rouge highlight"
+                    style="color: #f8f8f2; background-color: #49483e"
+                  ><code data-lang="json"><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+  </span><span style="color: #f8f8f2;font-weight: bold">"recommendations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
+    </span><span style="color: #e6db74">"redhat.java"</span><span style="color: #f8f8f2">
+  </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
+</span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
                 </div>
               </div>
               <div class="admonitionblock important">
@@ -515,19 +514,20 @@
               <div class="listingblock">
                 <div class="content">
                   <pre
-                    class="highlight"
-                  ><code class="language-json" data-lang="json">{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Debug (Attach) - Remote",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 5005
-        }
-    ]
-}</code></pre>
+                    class="rouge highlight"
+                    style="color: #f8f8f2; background-color: #49483e"
+                  ><code data-lang="json"><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;font-weight: bold">"version"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"0.2.0"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;font-weight: bold">"configurations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
+        </span><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"type"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"java"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"name"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"Debug (Attach) - Remote"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"request"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"attach"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"hostName"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">"localhost"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
+            </span><span style="color: #f8f8f2;font-weight: bold">"port"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">5005</span><span style="color: #f8f8f2">
+        </span><span style="color: #f8f8f2;background-color: #49483e">}</span><span style="color: #f8f8f2">
+    </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
+</span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
                 </div>
               </div>
               <div class="ulist">
@@ -563,11 +563,12 @@
               <div class="listingblock">
                 <div class="content">
                   <pre
-                    class="highlight"
-                  ><code class="language-yaml" data-lang="yaml">- id: redhat/java
-  override:
-    sidecar:
-      memoryLimit: 2Gi</code></pre>
+                    class="rouge highlight"
+                    style="color: #f8f8f2; background-color: #49483e"
+                  ><code data-lang="yaml"><span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">redhat/java</span>
+  <span style="color: #a6e22e">override</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">sidecar</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span></code></pre>
                 </div>
               </div>
               <div class="ulist">
@@ -586,13 +587,14 @@
               <div class="listingblock">
                 <div class="content">
                   <pre
-                    class="highlight"
-                  ><code class="language-yaml" data-lang="yaml">id: eclipse/che-theia/latest          # mandatory
-registryUrl: https://my-registry.com  # optional
-override:                             # optional
-  containers:
-    - name: theia-ide
-      memoryLimit: 1280Mi</code></pre>
+                    class="rouge highlight"
+                    style="color: #f8f8f2; background-color: #49483e"
+                  ><code data-lang="yaml"><span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">eclipse/che-theia/latest</span>          <span style="color: #75715e;font-style: italic"># mandatory</span>
+<span style="color: #a6e22e">registryUrl</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://my-registry.com</span>  <span style="color: #75715e;font-style: italic"># optional</span>
+<span style="color: #a6e22e">override</span><span style="color: #f8f8f2;background-color: #49483e">:</span>                             <span style="color: #75715e;font-style: italic"># optional</span>
+  <span style="color: #a6e22e">containers</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">theia-ide</span>
+      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1280Mi</span></code></pre>
                 </div>
               </div>
               <div class="ulist">
@@ -769,13 +771,13 @@ https://img.shields.io/static/v1?label=eclipse&amp;message=che&amp;logo=eclipsec
           <div class="footer-col footer-col-2">
             <ul class="social-media-list">
               <li>
-                <a href="https://github.com/eclipse"
+                <a href="https://github.com/eclipse-che"
                   ><svg class="svg-icon">
                     <use
                       xlink:href="/assets/minima-social-icons.svg#github"
                     ></use>
                   </svg>
-                  <span class="username">eclipse</span></a
+                  <span class="username">eclipse-che</span></a
                 >
               </li>
               <li>
