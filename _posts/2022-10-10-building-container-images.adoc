@@ -5,7 +5,7 @@ author: Mario Loriedo
 description: >-
   In this blog post, we are going to see how to configure Eclispe Che to run `podman build` from a remote development environment.
 categories: []
-keywords: ['buildah', 'podman']
+keywords: ['buildah', 'docker', 'podman']
 slug: /@mloriedo/building-container-images
 ---
 
