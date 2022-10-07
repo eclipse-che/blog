@@ -142,7 +142,7 @@ components:
     cpuLimit: 1000m
 ----
 
-When this attribute is included in the Devfile, the resulting workspace Pod will have the annotation `openshift.io/scc: container-build`:
+When this attribute is included in the Devfile, the resulting workspace Pod will have the `openshift.io/scc: container-build` annotation:
 
 [source, bash]
 ----
