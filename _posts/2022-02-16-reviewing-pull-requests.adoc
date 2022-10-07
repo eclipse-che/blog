@@ -11,10 +11,10 @@ slug: /@david.kwon/reviewing-pull-requests
 
 Reviewing pull requests for a GitHub project integrated with {prod}.
 
-=== Demo Video
+== Demo Video
 video::GpxdvDkMWlU[youtube,width=480,height=270]
 
-=== Using {prod} to review pull requests
+== Using {prod} to review pull requests
 With Google Chrome, {prod} makes it possible to review a pull request (PR) without setting up runtimes, build tools, or any extra software on the local machine.
 
 This blog post will showcase the typical workflow of reviewing PRs of a GitHub project that is well-integrated with Eclipse Che. Here is the GitHub project used in this blog post: link:https://github.com/che-incubator/quarkus-api-example[www.github.com/che-incubator/quarkus-api-example].
@@ -28,7 +28,7 @@ NOTE: Your project must contain a well-defined `devfile.yaml` file to make the m
 
 WARNING: The following scenario uses devfile v2, and {prod} is deployed alongside the {devworkspace} engine which is currently not used on link:https://workspaces.openshift.com/[Eclipse Che Hosted by Red Hat]. To open the test GitHub project on Eclipse Che Hosted by Red Hat, please use the link:https://github.com/che-incubator/quarkus-api-example/tree/devfilev1[devfilev1] branch which supports the deprecated devfile v1.
 
-=== The scenario
+== The scenario
 Imagine that you're developing a REST API with Quarkus that interacts with `Food` resources from a PostgreSQL database.
 [source,java]
 ----
@@ -82,7 +82,7 @@ Start the workspace and Web IDE editor on link:https://www.eclipse.org/che/docs/
 image::/assets/img/reviewing-pull-requests/badge.png[Badge used to start workspaces]
 Figure 2: Clicking on a badge from the base repository's `README.md` launches a developer workspace.
 
-=== Launching a workspace and reviewing the PR
+== Launching a workspace and reviewing the PR
 image::/assets/img/reviewing-pull-requests/ide.png[The Che-theia editor]
 Figure 3: The Che-Theia editor.
 
@@ -116,7 +116,7 @@ The test project includes a preinstalled link:https://github.com/redhat-develope
 image::/assets/img/reviewing-pull-requests/no-problems.png[No problems reported by the Java extension]
 Figure 7: No problems reported by the Java extension in the Problems view.
 
-=== Running unit tests and building
+== Running unit tests and building
 The devfile also defines commands for testing, building, and launching the application. Run the unit tests by opening the Workspace view from the right side and clicking `(User Runtimes -> tools -> runtests)`.
 
 This runs the test command (`./mvnw test`) within the `tools` container as specified in the devfile. You can view the test output in the output panel.
@@ -133,7 +133,7 @@ Figure 9: Successfully building the application.
 
 NOTE: The `packagenative` command is used to build a native image with GraalVM. The command would fail for this test project on link:https://www.eclipse.org/che/docs/che-7/hosted-che/hosted-che/[Eclipse Che Hosted by Red Hat] due to the 7GB memory usage limit.
 
-=== Running the application
+== Running the application
 Run the Quarkus application in link:https://quarkus.io/guides/getting-started#development-mode[development mode] by running the `(User Runtimes -> tools -> startdev)` command to access the endpoint.
 
 image::/assets/img/reviewing-pull-requests/start-dev.png[Starting the application in development mode]
@@ -146,7 +146,7 @@ Figure 11: Response from `/food/restaurant/Local Deli`.
 
 The response contains two `Food` resources from the `Local Deli` restaurant. This is a match with the `Food` resources from this restaurant in the link:https://github.com/che-incubator/quarkus-api-example/blob/main/src/main/resources/import.sql[`import.sql`] file.
 
-=== Providing feedback and merging the PR
+== Providing feedback and merging the PR
 So far, you have successfully run tests, ran the build, as well as ran the application in development mode to verify that the PR is working correctly.
 Next, merge the PR from the web IDE.
 
@@ -158,7 +158,7 @@ Figure 12: Clicking "Merge Pull Request" to merge.
 image::/assets/img/reviewing-pull-requests/merged.png[Merged to main from the web IDE]
 Figure 13: PR has been merged.
 
-=== Conclusion
+== Conclusion
 You have finished reviewing the PR and have successfully merged it from the web IDE editor.
 In summary, we have:
 
