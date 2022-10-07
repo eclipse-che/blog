@@ -109,7 +109,7 @@ oc adm policy add-cluster-role-to-user \
 
 == STEP 3: Grant privileges to developer accounts [[step_3]]
 
-To avoid a privilege escalation, when provisioning the workspace Pod, the {devworkspace} controller checks that the developer is allowed to use the `container-buld` SCC. An administrator needs to grant such privileges. Here is an example of the command to add the `container-build` SCC to the user `janedoe`:
+To avoid a privilege escalation, when provisioning the workspace Pod, the {devworkspace} controller checks that the developer is allowed to use the `container-build` SCC. An administrator needs to grant such privileges. Here is an example of the command to add the `container-build` SCC to the user `janedoe`:
 
 [source, bash]
 ----
