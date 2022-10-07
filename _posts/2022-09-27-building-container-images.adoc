@@ -79,7 +79,7 @@ EOF
 
 The {devworkspace} controller provisions Che workspaces Pods and it uses Service Account `system:serviceaccount:openshift-operators:devworkspace-controller-serviceaccount`. 
 
-Execute the following commands to grant to the Service Account `get` and `update` privileges on the `container-build` SCC:
+Execute the following commands to grant `get` and `update` privileges for the `container-build` SCC to the Service Account :
 
 [source, bash]
 ----
