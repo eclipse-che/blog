@@ -120,7 +120,7 @@ If this step is skipped, and the developer account is not allowed to use `CAP_SE
 
 == STEP 4: Include the `scc` attribute in Devfiles [[step_4]]
 
-The last requirement, to build containers from an Eclipse Che workspace, is adding the attribute `controller.devfile.io/scc: container-build` in the Devfile as in the following example:
+The last requirement to build containers from an Eclipse Che workspace, is adding the `controller.devfile.io/scc: container-build` attribute in the Devfile as in the following example:
 
 [source, yaml]
 ----
