@@ -116,7 +116,7 @@ To avoid a privilege escalation, when provisioning the workspace Pod, the {devwo
 oc adm policy add-scc-to-user container-build janedoe
 ----
 
-If this step is skipped, and the developer account is not allowed to use `CAP_SETGID` and `CAP_SETUID`, Che will fail to start a workspace using the `conatiner-build` SCC.
+If this step is skipped, and the developer account is not allowed to use `CAP_SETGID` and `CAP_SETUID`, Che will fail to start a workspace using the `container-build` SCC.
 
 == STEP 4: Include the `scc` attribute in Devfiles [[step_4]]
 
