@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>
+      Building Containers in Rootless Mode on OpenShift | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta
+      property="og:title"
+      content="Building Containers in Rootless Mode on OpenShift"
+    />
+    <meta name="author" content="Mario Loriedo" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="In this blog post, we are going to see how to configure Eclispe Che to run podman build from a remote development environment."
+    />
+    <meta
+      property="og:description"
+      content="In this blog post, we are going to see how to configure Eclispe Che to run podman build from a remote development environment."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2022-10-10T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Building Containers in Rootless Mode on OpenShift"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Mario Loriedo" },
+        "dateModified": "2022-10-10T00:00:00+00:00",
+        "datePublished": "2022-10-10T00:00:00+00:00",
+        "description": "In this blog post, we are going to see how to configure Eclispe Che to run podman build from a remote development environment.",
+        "headline": "Building Containers in Rootless Mode on OpenShift",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"
+        },
+        "url": "https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Building Containers in Rootless Mode on OpenShift
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2022-10-10T00:00:00+00:00"
+                itemprop="datePublished"
+                >Oct 10, 2022 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Mario Loriedo</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="imageblock">
+              <div class="content">
+                <img
+                  src="/assets/img/building-container-images/che-inner-loop-optimized.png"
+                  alt="Developer inner loop including a container build"
+                />
+              </div>
+            </div>
+            <div class="paragraph">
+              <p>
+                &#160;<br />
+                &#160;<br />
+                Nowadays the typical developer flow, the inner-loop, quite often
+                includes the building of a <code>Dockerfile</code>. Despite that
+                Eclipse Che did not support building container images on
+                OpenShift. That is because it involved granting permissive
+                OpenShift privileges to Che users and we did not want to require
+                that.
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                The good news is that today a few options are available to build
+                containers without compromising the underlying OpenShift cluster
+                security. One of these is running in rootless mode and that is
+                what we are going to discuss in this short blog post.
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                Although it&#8217;s now easy to
+                <a
+                  href="https://github.com/containers/buildah/blob/main/docs/tutorials/05-openshift-rootless-build.md"
+                  >run <code>buildah</code> or <code>podman build</code> in
+                  rootless mode</a
+                >, on OpenShift it requires granting some non-default
+                <a
+                  href="https://man7.org/linux/man-pages/man7/capabilities.7.html"
+                  >Linux capabilities</a
+                >: <code>CAP_SETGID</code> and <code>CAP_SETUID</code>. It is
+                possible to provide those capabilities to an Eclipse Che
+                workspace following these steps:
+              </p>
+            </div>
+            <div class="olist arabic">
+              <ol class="arabic">
+                <li>
+                  <p>
+                    <a href="#step_1"
+                      >STEP 1: Creating an OpenShift Security Context
+                      Constraint</a
+                    >
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a href="#step_2"
+                      >STEP 2: Grant privileges to the DevWorkspace controller
+                      Service Account</a
+                    >
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a href="#step_3"
+                      >STEP 3: Grant privileges to developer accounts</a
+                    >
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a href="#step_4"
+                      >STEP 4: Include the <code>scc</code> attribute in
+                      Devfiles</a
+                    >
+                  </p>
+                </li>
+              </ol>
+            </div>
+            <div class="paragraph">
+              <p>
+                The first 3 steps setup the OpenShift cluster and Eclipse Che.
+                These are administration tasks. The last step is for users that
+                start a workspace: every workspace that requires the
+                <code>CAP_SETGID</code> and <code>CAP_SETUID</code> capability
+                needs that Devfile attribute.
+              </p>
+            </div>
+            <div class="sect1">
+              <h2 id="step_1">
+                STEP 1: Creating an OpenShift Security Context Constraint
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    In OpenShift, permissions for Pods are controlled with
+                    <a
+                      href="https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html"
+                      >security context constraints (SCC)</a
+                    >. OpenShift includes some pre-defined SCCs but the
+                    <code>restricted</code> SCC (the default one) does not
+                    provide enough capabilities and the
+                    <code>non-root</code> SCC provides more capabilities than
+                    required. To be able to build containers but avoid granting
+                    unrequired privileges we need to define an ad-hoc SCC that
+                    we call <code>container-build</code>.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Use an admin account to create it on an OpenShift cluster
+                    with the following command:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span><span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: container-build
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities:
+  - SETUID
+  - SETGID
+defaultAddCapabilities: null
+fsGroup:
+  type: MustRunAs
+# Temporary workaround for https://github.com/devfile/devworkspace-operator/issues/884
+priority: 20
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+  - KILL
+  - MKNOD
+runAsUser:
+  type: MustRunAsRange
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users: []
+groups: []
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - persistentVolumeClaim
+  - projected
+  - secret
+EOF</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="step_2">
+                STEP 2: Grant privileges to the DevWorkspace controller Service
+                Account
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    The DevWorkspace controller provisions Che workspaces Pods
+                    and it uses Service Account
+                    <code
+                      >system:serviceaccount:openshift-operators:devworkspace-controller-serviceaccount</code
+                    >.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Execute the following commands to grant <code>get</code> and
+                    <code>update</code> privileges for the
+                    <code>container-build</code> SCC to the Service Account :
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="bash"><span style="color: #75715e;font-style: italic"># Create the cluster role get-n-update-container-build-scc</span>
+kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span><span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: get-n-update-container-build-scc
+rules:
+- apiGroups:
+  - "security.openshift.io"
+  resources:
+  - "securitycontextconstraints"
+  resourceNames:
+  - "container-build"
+  verbs:
+  - "get"
+  - "update"
+</span><span style="color: #66d9ef">EOF
+
+</span><span style="color: #75715e;font-style: italic"># Add the role to the DevWorkspace controller Service Account</span>
+oc adm policy add-cluster-role-to-user <span style="color: #ae81ff">\</span>
+       get-n-update-container-build-scc <span style="color: #ae81ff">\</span>
+       system:serviceaccount:openshift-operators:devworkspace-controller-serviceaccount</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="step_3">
+                STEP 3: Grant privileges to developer accounts
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    To avoid a privilege escalation, when provisioning the
+                    workspace Pod, the DevWorkspace controller checks that the
+                    developer is allowed to use the
+                    <code>container-build</code> SCC. An administrator needs to
+                    grant such privileges. Here is an example of the command to
+                    add the <code>container-build</code> SCC to the user
+                    <code>janedoe</code>:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="bash">oc adm policy add-scc-to-user container-build janedoe</code></pre>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    If this step is skipped, and the developer account is not
+                    allowed to use <code>CAP_SETGID</code> and
+                    <code>CAP_SETUID</code>, Che will fail to start a workspace
+                    using the <code>container-build</code> SCC.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="step_4">
+                STEP 4: Include the <code>scc</code> attribute in Devfiles
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    The last requirement to build containers from an Eclipse Che
+                    workspace, is adding the
+                    <code>controller.devfile.io/scc: container-build</code>
+                    attribute in the Devfile as in the following example:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.1.0</span>
+<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build-test</span>
+<span style="color: #a6e22e">attributes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">controller.devfile.io/scc</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">container-build</span>
+<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+<span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">dockerfile-hello-world</span>
+  <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/l0rd/dockerfile-hello-world</span>
+<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+<span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devtooling-container</span>
+  <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devspaces/udi-rhel8:next</span>
+    <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1Gi</span>
+    <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1000m</span></code></pre>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    When this attribute is included in the Devfile, the
+                    resulting workspace Pod will have the
+                    <code>openshift.io/scc: container-build</code> annotation:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="bash"><span style="color: #f8f8f2">$ </span>oc get pod workspace52aa1da24d244cef <span style="color: #f92672">-o</span> yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    openshift.io/scc: container-build
+<span style="color: #f92672;font-weight: bold">(</span>...<span style="color: #f92672;font-weight: bold">)</span></code></pre>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    And it&#8217;s now possible to open a terminal and build a
+                    Dockerfile:
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/building-container-images/podman-build.gif"
+                      alt="Running Podman build"
+                    />
+                  </div>
+                  <div class="title">Figure 1. Running Podman build</div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_current-limitations-and-next-steps">
+                Current limitations and next steps
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    The first 3 steps mentioned in this post are manual and can
+                    be error-prone. In the next releases of Eclipse Che, we want
+                    to add a CheCluster field that controls if Eclipse Che is
+                    capable of building containers or not. When enabled, Eclipse
+                    Che Operator automatically applies
+                    <a href="#step_1"
+                      >STEP 1: Creating an OpenShift Security Context
+                      Constraint</a
+                    >,
+                    <a href="#step_2"
+                      >STEP 2: Grant privileges to the DevWorkspace controller
+                      Service Account</a
+                    >
+                    and
+                    <a href="#step_3"
+                      >STEP 3: Grant privileges to developer accounts</a
+                    >.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Step 4,
+                    <a href="#step_4"
+                      >STEP 4: Include the <code>scc</code> attribute in
+                      Devfiles</a
+                    >, should not be required. When container build is enabled,
+                    every workspace Pod should have the required capabilities.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The Universal Developer Image, the default image used in Che
+                    workspaces, uses Podman and Buildah with a VFS file system.
+                    But for better performance, <code>fuse-overlay</code> is
+                    recommended.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The Universal Developer Image is also not configured to run
+                    Docker BuildKit in rootless mode and
+                    <code>docker build</code> doesn&#8217;t work on OpenShift
+                    yet.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Other than rootless mode, we are investigating the use of
+                    user namespaces in Kubernetes to build containers.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2022/10/10/@mloriedo-building-container-images.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
