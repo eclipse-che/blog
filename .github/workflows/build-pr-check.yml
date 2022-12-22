@@ -43,7 +43,7 @@ jobs:
         name: blog-content
         path: ./_site
   pull-request-info:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
      - name: Store PR info
        run: |
