@@ -18,7 +18,7 @@ on:
 jobs:
   publish-pr:
     name: publish pull request
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: download dist artifact
         uses: dawidd6/action-download-artifact@v2
@@ -48,7 +48,7 @@ jobs:
         run: |
           pr_sha=$(cat "PR_SHA")
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
       - name: publish
@@ -60,7 +60,7 @@ jobs:
           echo "DEPLOY_DOMAIN=$DEPLOY_DOMAIN" >> $GITHUB_ENV
           surge ./_site --domain $DEPLOY_DOMAIN
       - name: 'Comment PR'
-        uses: actions/github-script@v3.0.0
+        uses: actions/github-script@v6
         with:
          script: |
            const { repo: { owner, repo } } = context;
