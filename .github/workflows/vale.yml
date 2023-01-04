@@ -40,7 +40,7 @@ jobs:
           pr_sha=$(cat "PR_SHA")
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
       - name: download blog posts source
-        uses: dawidd6/action-download-artifact@v2.18.0
+        uses: dawidd6/action-download-artifact@v2
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: blog-post-source
