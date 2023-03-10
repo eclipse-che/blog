@@ -25,6 +25,8 @@ Content is available at http://localhost:4000
 
 ### online
 
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com#https://github.com/eclipse-che/blog)
+
 Open the devfile on a che server instance running DevWorkspaces: (devfile v2)
 
 `https://che-host#https://github.com/eclipse-che/blog`
