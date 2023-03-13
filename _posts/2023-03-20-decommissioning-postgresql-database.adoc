@@ -1,0 +1,163 @@
+---
+title: Decommissioning the PostgreSQL database
+layout: post
+author: Ilya Buziuk
+description: >-
+  The article describes how the PostgreSQL database dependency has been removed in Eclipse Che
+categories: []
+keywords: ['postgresql']
+slug: /@ilya.buziuk/decommissioning-postgresql-database
+---
+
+Historically {prod} used a PostgreSQL database for storing relevant information about the users, workspaces, devfiles, preferences, SSH keys, etc.
+Overall there were dozens of tables in the database which represent the state of the {prod} instance:
+
+[source,bash]
+----
+psql (13.7)
+Type "help" for help.
+
+dbche=> \dt
+                            List of relations                             
+ Schema |                      Name                       | Type  | Owner 
+--------+-------------------------------------------------+-------+-------
+ public | account                                         | table | pgche
+ public | che_factory                                     | table | pgche
+ public | che_factory_action                              | table | pgche
+ public | che_factory_action_properties                   | table | pgche
+ public | che_factory_ide                                 | table | pgche
+ public | che_factory_on_app_closed_action                | table | pgche
+ public | che_factory_on_app_closed_action_value          | table | pgche
+ public | che_factory_on_app_loaded_action                | table | pgche
+ public | che_factory_on_app_loaded_action_value          | table | pgche
+ public | che_factory_on_projects_loaded_action           | table | pgche
+ public | che_factory_on_projects_loaded_action_value     | table | pgche
+ public | che_free_resources_limit                        | table | pgche
+ public | che_free_resources_limit_resource               | table | pgche
+ public | che_k8s_machine                                 | table | pgche
+ public | che_k8s_machine_attributes                      | table | pgche
+ public | che_k8s_runtime                                 | table | pgche
+ public | che_k8s_server                                  | table | pgche
+ public | che_k8s_server_attributes                       | table | pgche
+ public | che_member                                      | table | pgche
+ public | che_member_actions                              | table | pgche
+ public | che_organization                                | table | pgche
+ public | che_organization_distributed_resources          | table | pgche
+ public | che_organization_distributed_resources_resource | table | pgche
+ public | che_resource                                    | table | pgche
+ public | che_sign_key                                    | table | pgche
+ public | che_sign_key_pair                               | table | pgche
+ public | che_system_permissions                          | table | pgche
+ public | che_system_permissions_actions                  | table | pgche
+ public | che_userdevfile_permissions                     | table | pgche
+ public | che_userdevfile_permissions_actions             | table | pgche
+ public | che_worker                                      | table | pgche
+ public | che_worker_actions                              | table | pgche
+ public | che_workspace_activity                          | table | pgche
+ public | che_workspace_cfg_attributes                    | table | pgche
+ public | command                                         | table | pgche
+ public | command_attributes                              | table | pgche
+ public | devfile                                         | table | pgche
+ public | devfile_action                                  | table | pgche
+ public | devfile_attributes                              | table | pgche
+ public | devfile_command                                 | table | pgche
+ public | devfile_command_attributes                      | table | pgche
+ public | devfile_component                               | table | pgche
+ public | devfile_component_arg                           | table | pgche
+ public | devfile_component_command                       | table | pgche
+ public | devfile_component_preferences                   | table | pgche
+ public | devfile_component_selector                      | table | pgche
+ public | devfile_endpoint                                | table | pgche
+ public | devfile_endpoint_attributes                     | table | pgche
+ public | devfile_entrypoint                              | table | pgche
+ public | devfile_entrypoint_arg                          | table | pgche
+ public | devfile_entrypoint_commands                     | table | pgche
+ public | devfile_entrypoint_selector                     | table | pgche
+ public | devfile_env                                     | table | pgche
+ public | devfile_project                                 | table | pgche
+ public | devfile_volume                                  | table | pgche
+ public | environment                                     | table | pgche
+ public | externalmachine                                 | table | pgche
+ public | externalmachine_attributes                      | table | pgche
+ public | externalmachine_env                             | table | pgche
+ public | k8s_runtime_command                             | table | pgche
+ public | k8s_runtime_command_attributes                  | table | pgche
+ public | machine_volume                                  | table | pgche
+ public | preference                                      | table | pgche
+ public | preference_preferences                          | table | pgche
+ public | profile                                         | table | pgche
+ public | profile_attributes                              | table | pgche
+ public | projectattribute                                | table | pgche
+ public | projectattribute_values                         | table | pgche
+ public | projectconfig                                   | table | pgche
+ public | projectconfig_mixins                            | table | pgche
+ public | schema_version                                  | table | pgche
+ public | sequence                                        | table | pgche
+ public | serverconf                                      | table | pgche
+ public | serverconf_attributes                           | table | pgche
+ public | serverconf_properties                           | table | pgche
+ public | sourcestorage                                   | table | pgche
+ public | sourcestorage_parameters                        | table | pgche
+ public | sshkeypair                                      | table | pgche
+ public | user_aliases                                    | table | pgche
+ public | userdevfile                                     | table | pgche
+ public | usr                                             | table | pgche
+ public | workspace                                       | table | pgche
+ public | workspace_attributes                            | table | pgche
+ public | workspaceconfig                                 | table | pgche
+(84 rows)
+----
+
+However, with the switch to link:https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html[DevWorkspace Operator and Devfile v2], all this data becomes irrelevant since we started using native Kubernetes resources instead.
+
+The data is now stored and managed as Kubernetes resources such as Secrets and ConfigMaps in the user namespaces:
+
+image::/assets/img/decommissioning-postgresql-database/secrets.png[Secrets from the user namespace]
+
+image::/assets/img/decommissioning-postgresql-database/configmaps.png[ConfigMaps from the user namespace]
+{nbsp} +
+
+As an example, SSH keys are now configured using the dedicated link:https://github.com/devfile/devworkspace-operator/blob/main/docs/additional-configuration.adoc#configuring-devworkspaces-to-use-ssh-keys-for-git-operations[secret].
+
+Starting from the {prod} `7.62.0` release, the PostgreSQL deployment has ceased to exist, resulting in only 5 operands: Che Server, User Dashboard, Plugin Registry, Devfile Registry, and Gateway.
+
+image::/assets/img/decommissioning-postgresql-database/operands.png[Eclipse Che operands]
+{nbsp} +
+
+IMPORTANT: No manual migration steps or action items are required for this change to take effect. The PostgreSQL deployment will be gracefully terminated and removed during the update. All the obsolete data stored in the database will be removed.
+
+It is also worth mentioning that most of the `https://<che_fqdn>/swagger` endpoints are now deprecated and going to be removed in future releases. The only endpoints that are still used are related to the namespace provisioning, Git OAuth configuration, and the factory flow: 
+
+- `/kubernetes/namespace/*`
+- `/oauth/*`
+- `/factory/*`
+
+== Next steps
+
+Decommissioning the PostgreSQL database in favor of native Kubernetes resources provides several benefits, including: improved scalability, flexibility, and easier management. 
+
+Ultimately, moving away from traditional database architectures and embracing Kubernetes makes {prod} agile and competitive in an increasingly complex and demanding technology landscape.
+For example, in the next {prod} releases we plan to make it possible to configure a number of replicas for operands from the CheCluster CustomResource, which was not possible before due to the PostgreSQL database dependency:
+
+[source,yaml]
+----
+spec:
+  components:
+    cheServer:
+      deployment:
+        replicas: 1
+    dashboard:
+      deployment:
+        replicas: 1
+    devfileRegistry:
+      deployment:
+        replicas: 1
+    pluginRegistry:
+      deployment:
+        replicas: 1
+----
+
+The progress of this particular feature can be tracked in the upstream link:https://github.com/eclipse/che/issues/22067[issue]. 
+As always, we look forward to your valuable feedback, comments, remarks, and proposals on this work or anything else related to the project, through our link:https://accounts.eclipse.org/mailing-list/che-dev[mailing list], link:https://github.com/eclipse/che/issues[GitHub], or link:https://mattermost.eclipse.org/eclipse/channels/eclipse-che[Mattermost].
+{nbsp} +
+We wish you an enjoyable and productive coding experience with {prod}!
