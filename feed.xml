@@ -1,4 +1,200 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2023-03-10T11:13:20+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Building Containers in Rootless Mode on OpenShift</title><link href="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html" rel="alternate" type="text/html" title="Building Containers in Rootless Mode on OpenShift" /><published>2022-10-10T00:00:00+00:00</published><updated>2022-10-10T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/10/10/@mloriedo/building-container-images</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"><![CDATA[<div class="imageblock">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2023-03-20T18:02:33+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Decommissioning the PostgreSQL database</title><link href="https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk-decommissioning-postgresql-database.html" rel="alternate" type="text/html" title="Decommissioning the PostgreSQL database" /><published>2023-03-20T00:00:00+00:00</published><updated>2023-03-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk/decommissioning-postgresql-database</id><content type="html" xml:base="https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk-decommissioning-postgresql-database.html"><![CDATA[<div class="paragraph">
+<p>Historically Eclipse&#160;Che used a PostgreSQL database for storing relevant information about the users, workspaces, devfiles, preferences, SSH keys, etc.
+Overall there were dozens of tables in the database which represent the state of the Eclipse&#160;Che instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">psql <span style="color: #f92672;font-weight: bold">(</span>13.7<span style="color: #f92672;font-weight: bold">)</span>
+Type <span style="color: #e6db74">"help"</span> <span style="color: #66d9ef;font-weight: bold">for </span>help.
+
+<span style="color: #f8f8f2">dbche</span><span style="color: #f92672;font-weight: bold">=&gt;</span> <span style="color: #ae81ff">\d</span>t
+                            List of relations
+ Schema |                      Name                       | Type  | Owner
+<span style="color: #f92672">--------</span>+-------------------------------------------------+-------+-------
+ public | account                                         | table | pgche
+ public | che_factory                                     | table | pgche
+ public | che_factory_action                              | table | pgche
+ public | che_factory_action_properties                   | table | pgche
+ public | che_factory_ide                                 | table | pgche
+ public | che_factory_on_app_closed_action                | table | pgche
+ public | che_factory_on_app_closed_action_value          | table | pgche
+ public | che_factory_on_app_loaded_action                | table | pgche
+ public | che_factory_on_app_loaded_action_value          | table | pgche
+ public | che_factory_on_projects_loaded_action           | table | pgche
+ public | che_factory_on_projects_loaded_action_value     | table | pgche
+ public | che_free_resources_limit                        | table | pgche
+ public | che_free_resources_limit_resource               | table | pgche
+ public | che_k8s_machine                                 | table | pgche
+ public | che_k8s_machine_attributes                      | table | pgche
+ public | che_k8s_runtime                                 | table | pgche
+ public | che_k8s_server                                  | table | pgche
+ public | che_k8s_server_attributes                       | table | pgche
+ public | che_member                                      | table | pgche
+ public | che_member_actions                              | table | pgche
+ public | che_organization                                | table | pgche
+ public | che_organization_distributed_resources          | table | pgche
+ public | che_organization_distributed_resources_resource | table | pgche
+ public | che_resource                                    | table | pgche
+ public | che_sign_key                                    | table | pgche
+ public | che_sign_key_pair                               | table | pgche
+ public | che_system_permissions                          | table | pgche
+ public | che_system_permissions_actions                  | table | pgche
+ public | che_userdevfile_permissions                     | table | pgche
+ public | che_userdevfile_permissions_actions             | table | pgche
+ public | che_worker                                      | table | pgche
+ public | che_worker_actions                              | table | pgche
+ public | che_workspace_activity                          | table | pgche
+ public | che_workspace_cfg_attributes                    | table | pgche
+ public | <span style="color: #f8f8f2">command</span>                                         | table | pgche
+ public | command_attributes                              | table | pgche
+ public | devfile                                         | table | pgche
+ public | devfile_action                                  | table | pgche
+ public | devfile_attributes                              | table | pgche
+ public | devfile_command                                 | table | pgche
+ public | devfile_command_attributes                      | table | pgche
+ public | devfile_component                               | table | pgche
+ public | devfile_component_arg                           | table | pgche
+ public | devfile_component_command                       | table | pgche
+ public | devfile_component_preferences                   | table | pgche
+ public | devfile_component_selector                      | table | pgche
+ public | devfile_endpoint                                | table | pgche
+ public | devfile_endpoint_attributes                     | table | pgche
+ public | devfile_entrypoint                              | table | pgche
+ public | devfile_entrypoint_arg                          | table | pgche
+ public | devfile_entrypoint_commands                     | table | pgche
+ public | devfile_entrypoint_selector                     | table | pgche
+ public | devfile_env                                     | table | pgche
+ public | devfile_project                                 | table | pgche
+ public | devfile_volume                                  | table | pgche
+ public | environment                                     | table | pgche
+ public | externalmachine                                 | table | pgche
+ public | externalmachine_attributes                      | table | pgche
+ public | externalmachine_env                             | table | pgche
+ public | k8s_runtime_command                             | table | pgche
+ public | k8s_runtime_command_attributes                  | table | pgche
+ public | machine_volume                                  | table | pgche
+ public | preference                                      | table | pgche
+ public | preference_preferences                          | table | pgche
+ public | profile                                         | table | pgche
+ public | profile_attributes                              | table | pgche
+ public | projectattribute                                | table | pgche
+ public | projectattribute_values                         | table | pgche
+ public | projectconfig                                   | table | pgche
+ public | projectconfig_mixins                            | table | pgche
+ public | schema_version                                  | table | pgche
+ public | sequence                                        | table | pgche
+ public | serverconf                                      | table | pgche
+ public | serverconf_attributes                           | table | pgche
+ public | serverconf_properties                           | table | pgche
+ public | sourcestorage                                   | table | pgche
+ public | sourcestorage_parameters                        | table | pgche
+ public | sshkeypair                                      | table | pgche
+ public | user_aliases                                    | table | pgche
+ public | userdevfile                                     | table | pgche
+ public | usr                                             | table | pgche
+ public | workspace                                       | table | pgche
+ public | workspace_attributes                            | table | pgche
+ public | workspaceconfig                                 | table | pgche
+<span style="color: #f92672;font-weight: bold">(</span>84 rows<span style="color: #f92672;font-weight: bold">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, with the switch to <a href="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html">DevWorkspace Operator and Devfile v2</a>, all this data becomes irrelevant since we started using native Kubernetes resources instead.</p>
+</div>
+<div class="paragraph">
+<p>The data is now stored and managed as Kubernetes resources such as Secrets and ConfigMaps in the user namespaces:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/decommissioning-postgresql-database/secrets.png" alt="Secrets from the user namespace">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/decommissioning-postgresql-database/configmaps.png" alt="ConfigMaps from the user namespace">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>As an example, SSH keys are now configured using the dedicated <a href="https://github.com/devfile/devworkspace-operator/blob/main/docs/additional-configuration.adoc#configuring-devworkspaces-to-use-ssh-keys-for-git-operations">secret</a>.</p>
+</div>
+<div class="paragraph">
+<p>Starting from the Eclipse&#160;Che <code>7.62.0</code> release, the PostgreSQL deployment has ceased to exist, resulting in only 5 operands: Che Server, User Dashboard, Plugin Registry, Devfile Registry, and Gateway.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/decommissioning-postgresql-database/operands.png" alt="Eclipse Che operands">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+No manual migration steps or action items are required for this change to take effect. The PostgreSQL deployment will be gracefully terminated and removed during the update. All the obsolete data stored in the database will be removed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It is also worth mentioning that most of the <code><a href="https://&lt;che_fqdn&gt;/swagger" class="bare">https://&lt;che_fqdn&gt;/swagger</a></code> endpoints are now deprecated and going to be removed in future releases. The only endpoints that are still used are related to the namespace provisioning, Git OAuth configuration, and the factory flow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/kubernetes/namespace/*</code></p>
+</li>
+<li>
+<p><code>/oauth/*</code></p>
+</li>
+<li>
+<p><code>/factory/*</code></p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_next-steps">Next steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Decommissioning the PostgreSQL database in favor of native Kubernetes resources provides several benefits, including: improved scalability, flexibility, and easier management.</p>
+</div>
+<div class="paragraph">
+<p>Ultimately, moving away from traditional database architectures and embracing Kubernetes makes Eclipse&#160;Che agile and competitive in an increasingly complex and demanding technology landscape.
+For example, in the next Eclipse&#160;Che releases we plan to make it possible to configure a number of replicas for operands from the CheCluster CustomResource, which was not possible before due to the PostgreSQL database dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
+    <span style="color: #a6e22e">dashboard</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
+    <span style="color: #a6e22e">devfileRegistry</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
+    <span style="color: #a6e22e">pluginRegistry</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The progress of this particular feature can be tracked in the upstream <a href="https://github.com/eclipse/che/issues/22067">issue</a>.
+As always, we look forward to your valuable feedback, comments, remarks, and proposals on this work or anything else related to the project, through our <a href="https://accounts.eclipse.org/mailing-list/che-dev">mailing list</a>, <a href="https://github.com/eclipse/che/issues">GitHub</a>, or <a href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che">Mattermost</a>.
+&#160;<br>
+We wish you an enjoyable and productive coding experience with Eclipse&#160;Che!</p>
+</div>
+</div>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how the PostgreSQL database dependency has been removed in Eclipse Che]]></summary></entry><entry><title type="html">Building Containers in Rootless Mode on OpenShift</title><link href="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html" rel="alternate" type="text/html" title="Building Containers in Rootless Mode on OpenShift" /><published>2022-10-10T00:00:00+00:00</published><updated>2022-10-10T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/10/10/@mloriedo/building-container-images</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"><![CDATA[<div class="imageblock">
 <div class="content">
 <img src="/assets/img/building-container-images/che-inner-loop-optimized.png" alt="Developer inner loop including a container build">
 </div>
@@ -2223,259 +2419,4 @@ However, it is possible to restore from a specific snapshot by adding <code clas
   <li>Backup snapshots are bind to the specific cluster, so it is not possible to restore snapshot on another cluster in general case. This is because Che binds to some cluster ID’s.</li>
 </ul>
 
-<p>Other than that, back up and restore is a user friendly and straightforward process now.</p>]]></content><author><name>Mykola Morhun</name></author><summary type="html"><![CDATA[How to create backups and do recovery of Eclipse Che]]></summary></entry><entry><title type="html">Devfile v2 and IDE plug-ins</title><link href="https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html" rel="alternate" type="text/html" title="Devfile v2 and IDE plug-ins" /><published>2021-06-23T00:00:00+00:00</published><updated>2021-06-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/06/23/@florent.benoit/devfile-v2-and-ide-plug-ins</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/06/23/@florent.benoit-devfile-v2-and-ide-plug-ins.html"><![CDATA[<h3 id="definition">Definition</h3>
-
-<p>Devfile has been incubated by Eclipse Che project providing <a href="https://redhat-developer.github.io/devfile/">devfile v1 specification</a>.</p>
-
-<p>To allow other projects to use a common definition, devfile has moved out of Eclipse Che. It has its own definition at <a href="https://devfile.io">https://devfile.io</a> with current <a href="https://docs.devfile.io/devfile/2.1.0/user-guide/api-reference.html">v2.1.0 specification</a>.</p>
-
-<p>Devfiles v1 were handled by Eclipse Che Server workspace engine using Java/Kubernetes API. There is a new engine for v2 Devfiles called DevWorkspace Controller. The source code is at: <a href="https://github.com/devfile/devworkspace-operator">https://github.com/devfile/devworkspace-operator</a>.</p>
-
-<p>DevWorkspaces are custom Kubernetes resources and can be created/listed/deleted using any Kubernetes client like <code class="language-plaintext highlighter-rouge">kubectl</code>.</p>
-
-<p>A DevWorkspace is a workspace using the new engine and supporting Devfile v2 definition.</p>
-
-<h3 id="milestones">Milestones</h3>
-
-<p>Devfile v2 support in Eclipse Che can be followed by milestones.</p>
-
-<ul>
-  <li><a href="https://github.com/eclipse/che/milestone/136">Milestone 1</a> introduced the first support of Devfile v2 (start a basic workspace)</li>
-  <li><a href="https://github.com/eclipse/che/milestone/139">Milestone 2</a> just landed in Eclipse Che 7.32.0 with the support of Theia plug-ins for DevWorkspaces</li>
-  <li><a href="https://github.com/eclipse/che/issues/20830">End Game</a> is the End Game issue.</li>
-</ul>
-
-<h3 id="how-to-test">How to test ?</h3>
-
-<p>The support of Devfile v2/DevWorkspaces is optional and need to be opt-in.</p>
-
-<p>When the support is enabled, both Devfile v1 and v2 are supported. You can still work with your previous workspaces and Devfile v1.</p>
-
-<ul>
-  <li>If the <code class="language-plaintext highlighter-rouge">devfile.yaml</code> has <code class="language-plaintext highlighter-rouge">apiVersion 1.0.0</code>, it will use Che server workspace engine to deploy this Devfile.</li>
-  <li>If the <code class="language-plaintext highlighter-rouge">devfile.yaml</code> has <code class="language-plaintext highlighter-rouge">schemaVersion 2.0.0</code> (or greater like <code class="language-plaintext highlighter-rouge">2.1.0</code>), it will use the DevWorkspace controller to deploy this Devfile.</li>
-</ul>
-
-<p>⚠️ DevWorkspaces requires OpenShift as platform until Milestone 3 is reached (vanilla Kubernetes is not supported yet)</p>
-
-<p>ℹ️ When DevWorkspace is enabled, single-host deployment is enforced. As a consequence, when the Che host certificate is untrusted, there is no need to locally install it.</p>
-
-<p>To enable DevWorkspaces, use a custom spec object for Che Operator:</p>
-
-<p>Creates a file in your <code class="language-plaintext highlighter-rouge">${HOME}</code> folder for example <code class="language-plaintext highlighter-rouge">${HOME}/enable-devfilev2.yaml</code> with the following content:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>  
-  <span class="na">devWorkspace</span><span class="pi">:</span>  
-    <span class="na">enable</span><span class="pi">:</span> <span class="no">true</span>
-</code></pre></div></div>
-
-<p>Install Eclipse Che (latest stable ≥7.32 or next channel) with chectl:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chectl update next <span class="c"># (or stable)  </span>
-<span class="nv">$ </span>chectl server:deploy <span class="nt">--che-operator-cr-patch-yaml</span><span class="o">=</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span>/enable-devfilev2.yaml
-</code></pre></div></div>
-
-<p>Then, search for the Dashboard link in the chectl output:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ Eclipse Che 7.33.0-SNAPSHOT has been successfully deployed.  
-  ✔ Documentation        : [https://www.eclipse.org/che/docs/](https://www.eclipse.org/che/docs/)  
-  ✔ -------------------------------------------------------------  
-  ✔ Users Dashboard      : https://che-eclipse-che.my-che.com/  
-  ✔ -------------------------------------------------------------  
-</code></pre></div></div>
-
-<p>Opening the Dashboard page will display the new getting started:</p>
-
-<p><img src="https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png" alt="Getting Started" /></p>
-
-<p>Clicking on a sample will use a Devfile v2 and the DevWorkspace engine.</p>
-
-<p>ℹ️ <a href="https://www.eclipse.org/che/docs/che-7/installation-guide/enabling-dev-workspace-engine/">The installation guide is also available in Eclipse Che documentation</a></p>
-
-<h3 id="updating-from-devfilev1">Updating from Devfile v1</h3>
-
-<p>While the syntax between v1 and v2 yaml definition is close, there is a major change in the DevWorkspace definition: the IDE plug-ins are no longer part of the Devfile.</p>
-
-<p>It brings more clarity: for example, it was possible to include a java plug-in but it was unclear that it required the Eclipse Theia editor and that it would not work with other supported editors. Also, when the Devfile was consumed by other tools like <a href="https://developers.redhat.com/products/odo/overview">odo</a> that don’t have the notion of plugin or editor, those components were ignored.</p>
-
-<p>Another change in the lifecycle of a workspace is that the project clone operation is done by the DevWorkspace engine. So whatever Che editor is picked-up, the project will always be cloned in <code class="language-plaintext highlighter-rouge">/projects/&lt;your-project&gt;</code> location after the workspace start (no matter if there is an editor/IDE or not).</p>
-
-<h3 id="plug-ins-definition">Plug-ins definition</h3>
-
-<h4 id="ide-preferences">IDE preferences</h4>
-
-<p>While IDE plug-ins are no longer part of the <code class="language-plaintext highlighter-rouge">devfile.yaml</code>, instead or reinventing a new file format to specify an IDE plugins, the idea was to leverage the already existing definition files.</p>
-
-<p>For example VS Code has <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> file where plug-ins can be recommended.</p>
-
-<p>Eclipse Che now supports this file format and, when it founds one and the editor is Eclipse Theia, it will add the corresponding VS Code extensions to the DevWorkspace.</p>
-
-<p>Specifying</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">  
-  </span><span class="nl">"recommendations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"redhat.java"</span><span class="w">  
-  </span><span class="p">]</span><span class="w">  
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>in <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> will automatically install <code class="language-plaintext highlighter-rouge">redhat/java</code> VS Code extension in the Eclipse Che workspace.</p>
-
-<p>Note: if the specified set of extensions IDs are not available in the Eclipse Che plug-in registry, the workspace creation won’t fail but the extensions won’t be included.</p>
-
-<p>The list of the VS Code extension that can be included in a Che Theia workspace are available on the online registry at <a href="https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/">https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/</a>. The registry is continuously updated when PRs get merged on Che plugin registry main branch.</p>
-
-<h4 id="custom-definition">Custom definition</h4>
-
-<p>Relying on <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> is great but, to run a VS Code extension as a Kubernetes workload, may require some extra specifications that are not part of this file format.</p>
-
-<p>Here comes the <code class="language-plaintext highlighter-rouge">.che/che-theia-plugins.yaml</code> optional file.</p>
-
-<p>For example, overriding some container settings like the memoryLimit for the <code class="language-plaintext highlighter-rouge">redhat.java</code> plug-in.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">redhat/java</span>  
-  <span class="na">override</span><span class="pi">:</span>  
-    <span class="na">sidecar</span><span class="pi">:</span>  
-      <span class="na">memoryLimit</span><span class="pi">:</span> <span class="s">2Gi</span>
-</code></pre></div></div>
-
-<h4 id="inlining">Inlining</h4>
-
-<p>Sometimes it may not be possible to include the files <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> or the <code class="language-plaintext highlighter-rouge">.che/che-theia-plugins.yaml</code> in the git repository.</p>
-
-<p>Inlining the content of these files in the <code class="language-plaintext highlighter-rouge">devfile.yaml</code> file is somehow possible using the following syntax of the Devfile:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">schemaVersion</span><span class="pi">:</span> <span class="s">2.1.0</span>  
-<span class="na">metadata</span><span class="pi">:</span>  
-  <span class="na">name</span><span class="pi">:</span> <span class="s">my-example</span>  
-<span class="na">attributes</span><span class="pi">:</span>  
-  <span class="na">.vscode/extensions.json</span><span class="pi">:</span> <span class="pi">|</span>  
-    <span class="s">{  </span>
-      <span class="s">"recommendations": [  </span>
-        <span class="s">"redhat.java"  </span>
-      <span class="s">]  </span>
-    <span class="s">}</span>
-</code></pre></div></div>
-
-<p>To inline <code class="language-plaintext highlighter-rouge">.che/che-theia-plugins.yaml</code> :</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="na">schemaVersion</span><span class="pi">:</span> <span class="s">2.1.0</span>  
-<span class="na">metadata</span><span class="pi">:</span>  
-  <span class="na">name</span><span class="pi">:</span> <span class="s">my-example</span>  
-<span class="na">attributes</span><span class="pi">:</span>  
-  <span class="na">.che/che-theia-plugins.yaml</span><span class="pi">:</span> <span class="pi">|</span>  
-    <span class="s">- id: redhat/java</span>
-</code></pre></div></div>
-
-<h3 id="workflow-of-handling-ide-plug-ins-with-workspaces">Workflow of handling IDE plug-ins with workspaces</h3>
-
-<p><img src="https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/devfile2-workflow.png" alt="devfile v2 workflow" /></p>
-
-<h3 id="new-features-forplug-ins">New Features for plug-ins</h3>
-
-<p>Although excluding the IDE plug-ins from the Devfile specification represents a big change, each editor can now bring new features more easily. Each editor can directly update a workspace using <code class="language-plaintext highlighter-rouge">DevWorkspaceTemplate</code> objects based on its configuration files (like optional <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> or <code class="language-plaintext highlighter-rouge">.che/che-theia-plugins.yaml</code> files).</p>
-
-<h4 id="deploy-plug-ins-in-existing-containers">Deploy plug-ins in existing containers</h4>
-
-<p>By default, in Eclipse Che and when using Eclipse Theia editor, IDE plug-ins were deployed either in the Che-Theia container (when it only requires nodejs runtime) or through a new sidecar container (for example for Java, Go, Python, Php, etc.)</p>
-
-<p>In that case, all plugins requiring a sidecar will be deployed in the <code class="language-plaintext highlighter-rouge">user defined container</code> and not in their specific sidecar container.</p>
-
-<p>Example:</p>
-
-<p>If a repository contains these two files:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">devfile.yaml</code> with the following content:
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">schemaVersion</span><span class="pi">:</span> <span class="s">2.1.0</span>  
-<span class="na">metadata</span><span class="pi">:</span>  
-  <span class="na">name</span><span class="pi">:</span> <span class="s">my-example</span>  
-<span class="na">components</span><span class="pi">:</span>  
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">tools</span>  
- <span class="na">container</span><span class="pi">:</span>  
-   <span class="na">image</span><span class="pi">:</span> <span class="s">registry.access.redhat.com/ubi8/openjdk-11</span>  
-   <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">tail'</span><span class="pi">]</span>  
-   <span class="na">args</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">-f'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">/dev/null'</span><span class="pi">]</span>
-</code></pre></div>    </div>
-  </li>
-  <li>And the file <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> containing
-    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">  
-</span><span class="nl">"recommendations"</span><span class="p">:[</span><span class="w">
-   </span><span class="s2">"redhat.java"</span><span class="w">  
-</span><span class="p">]</span><span class="w">  
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </li>
-</ol>
-
-<p>The plug-in <code class="language-plaintext highlighter-rouge">redhat.java</code> will be started inside the tools container and in its own sidecar container.</p>
-
-<p>For this to work the tools container should include the plug pre-requisites otherwise the VS Code java extension will fail to start.</p>
-
-<p>To disable this behaviour, use the following attribute:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">attributes</span><span class="pi">:</span>  
-  <span class="na">che-theia.eclipse.org/sidecar-policy</span><span class="pi">:</span> <span class="s">mergeImage</span>
-</code></pre></div></div>
-
-<h4 id="prebuilt-devworkspace-templates">Prebuilt DevWorkspace templates</h4>
-
-<p>With Devfile v1 the flow was the following: a user selects a getting started example, the Dashboard fetches the Devfile, the plug-in broker analyzes the <code class="language-plaintext highlighter-rouge">devfile.yaml</code> fetches the content from linked plug-in registries, parses the <code class="language-plaintext highlighter-rouge">meta.yaml</code> of these plug-ins, extracts the sidecar containers definitions and, finally, adds some containers to the workspace definition.</p>
-
-<p>With Devfile v2, these steps with a lot of yaml/json transformations are still present but the output result is a set of DevWorkspace templates that will be applied on the Kubernetes cluster.</p>
-
-<p>Those DevWorkspace templates can be generated at build time rather than at runtime. The Che-Theia library, with a Devfile provided as input (the optional <code class="language-plaintext highlighter-rouge">.vscode/extensions.json</code> and <code class="language-plaintext highlighter-rouge">.che/che-theia-plugins.yaml</code> files), generates a yaml file that includes the definition of the DevWorkspace templates.</p>
-
-<p>npx @eclipse-che/che-theia-devworkspace-handler –devfile-url:<a href="https://github.com/che-samples/spring-petclinic/tree/devfilev2">https://github.com/che-samples/spring-petclinic/tree/devfilev2</a> –output-file:$(pwd)/all-in-one.yaml</p>
-
-<p>Then this file can be used directly by <code class="language-plaintext highlighter-rouge">kubectl</code> :</p>
-
-<p><code class="language-plaintext highlighter-rouge">kubectl apply -f all-in-one.yaml -n my-namespace</code></p>
-
-<p>These templates can be included in the Devfile registry and the Eclipse Che Dashboard will apply them directly instead of processing the original Devfile at every workspace start.</p>
-
-<h3 id="plug-in-registrychanges">Plug-in registry changes</h3>
-
-<p>For workspaces using Devfile v1, Eclipse Che server fetches a <code class="language-plaintext highlighter-rouge">meta.yaml</code> files from the plug-in registry. There are some limitations, for example defining plug-in preferences is only possible if there is a sidecar being defined, etc.</p>
-
-<p>With DevWorkspaces, the plug-in registry export now the content provided in different formats. It still exports <code class="language-plaintext highlighter-rouge">meta.yaml</code> files but it also exposes <code class="language-plaintext highlighter-rouge">devfile.yaml</code> files for Eclipse Che editors definition and for some plug-ins that are not IDE plug-ins like che-machine-exec (library to be able connect to a specific container in a workspace/pod).</p>
-
-<p>Also the Che-Theia IDE plug-ins are now exposed by their <code class="language-plaintext highlighter-rouge">che-theia-plugin.yaml</code> fragment.</p>
-
-<p>Every Che-Theia plug-in fragment is generated from the <a href="https://github.com/eclipse-che/che-plugin-registry/blob/main/che-theia-plugins.yaml">che-theia-plugins.yaml file</a>.</p>
-
-<p>An hosted version of the che-plugin-registry is available after each commit at <a href="https://eclipse-che.github.io/che-plugin-registry/main">https://eclipse-che.github.io/che-plugin-registry/main</a></p>
-
-<p>Corresponding definition for<code class="language-plaintext highlighter-rouge">redhat/java</code> IDE plug-in is available at:</p>
-
-<p><a href="https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/redhat/java/latest/che-theia-plugin.yaml">https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/redhat/java/latest/che-theia-plugin.yaml</a></p>
-
-<p>It references the dependencies of this IDE plug-in and its preferences (whereas with <code class="language-plaintext highlighter-rouge">meta.yaml</code> the notion of dependency didn’t exist and all the required <code class="language-plaintext highlighter-rouge">.vsix</code> had to be specified in the file)</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">preferences</span><span class="pi">:</span>  
-  <span class="na">java.server.launchMode</span><span class="pi">:</span> <span class="s">Standard</span>  
-<span class="na">dependencies</span><span class="pi">:</span>  
-  <span class="pi">-</span> <span class="s">vscjava/vscode-java-debug</span>  
-  <span class="pi">-</span> <span class="s">vscjava/vscode-java-test</span>
-</code></pre></div></div>
-
-<h3 id="eclipse-che-devfile-registrychanges">Eclipse Che Devfile registry changes</h3>
-
-<p>The index of the Devfile registry is providing a list of Devfiles to use. But now, Devfile v2 as some other optional files may be required, it’s better to reference a repository rather than a single <code class="language-plaintext highlighter-rouge">devfile.yaml</code>.</p>
-
-<p>New links are available in the Devfile registry. The <code class="language-plaintext highlighter-rouge">v2</code> links are links to either repositories or devfiles.</p>
-
-<p>Here is an example of a minimal index of a Devfile registry:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Java Spring Boot"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/images/springboot.svg"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"v2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/che-samples/java-spring-petclinic/tree/devfilev2"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/devfiles/java-web-spring/devfile.yaml"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>If the DevWorkspaces is enabled and there are some v2 links in the Devfile registry, only Devfile v2 getting started will be shown on the Dashboard (Devfile v1 getting started will be hidden). Each of these samples will use the new DevWorkspace engine.</p>
-
-<p><img src="https://che.eclipseprojects.io//assets/img/devfile-v2-and-ide-plugins/dashboard-getting-started.png" alt="Getting Started" /></p>
-
-<p>In addition to those changes, there is an ongoing effort to merge Che Devfile registry and <a href="https://registry.devfile.io">community Devfile registry</a>. This work is part of the <a href="https://github.com/devfile/registry">Devfile project</a> that is planned to become <a href="https://github.com/devfile/api/issues/426">a CNCF sandbox project</a>.</p>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[How are IDE plug-ins handled with devfile v2]]></summary></entry></feed>
+<p>Other than that, back up and restore is a user friendly and straightforward process now.</p>]]></content><author><name>Mykola Morhun</name></author><summary type="html"><![CDATA[How to create backups and do recovery of Eclipse Che]]></summary></entry></feed>
