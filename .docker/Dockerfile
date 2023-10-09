@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2021 Red Hat, Inc.
+# Copyright (c) 2023 Red Hat, Inc.
 # This program and the accompanying materials are made
 # available under the terms of the Eclipse Public License 2.0
 # which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -21,23 +21,40 @@ RUN wget -qO- https://github.com/errata-ai/vale/archive/v${VALE_VERSION}.tar.gz 
     &&  GOOS=linux GOARCH=${ARCH} CGO_ENABLED=0 go build -tags closed -ldflags "-X main.date=`date -u +%Y-%m-%dT%H:%M:%SZ` -X main.version=${VALE_VERSION}" -o bin/vale ./cmd/vale \
     &&  /vale/bin/vale --version
 
-# use jekyll image
-FROM docker.io/jekyll/jekyll:4.2.2
-COPY --from=vale-builder /vale/bin/vale /usr/local/bin/vale
-RUN mkdir -p /home/jekyll/.vale/styles
-WORKDIR /home/jekyll/.vale/styles
-RUN wget -qO- https://github.com/redhat-documentation/vale-at-red-hat/releases/latest/download/RedHat.zip | unzip -
-RUN wget -qO-  https://github.com/eclipse-che/che-docs-vale-style/releases/latest/download/CheDocs.zip | unzip -
-COPY --chown=jekyll:jekyll .docker/.vale.ini /home/jekyll/.vale.ini
-COPY --chown=jekyll:jekyll Gemfile .
-COPY --chown=jekyll:jekyll Gemfile.lock .
-RUN bundle install
-COPY --chown=0:0 .docker/entrypoint.sh /
-RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home && chmod +x /entrypoint.sh && usermod --shell /bin/bash jekyll
+# use UBI image
+FROM quay.io/devfile/universal-developer-image:latest
 
-USER 1000
-WORKDIR /projects
-ENV HOME=/home/jekyll
-ENV USER_NAME=jekyll
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD ["tail", "-f", "/dev/null"]
+COPY --from=vale-builder /vale/bin/vale /usr/local/bin/vale
+RUN mkdir -p $HOME/.vale/styles && \
+    cd $HOME/.vale/styles && \
+    curl -sSL -o ./RedHat.zip https://github.com/redhat-documentation/vale-at-red-hat/releases/latest/download/RedHat.zip && \
+    curl -sSL -o ./CheDocs.zip https://github.com/eclipse-che/che-docs-vale-style/releases/latest/download/CheDocs.zip && \
+    unzip ./RedHat.zip && rm ./RedHat.zip && \
+    unzip ./CheDocs.zip && rm ./CheDocs.zip
+COPY --chown=user:0 .docker/.vale.ini $HOME/.vale.ini
+
+# The following commands require root
+USER 0
+
+# Install a recent version of ruby
+ENV RUBY_VERSION 3.1.2
+RUN dnf -y update && \
+    dnf -y install rbenv ruby-build sqlite && \
+    dnf -y clean all --enablerepo='*' && \
+    rbenv install $RUBY_VERSION && \
+    rbenv global $RUBY_VERSION && \
+    echo 'eval "$(rbenv init - bash)"' >> $HOME/.bashrc && \
+    echo 'eval "$(rbenv init - sh)"' > /etc/profile.d/rbenv.sh
+
+ENV PATH="${HOME}/.rbenv/shims:${PATH}" ENV="/etc/profile"
+
+# Install jekyll
+RUN gem install jekyll
+
+# Set bundle config
+RUN bundle config --global path $HOME/.bundle/vendor && \
+    chgrp -R 0 $HOME/.bundle && chmod -R g=u $HOME/.bundle && \
+    chgrp -R 0 $HOME/.local && chmod -R g=u $HOME/.local && \
+    chgrp -R 0 $HOME/.rbenv && chmod -R g=u $HOME/.rbenv
+
+USER 10001
