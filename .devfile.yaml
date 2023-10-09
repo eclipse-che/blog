@@ -1,4 +1,4 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
   name: che-blog
 components:
@@ -6,6 +6,9 @@ components:
     container:
       image: quay.io/eclipse/che-blog:next
       memoryLimit: 4Gi
+      cpuLimit: '2'
+      memoryRequest: 1Gi
+      cpuRequest: 500m
       endpoints:
         - exposure: public
           name: live-reload
@@ -16,18 +19,27 @@ components:
           protocol: http
           targetPort: 4000
 commands:
-  - id: jekyll-clean
+  - id: bundle-install
     exec:
+      label: 0. Install Gemfile dependencies
       component: jekyll
-      commandLine: bundle jekyll clean
+      commandLine: bundle install
       group:
-        kind: run
+        kind: build
         isDefault: true
   - id: start-jekyll-server
     exec:
+      label: 1. Start the jekyll based blog server
       component: jekyll
       # commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0 --livereload --livereload-port 35729
-      commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0
+      commandLine: bundle exec jekyll serve --incremental --watch --host 0.0.0.0
       group:
         kind: run
         isDefault: true
+  - id: jekyll-clean
+    exec:
+      component: jekyll
+      commandLine: bundle exec jekyll clean
+      group:
+        kind: build
+        isDefault: false
