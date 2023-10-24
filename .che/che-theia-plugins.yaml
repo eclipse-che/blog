@@ -1,4 +1,0 @@
-- id: errata-ai/vale-server/latest
-  override:
-    preferences:
-       "vale.core.useCLI": true
