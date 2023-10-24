@@ -31,8 +31,7 @@ commands:
     exec:
       label: 1. Start the jekyll based blog server
       component: jekyll
-      # commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0 --livereload --livereload-port 35729
-      commandLine: bundle exec jekyll serve --incremental --watch --host 0.0.0.0
+      commandLine: bundle exec jekyll serve --watch --host 0.0.0.0 --future
       group:
         kind: run
         isDefault: true
