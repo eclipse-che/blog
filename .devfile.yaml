@@ -12,11 +12,11 @@ components:
       endpoints:
         - exposure: public
           name: live-reload
-          protocol: http
+          protocol: https
           targetPort: 35729
         - exposure: public
           name: jekyll
-          protocol: http
+          protocol: https
           targetPort: 4000
 commands:
   - id: bundle-install
