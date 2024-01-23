@@ -1,0 +1,95 @@
+---
+title: Configuring Granular Access for Eclipse Che Authorized Users
+layout: post
+author: Ilya Buziuk
+description: >-
+  The article describes how to configure advanced authorization in Eclipse Che
+categories: []
+keywords: ['authorization']
+slug: /@ilya.buziuk/advanced-authorization
+---
+
+Even though the current trend is to split an infrastructure into a number of 'Fit For Purpose' clusters instead of having a gigantic monolith {kubernetes} cluster, administrators still want to provide granular access and restrict certain functionality for particular users.
+
+NOTE: A 'Fit For Purpose' {kubernetes} cluster refers to a cluster that is specifically designed and configured to meet the requirements and goals of a particular use case or workload, tailored to optimize performance, resource utilization, and other factors based on the characteristics of the workloads it will be managing. For {prod} it is recommended to have this type of cluster provisioned.
+
+Previously, all users provisioned on a {kubernetes} cluster had access to {prod}, and it was difficult to restrict the usage for certain accounts. One of the options for administrators was to remove permissions for namespace / project creation on the {kubernetes} level, and disable automatic namespace provisioning for {prod}:
+
+[source,yaml]
+----
+devEnvironments:
+  defaultNamespace:
+    autoProvision: false
+----
+
+Considering this, new optional properties that allow setting up granular access for different groups and users have been added to the {prod} Custom Resource: `allowUsers`, `allowGroups`, `denyUsers`, and `denyGroups`. Below you can find an illustration exemplifying the configuration:
+
+[source,yaml]
+----
+ networking:
+    auth:
+      advancedAuthorization:
+        allowUsers:
+          - user-a
+          - user-b
+        denyUsers:
+          - user-c
+        allowGroups:
+          - team-a
+          - team-b
+        denyGroups:
+          - team-c
+----
+
+IMPORTANT: `AllowGroups` and `DenyGroups` properties are only supported on OpenShift.
+
+Users who are not allowed will not be able to use {prod} and will see the following warning when trying to access the User Dashboard:
+
+image::/assets/img/advanced-authorization/warning.png[User might not be allowed warning]
+{nbsp} +
+
+== Dogfooding In Action
+
+For internal development and dogfooding purposes we use an link:https://www.redhat.com/en/technologies/cloud-computing/openshift/dedicated[OpenShift Dedicated] cluster with GitHub identity provider setup. Under the `Users` tab, all the accounts that have access to the cluster are listed e.g.
+
+image::/assets/img/advanced-authorization/user.png[OpenShift User]
+{nbsp} +
+
+There are a few teams working on {prod} with the corresponding OpenShift Groups created and managed on the cluster:
+
+image::/assets/img/advanced-authorization/groups.png[OpenShift Groups]
+{nbsp} +
+
+Each OpenShift group explicitly defines a set of users that belong to it:
+
+[source,yaml]
+----
+kind: Group
+apiVersion: user.openshift.io/v1
+metadata:
+  name: che-team-a
+users:
+  - ibuziuk
+  - ...
+----
+
+The `advancedAuthorization` property of the {prod} Custom Resource explicitly defines the groups which are allowed:
+
+[source,yaml]
+----
+  networking:
+    auth:
+      advancedAuthorization:
+        allowGroups:
+          - che-team-a
+          - che-team-b
+          - che-docs
+----
+
+Users who do not belong to the groups from the list above are not allowed to use {prod}. This configuration allows the cluster administrator to explicitly manage the onboarding and curate the access.
+         
+== Conclusion
+
+More details about advanced authorization can be found in the link:https://eclipse.dev/che/docs/stable/administration-guide/configuring-advanced-authorization/[official documentation]. As always, we look forward to your valuable feedback, comments, remarks, and proposals on this work or anything else related to the project, through our link:https://accounts.eclipse.org/mailing-list/che-dev[mailing list], link:https://github.com/eclipse/che/issues[GitHub], or link:https://ecd-tools.slack.com/archives/C05SD64M85R[Slack].
+{nbsp} +
+We wish you an enjoyable and productive coding experience with {prod}!
