@@ -389,7 +389,7 @@ In this last section we want to show a last mechanism to override CDEs' default 
 Applying a particular `DevWorkspaceOperatorConfig` to a CDEs takes 2 steps:
 
 1. Create the `DevWorkspaceOperatorConfig` custom resource in the Kubernetes cluster
-2. Edit the Devfile to specify to apply that specific configuration
+2. Edit the Devfile to apply that specific configuration
 
 The following `DevWorkspaceOperatorConfig` override CDEs Pod `schedulerName` configuration:
 
