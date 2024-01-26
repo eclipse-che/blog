@@ -254,7 +254,7 @@ It's recommended to add the Devfile in the same git repository of the applicatio
 
 When it's not possible to add a `.devfile.yaml` in the git repository, there is still the option to publish it (in a gist, pastebin or another git repository) and https://eclipse.dev/che/docs/stable/end-user-guide/starting-a-workspace-from-a-raw-devfile-url/[start the CDE by providing the raw URL to it].
 
-TIP: To change the configuration of a running CDE, add a new `.devfile.yaml` (or edit the existing one), and restart the CDE using the command `Eclipse Che: Restart Workspace from Local Devfile` from Visual Studio Code command palette. The command is also quickly accessible by clicking on the bottom-left corner of Visual Studio Code.
+TIP: To change the configuration of a running CDE, add a new `.devfile.yaml` (or edit the existing one), and restart the CDE using the command `Eclipse Che: Restart Workspace from Local Devfile` from the Visual Studio Code command palette. This command is also quickly accessible by clicking on the bottom-left corner of Visual Studio Code.
 
 TIP: https://github.com/devfile/vscode-walkthrough-extension[The Devfile Visual Studio Code walkthrough extension] helps generating a Devfile using a GUI wizard.
 
