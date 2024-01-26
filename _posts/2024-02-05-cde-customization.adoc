@@ -384,7 +384,7 @@ EOF
 
 In this last section we want to show a last mechanism to override CDEs default properties. In this case using a https://doc.crds.dev/github.com/devfile/devworkspace-operator[DevWorkspaceOperatorConfig Custom Resource].
 
-`DevWorkspaceOperatorConfig` objects specifies advanced CDE properties such as the `Pod` `schedulerName`, if the `/home/user` folder will be persisted after a restart or not and many more.
+`DevWorkspaceOperatorConfig` objects specify advanced CDE properties such as the `Pod` `schedulerName`, whether the `/home/user` folder will persist after a restart or not, and many more.
 
 Applying a particular `DevWorkspaceOperatorConfig` to a CDEs takes 2 steps:
 1. Create the `DevWorkspaceOperatorConfig` custom resource in the Kubernetes cluster
