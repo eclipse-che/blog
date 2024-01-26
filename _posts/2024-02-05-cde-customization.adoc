@@ -160,7 +160,7 @@ https://github.com/l0rd/rails-sample&image=quay.io/mloriedo/rails-blog-cde
 image::/assets/img/cde-customization/image-url-parameter.png[]
 {nbsp} +
 
-Or this URL can be used to start it on Red Hat Developer Sandbox: 
+Or this URL can be used to start it on the Red Hat Developer Sandbox: 
 
 [attributes]
 ....
