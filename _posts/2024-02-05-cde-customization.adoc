@@ -275,7 +275,7 @@ For example you can use https://workspaces.openshift.com/#https://github.com/l0r
 
 ## PART4: Secrets and other CDE configurations that cannot be specified in Devfile [[part4]]
 
-There are some properties of your CDE that you don't want to specify in a Devfile. Either because they contain sensible information (like a password or an SSH private key), because you want to customize your CDE without affecting the rest of the team or because that's an IDE configuration. In any case, the Devfile that is a shared file in the git repository, cannot be used. In this section we will go through a few techniques to add user specific configurations.
+There are some properties of your CDE that you don't want to specify in a Devfile. Either because they contain sensitive information (like a password or an SSH private key), because you want to customize your CDE without affecting the rest of the team or because it's an IDE configuration. In any case, the Devfile which is a shared file in the git repository, cannot be used. In this section we will go through a few techniques to add user specific configurations.
 
 ### Add environment variables with Kubernetes `ConfigMaps` and `Secrets`
 
