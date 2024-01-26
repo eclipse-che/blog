@@ -212,7 +212,7 @@ There are still a few properties of the CDE that can be improved (like increasin
 
 [TIP]
 ====
-In this part the image of the CDE has been replaced using a URL parameter. This can be done using a Devfile too as we will see in next session. An alternative to those approches is to change the image "on the fly" using `kubectl patch` against the DevWorkspace object:
+In this part the image of the CDE has been replaced using a URL parameter. This can be done using a Devfile too as we will see in the next session. An alternative to those approaches is to change the image "on the fly" using `kubectl patch` against the DevWorkspace object:
 ```bash
 DW_NAME="rails-sample" && \
 IMAGE="quay.io/mloriedo/rails-blog-cde:latest" && \
