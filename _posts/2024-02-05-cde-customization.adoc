@@ -126,7 +126,7 @@ RUN bundle config --global path $HOME/.bundle
 
 For simplicity the base image is Eclipse Che Universal Developer Image (`quay.io/devfile/universal-developer-image:latest`) and `ruby` and `rails` are installed on top of it.
 
-NOTE: It's not necessary to use Eclipe Che default image as the base image. I am maintaining https://github.com/devfile/developer-images/[a repository with a list of Dockerfiles for Che CDEs] using popular base images.
+NOTE: It's not necessary to use the Eclipse Che default image as the base image. I am maintaining https://github.com/devfile/developer-images/[a repository with a list of Dockerfiles for Che CDEs] using popular base images.
 
 ### Build and publish the custom image
 
