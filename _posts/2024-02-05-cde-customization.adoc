@@ -26,7 +26,7 @@ NOTE: To help illustrate this sample we will use a https://github.com/l0rd/rails
 
 ## PART 1: Eclipse Che default CDE [[part1]]
 
-When no Devfile is found in a git repository and the developer doesn't provide an URL, then Eclipse Che uses a default development environment.
+When no Devfile is found in a git repository and the developer doesn't provide a URL, Eclipse Che uses a default development environment.
 
 image::/assets/img/cde-customization/ruby-sample-main-branch.gif[]
 {nbsp} +
