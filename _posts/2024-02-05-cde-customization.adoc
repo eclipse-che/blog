@@ -303,7 +303,7 @@ EOF
 
 The environment variables specified in the `data` field of the `ConfigMap` (in this case `RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com`) will be added automatically to every CDE created in the same namespace.
 
-An example of environment variables holding sensitive informations are those that specify developers tokens (for example `GITHUB_TOKEN` used by the GitHub CLI).
+An example of environment variables holding sensitive information are those that specify developers' tokens (for example `GITHUB_TOKEN` used by the GitHub CLI).
 
 In this case we can create a `Secret` with labels `controller.devfile.io/mount-to-devworkspace: "true"` and `controller.devfile.io/watch-secret: "true"` and with annotation `controller.devfile.io/mount-as: env`:
 
