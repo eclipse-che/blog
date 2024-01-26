@@ -429,6 +429,6 @@ Most of the time, the Eclipse Che default Cloud Development Environment (CDE) th
 
 To build and run an application in a CDE it may be necessary to create a custom container image and replace the default. This is described in <<part2>>. 
 
-But it's in <<part3>> that we shared how to make to most out of Eclipse Che development environments. The Devfile allow to specify development environments as code and share it with the rest of the team. 
+But it's in <<part3>> that we shared how to make to most out of Eclipse Che development environments. The Devfile allows us to specify development environments as code and share it with the rest of the team. 
 
 Finally, in <<part4>>, some more advanced techniques to configure development environments, beyond the devfile, are explained.
