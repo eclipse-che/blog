@@ -331,7 +331,7 @@ TIP: These ConfigMap and Secret should be created in the developer namespace. Th
 
 Regular files can be projected into CDEs using `ConfigMaps` and `Secrets` too. In this case the required annotation is `controller.devfile.io/mount-as: file`.
 
-When projecting files, there are two extra annotations read by Eclipse Che: `controller.devfile.io/mount-path: <container-path>` specifes the projected file folder and `controller.devfile.io/mount-access-mode` specifies the projected file access mode.
+When projecting files, there are two extra annotations read by Eclipse Che: `controller.devfile.io/mount-path: <container-path>` specifies the projected file folder, and `controller.devfile.io/mount-access-mode` specifies the projected file access mode.
 
 The following `ConfigMap` projects a Visual Studio Code `settings.json` file (remote VS Code data folder is `/checode/remote/data/machine`) that specifies a couple of Visual Studio Code Terminal settings:
 
