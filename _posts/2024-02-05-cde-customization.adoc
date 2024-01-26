@@ -22,7 +22,7 @@ In this blog posts we will review Eclipse Che CDEs customization in 4 parts:
 <<part4>>
 
 
-NOTE: To help illustrate this sample we will use a https://github.com/l0rd/rails-sample[Ruby on Rails source code example]. Ruby is a good example because the default development container doesn't include Ruby development tools at all. For other languages such as Java, Go, NodeJS, Python and .NET, Eclispe Che default development image includes a few tools, and the customizations in this blog post may not be necessary.
+NOTE: To help illustrate this sample we will use a https://github.com/l0rd/rails-sample[Ruby on Rails source code example]. Ruby is a good example because the default development container doesn't include Ruby development tools at all. For other languages such as Java, Go, NodeJS, Python and .NET, the Eclipse Che default development image includes a few tools, and the customizations in this blog post may not be necessary.
 
 ## PART 1: Eclipse Che default CDE [[part1]]
 
