@@ -419,7 +419,7 @@ components:
 ...
 ```
 
-With that attribute, the CDE started using this devfile, will use the scheduler `my-scheduler` (if it exist) rather then the default Kubernetes scheduler.
+With that attribute, the CDE started using this devfile will use the scheduler `my-scheduler` (if it exists) rather than the default Kubernetes scheduler.
 
 NOTE: If the DevWorkspaceOpenratorConfig referenced in a Devfile doesn't exist in the Kubernetes cluster, then Che will silently ignore it.
 
