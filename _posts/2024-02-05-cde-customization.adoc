@@ -144,7 +144,7 @@ image::/assets/img/cde-customization/github-action.png[]
 {nbsp} +
 As a result the image will be built and pushed automatically at every commit. The https://github.com/l0rd/rails-sample/blob/dockerfile/.github/workflows/image-build.yaml#L29[branch `dockerfile` of the ruby-sample repository] pushes the image to `quay.io/mloriedo/rails-blog-cde:latest`.
 
-NOTE: I have named the file as `.devfile.Dockerfile`: even if any name is ok I like to use the `.devfile` prefix as these image are usually used in devfiles (as we will do STEP 3).
+NOTE: I have named the file as `.devfile.Dockerfile`: even if any name is ok I like to use the `.devfile` prefix as these images are usually used in devfiles (as we will do STEP 3).
 
 ### Start a new CDE using the custom image
  
