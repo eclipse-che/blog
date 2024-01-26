@@ -180,7 +180,7 @@ registry.redhat.io/devspaces/traefik-rhel8@sha256:f10ddd0e836be6d4cce38453025956
 
 ### Run Ruby on Rails from the Terminal
 
-And we can now verify that the `rails-sample` application starts successfully from the VisualStudio Code Terminal:
+And we can now verify that the `rails-sample` application starts successfully from the Visual Studio Code Terminal:
 
 [attributes]
 ....
