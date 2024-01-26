@@ -305,7 +305,7 @@ The environment variables specified in the `data` field of the `ConfigMap` (in t
 
 An example of environment variables holding sensitive information are those that specify developers' tokens (for example `GITHUB_TOKEN` used by the GitHub CLI).
 
-In this case we can create a `Secret` with labels `controller.devfile.io/mount-to-devworkspace: "true"` and `controller.devfile.io/watch-secret: "true"` and with annotation `controller.devfile.io/mount-as: env`:
+In this case, we can create a `Secret` with labels `controller.devfile.io/mount-to-devworkspace: "true"` and `controller.devfile.io/watch-secret: "true"` and with the annotation `controller.devfile.io/mount-as: env`:
 
 ```bash
 kubectl apply -f - << EOF
