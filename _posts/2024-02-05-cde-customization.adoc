@@ -208,7 +208,7 @@ image::/assets/img/cde-customization/ruby-lsp-extension-fully-functional.png[]
 {nbsp} +
 Replacing the Eclipse Che default image with a custom one allowed us to include the right pre-requisites (ruby and rails) to the CDE. With that, we are able to run the application and the Visual Studio Code ruby extension. 
 
-There are still a few properties of the CDE that can be improved (like increasing the CPU and memory, specifying the command to run the application, pre-fetch the dependencies etc...). We will cover those in the next session where we will use the Devfile for CDE more advanced configurations.
+There are still a few properties of the CDE that can be improved (like increasing the CPU and memory, specifying the command to run the application, pre-fetch the dependencies etc...). We will cover those in the next session where we will use the Devfile to perform more advanced configurations for the CDE.
 
 [TIP]
 ====
