@@ -252,7 +252,7 @@ components:
 
 It's recommended to add the Devfile in the same git repository of the application being developed (as seen in the https://github.com/l0rd/rails-sample/tree/devfile[`devfile` branch of the `rails-sample` git repository]) using the name `.devfile.yaml`. When the Devfile is in the git repository it should evolve along with the application and it will be applied automatically whenever a developer provides the git repository URL to start a CDE.
 
-When it's not possible to add a `.devfile.yaml` in the git repository, there is still the option to publish it (in a gist, pastebin or another git repository) and https://eclipse.dev/che/docs/stable/end-user-guide/starting-a-workspace-from-a-raw-devfile-url/[start the CDE providing the raw URL to it].
+When it's not possible to add a `.devfile.yaml` in the git repository, there is still the option to publish it (in a gist, pastebin or another git repository) and https://eclipse.dev/che/docs/stable/end-user-guide/starting-a-workspace-from-a-raw-devfile-url/[start the CDE by providing the raw URL to it].
 
 TIP: To change the configuration of a running CDE, add a new `.devfile.yaml` (or edit the existing one), and restart the CDE using the command `Eclipse Che: Restart Workspace from Local Devfile` from Visual Studio Code command palette. The command is also quickly accessible by clicking on the bottom-left corner of Visual Studio Code.
 
