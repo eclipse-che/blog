@@ -325,7 +325,7 @@ EOF
 
 The environment variable specified in the `stringData` field of the `Secret` (in this case `GITHUB_TOKEN=<your token>`) will be added automatically to every CDE created in the same namespace. 
 
-TIP: These ConfigMap and Secret should be created in the developer namespace. The variables specified in `data` will be added to the CDEs of owner of the namespace only. Dev Spaces uses namespaces to isolate developers CDEs: it's critical to allow read access to the objects in the namespaces only to the developer owning it.
+TIP: These ConfigMap and Secret should be created in the developer namespace. The variables specified in `data` will be added to the CDEs of the owner of the namespace only. Eclipse Che uses namespaces to isolate developers CDEs: it's critical to allow read access to the objects in the namespaces only to the developer owning it.
 
 ### Projects files with Kubernetes `ConfigMaps` and `Secrets`
 
