@@ -271,7 +271,7 @@ These steps can be tested iteratively from a running CDE using the "Eclipse Che:
 
 After the last step, the CDE will be fully functional. After the Devfile has been pushed to the git repository any new contributor will be able to run the application, do some changes, and debug them in a flash. 
 
-For example you can use https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample/tree/devfile[this link] to test the rails-sample using the Devfile in step 7. After the workspace has started, use task `server-start` in VS Code (Terminal => Run Tasks => Devfile) to start the application and install the VS extension `ruby-lsp` to start making changes with full language support.
+For example you can use https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample/tree/devfile[this link] to test the rails-sample using the Devfile in step 7. After the workspace has started, use task `server-start` in VS Code (Terminal => Run Tasks => Devfile) to start the application and install the VS Code extension `ruby-lsp` to start making changes with full language support.
 
 ## PART4: Secrets and other CDE configurations that cannot be specified in Devfile [[part4]]
 
