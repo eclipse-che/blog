@@ -34,7 +34,7 @@ For example, the repository https://github.com/l0rd/rails-sample[] doesn't inclu
 
 > Devfile could not be found in https://github.com/l0rd/rails-sample. Applying the default configuration
 
-NOTE: You can click https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample[here] to open https://github.com/l0rd/rails-sample[] in Red Hat Developer Sandbox and try it out yourself.
+NOTE: You can click https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample[here] to open https://github.com/l0rd/rails-sample[] in the Red Hat Developer Sandbox and try it out yourself.
 
 ### Default CDE Pod details
 
