@@ -232,7 +232,7 @@ kubectl patch dw "${DW_NAME}" --type='merge' \
 
 ## PART3: Change CDE properties with a Devfile [[part3]]
 
-In Part 2 we have seen how to customize a CDE with a new container image. That helps to include some development tools that are not in Eclipse Che default environment. But there are other properties of a CDE that a developer may want customize. Properties such as the memory or CPU requirements, containers to run in the CDE Pod (yes, a CDE can have multiple containers!), exposed endpoints, commands triggered at startup, at shutdown, etc...These properties can be customized using a Devfile and in this Part 3 we are reviewing how to do that. 
+In Part 2 we have seen how to customize a CDE with a new container image. That helps to include some development tools that are not in Eclipse Che default environment. But there are other properties of a CDE that a developer may want to customize. Properties such as the memory or CPU requirements, containers to run in the CDE Pod (yes, a CDE can have multiple containers!), exposed endpoints, commands triggered at startup, at shutdown, etc...These properties can be customized using a Devfile and in this Part 3 we are reviewing how to do that. 
 
 ### Define a Devfile for an Eclipse Che CDE
 
