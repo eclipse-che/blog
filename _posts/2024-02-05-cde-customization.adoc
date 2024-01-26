@@ -202,7 +202,7 @@ Use Ctrl-C to stop
 
 ### Install `ruby-lsp` Visual Studio Code extension
 
-Finally, the Ruby LSP extension, that failed to activate in STEP1, is now fully working:
+Finally, the Ruby LSP extension, which failed to activate in STEP1, is now fully working:
 
 image::/assets/img/cde-customization/ruby-lsp-extension-fully-functional.png[]
 {nbsp} +
