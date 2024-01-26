@@ -250,7 +250,7 @@ components:
       image: quay.io/mloriedo/rails-blog-cde:latest
 ```
 
-It's reccomended to add the Devfile in the same git repository of the application developped (as https://github.com/l0rd/rails-sample/tree/devfile[the `devfile` branch of the `rails-sample` git repository]) using the name `.devfile.yaml`. When the Devfile is in the git repository it will evolve along with the application and it will be applied automatically whenever a developers provides the git repository URL to start a CDE.
+It's recommended to add the Devfile in the same git repository of the application developed (as https://github.com/l0rd/rails-sample/tree/devfile[the `devfile` branch of the `rails-sample` git repository]) using the name `.devfile.yaml`. When the Devfile is in the git repository it will evolve along with the application and it will be applied automatically whenever a developer provides the git repository URL to start a CDE.
 
 When it's not possible to add a `.devfile.yaml` in the git repository, there is still the option to publish it (in a gist, pastebin or another git repository) and https://eclipse.dev/che/docs/stable/end-user-guide/starting-a-workspace-from-a-raw-devfile-url/[start the CDE providing the raw URL to it].
 
