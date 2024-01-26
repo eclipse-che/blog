@@ -169,7 +169,7 @@ https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample&image=qua
 
 ### Verify the new CDE Pod image
 
-The CDE Pod uses a `rails-blog-cde` container rather than Eclipse Che default universal developer image. To verify it open a Terminal from VisualStudio Code and run kubectl:
+The CDE Pod now uses a `rails-blog-cde` container rather than the Eclipse Che default universal developer image. To verify it open a Terminal from Visual Studio Code and run `kubectl`:
 
 [attributes]
 ....
