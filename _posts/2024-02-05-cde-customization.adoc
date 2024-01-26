@@ -425,7 +425,7 @@ NOTE: If the DevWorkspaceOpenratorConfig referenced in a Devfile doesn't exist i
 
 ## Conclusion
 
-Most of the time, the Eclipse Che default Cloud Development Environment (CDE) that we have covered in <<part1>>, is good enough to start navigating and do some simple editing of the soure code. 
+Most of the time, the Eclipse Che default Cloud Development Environment (CDE) that we have covered in <<part1>>, is good enough to start navigating and doing some simple editing of the source code. 
 
 To build and run an application in a CDE it may be necessary to create a custom container image and replace the default. This is described in <<part2>>. 
 
