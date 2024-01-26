@@ -11,7 +11,7 @@ slug: /@mario.loriedo/cde-customization
 
 Eclipse Che provides Cloud Development Environments (CDEs) with a click. The default container of those CDEs, what we call the https://github.com/devfile/developer-images/[universal developer image], has a lot of pre-installed development tools but may not have the right version or the right tool for you. If that's the case, no worries: one of Eclipse Che CDEs' main assets is configurability! 
 
-In this blog posts we will review Eclipse Che CDEs customization in 4 parts:
+In this blog post we will review Eclipse Che CDEs' customization in 4 parts:
 
 <<part1>>
   
