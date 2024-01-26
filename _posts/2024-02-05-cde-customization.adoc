@@ -70,7 +70,7 @@ The Universal Developer Image https://github.com/devfile/developer-images/blob/m
 
 ### When the default is not enough
 
-The Ruby on Rails Cloud Development Environment that we started in the previous section works for reading the applicaiton source code and do some basic editing but some essential features of the IDE are missing:
+The Ruby on Rails Cloud Development Environment that we started in the previous section works for reading the application source code and doing some basic editing but some essential features of the IDE are missing:
 
 *Starting the rails application fails*
 
