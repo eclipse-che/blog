@@ -84,7 +84,7 @@ image::/assets/img/cde-customization/ruby-sample-main-branch-ruby-lsp.png[]
 {nbsp} +
 The Ruby Visual Studio Code extension from Shopify fails to activate because Ruby is not installed.
 
-In PART2 we are going to address this problems by using a container image with the required development tools.
+In PART2 we are going to address those problems by using a container image with the required development tools.
 
 ## PART2: Customize the CDE container image [[part2]]
 
