@@ -42,6 +42,17 @@ commands:
       group:
         kind: build
         isDefault: false
+  - id: publish-blog-to-surge
+    exec:
+      component: jekyll
+      commandLine: |
+        read -p "ENTER your GitHub login to customize the URL: " GH_LOGIN &&
+        read -p "ENTER a surge.sh token: " SURGE_TOKEN &&
+        export SURGE_TOKEN &&
+        export GH_LOGIN &&
+        npm install -g surge &&
+        surge ./_site --domain https://pr-${GH_LOGIN}-che-blog.surge.sh
+
 events:
   postStart:
     - bundle-install
