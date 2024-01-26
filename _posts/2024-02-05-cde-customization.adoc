@@ -38,7 +38,7 @@ NOTE: You can click https://workspaces.openshift.com/#https://github.com/l0rd/ra
 
 ### Default CDE Pod details
 
-Looking more closely we can see that, once the CDE is started, a new Pod is created.
+Looking more closely we can see that once the CDE is started, a new Pod is created.
 
 [attributes]
 ....
