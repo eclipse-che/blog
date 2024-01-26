@@ -82,7 +82,7 @@ Rails requires Ruby that is not installed in the default container.
 
 image::/assets/img/cde-customization/ruby-sample-main-branch-ruby-lsp.png[]
 {nbsp} +
-The Ruby VisualStudio Code extension from Shopify fails to activate because Ruby is not installed.
+The Ruby Visual Studio Code extension from Shopify fails to activate because Ruby is not installed.
 
 In PART2 we are going to address this problems by using a container image with the required development tools.
 
