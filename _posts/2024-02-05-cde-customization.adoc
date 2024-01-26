@@ -76,7 +76,7 @@ The Ruby on Rails Cloud Development Environment that we started in the previous 
 
 image::/assets/img/cde-customization/ruby-sample-main-branch-rails-server.png[]
 {nbsp} +
-Rails requires Ruby that is not installed in the default container.
+Rails requires Ruby which is not installed in the default container.
 
 *The https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp[Ruby LSP extension] activation fails*
 
