@@ -267,7 +267,7 @@ include::/assets/html/cde-customization/devfile-table.html[]
 ++++
 {nbsp} +
 
-These steps can be tested iteratively from a running CDE using the "Eclipse Che: Restart Workspace from Local Devfile" in VS Code. And with the YAML extension you get automatic code completion when editing the Devfile.
+These steps can be tested iteratively from a running CDE using the "Eclipse Che: Restart Workspace from Local Devfile" command in VS Code. And with the YAML extension you get automatic code completion when editing the Devfile.
 
 After the last step, the CDE will be fully functional. After the Devfile has been pushed to the git repository any new contributor will be able to run the application, do some changes, and debug them in a flash. 
 
