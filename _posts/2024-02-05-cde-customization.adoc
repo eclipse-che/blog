@@ -238,7 +238,7 @@ In Part 2 we have seen how to customize a CDE with a new container image. That h
 
 A Devfile is an https://www.cncf.io/projects/devfile/[open standard] to define Cloud Development Environments. It's a YAML file used to configure Eclipse Che CDEs.
 
-This is a simple Devfile that specifies the container image built in STEP 2 looks like:
+This is a simple Devfile that specifies the container image built in STEP 2:
 
 ```yaml
 schemaVersion: 2.2.0
