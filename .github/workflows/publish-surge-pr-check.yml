@@ -50,18 +50,26 @@ jobs:
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
       - name: publish
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: |
           npm install -g surge
-          export DEPLOY_DOMAIN=https://pr-check-${PR_NUMBER}-${{matrix.dist}}-che-blog.surge.sh
+          export DEPLOY_DOMAIN=https://pr-check-${PR_NUMBER}-che-blog.surge.sh
           echo "DEPLOY_DOMAIN=$DEPLOY_DOMAIN" >> $GITHUB_ENV
           surge ./_site --domain $DEPLOY_DOMAIN
       - name: 'Comment PR'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
          script: |
            const { repo: { owner, repo } } = context;
-           await github.repos.createCommitStatus({ owner, repo, sha: process.env.PR_SHA, state: "success", target_url: process.env.DEPLOY_DOMAIN, description: "Browse PR check blog content live", context: "surge"})
+           await github.rest.repos.createCommitStatus({ 
+                   owner, 
+                   repo, 
+                   sha: process.env.PR_SHA, 
+                   state: "success", 
+                   target_url: process.env.DEPLOY_DOMAIN, 
+                   description: "Browse PR check blog content live", 
+                   context: "surge"
+            })
