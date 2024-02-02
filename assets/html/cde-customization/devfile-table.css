@@ -1,0 +1,70 @@
+@import url(https://iosevka-webfonts.github.io/iosevka/iosevka.css);
+/* @import url(https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css); */
+
+legend {
+  background-color: #000;
+  color: #fff;
+  padding: 3px 6px;
+  font-family: "Iosevka Web", sans-serif;
+}
+
+input {
+  margin: 0.4rem;
+}
+
+label {
+  font-family: "Iosevka Web", sans-serif;
+}
+
+.devfiles {
+  border: 1px solid black;
+}
+
+pre {
+  /* margin: 0.4rem; */
+  /* padding: 10px 20px 20px 20px; */
+  font-family: "Iosevka Web", sans-serif;
+}
+
+code {
+  font-family: "Iosevka Web", sans-serif;
+}
+
+del,
+ins {
+  display: block;
+  text-decoration: none;
+  position: relative;
+}
+
+del {
+  background-color: #fbb;
+}
+
+ins {
+  background-color: #d4fcbc;
+}
+
+.area {
+  display: none;
+  clear: both;
+}
+
+.steps {
+  margin: 0.4rem 0.4rem 0.4rem 0.4rem;
+  /*   border: 1px solid black; */
+  /*   padding: 200px 200px 200px 200px; */
+  font-family: "Iosevka Web", sans-serif;
+}
+
+/* (A) FLEX CONTAINER */
+/* .flex-wrap {
+  display: flex;
+} */
+
+/* (B) OPTIONAL COSMETICS */
+.flex-wrap > * {
+  box-sizing: border-box;
+  /* width: 800px; */
+  padding: 10px;
+}
