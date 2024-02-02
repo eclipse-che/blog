@@ -49,7 +49,7 @@ jobs:
         run:
           echo using '${{ env.CHANGED_FILES }}' files
       - name: Vale Linter
-        uses: benoitf/vale-action@comment-pr
+        uses: benoitf/vale-action@reviewdog
         with:
           files: '${{ env.CHANGED_FILES }}'
           styles: |

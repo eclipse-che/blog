@@ -23,7 +23,7 @@ commands:
     exec:
       label: 0. Install Gemfile dependencies
       component: jekyll
-      commandLine: bundle install
+      commandLine: bundle install --gemfile=/projects/che-blog/Gemfile
       group:
         kind: build
         isDefault: true
@@ -31,8 +31,7 @@ commands:
     exec:
       label: 1. Start the jekyll based blog server
       component: jekyll
-      # commandLine: bundle jekyll serve --incremental --watch --host 0.0.0.0 --livereload --livereload-port 35729
-      commandLine: bundle exec jekyll serve --incremental --watch --host 0.0.0.0
+      commandLine: bundle exec jekyll serve --watch --host 0.0.0.0 --future
       group:
         kind: run
         isDefault: true
@@ -43,3 +42,17 @@ commands:
       group:
         kind: build
         isDefault: false
+  - id: publish-blog-to-surge
+    exec:
+      component: jekyll
+      commandLine: |
+        read -p "ENTER your GitHub login to customize the URL: " GH_LOGIN &&
+        read -p "ENTER a surge.sh token: " SURGE_TOKEN &&
+        export SURGE_TOKEN &&
+        export GH_LOGIN &&
+        npm install -g surge &&
+        surge ./_site --domain https://pr-${GH_LOGIN}-che-blog.surge.sh
+
+events:
+  postStart:
+    - bundle-install

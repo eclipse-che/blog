@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Iterative devfile Creation</title>
+  <link rel="stylesheet" href="/assets/html/cde-customization/devfile-table.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
+<fieldset>
+  <legend>Iterative Devfile Creation</legend>
+  <div class="flex-wrap">
+    <div class="steps">
+      <input type="radio" name="devfile" value="simplest" checked="checked" />
+      <label>1. The simplest `.devfile.yaml`: only the name of the CDE is specified</label><br />
+
+      <input type="radio" name="devfile" value="image" />
+      <label>2. Customize CDE main container image</label><br />
+
+      <input type="radio" name="devfile" value="commands" />
+      <label>3. Set some predefined commands (in VS Code: Terminal =&gt; Run Tasks =&gt; Devfile)</label><br />
+
+      <input type="radio" name="devfile" value="resources" />
+      <label>3. Adjust memory and CPU requirements</label><br />
+
+      <input type="radio" name="devfile" value="poststart" />
+      <label>4. Execute commands at CDE start</label><br />
+
+      <input type="radio" name="devfile" value="volume" />
+      <label>5. Persist folders after CDE restart</label><br />
+
+      <input type="radio" name="devfile" value="env" />
+      <label>6. Configure the application runtime through environment variables</label><br />
+
+      <input type="radio" name="devfile" value="endpoint" />
+      <label>7. Expose the application endpoints: port, path and protocol</label><br />
+
+    </div>
+    <div class="devfiles">
+      <div class="area" id="simplest" style="display: block">
+        <pre>
+    <code>
+<ins>schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+</ins>
+    </code>
+  </pre>
+      </div>
+
+      <div class="area" id="image">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+<ins>components:
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+</ins>
+    </code>
+  </pre>
+      </div>
+
+      <div class="area" id="commands">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+<ins>commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+</ins>
+    </code>
+    </pre>
+      </div>
+
+      <div class="area" id="resources">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+<ins>      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+</ins>commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+    </code>
+    </pre>
+      </div>
+
+      <div class="area" id="poststart">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+<ins>events:
+  postStart:
+    - bundle-install
+</ins>
+</code>
+    </pre>
+      </div>
+
+      <div class="area" id="volume">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+<ins>  - name: bundle-volume
+    volume:
+      size: 1G
+</ins>  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+<ins>      volumeMounts:
+        - name: bundle-volume
+          path: /home/user/.bundle/vendor
+</ins>commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+events:
+  postStart:
+    - bundle-install
+    </code>
+    </pre>
+      </div>
+
+      <div class="area" id="env">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+  - name: bundle-volume
+    volume:
+      size: 1G
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+      volumeMounts:
+        - name: bundle-volume
+          path: /home/user/.bundle/vendor
+commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+<ins>        export RAILS_DEVELOPMENT_HOSTS="${CHE_DASHBOARD_URL/https:\/\/devspaces/}" &&
+</ins>        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+events:
+  postStart:
+    - bundle-install
+    </code>
+    </pre>
+      </div>
+
+      <div class="area" id="endpoint">
+        <pre>
+    <code>
+schemaVersion: 2.2.0
+metadata:
+  name: rails-blog
+components:
+  - name: bundle-volume
+    volume:
+      size: 1G
+  - name: devtools
+    container:
+      image: quay.io/mloriedo/rails-blog-cde:latest
+      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+      volumeMounts:
+        - name: bundle-volume
+          path: /home/user/.bundle/vendor
+<ins>      endpoints:
+        - name: blog
+          exposure: public
+          protocol: https
+          targetPort: 3000
+          path: /articles</ins>commands:
+  - id: bundle-install
+    exec:
+      component: devtools
+      commandLine: bundle install
+      workingDir: ${PROJECT_SOURCE}
+  - id: server-start
+    exec:
+      component: devtools
+      commandLine: |
+        export RAILS_DEVELOPMENT_HOSTS="${CHE_DASHBOARD_URL/https:\/\/devspaces/}" &&
+        ./bin/rails server --binding 0.0.0.0
+  - id: server-kill
+    exec:
+      component: devtools
+      commandLine: kill $(pidof "ruby")
+events:
+  postStart:
+    - bundle-install
+    </code>
+    </pre>
+      </div>
+    </div>
+  </div>
+
+</fieldset>
+<!-- partial -->
+  <script  src="/assets/html/cde-customization/devfile-table.js"></script>
+
+</body>
+</html>
