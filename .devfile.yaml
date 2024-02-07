@@ -23,7 +23,7 @@ commands:
     exec:
       label: 0. Install Gemfile dependencies
       component: jekyll
-      commandLine: bundle install --gemfile=/projects/che-blog/Gemfile
+      commandLine: bundle install --gemfile=${PROJECT_SOURCE}/Gemfile
       group:
         kind: build
         isDefault: true
