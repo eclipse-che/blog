@@ -274,15 +274,17 @@ For example you can use https://workspaces.openshift.com/#https://github.com/l0r
 
 There are some properties of your CDE that you don't want to specify in a Devfile. Either because they contain sensitive information (like a password or an SSH private key), or because you want to customize your CDE without affecting the rest of the team. In any case the Devfile, which is a shared in the git repository, cannot be used. In this section we will go through a few techniques to add user specific configurations.
 
+IMPORTANT: Secrets, ConfigMaps and other Kubernetes objects mentioned in this PART are supposed to be created, by a developer, in the developer namespace. This is not admin tasks. Other developers using the same Eclipse Che instance won't "see" those objects and their CDEs won't be affected.
+
 ### Add environment variables using Kubernetes `ConfigMaps` and `Secrets`
 
 The Devfile allows to specify environment variables but in some situations you don't want to add them there. Eclipse Che provides a mechanism to automatically add variables to CDEs containers without Devfiles but using Kubernetes ConfigMaps or Secrets.
 
 #### Using `ConfigMaps`
 
-For example, adding an environment variable that holds the URL of the specific Kubernetes cluster (`RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com`), would make the Devfile less portable. 
+It's possible to use a Devfile to add an environment variable such as `RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com` that holds the URL of your specific Kubernetes cluster. But that would make the Devfile less portable. 
 
-Instead we can create, in the namespace when our CDEs are created, a `ConfigMap` with labels `controller.devfile.io/mount-to-devworkspace: "true"` and `controller.devfile.io/watch-configmap: "true"` and with the annotation `controller.devfile.io/mount-as: env`:
+A better approach is to create, in your namespace (the developer namespace where your CDE are created), a `ConfigMap` with labels `controller.devfile.io/mount-to-devworkspace: "true"` and `controller.devfile.io/watch-configmap: "true"` and with the annotation `controller.devfile.io/mount-as: env`:
 
 ```bash
 kubectl apply -f - << EOF
@@ -387,7 +389,7 @@ EOF
 
 ### Override defaults configurations using a DevWorkspace Operator Configuration
 
-In this last section we want to show a mechanism to override CDEs' default properties. In this case, by using a https://doc.crds.dev/github.com/devfile/devworkspace-operator[DevWorkspaceOperatorConfig Custom Resource].
+In this last section we want to show a mechanism that a developer can use to override CDEs' default properties. In this case, by using a https://doc.crds.dev/github.com/devfile/devworkspace-operator[DevWorkspaceOperatorConfig Custom Resource].
 
 `DevWorkspaceOperatorConfig` objects specify advanced CDE properties such as the `Pod` `schedulerName`, whether the `/home/user` folder will persist after a restart or not, and many more.
 
@@ -396,7 +398,7 @@ Applying a particular `DevWorkspaceOperatorConfig` to a CDEs takes 2 steps:
 1. Create the `DevWorkspaceOperatorConfig` custom resource in the Kubernetes cluster
 2. Edit the Devfile to apply that specific configuration
 
-The following `DevWorkspaceOperatorConfig` override CDEs Pod `schedulerName` configuration:
+For example the following `DevWorkspaceOperatorConfig` override CDEs Pod `schedulerName` configuration:
 
 ```bash
 kubectl apply -f - << EOF
@@ -411,10 +413,9 @@ config:
 EOF
 ```
 
-To apply this configuration to a CDE it's required that the CDE Devfile references it:
+To use this configuration a Devfile needs to reference it. For example:
 
-[#temper-change,diff]
-....
+```diff
 schemaVersion: 2.2.0
 metadata:
   name: rails-blog
@@ -424,7 +425,7 @@ metadata:
 +     namespace: <namespace-name>
 components:
 ...
-....
+```
 
 With that attribute, the CDE started using this devfile will use the scheduler `my-scheduler` (if it exists) rather than the default Kubernetes scheduler.
 
