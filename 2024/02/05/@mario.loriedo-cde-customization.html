@@ -1371,6 +1371,23 @@ events:
                     specific configurations.
                   </p>
                 </div>
+                <div class="admonitionblock important">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Important</div>
+                      </td>
+                      <td class="content">
+                        Secrets, ConfigMaps and other Kubernetes objects
+                        mentioned in this PART are supposed to be created, by a
+                        developer, in the developer namespace. This is not admin
+                        tasks. Other developers using the same Eclipse Che
+                        instance won&#8217;t "see" those objects and their CDEs
+                        won&#8217;t be affected.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
                 <div class="sect2">
                   <h3
                     id="_add-environment-variables-using-kubernetes-configmaps-and-secrets"
@@ -1393,16 +1410,20 @@ events:
                     </h4>
                     <div class="paragraph">
                       <p>
-                        For example, adding an environment variable that holds
-                        the URL of the specific Kubernetes cluster
-                        (<code>RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code>),
-                        would make the Devfile less portable.
+                        It&#8217;s possible to use a Devfile to add an
+                        environment variable such as
+                        <code
+                          >RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code
+                        >
+                        that holds the URL of your specific Kubernetes cluster.
+                        But that would make the Devfile less portable.
                       </p>
                     </div>
                     <div class="paragraph">
                       <p>
-                        Instead we can create, in the namespace when our CDEs
-                        are created, a <code>ConfigMap</code> with labels
+                        A better approach is to create, in your namespace (the
+                        developer namespace where your CDE are created), a
+                        <code>ConfigMap</code> with labels
                         <code
                           >controller.devfile.io/mount-to-devworkspace:
                           "true"</code
@@ -1635,9 +1656,9 @@ EOF</span></code></pre>
                   </h3>
                   <div class="paragraph">
                     <p>
-                      In this last section we want to show a mechanism to
-                      override CDEs' default properties. In this case, by using
-                      a
+                      In this last section we want to show a mechanism that a
+                      developer can use to override CDEs' default properties. In
+                      this case, by using a
                       <a
                         href="https://doc.crds.dev/github.com/devfile/devworkspace-operator"
                         >DevWorkspaceOperatorConfig Custom Resource</a
@@ -1678,7 +1699,7 @@ EOF</span></code></pre>
                   </div>
                   <div class="paragraph">
                     <p>
-                      The following
+                      For example the following
                       <code>DevWorkspaceOperatorConfig</code> override CDEs Pod
                       <code>schedulerName</code> configuration:
                     </p>
@@ -1702,23 +1723,24 @@ EOF</span></code></pre>
                   </div>
                   <div class="paragraph">
                     <p>
-                      To apply this configuration to a CDE it&#8217;s required
-                      that the CDE Devfile references it:
+                      To use this configuration a Devfile needs to reference it.
+                      For example:
                     </p>
                   </div>
-                  <div id="temper-change" class="literalblock">
+                  <div class="listingblock">
                     <div class="content">
-                      <pre>
-schemaVersion: 2.2.0
+                      <pre
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="diff"><span style="color: #f8f8f2;background-color: #49483e">schemaVersion: 2.2.0
 metadata:
-  name: rails-blog
-+ attributes:
+</span>  name: rails-blog
+<span style="color: #ffffff;background-color: #324932">+ attributes:
 +   controller.devfile.io/devworkspace-config:
 +     name: custom-dwoc
 +     namespace: &lt;namespace-name&gt;
-components:
-...</pre
-                      >
+</span><span style="color: #f8f8f2;background-color: #49483e">components:
+</span><span style="color: #960050;background-color: #1e0010">...</span></code></pre>
                     </div>
                   </div>
                   <div class="paragraph">

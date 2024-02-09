@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-02-05T09:00:25+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Customizing Eclipse Che Cloud Development Environments</title><link href="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html" rel="alternate" type="text/html" title="Customizing Eclipse Che Cloud Development Environments" /><published>2024-02-05T00:00:00+00:00</published><updated>2024-02-05T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/02/05/@mario.loriedo/cde-customization</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-02-09T14:52:55+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Customizing Eclipse Che Cloud Development Environments</title><link href="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html" rel="alternate" type="text/html" title="Customizing Eclipse Che Cloud Development Environments" /><published>2024-02-05T00:00:00+00:00</published><updated>2024-02-05T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/02/05/@mario.loriedo/cde-customization</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html"><![CDATA[<div class="paragraph">
 <p>Eclipse Che provides Cloud Development Environments (CDEs) with a click. The default container of those CDEs, what we call the <a href="https://github.com/devfile/developer-images/">universal developer image</a>, has a lot of pre-installed development tools but may not have the right version or the right tool for you. If that&#8217;s the case, no worries: one of Eclipse Che CDEs' main assets is configurability!</p>
 </div>
 <div class="paragraph">
@@ -760,6 +760,18 @@ events:
 <div class="paragraph">
 <p>There are some properties of your CDE that you don&#8217;t want to specify in a Devfile. Either because they contain sensitive information (like a password or an SSH private key), or because you want to customize your CDE without affecting the rest of the team. In any case the Devfile, which is a shared in the git repository, cannot be used. In this section we will go through a few techniques to add user specific configurations.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Secrets, ConfigMaps and other Kubernetes objects mentioned in this PART are supposed to be created, by a developer, in the developer namespace. This is not admin tasks. Other developers using the same Eclipse Che instance won&#8217;t "see" those objects and their CDEs won&#8217;t be affected.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_add-environment-variables-using-kubernetes-configmaps-and-secrets">Add environment variables using Kubernetes <code>ConfigMaps</code> and <code>Secrets</code></h3>
 <div class="paragraph">
@@ -768,10 +780,10 @@ events:
 <div class="sect3">
 <h4 id="_using-configmaps">Using <code>ConfigMaps</code></h4>
 <div class="paragraph">
-<p>For example, adding an environment variable that holds the URL of the specific Kubernetes cluster (<code>RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code>), would make the Devfile less portable.</p>
+<p>It&#8217;s possible to use a Devfile to add an environment variable such as <code>RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code> that holds the URL of your specific Kubernetes cluster. But that would make the Devfile less portable.</p>
 </div>
 <div class="paragraph">
-<p>Instead we can create, in the namespace when our CDEs are created, a <code>ConfigMap</code> with labels <code>controller.devfile.io/mount-to-devworkspace: "true"</code> and <code>controller.devfile.io/watch-configmap: "true"</code> and with the annotation <code>controller.devfile.io/mount-as: env</code>:</p>
+<p>A better approach is to create, in your namespace (the developer namespace where your CDE are created), a <code>ConfigMap</code> with labels <code>controller.devfile.io/mount-to-devworkspace: "true"</code> and <code>controller.devfile.io/watch-configmap: "true"</code> and with the annotation <code>controller.devfile.io/mount-as: env</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -905,7 +917,7 @@ EOF</span></code></pre>
 <div class="sect2">
 <h3 id="_override-defaults-configurations-using-a-devworkspace-operator-configuration">Override defaults configurations using a DevWorkspace Operator Configuration</h3>
 <div class="paragraph">
-<p>In this last section we want to show a mechanism to override CDEs' default properties. In this case, by using a <a href="https://doc.crds.dev/github.com/devfile/devworkspace-operator">DevWorkspaceOperatorConfig Custom Resource</a>.</p>
+<p>In this last section we want to show a mechanism that a developer can use to override CDEs' default properties. In this case, by using a <a href="https://doc.crds.dev/github.com/devfile/devworkspace-operator">DevWorkspaceOperatorConfig Custom Resource</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>DevWorkspaceOperatorConfig</code> objects specify advanced CDE properties such as the <code>Pod</code> <code>schedulerName</code>, whether the <code>/home/user</code> folder will persist after a restart or not, and many more.</p>
@@ -924,7 +936,7 @@ EOF</span></code></pre>
 </ol>
 </div>
 <div class="paragraph">
-<p>The following <code>DevWorkspaceOperatorConfig</code> override CDEs Pod <code>schedulerName</code> configuration:</p>
+<p>For example the following <code>DevWorkspaceOperatorConfig</code> override CDEs Pod <code>schedulerName</code> configuration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -941,19 +953,19 @@ EOF</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To apply this configuration to a CDE it&#8217;s required that the CDE Devfile references it:</p>
+<p>To use this configuration a Devfile needs to reference it. For example:</p>
 </div>
-<div id="temper-change" class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>schemaVersion: 2.2.0
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="diff"><span style="color: #f8f8f2;background-color: #49483e">schemaVersion: 2.2.0
 metadata:
-  name: rails-blog
-+ attributes:
+</span>  name: rails-blog
+<span style="color: #ffffff;background-color: #324932">+ attributes:
 +   controller.devfile.io/devworkspace-config:
 +     name: custom-dwoc
 +     namespace: &lt;namespace-name&gt;
-components:
-...</pre>
+</span><span style="color: #f8f8f2;background-color: #49483e">components:
+</span><span style="color: #960050;background-color: #1e0010">...</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
