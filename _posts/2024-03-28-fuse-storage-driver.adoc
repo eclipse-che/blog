@@ -1,0 +1,84 @@
+---
+title: Drive a coupe with the overlay storage driver - a Podman build comparison
+layout: post
+author: David Kwon
+description: >-
+  Enable faster builds and storage savings with the fuse-overlayfs storage driver in Eclipse Che.
+categories: []
+keywords: ['fuse', 'storage', 'driver']
+slug: /@david.kwon/fuse-storage-driver
+---
+
+Enable faster builds and storage savings with the fuse-overlayfs storage driver in Eclipse Che.
+
+Container images consist of https://docs.docker.com/build/guide/layers[layers] which are stored and used for building and running containers. A huge benefit of this layer anatomy is that, assuming that each image layer stores only the file differences compared to the previous layer (ie. the delta), each layer is small which generally allows time and space savings when building and running containers. This is because layers allow efficient caching and sharing between containers.
+
+A https://docs.docker.com/storage/storagedriver/select-storage-driver[storage driver] for Docker and Podman is what manages these image layers upon image pulling, building, and running. By default, Eclipse Che uses the vfs storage driver for Podman in the https://github.com/devfile/developer-images[Universal Development Image]. While vfs is generally considered very stable, the lack of https://en.wikipedia.org/wiki/Copy-on-write[copy-on-write] (CoW) support poses a significant disadvantage compared to other storage drivers like fuse-overlayfs, overlay2, and btrfs.
+
+## What's the disadvantage with vfs?
+
+As mentioned previously, having smaller layers allows time and space savings when building and running containers. The disadvantage with vfs's lack of CoW is that whenever a new layer is created, a complete copy of the previous layer is created. This can create duplicate and redundant data in each layer, and can quickly fill up your storage space especially when working with larger images. Comparing that with image layers created with CoW-supported storage drivers like fuse-overlayfs, those image layers would typically not contain redundant data and would remain smaller since only the delta is stored in each image layer.
+
+image::/assets/img/fuse-storage-driver/layer-diagram.png[]
+Fig. 1. Example comparison of image layer sizes between vfs and overlay storage drivers. The total size of the image layers created with overlay is about half the size of the image layers created with vfs.
+
+## How can we use fuse-overlayfs in an Eclipse Che cloud development environment?
+
+To use fuse-overlayfs in an Eclipse Che cloud development environment (CDE), the CDE's pod requires access to the `/dev/fuse` device from the host operating system. For Kubernetes, support for this can vary depending on the platform. However, for Openshift, version 4.15 allows access to the `/dev/fuse` device https://docs.openshift.com/container-platform/4.15/release_notes/ocp-4-15-release-notes.html#ocp-4-15-nodes-dev-fuse[without any cluster modifications]. Here's the documentation on how to https://eclipse.dev/che/docs/stable/end-user-guide/accessing-fuse[enable the overlay storage driver for CDEs running on OpenShift].
+
+## How does fuse-overlayfs compare to vfs in an Eclipse Che CDE?
+
+A series of tests were performed to measure the build time and storage usage differences between the fuse-overlayfs and vfs storage drivers in an Eclipse Che CDE. For this blog post, I will present the measurements for building a series of different GitHub projects. If you're interested, the results for tests that were specifically designed to highlight the characteristics of each storage driver are available in this https://github.com/dkwon17/storage-driver-test/blob/main/results.md[GitHub repository].
+
+All tests presented in Fig. 2. were run on an OpenShift Dedicated 4.15.3 cluster with a productized version of Eclipse Che 7.82.1. 
+
+[cols="1,1"]
+|===
+|Test name |Project URL 
+
+|dashboard
+|https://github.com/eclipse-che/che-dashboard[che-dashboard]
+
+|dashboard-edit
+|https://github.com/eclipse-che/che-dashboard[che-dashboard]
+
+|operator
+|https://github.com/eclipse-che/che-operator[che-operator]
+
+|operator-edit
+|https://github.com/eclipse-che/che-operator[che-operator]
+
+|server
+|https://github.com/eclipse-che/che-server[che-server]
+
+|server-edit
+|https://github.com/eclipse-che/che-server[che-server]
+
+|nginx-alpine
+|https://github.com/nginxinc/docker-nginx/tree/master/stable/alpine[docker-nginx]
+
+|quarkus-api-example
+|https://github.com/che-incubator/quarkus-api-example[quarkus-api-example]
+|===
+
+Fig. 2. Table of test names name project URLs.
+
+For each test apart from the <projectname>-edit tests, the `podman system reset` command was run before running each test in order to clear the graphroot directory. This removes all image layers, therefore these tests measure a clean-build scenario, just like when a user creates and runs `podman build` in a new CDE.
+
+For the <projectname>-edit tests, the image container was built beforehand. The tests measure a rebuild of the image after changing the source code without running `podman system reset` command. This scenario mimics the case where the developer is running a new build after making code changes in their CDE.
+
+image::/assets/img/fuse-storage-driver/image-build-time.png[]
+Fig. 3. Container image build time results
+
+image::/assets/img/fuse-storage-driver/graphroot-size.png[]
+Fig. 4. Graphroot directory size results
+
+For all tests, the fuse-overlayfs storage driver had faster build times and significantly smaller storage consumption compared to vfs. The benefits of CoW is especially evident in Fig. 4. For example the operator-edit test showed that by using fuse-overlayfs, the graphroot directory was about 88% smaller, saving about 15GB of storage.
+
+## Conclusion
+
+In conclusion, the fuse-overlayfs storage driver should be considered for your Eclipse Che CDEs, saving time and storage thanks to the CoW support. In general, there is no “best” storage driver because performance, stability and usability of each storage driver is dependent on your specific workload and environment. However with vfs not supporting CoW, fuse-overlayfs is a much more suitable choice for image layer management.
+
+For additional content regarding fuse-overlayfs in Eclipse Che, check out this https://upstreamwithoutapaddle.com/blog%20post/2023/08/10/Podman-In-Dev-Spaces-With-Fuse-Overlay.html[blog post and demo project].
+
+Thank you for reading.
