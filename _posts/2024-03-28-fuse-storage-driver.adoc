@@ -15,7 +15,7 @@ Container images consist of https://docs.docker.com/build/guide/layers[layers] w
 
 A https://docs.docker.com/storage/storagedriver/select-storage-driver[storage driver] for Docker and Podman is what manages these image layers upon image pulling, building, and running. By default, Eclipse Che uses the vfs storage driver for Podman in the https://github.com/devfile/developer-images[Universal Development Image]. While vfs is generally considered very stable, the lack of https://en.wikipedia.org/wiki/Copy-on-write[copy-on-write] (CoW) support poses a significant disadvantage compared to other storage drivers like fuse-overlayfs, overlay2, and btrfs.
 
-## What's the disadvantage with vfs?
+## What is the disadvantage of vfs?
 
 As mentioned previously, having smaller layers allows time and space savings when building and running containers. The disadvantage with vfs's lack of CoW is that whenever a new layer is created, a complete copy of the previous layer is created. This can create duplicate and redundant data in each layer, and can quickly fill up your storage space especially when working with larger images. Comparing that with image layers created with CoW-supported storage drivers like fuse-overlayfs, those image layers would typically not contain redundant data and would remain smaller since only the delta is stored in each image layer.
 
