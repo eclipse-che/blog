@@ -77,7 +77,7 @@ For all tests, the fuse-overlayfs storage driver had faster build times and sign
 
 ## Conclusion
 
-In conclusion, the fuse-overlayfs storage driver should be considered for your Eclipse Che CDEs, saving time and storage thanks to the CoW support. In general, there is no “best” storage driver because performance, stability and usability of each storage driver is dependent on your specific workload and environment. However with vfs not supporting CoW, fuse-overlayfs is a much more suitable choice for image layer management.
+In conclusion, the fuse-overlayfs storage driver should be considered for your Eclipse Che CDEs, saving time and storage thanks to the CoW support. In general, there is no “best” storage driver because performance, stability, and usability of each storage driver is dependent on your specific workload and environment. However, with vfs not supporting CoW, fuse-overlayfs is a much more suitable choice for image layer management.
 
 For additional content regarding fuse-overlayfs in Eclipse Che, check out this https://upstreamwithoutapaddle.com/blog%20post/2023/08/10/Podman-In-Dev-Spaces-With-Fuse-Overlay.html[blog post and demo project].
 
