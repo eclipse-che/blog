@@ -9,7 +9,7 @@ keywords: ['fuse', 'storage', 'driver', 'vfs', 'overlay', 'fuse-overlayfs']
 slug: /@david.kwon/fuse-storage-driver
 ---
 
-With the fuse-overlayfs storage driver, you can enable faster builds and a more optimized storage usage for `podman build` and `buildah` within your Eclipse Che cloud development environment (CDE). Before diving into its advantages, first let's discuss some prerequisite details about container layers and stoarge drivers.
+With the fuse-overlayfs storage driver, you can enable faster builds and a more optimized storage usage for `podman build` and `buildah` within your Eclipse Che cloud development environment (CDE). Before diving into its advantages, let's first discuss some prerequisite details about container image layers and storage drivers.
 
 Container images consist of https://docs.docker.com/build/guide/layers[layers] which are stored and used for building and running containers. A huge benefit of this layer anatomy is that, assuming that each image layer stores only the file differences compared to the previous layer (i.e. the delta), each layer is small which generally allows time and space savings when building and running containers. This is because layers allow efficient caching and sharing between containers.
 
