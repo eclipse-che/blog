@@ -30,7 +30,7 @@ To use fuse-overlayfs in an Eclipse Che cloud development environment (CDE), the
 
 A series of tests were performed to measure the build time and storage usage differences between the fuse-overlayfs and vfs storage drivers in an Eclipse Che CDE. For this blog post, I will present the measurements for building a series of different GitHub projects. If you're interested, the results for tests that were specifically designed to highlight the characteristics of each storage driver are available in this https://github.com/dkwon17/storage-driver-test/blob/main/results.md[GitHub repository].
 
-All tests presented in Fig. 2. were run on an OpenShift Dedicated 4.15.3 cluster with a productized version of Eclipse Che 7.82.1. 
+All tests presented in Fig. 2. were run on an OpenShift Dedicated 4.15.3 cluster with a productized version of Eclipse Che 7.82.0. 
 
 [cols="1,1"]
 |===
