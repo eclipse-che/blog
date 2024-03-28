@@ -3,15 +3,15 @@ title: Drive a coupe with the overlay storage driver - a Podman build comparison
 layout: post
 author: David Kwon
 description: >-
-  Enable faster builds and storage savings with the fuse-overlayfs storage driver in Eclipse Che.
+  Enable faster builds and storage optimization with the fuse-overlayfs storage driver in Eclipse Che.
 categories: []
-keywords: ['fuse', 'storage', 'driver']
+keywords: ['fuse', 'storage', 'driver', 'vfs', 'overlay', 'fuse-overlayfs']
 slug: /@david.kwon/fuse-storage-driver
 ---
 
-Enable faster builds and storage savings with the fuse-overlayfs storage driver in Eclipse Che.
+With the fuse-overlayfs storage driver, you can enable faster builds and a more optimized storage usage for `podman build` and `buildah` within your Eclipse Che cloud development environment (CDE). Before diving into the details on how it's enabled, first let's discuss some prerequisite details about container layers and stoarge drivers.
 
-Container images consist of https://docs.docker.com/build/guide/layers[layers] which are stored and used for building and running containers. A huge benefit of this layer anatomy is that, assuming that each image layer stores only the file differences compared to the previous layer (ie. the delta), each layer is small which generally allows time and space savings when building and running containers. This is because layers allow efficient caching and sharing between containers.
+Container images consist of https://docs.docker.com/build/guide/layers[layers] which are stored and used for building and running containers. A huge benefit of this layer anatomy is that, assuming that each image layer stores only the file differences compared to the previous layer (i.e. the delta), each layer is small which generally allows time and space savings when building and running containers. This is because layers allow efficient caching and sharing between containers.
 
 A https://docs.docker.com/storage/storagedriver/select-storage-driver[storage driver] for Docker and Podman is what manages these image layers upon image pulling, building, and running. By default, Eclipse Che uses the vfs storage driver for Podman in the https://github.com/devfile/developer-images[Universal Development Image]. While vfs is generally considered very stable, the lack of https://en.wikipedia.org/wiki/Copy-on-write[copy-on-write] (CoW) support poses a significant disadvantage compared to other storage drivers like fuse-overlayfs, overlay2, and btrfs.
 
@@ -24,7 +24,7 @@ Fig. 1. Example comparison of image layer sizes between vfs and overlay storage 
 
 ## How can we use fuse-overlayfs in an Eclipse Che cloud development environment?
 
-To use fuse-overlayfs in an Eclipse Che cloud development environment (CDE), the CDE's pod requires access to the `/dev/fuse` device from the host operating system. For Kubernetes, support for this can vary depending on the platform. However, for Openshift, version 4.15 allows access to the `/dev/fuse` device https://docs.openshift.com/container-platform/4.15/release_notes/ocp-4-15-release-notes.html#ocp-4-15-nodes-dev-fuse[without any cluster modifications]. Here's the documentation on how to https://eclipse.dev/che/docs/stable/end-user-guide/accessing-fuse[enable the overlay storage driver for CDEs running on OpenShift].
+To use fuse-overlayfs in a CDE, the CDE's pod requires access to the `/dev/fuse` device from the host operating system. For Kubernetes, support for this can vary depending on the platform. However, for Openshift, version 4.15 allows access to the `/dev/fuse` device https://docs.openshift.com/container-platform/4.15/release_notes/ocp-4-15-release-notes.html#ocp-4-15-nodes-dev-fuse[without any cluster modifications]. Here's the documentation on how to https://eclipse.dev/che/docs/stable/end-user-guide/accessing-fuse[enable the overlay storage driver for CDEs running on OpenShift 4.15 and older versions].
 
 ## How does fuse-overlayfs compare to vfs in an Eclipse Che CDE?
 
@@ -63,7 +63,7 @@ All tests presented in Fig. 2. were run on an OpenShift Dedicated 4.15.3 cluster
 
 Fig. 2. Table of test names name project URLs.
 
-For each test apart from the <projectname>-edit tests, the `podman system reset` command was run before running each test in order to clear the graphroot directory. This removes all image layers, therefore these tests measure a clean-build scenario, just like when a user creates and runs `podman build` in a new CDE.
+For each test apart from the <projectname>-edit tests, the `podman system reset` command was run before running each test in order to clear the graphroot directory. This removes all image layers, therefore these tests measure a clean-build scenario, just like when a user creates a CDE and runs `podman build` for the first time.
 
 For the <projectname>-edit tests, the image container was built beforehand. The tests measure a rebuild of the image after changing the source code without running `podman system reset` command. This scenario mimics the case where the developer is running a new build after making code changes in their CDE.
 
