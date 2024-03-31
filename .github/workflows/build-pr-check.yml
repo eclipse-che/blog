@@ -15,7 +15,7 @@ jobs:
   jekyll-pr-check:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: '0'
 
@@ -24,7 +24,7 @@ jobs:
       with:
         ruby-version: 2.7
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: blog-post-source
         path: |
@@ -38,7 +38,7 @@ jobs:
         format_output: true
         custom_opts: '--drafts --future'
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: blog-content
         path: ./_site
@@ -49,11 +49,11 @@ jobs:
        run: |
          echo "${{ github.event.number }}" > PR_NUMBER
          echo "${{ github.event.pull_request.head.sha }}" > PR_SHA
-     - uses: actions/upload-artifact@v3
+     - uses: actions/upload-artifact@v4
        with:
          name: pull-request-number
          path: PR_NUMBER
-     - uses: actions/upload-artifact@v3
+     - uses: actions/upload-artifact@v4
        with:
          name: pull-request-sha
          path: PR_SHA
@@ -63,7 +63,7 @@ jobs:
          format: 'json'
      - run: |
          jq -r '.' <<< '${{ steps.get-files.outputs.all }}' > modified_files.json
-     - uses: actions/upload-artifact@v3
+     - uses: actions/upload-artifact@v4
        with:
          name: modified-files
          path: modified_files.json
