@@ -1,0 +1,88 @@
+---
+title: Developing OpenWRT in QEMU with Eclipse Che
+layout: post
+author: Oleksii Orel
+description: >-
+  Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.
+categories: []
+keywords: ['openwrt', 'quemu', 'gdb', 'quemu', 'developing ', 'workspace']
+slug: /@olexii.orel/openwrt-helloworld-package
+---
+
+OpenWrt is a highly extensible GNU/Linux distribution for embedded devices (typically wireless routers). OpenWrt is built from the ground up to be a full-featured, easily modifiable operating system for embedded devices. You can have all the features you need with no bloat, powered by a modern Linux kernel.
+
+We can create and develop OpenWRT CMake packages with Eclipse Che.
+
+In this blog post, we will review developing OpenWRT in QEMU with Eclipse Che in 4 parts:
+
+<<part1>>
+
+<<part2>>
+
+<<part3>>
+
+<<part4>>
+
+
+NOTE: To help illustrate this blog post we will use an https://github.com/che-incubator/openwrt-helloworld-package.git[OpenWrt HelloWorld package].
+
+## PART 1: Quick start with prebuild recourses [[part1]]
+
+Prebuilt resources could be applied for a quick start with Eclipse Che. We could do it by running the next tasks from the `devfile.yaml` file:
+
+1. `Add prebuilt resources`
+
+NOTE: After adding prebuilt resources, we should see the `openwrt-*.img.gz` file in the `output` directory. Prebuilt resources were added to the runtime image during the last successful GitHub image build action.
+
+image::../assets/img/developing-openwrt/add-prebuilt-resources.png[Add prebuilt resources]
+{nbsp} +
+
+## PART 2: Build all packages and the kernel [[part2]]
+
+After creating a new workspace from https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with, Eclipse Che, we need to link the target package, copy `.config` file and install all package definitions. We can do it by running the following tasks from the `devfile.yaml` file:
+
+1. `Link helloworld package`
+2. `Copy diff-config to OpenWRT`
+3. `Install all package definitions`
+4. `Build all packages and the kernel`
+
+NOTE: The build process may take a while. After the build is complete, we can see the `openwrt-*.img.gz` file in the `output` directory.
+
+image::../assets/img/developing-openwrt/build-all-packages-and-the-kernel.png[Build all packages and the kernel, 100%]
+{nbsp} +
+
+## PART 3: Run OpenWRT in QEMU [[part3]]
+
+After adding prebuilt resources or building all packages and the kernel, OpenWRT could be run in the QEMU VM by running the following tasks from the `devfile.yaml` file:
+
+1. `Running OpenWRT in a QEMU VM`
+
+After running the task, we see the OpenWRT booting in the QEMU machine emulator and virtualizer.
+
+image::../assets/img/developing-openwrt/running-openwrt-in-qemu-vm.png[Running OpenWRT in a QEMU VM]
+{nbsp} +
+
+We can access the OpenWRT console by running the task `Remote access to OpenWRT via SSH` and start the helloworld package by running :
+
+[source, bash]
+----
+helloworld
+----
+
+image::../assets/img/developing-openwrt/run-helloworld.png[Run helloworld package]
+{nbsp} +
+
+## PART 4: Debugging helloworld package [[part4]]
+
+After starting OpenWRT in a QEMU VM we need to run remote gdbserver. We can do it by running task `Start remote GDB Server` from the `devfile.yaml` file.
+
+image::../assets/img/developing-openwrt/start-remote-gdbserver.png[Start remote gdbserver]
+{nbsp} +
+
+Then, we can debug the helloworld package with IDE:
+
+image::../assets/img/developing-openwrt/remote-debugging.png[Start remote gdbserver]
+{nbsp} +
+
+
+Thank you for reading. I hope you found this article helpful.
