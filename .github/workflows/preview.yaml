@@ -1,0 +1,30 @@
+name: Generate Preview URL in Comment
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+jobs:
+  generate_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get PR number and owner
+        id: get_pr_info
+        run: |
+          echo "PR number: ${{ github.event.pull_request.number }}"
+          echo "PR owner: ${{ github.event.pull_request.head.repo.owner.login }}"
+          echo "PR repo: ${{ github.event.pull_request.head.repo.name }}"
+      - name: Generate PR URL
+        run: |
+          pr_url="https://pr-check-${{ steps.get_pr_info.outputs.PR_repo }}-che-blog.surge.sh/"
+          echo "PR URL: $pr_url"
+      - name: Add comment with PR URL
+        uses: actions/github-script@v6
+        with:
+          github-script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `See the blog preview here: ${{ pr_url }}`
