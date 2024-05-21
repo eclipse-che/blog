@@ -81,7 +81,7 @@ image::/assets/img/developing-openwrt/run-helloworld.png[Run helloworld package]
 
 ## PART 4: Debugging helloworld package [[part4]]
 
-After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do it by running the task `Start remote GDB Server` from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile].
+After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do this by running the task `Start remote GDB Server` from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile].
 
 image::/assets/img/developing-openwrt/start-remote-gdbserver.png[Start remote gdbserver]
 {nbsp} +
