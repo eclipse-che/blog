@@ -17,7 +17,7 @@ jobs:
           echo "PR repo: ${{ github.event.pull_request.head.repo.name }}"
       - name: Generate PR URL
         run: |
-          pr_url="https://pr-check-${{ steps.get_pr_info.outputs.PR_repo }}-che-blog.surge.sh/"
+          pr_url="https://pr-check-${{ github.event.pull_request.number }}-che-blog.surge.sh/"
           echo "PR URL: $pr_url"
       - name: Add comment with PR URL
         uses: actions/github-script@v6
