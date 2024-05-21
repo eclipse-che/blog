@@ -47,7 +47,7 @@ image::/assets/img/developing-openwrt/add-prebuilt-resources.png[Add prebuilt re
 
 ## PART 2: (optional) Build all packages and the kernel [[part2]]
 
-After creating a new workspace from https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] we need to install all package definitions, copy https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config[`.config`] file and build all packages and the kernel. We can do it by running the following tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
+Instead of using prebuilt resources from STEP 1, we can install all package definitions, copy https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config[`.config`] file and build all packages and the kernel. We can do this by running the following tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
 1. `Install all package definitions`
 2. `Copy diff-config to OpenWRT`
