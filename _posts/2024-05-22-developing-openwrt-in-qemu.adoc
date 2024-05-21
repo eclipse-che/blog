@@ -24,152 +24,19 @@ In this blog post, we will review developing OpenWRT in https://www.qemu.org/[QE
 <<part4>>
 
 
-NOTE: In this blog post, we will use the next devfile:
-[source,yaml]
-----
-schemaVersion: 2.2.2
-metadata:
-  generateName: openwrt-helloworld
-attributes:
-  controller.devfile.io/storage-type: ephemeral
-projects:
-  - name: openwrt-helloworld
-    git:
-      remotes:
-        origin: https://github.com/che-incubator/openwrt-helloworld-package.git
-  - name: openwrt
-    zip:
-      location: https://github.com/openwrt/openwrt/archive/refs/tags/v21.02.3.zip
-components:
-  - name: runtime
-    container:
-      image: quay.io/che-incubator/openwrt-builder:latest
-      memoryLimit: 6656Mi
-      memoryRequest: 512Mi
-      cpuLimit: 10000m
-      cpuRequest: 1000m
-      mountSources: true
-      endpoints:
-        - exposure: public
-          name: file-server
-          protocol: https
-          targetPort: 8080
-          path: /bin/targets
-  - name: qemu
-    container:
-      image: quay.io/che-incubator/openwrt-runner:latest
-      memoryLimit: 1536Mi
-      memoryRequest: 256Mi
-      cpuLimit: 1500m
-      cpuRequest: 500m
-      mountSources: true
-      endpoints:
-        - exposure: public
-          name: luci
-          protocol: https
-          targetPort: 30080
-        - exposure: internal
-          name: ssh
-          protocol: tcp
-          targetPort: 30022
-commands:
-  - id: installpackagedefinitions
-    exec:
-      label: Install all package definitions
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt
-      commandLine: scripts/feeds update -a -f && scripts/feeds install -a -f
-      group:
-        kind: build
-  - id: linkhelloworldpackage
-    exec:
-      label: Link helloworld package
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}
-      commandLine: ln -sr openwrt-helloworld/package/helloworld openwrt/package/
-      group:
-        kind: build
-  - id: unlinkhelloworldpackage
-    exec:
-      label: Unlink helloworld package
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}
-      commandLine: unlink /projects/openwrt/package/helloworld
-      group:
-        kind: build
-  - id: copyconfig
-    exec:
-      label: Copy diff-config to OpenWRT
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}
-      commandLine: cp -f openwrt-helloworld/configs/.x86-generic.config openwrt/.config && cd openwrt && make defconfig
-      group:
-        kind: build
-  - id: savedifconfig
-    exec:
-      label: Save diff-config to openwrt-helloworld
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt
-      commandLine: scripts/diffconfig.sh > /projects/openwrt-helloworld/configs/.x86-generic.config
-      group:
-        kind: build
-  - id: buildhelloworldpackage
-    exec:
-      label: Build helloworld package
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt
-      commandLine: make package/helloworld/compile V=s CONFIG_DEBUG=y
-      group:
-        kind: build
-  - id: prebuiltresources
-    exec:
-      label: Add prebuilt resources
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt-helloworld
-      commandLine: scripts/add-prebuilt-resources.sh
-      group:
-        kind: build
-  - id: buildallpackages
-    exec:
-      label: Build all packages and the kernel
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt-helloworld
-      commandLine: scripts/build.sh
-      group:
-        kind: build
-  - id: qemustart
-    exec:
-      label: Running OpenWRT in a QEMU VM
-      component: qemu
-      workingDir: ${PROJECTS_ROOT}
-      commandLine: /usr/local/bin/prepare-and-run-vm.sh
-  - id: gdbsshstart
-    exec:
-      label: Start remote GDB Server
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt-helloworld
-      commandLine: scripts/start-gdb-server.sh
-  - id: gdbsshaccess
-    exec:
-      label: Remote access to OpenWRT via SSH
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt-helloworld
-      commandLine: scripts/start-ssh.sh
-      group:
-        kind: build
-  - id: serverstart
-    exec:
-      label: Start Http-Server
-      component: runtime
-      workingDir: ${PROJECTS_ROOT}/openwrt
-      commandLine: npx http-server -a 0.0.0.0 -p 8080 -o bin/targets
-      group:
-        kind: build
-----
+NOTE: In this blog post, we will use https://github.com/che-incubator/openwrt-helloworld-package.git[OpenWrt HelloWorld package].
+
+
+First of all, we need to create a new workspace from the repo https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with Eclipse Che.
+
+.Create a new workspace using developer sandbox.
+====
+link:https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package[].
+====
 
 ## PART 1: Quick start with prebuild recourses [[part1]]
 
-Prebuilt resources could be applied for a quick start with Eclipse Che. We could do it by running the next tasks from the devfile:
+Prebuilt resources could be applied for a quick start with Eclipse Che. We could do it by running the next tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
 1. `Add prebuilt resources`
 
@@ -180,10 +47,10 @@ image::/assets/img/developing-openwrt/add-prebuilt-resources.png[Add prebuilt re
 
 ## PART 2: (optinal)Build all packages and the kernel [[part2]]
 
-After creating a new workspace from https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package], we need to copy https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config[`.config`] file, install all package definitions and build all packages and the kernel. We can do it by running the following tasks from the devfile:
+After creating a new workspace from https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] we need to install all package definitions, copy https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config[`.config`] file and build all packages and the kernel. We can do it by running the following tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
-1. `Copy diff-config to OpenWRT`
-2. `Install all package definitions`
+1. `Install all package definitions`
+2. `Copy diff-config to OpenWRT`
 3. `Build all packages and the kernel`
 
 NOTE: The build process may take a while. After the build is complete, we can see the `openwrt-*.img.gz` file in the `output` directory.
@@ -193,7 +60,7 @@ image::/assets/img/developing-openwrt/build-all-packages-and-the-kernel.png[Buil
 
 ## PART 3: Run OpenWRT in QEMU [[part3]]
 
-After adding prebuilt resources or building all packages and the kernel, OpenWRT could be run in the QEMU VM by running the following tasks from the devfile:
+After adding prebuilt resources or building all packages and the kernel, OpenWRT could be run in the QEMU VM by running the following tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
 1. `Running OpenWRT in a QEMU VM`
 
@@ -214,7 +81,7 @@ image::/assets/img/developing-openwrt/run-helloworld.png[Run helloworld package]
 
 ## PART 4: Debugging helloworld package [[part4]]
 
-After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do it by running the task `Start remote GDB Server` from the devfile.
+After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do it by running the task `Start remote GDB Server` from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile].
 
 image::/assets/img/developing-openwrt/start-remote-gdbserver.png[Start remote gdbserver]
 {nbsp} +
