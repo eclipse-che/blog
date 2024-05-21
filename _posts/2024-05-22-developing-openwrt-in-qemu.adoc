@@ -36,7 +36,7 @@ First of all, we need to create a new workspace from the repo https://github.com
 
 ## PART 1: Quick start with prebuild recourses [[part1]]
 
-Prebuilt resources could be applied for a quick start with Eclipse Che. We could do it by running the next tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
+Prebuilt resources could be applied for a quick start with Eclipse Che. We could do this by running the next tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
 1. `Add prebuilt resources`
 
