@@ -26,13 +26,7 @@ In this blog post, we will review developing OpenWRT in https://www.qemu.org/[QE
 
 NOTE: In this blog post, we will use https://github.com/che-incubator/openwrt-helloworld-package.git[OpenWrt HelloWorld package].
 
-
-<<<<<<< Updated upstream
-First of all, we need to create a new workspace from the repo https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with Eclipse Che. The easiest way to do it is to use https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] and create a workspace by navigating to the following URL - https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml
-=======
-First of all, we need to create a new workspace from the repo https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with Eclipse Che. The easiest way to do it is to use https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] and create a workspace by navigating to the following URL - https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package.git.
->>>>>>> Stashed changes
-
+First of all, we need to create a new workspace from the repo https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with Eclipse Che. The easiest way to do it is to use https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] and create a workspace by navigating to the following URL - https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package.
 
 ## PART 1: Quick start with prebuild recourses [[part1]]
 
