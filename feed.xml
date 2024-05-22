@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-05-22T09:07:42+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Developing OpenWRT in QEMU with Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html" rel="alternate" type="text/html" title="Developing OpenWRT in QEMU with Eclipse Che" /><published>2024-05-22T00:00:00+00:00</published><updated>2024-05-22T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/05/22/@olexii.orel/openwrt-helloworld-package</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-05-22T13:12:25+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Developing OpenWRT in QEMU with Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html" rel="alternate" type="text/html" title="Developing OpenWRT in QEMU with Eclipse Che" /><published>2024-05-22T00:00:00+00:00</published><updated>2024-05-22T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/05/22/@olexii.orel/openwrt-helloworld-package</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"><![CDATA[<div class="paragraph">
 <p><a href="https://openwrt.org/">OpenWrt</a> is a highly extensible GNU/Linux distribution for embedded devices (typically wireless routers). OpenWrt is built from the ground up to be a full-featured, easily modifiable operating system for embedded devices. You can have all the features you need with no bloat, powered by a modern Linux kernel.</p>
 </div>
 <div class="paragraph">
@@ -8,7 +8,7 @@
 <p>In this blog post, we will review developing OpenWRT in <a href="https://www.qemu.org/">QEMU</a> with Eclipse Che in 4 parts:</p>
 </div>
 <div class="paragraph">
-<p><a href="#part1">PART 1: Quick start with prebuild recourses</a></p>
+<p><a href="#part1">PART 1: Quick start with prebuild resources</a></p>
 </div>
 <div class="paragraph">
 <p><a href="#part2">PART 2: (optional) Build all packages and the kernel</a></p>
@@ -35,7 +35,7 @@ In this blog post, we will use <a href="https://github.com/che-incubator/openwrt
 <p>First of all, we need to create a new workspace from the repo <a href="https://github.com/che-incubator/openwrt-helloworld-package.git">openwrt-helloworld-package</a> with Eclipse Che. The easiest way to do this is to use <a href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/">Eclipse Che hosted by Red Hat</a> and create a workspace by navigating to the following URL - <a href="https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package" class="bare">https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package</a>.</p>
 </div>
 <div class="sect1">
-<h2 id="part1">PART 1: Quick start with prebuild recourses</h2>
+<h2 id="part1">PART 1: Quick start with prebuild resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Prebuilt resources could be applied for a quick start with Eclipse Che. We could do this by running the next tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
