@@ -1,4 +1,199 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-03-28T21:39:47+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Drive a coupe with the overlay storage driver - a Podman build comparison</title><link href="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html" rel="alternate" type="text/html" title="Drive a coupe with the overlay storage driver - a Podman build comparison" /><published>2024-03-28T00:00:00+00:00</published><updated>2024-03-28T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/03/28/@david.kwon/fuse-storage-driver</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-05-22T09:07:42+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Developing OpenWRT in QEMU with Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html" rel="alternate" type="text/html" title="Developing OpenWRT in QEMU with Eclipse Che" /><published>2024-05-22T00:00:00+00:00</published><updated>2024-05-22T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/05/22/@olexii.orel/openwrt-helloworld-package</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"><![CDATA[<div class="paragraph">
+<p><a href="https://openwrt.org/">OpenWrt</a> is a highly extensible GNU/Linux distribution for embedded devices (typically wireless routers). OpenWrt is built from the ground up to be a full-featured, easily modifiable operating system for embedded devices. You can have all the features you need with no bloat, powered by a modern Linux kernel.</p>
+</div>
+<div class="paragraph">
+<p>We can create and develop <a href="https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt">OpenWRT CMake packages</a> with Eclipse Che.</p>
+</div>
+<div class="paragraph">
+<p>In this blog post, we will review developing OpenWRT in <a href="https://www.qemu.org/">QEMU</a> with Eclipse Che in 4 parts:</p>
+</div>
+<div class="paragraph">
+<p><a href="#part1">PART 1: Quick start with prebuild recourses</a></p>
+</div>
+<div class="paragraph">
+<p><a href="#part2">PART 2: (optional) Build all packages and the kernel</a></p>
+</div>
+<div class="paragraph">
+<p><a href="#part3">PART 3: Run OpenWRT in QEMU</a></p>
+</div>
+<div class="paragraph">
+<p><a href="#part4">PART 4: Debugging helloworld package</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+In this blog post, we will use <a href="https://github.com/che-incubator/openwrt-helloworld-package.git">OpenWrt HelloWorld package</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>First of all, we need to create a new workspace from the repo <a href="https://github.com/che-incubator/openwrt-helloworld-package.git">openwrt-helloworld-package</a> with Eclipse Che. The easiest way to do this is to use <a href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/">Eclipse Che hosted by Red Hat</a> and create a workspace by navigating to the following URL - <a href="https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package" class="bare">https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package</a>.</p>
+</div>
+<div class="sect1">
+<h2 id="part1">PART 1: Quick start with prebuild recourses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prebuilt resources could be applied for a quick start with Eclipse Che. We could do this by running the next tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Add prebuilt resources</code></p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+After adding prebuilt resources, we should see the <code>openwrt-*.img.gz</code> file in the <code>output</code> directory. Prebuilt resources were added to the runtime image during the last successful GitHub image build action.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/add-prebuilt-resources.png" alt="Add prebuilt resources">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="part2">PART 2: (optional) Build all packages and the kernel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Instead of using prebuilt resources from STEP 1, we can install all package definitions, copy <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config"><code>.config</code></a> file and build all packages and the kernel. We can do this by running the following tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Install all package definitions</code></p>
+</li>
+<li>
+<p><code>Copy diff-config to OpenWRT</code></p>
+</li>
+<li>
+<p><code>Build all packages and the kernel</code></p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The build process may take a while, which is why using prebuilt resources from STEP 1 could be more desirable for getting started quickly. After the build is complete, we can see the <code>openwrt-*.img.gz</code> file in the <code>output</code> directory.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/build-all-packages-and-the-kernel.png" alt="Build all packages and the kernel" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="part3">PART 3: Run OpenWRT in QEMU</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After adding prebuilt resources or building all packages and the kernel, OpenWRT could be run in the QEMU VM by running the following tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Running OpenWRT in a QEMU VM</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After running the task, we see the OpenWRT booting in the QEMU machine emulator and virtualizer.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/running-openwrt-in-qemu-vm.png" alt="Running OpenWRT in a QEMU VM">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>We can access the OpenWRT console by running the task <code>Remote access to OpenWRT via SSH</code> and start the helloworld package by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">helloworld</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/run-helloworld.png" alt="Run helloworld package">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="part4">PART 4: Debugging helloworld package</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do this by running the task <code>Start remote GDB Server</code> from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/start-remote-gdbserver.png" alt="Start remote gdbserver">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Then, we can debug the helloworld package with IDE:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/developing-openwrt/remote-debugging.png" alt="Start remote gdbserver">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The task <code>Start remote GDB Server</code> should be run before each new debug session.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Thank you for reading. I hope you found this article helpful.</p>
+</div>
+</div>
+</div>]]></content><author><name>Oleksii Orel</name></author><summary type="html"><![CDATA[Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.]]></summary></entry><entry><title type="html">Drive a coupe with the overlay storage driver - a Podman build comparison</title><link href="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html" rel="alternate" type="text/html" title="Drive a coupe with the overlay storage driver - a Podman build comparison" /><published>2024-03-28T00:00:00+00:00</published><updated>2024-03-28T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/03/28/@david.kwon/fuse-storage-driver</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html"><![CDATA[<div class="paragraph">
 <p>With the fuse-overlayfs storage driver, you can enable faster builds and a more optimized storage usage for <code>podman build</code> and <code>buildah</code> within your Eclipse Che cloud development environment (CDE). Before diving into its advantages, let&#8217;s first discuss some prerequisite details about container image layers and storage drivers.</p>
 </div>
 <div class="paragraph">
@@ -2886,333 +3081,4 @@ More details about the GitHub action can be found in the <a href="https://che.ec
 <div class="paragraph">
 <p>Now you are all set. Happy Coding!</p>
 </div>
-</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how to easily contribute to a project using Eclipse Che]]></summary></entry><entry><title type="html">Authoring a URL to start a workspace</title><link href="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html" rel="alternate" type="text/html" title="Authoring a URL to start a workspace" /><published>2021-12-20T00:00:00+00:00</published><updated>2021-12-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2021/12/20/@florent.benoit/authoring-a-url-to-start-a-workspace</id><content type="html" xml:base="https://che.eclipseprojects.io/2021/12/20/@florent.benoit-authoring-a-url-to-start-a-workspace.html"><![CDATA[<div class="paragraph">
-<p>As a user, you can create a workspace using a direct URL rather than navigating the user dashboard.
-This blog post describes how to author a URL to start a workspace.
-The coordinates are organized into the standard sequence shown below.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="../../assets/img/start-a-workspace/start-workspace-link.png"><img src="../../../assets/img/start-a-workspace/start-workspace-link.png" alt="Authoring a URL to start a workspace"></a>
-</div>
-</div>
-<div class="paragraph">
-<p>To use a URL to start a workspace you can choose to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Paste the URL in the address bar of your browser.</p>
-</li>
-<li>
-<p>Distribute the URL as a link (in an onboarding procedure, in a pull request comment).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When you click on a URL to start a workspace, Eclipse&#160;Che:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Creates or reuses a workspace. A parameter can request to always create a new workspace.</p>
-</li>
-<li>
-<p>Clones the repository.</p>
-</li>
-<li>
-<p>Searches for a devfile in the given repository. A parameter can override the default location: <code>.devfile.yaml</code> or <code>devfile.yaml</code>. The devfile describes the containers and commands to use for that project. See the <a href="https://devfile.io/">Devfile Documentation</a>. Omitting this file will result in a default container, which provides different languages (including Java, Node.js, Python, PHP, Golang, etc) and tools (including <code>curl</code>, <code>jq</code>, <code>yq</code>, etc).</p>
-</li>
-<li>
-<p>Starts the containers to use for that project.</p>
-</li>
-<li>
-<p>Starts the IDE. A parameter can override the default IDE.</p>
-</li>
-</ol>
-</div>
-<div class="sect1">
-<h2 id="_url-parameters-reference">URL parameters reference</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Mandatory repository parameter:</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#<em>&lt;repository_URL&gt;</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository URL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#https://github.com/eclipse-che/che-server/tree/7.40.x</code></p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Optional parameters: (<code>?</code> followed by <code>keyword=value</code>)</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Keyword</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>che-editor=<em>&lt;ide&gt;</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IDE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>?che-editor=eclipse/che-theia/latest</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>devfilePath=<em>&lt;devfile&gt;</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Devfile path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>?devfilePath=.che/my-devfile.yaml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>new</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Always create a new workspace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>?new</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Note: <code>?new</code> keyword has no value</p>
-</div>
-<div class="paragraph">
-<p>In the last part of the URL, parameter list preceded by ? and using the &amp; separator.</p>
-</div>
-<div class="paragraph">
-<p><em><a href="https://che-host" class="bare">https://che-host</a></em>#<em>&lt;repository_url&gt;</em>?<em>&lt;parameter_1&gt;</em>&amp;<em>&lt;parameter_2&gt;</em></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_defining-the-git-repository-url">Defining the Git repository URL</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This syntax is available when using DevWorkspace Operator.</p>
-</div>
-<div class="paragraph">
-<p>The Git repository URL is mandatory.
-Che supports following Git providers: GitHub, GitLab, or on-premise Bitbucket.</p>
-</div>
-<div class="paragraph">
-<p>Add a <code>#</code> character and append the repository URL: <code>#<em>&lt;repository_URL&gt;</em></code>.</p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 1. Open Eclipse Che Server repository in Eclipse Che hosted by Red Hat</div>
-<div class="content">
-<div class="paragraph">
-<p><a href="https://workspaces.openshift.com#https://github.com/eclipse-che/che-server" class="bare">https://workspaces.openshift.com#https://github.com/eclipse-che/che-server</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_url-syntax-by-git-provider">URL syntax by Git provider</h3>
-<div class="paragraph">
-<p>URL syntax for cloning GitHub-hosted repositories to the starting workspace:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To clone the default branch on GitHub to the starting workspace:</p>
-<div class="paragraph">
-<p><code>#https://github.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em></code></p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 2. Cloning the default branch of the <a href="https://github.com/eclipse-che/che-plugin-registry">Plug-in registry repository</a>.</div>
-<div class="content">
-<div class="paragraph">
-<p><code>#https://github.com/eclipse-che/che-plugin-registry</code></p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>To clone a specified branch on GitHub to the starting workspace:</p>
-<div class="paragraph">
-<p><code>#https://github.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/tree/<em>&lt;branch-name&gt;</em></code></p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 3. Cloning the <code>7.39.x</code> branch of the <a href="https://github.com/eclipse-che/che-plugin-registry">Plug-in registry repository</a>.</div>
-<div class="content">
-<div class="paragraph">
-<p><code>#https://github.com/eclipse-che/che-plugin-registry/tree/7.39.x</code></p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>To clone the branch of a pull request on GitHub to the starting workspace:</p>
-<div class="paragraph">
-<p><code>#https://github.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/pull/<em>&lt;pull-request-id&gt;</em></code></p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 4. Cloning the <a href="https://github.com/eclipse-che/che-plugin-registry/pull/1097">Plug-in registry repository pull request <code>#1097</code></a>.</div>
-<div class="content">
-<div class="paragraph">
-<p><code>#https://github.com/eclipse-che/che-plugin-registry/pull/1097</code></p>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>URL syntax for cloning GitLab-hosted repositories:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To clone the default branch on GitLab to the starting workspace:</p>
-<div class="paragraph">
-<p><code>#https://gitlab.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em></code></p>
-</div>
-</li>
-<li>
-<p>To clone a specified branch on GitLab to the starting workspace:</p>
-<div class="paragraph">
-<p><code>#https://gitlab.com/<em>&lt;user_or_org&gt;</em>/<em>&lt;repository&gt;</em>/-/tree/<em>&lt;branch&gt;</em></code></p>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>URL syntax for cloning BitBucket-hosted repositories:</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-Eclipse&#160;Che supports only on premises BitBucket instances.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_defining-the-editor-or-integrated-development-environment-ide">Defining the editor or Integrated Development Environment (IDE)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Eclipse&#160;Che starts workspaces with a default IDE: Che Theia.</p>
-</div>
-<div class="paragraph">
-<p>Overriding the default editor is possible with the <code>?che-editor=<em>&lt;editor-id&gt;</em></code> parameter. The <code>editor-id</code> comes from the identifier of the IDE in the plug-in registry.</p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 5. Using the next version of Theia (build after each commit)</div>
-<div class="content">
-<div class="paragraph">
-<p><code>https://che-host#https://github.com/example/foo?che-editor=eclipse/che-theia/next</code></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Some available IDE keys:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>eclipse/che-theia/latest</code></p>
-</li>
-<li>
-<p><code>eclipse/che-theia/next</code></p>
-</li>
-<li>
-<p><code>che-incubator/intellij-community/latest</code></p>
-</li>
-<li>
-<p><code>che-incubator/pycharm/latest</code></p>
-</li>
-<li>
-<p><code>che-incubator/che-code/insiders</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Obtain IDE keys from the plug-in registry by looking at <code>Che Editor</code> type entries.</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><code>https://che-host/che-plugin-registry/main/index.json</code></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The parameter <code>?che-editor</code> accepts a link to the devfile hosted on a public server (with Cross-Origin Resource Sharing (CORS) enabled).</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><code>https://che-host#https://github.com/example/foo?che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-code/insiders/devfile.yaml</code></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using-a-different-devfile-file-from-the-repository">Using a different devfile file from the repository</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If the devfile file name is different from the default search pattern, which is <code>.devfile.yaml</code> or <code>devfile.yaml</code>, it is possible to override that name.</p>
-</div>
-<div class="paragraph">
-<p>Use the parameter <code>?devfilePath=mydevfile.yaml</code> at the end of <code><a href="https://che-host#" class="bare">https://che-host#</a><em>&lt;git_repository_url&gt;</em></code>.</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><code>https://che-host#https://github.com/example/foo?devfilePath=mydevfile.yaml</code></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The short name for the <code>devfilePath</code> parameter is <code>df</code>.</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><code>https://che-host#https://github.com/example/foo?df=mydevfile.yaml</code></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_creating-or-reusing-a-workspace">Creating or reusing a workspace</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you enter a URL such as <code>https://che-host#http://github.com/foo/bar</code> and you don’t have any workspace named <code>bar</code>, Eclipse&#160;Che creates a workspace named <code>bar</code> and clones the GitHub repository.</p>
-</div>
-<div class="paragraph">
-<p>Each time you enter a URL such as <code><a href="https://che-host#http://github.com/foo/bar" class="bare">https://che-host#http://github.com/foo/bar</a></code> again, Eclipse&#160;Che reopens the existing workspace <code>bar</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_always-creating-a-new-workspace">Always creating a new workspace</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To create another workspace each time you enter the same URL, enter the URL appended with <code>?new</code> in the URL format <code>https://che-host#http://github.com/foo/bar?new</code>. Even if you already have a workspace named <code>bar</code>, each time you enter such URL, Eclipse&#160;Che will create another, sequentially named workspace (example: <code>bar-abcde</code>).</p>
-</div>
-</div>
-</div>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[How to start a workspace by customizing the URL.]]></summary></entry></feed>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how to easily contribute to a project using Eclipse Che]]></summary></entry></feed>

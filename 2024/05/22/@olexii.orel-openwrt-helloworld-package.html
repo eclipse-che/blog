@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>
+      Developing OpenWRT in QEMU with Eclipse Che | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta
+      property="og:title"
+      content="Developing OpenWRT in QEMU with Eclipse Che"
+    />
+    <meta name="author" content="Oleksii Orel" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che."
+    />
+    <meta
+      property="og:description"
+      content="Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2024-05-22T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Developing OpenWRT in QEMU with Eclipse Che"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Oleksii Orel" },
+        "dateModified": "2024-05-22T00:00:00+00:00",
+        "datePublished": "2024-05-22T00:00:00+00:00",
+        "description": "Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.",
+        "headline": "Developing OpenWRT in QEMU with Eclipse Che",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"
+        },
+        "url": "https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Developing OpenWRT in QEMU with Eclipse Che
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2024-05-22T00:00:00+00:00"
+                itemprop="datePublished"
+                >May 22, 2024 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Oleksii Orel</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="paragraph">
+              <p>
+                <a href="https://openwrt.org/">OpenWrt</a> is a highly
+                extensible GNU/Linux distribution for embedded devices
+                (typically wireless routers). OpenWrt is built from the ground
+                up to be a full-featured, easily modifiable operating system for
+                embedded devices. You can have all the features you need with no
+                bloat, powered by a modern Linux kernel.
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                We can create and develop
+                <a
+                  href="https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt"
+                  >OpenWRT CMake packages</a
+                >
+                with Eclipse Che.
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                In this blog post, we will review developing OpenWRT in
+                <a href="https://www.qemu.org/">QEMU</a> with Eclipse Che in 4
+                parts:
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                <a href="#part1">PART 1: Quick start with prebuild recourses</a>
+              </p>
+            </div>
+            <div class="paragraph">
+              <p>
+                <a href="#part2"
+                  >PART 2: (optional) Build all packages and the kernel</a
+                >
+              </p>
+            </div>
+            <div class="paragraph">
+              <p><a href="#part3">PART 3: Run OpenWRT in QEMU</a></p>
+            </div>
+            <div class="paragraph">
+              <p><a href="#part4">PART 4: Debugging helloworld package</a></p>
+            </div>
+            <div class="admonitionblock note">
+              <table>
+                <tr>
+                  <td class="icon">
+                    <div class="title">Note</div>
+                  </td>
+                  <td class="content">
+                    In this blog post, we will use
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package.git"
+                      >OpenWrt HelloWorld package</a
+                    >.
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="paragraph">
+              <p>
+                First of all, we need to create a new workspace from the repo
+                <a
+                  href="https://github.com/che-incubator/openwrt-helloworld-package.git"
+                  >openwrt-helloworld-package</a
+                >
+                with Eclipse Che. The easiest way to do this is to use
+                <a
+                  href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/"
+                  >Eclipse Che hosted by Red Hat</a
+                >
+                and create a workspace by navigating to the following URL -
+                <a
+                  href="https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package"
+                  class="bare"
+                  >https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package</a
+                >.
+              </p>
+            </div>
+            <div class="sect1">
+              <h2 id="part1">PART 1: Quick start with prebuild recourses</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Prebuilt resources could be applied for a quick start with
+                    Eclipse Che. We could do this by running the next tasks from
+                    the
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml"
+                      >devfile</a
+                    >:
+                  </p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p><code>Add prebuilt resources</code></p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        After adding prebuilt resources, we should see the
+                        <code>openwrt-*.img.gz</code> file in the
+                        <code>output</code> directory. Prebuilt resources were
+                        added to the runtime image during the last successful
+                        GitHub image build action.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/add-prebuilt-resources.png"
+                      alt="Add prebuilt resources"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="part2">
+                PART 2: (optional) Build all packages and the kernel
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Instead of using prebuilt resources from STEP 1, we can
+                    install all package definitions, copy
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config"
+                      ><code>.config</code></a
+                    >
+                    file and build all packages and the kernel. We can do this
+                    by running the following tasks from the
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml"
+                      >devfile</a
+                    >:
+                  </p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p><code>Install all package definitions</code></p>
+                    </li>
+                    <li>
+                      <p><code>Copy diff-config to OpenWRT</code></p>
+                    </li>
+                    <li>
+                      <p><code>Build all packages and the kernel</code></p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        The build process may take a while, which is why using
+                        prebuilt resources from STEP 1 could be more desirable
+                        for getting started quickly. After the build is
+                        complete, we can see the
+                        <code>openwrt-*.img.gz</code> file in the
+                        <code>output</code> directory.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/build-all-packages-and-the-kernel.png"
+                      alt="Build all packages and the kernel"
+                      width="100%"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="part3">PART 3: Run OpenWRT in QEMU</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    After adding prebuilt resources or building all packages and
+                    the kernel, OpenWRT could be run in the QEMU VM by running
+                    the following tasks from the
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml"
+                      >devfile</a
+                    >:
+                  </p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p><code>Running OpenWRT in a QEMU VM</code></p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    After running the task, we see the OpenWRT booting in the
+                    QEMU machine emulator and virtualizer.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/running-openwrt-in-qemu-vm.png"
+                      alt="Running OpenWRT in a QEMU VM"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    We can access the OpenWRT console by running the task
+                    <code>Remote access to OpenWRT via SSH</code> and start the
+                    helloworld package by running:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="bash">helloworld</code></pre>
+                  </div>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/run-helloworld.png"
+                      alt="Run helloworld package"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="part4">PART 4: Debugging helloworld package</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    After starting OpenWRT in a QEMU VM, we need to run a remote
+                    gdbserver for debugging. We can do this by running the task
+                    <code>Start remote GDB Server</code> from the
+                    <a
+                      href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml"
+                      >devfile</a
+                    >.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/start-remote-gdbserver.png"
+                      alt="Start remote gdbserver"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>Then, we can debug the helloworld package with IDE:</p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/developing-openwrt/remote-debugging.png"
+                      alt="Start remote gdbserver"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        The task <code>Start remote GDB Server</code> should be
+                        run before each new debug session.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Thank you for reading. I hope you found this article
+                    helpful.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
