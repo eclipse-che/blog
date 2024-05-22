@@ -30,7 +30,7 @@ NOTE: In this blog post, we will use https://github.com/che-incubator/openwrt-he
 First of all, we need to create a new workspace from the repo https://github.com/che-incubator/openwrt-helloworld-package.git[openwrt-helloworld-package] with Eclipse Che. The easiest way to do this is to use https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] and create a workspace by navigating to the following URL - https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package.
 
 
-## PART 1: Quick start with prebuild recourses [[part1]]
+## PART 1: Quick start with prebuild resources [[part1]]
 
 Prebuilt resources could be applied for a quick start with Eclipse Che. We could do this by running the next tasks from the https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml[devfile]:
 
