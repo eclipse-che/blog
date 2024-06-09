@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: download modified files
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v5
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: modified-files
@@ -31,7 +31,7 @@ jobs:
           jq -cr '.' modified-files/modified_files.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: PR sha
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v5
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: pull-request-sha
@@ -40,7 +40,7 @@ jobs:
           pr_sha=$(cat "PR_SHA")
           echo "PR_SHA=$pr_sha" >> $GITHUB_ENV
       - name: download blog posts source
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v5
         with:
           workflow: ${{ github.event.workflow_run.workflow_id }}
           name: blog-post-source
