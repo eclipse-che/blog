@@ -3,7 +3,7 @@ title: Introducing the Devfile AI Assistant
 layout: post
 author: Anatolii Bazko
 description: >-
-  The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers. This tool provides practical examples demonstrating how it can streamline the development setup process.
+  The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers.
 categories: []
 keywords: ['devfile', 'ChatGPT', 'AI']
 slug: /@tolusha/devfile-ai-assistant
