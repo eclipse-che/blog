@@ -1,0 +1,322 @@
+---
+title: Introducing the Devfile AI Assistant
+layout: post
+author: Anatolii Bazko
+description: >-
+  The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers. This tool provides practical examples demonstrating how it can streamline the development setup process.
+categories: []
+keywords: ['devfile', 'ChatGPT', 'AI']
+slug: /@tolusha/devfile-ai-assistant
+---
+
+== Introducing the Devfile AI Assistant
+
+In software development, it's important to be efficient. Whether you're an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That's where the link:https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant[Devfile AI Assistant] comes in. It's designed to help developers create devfiles easily without needing in-depth knowledge of devfile syntax or structure. It uses a link:https://devfile.io[devfile knowledge base] to help you craft a devfile, making sure your development environment is set up right.
+
+== Step-by-step example of how to create a devfile
+
+Let's check out some real-life examples of how the Devfile AI Assistant can help you in creating devfiles for your projects."
+
+. Start by providing a basic devfile.
++
+**Request:**
++
+[source]
+----
+Provide a basic devfile.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: basic-devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+----
+
+. Add a project to the devfile.
++
+**Request:**
++
+[source]
+----
+Add https://github.com/eclipse-che/che-server git project.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: basic-devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+----
+
+. Add a new component to the devfile.
++
+**Request:**
++
+[source]
+----
+Add PostgreSQL component.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+----
+
+. Add a volume to the devfile.
++
+**Request:**
++
+[source]
+----
+Add 2Gi volume in home user directory to store Maven artifacts.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+      volumeMounts:
+        - name: maven-artifacts
+          path: /home/user/.m2
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+  - name: maven-artifacts
+    volume:
+      size: 2Gi
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+----
+
+. Add command to the devfile.
++
+**Request:**
++
+[source]
+----
+Add command to build a java project.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+      volumeMounts:
+        - name: maven-artifacts
+          path: /home/user/.m2
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+  - name: maven-artifacts
+    volume:
+      size: 2Gi
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+commands:
+  - id: build-java-project
+    exec:
+      commandLine: mvn clean install
+      component: tools
+      group:
+        kind: build
+        isDefault: true
+      label: Build Java Project
+      workingDir: /projects/che-server
+----
+
+. Add resource limits to the devfile.
++
+**Request:**
++
+[source]
+----
+Add resource limits to all components.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: devfile
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+      volumeMounts:
+        - name: maven-artifacts
+          path: /home/user/.m2
+      cpuLimit: 2
+      memoryLimit: 4Gi
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+      cpuLimit: 1
+      memoryLimit: 2Gi
+  - name: maven-artifacts
+    volume:
+      size: 2Gi
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+commands:
+  - id: build-java-project
+    exec:
+      commandLine: mvn clean install
+      component: tools
+      group:
+        kind: build
+        isDefault: true
+      label: Build Java Project
+      workingDir: /projects/che-server
+----
+
+. Add metadata to the devfile.
++
+**Request:**
++
+[source]
+----
+Add metadata based on the devfile.
+----
+**Response:**
++
+[source,yaml]
+----
+schemaVersion: 2.3.0
+metadata:
+  name: devfile
+  displayName: Java with PostgreSQL Dev Environment
+  description: A development environment for a Java project with PostgreSQL database support.
+  language: Java
+  projectType: Java Application
+  version: 1.0.0
+  provider: Eclipse Che
+  tags:
+    - java
+    - postgres
+    - maven
+    - database
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+      volumeMounts:
+        - name: maven-artifacts
+          path: /home/user/.m2
+      cpuLimit: 2
+      memoryLimit: 4Gi
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+      cpuLimit: 1
+      memoryLimit: 2Gi
+  - name: maven-artifacts
+    volume:
+      size: 2Gi
+projects:
+  - name: che-server
+    git:
+      remotes:
+        origin: https://github.com/eclipse-che/che-server.git
+commands:
+  - id: build-java-project
+    exec:
+      commandLine: mvn clean install
+      component: tools
+      group:
+        kind: build
+        isDefault: true
+      label: Build Java Project
+      workingDir: /projects/che-server
+----
+
+== Conclusion
+
+Are you a developer looking to simplify setting up your development environment? The Devfile AI Assistant is here to help! It provides clear and accurate configurations, taking the complexity out of the process. Give the Devfile AI Assistant a try today!
