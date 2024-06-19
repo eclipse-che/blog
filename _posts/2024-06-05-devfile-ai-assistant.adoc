@@ -11,7 +11,7 @@ slug: /@tolusha/devfile-ai-assistant
 
 == Introducing the Devfile AI Assistant
 
-In software development, it's important to be efficient. Whether you're an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That's where the link:https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant[Devfile AI Assistant] comes in. It's designed to help developers create devfiles easily without needing in-depth knowledge of devfile syntax or structure. It uses a link:https://devfile.io[devfile knowledge base] to help you craft a devfile, making sure your development environment is set up right.
+In software development, it's important to be efficient. Whether you're an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That's where the link:https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant[Devfile AI Assistant] comes in. It's designed to help developers create devfiles easily without needing in-depth knowledge of the devfile syntax or structure. It uses a link:https://devfile.io[devfile knowledge base] to help you craft a devfile, making sure your development environment is set up right.
 
 == Step-by-step example of how to create a devfile
 
