@@ -13,6 +13,15 @@ slug: /@tolusha/devfile-ai-assistant
 
 In software development, it's important to be efficient. Whether you're an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That's where the link:https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant[Devfile AI Assistant] comes in. It's designed to help developers create devfiles easily without needing in-depth knowledge of the devfile syntax or structure. It uses a link:https://devfile.io[devfile knowledge base] to help you craft a devfile, making sure your development environment is set up right.
 
+== What is a devfile?
+
+A devfiles are configuration file that defines development environments. They specify the components, commands, projects etc. that make up a development workspace. They play a central role in the workflow of Eclipse Che.
+
+In Eclipse Che, devfiles are used to automate the setup of development environments. By providing a devfile, developers can ensure a consistent environment across the team, getting rid of the "works on my machine" problems. When a devfile is applied, Eclipse Che provisions the specified containers, clones the necessary repositories, and sets up the workspace with all the tools and dependencies required for development. It makes them an essential tool for modern cloud-based development.
+
+image::/assets/img/devfile-ai-assistant/devfile-eclipse-che-cde.png[Devfile->Eclipse-Che->CDE]
+{nbsp} +
+
 == Step-by-step example of how to create a devfile
 
 Let's check out some real-life examples of how the Devfile AI Assistant can help you in creating devfiles for your projects."
