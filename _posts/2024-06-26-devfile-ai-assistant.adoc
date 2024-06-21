@@ -13,7 +13,7 @@ slug: /@tolusha/devfile-ai-assistant
 
 In software development, it's important to be efficient. Whether you're an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That's where the link:https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant[Devfile AI Assistant] comes in. It's designed to help developers create devfiles easily without needing in-depth knowledge of the devfile syntax or structure. It uses a link:https://devfile.io[devfile knowledge base] to help you craft a devfile, making sure your development environment is set up right.
 
-Another tool that simplifies creating devfile is the link:https://github.com/devfile/vscode-walkthrough-extension[VS Code Walkthrough Extension for Devfile]. It provides an interactive guide to help users understand and utilize devfiles within Visual Studio Code. Using a wizard, you can easily create a devfile to customize your Cloud Development Environment.
+NOTE: Another tool that simplifies creating devfile is the link:https://github.com/devfile/vscode-walkthrough-extension[VS Code Walkthrough Extension for Devfile]. It provides an interactive guide to help users understand and utilize devfiles within Visual Studio Code. Using a wizard, you can easily create a devfile to customize your Cloud Development Environment.
 
 
 == What is a devfile?
