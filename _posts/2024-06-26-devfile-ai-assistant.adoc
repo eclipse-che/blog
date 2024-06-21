@@ -20,7 +20,7 @@ NOTE: Another tool that simplifies creating devfile is the link:https://github.c
 
 Devfiles are configuration files that define development environments. They specify the components, commands, events etc. that make up a development workspace. They play a central role in the workflow of Eclipse Che.
 
-In Eclipse Che, devfiles are used to automate the setup of development environments. By providing a devfile, developers can ensure a consistent environment across the team, getting rid of the "works on my machine" problems. When a devfile is applied, Eclipse Che provisions the specified containers, clones the necessary repositories, and sets up the workspace with all the tools and dependencies required for development. It makes them an essential tool for modern cloud-based development.
+In Eclipse Che, devfiles are used to automate the setup of development environments. By providing a devfile, developers can ensure a consistent environment across the team, getting rid of the "works on my machine" problems. When a devfile is applied, Eclipse Che provisions the specified containers, clones the necessary repositories, and sets up the workspace with all the tools and dependencies required for development. This makes them an essential tool for modern cloud-based development.
 
 image::/assets/img/devfile-ai-assistant/devfile-eclipse-che-cde.png[Devfile->Eclipse-Che->CDE]
 {nbsp} +
