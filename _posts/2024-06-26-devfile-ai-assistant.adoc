@@ -27,7 +27,7 @@ image::/assets/img/devfile-ai-assistant/devfile-eclipse-che-cde.png[Devfile->Ecl
 
 == Step-by-step example of how to create a devfile
 
-Let's check out some real-life examples of how the Devfile AI Assistant can help you in creating devfiles for your projects."
+Let's check out some real-life examples of how the Devfile AI Assistant can help you in creating devfiles for your projects.
 
 . Start by providing a basic devfile.
 +
