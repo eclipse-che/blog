@@ -273,52 +273,43 @@
                     </li>
                     <li>
                       <p>Add a project to the devfile.</p>
-                    </li>
-                  </ol>
-                </div>
-                <div class="admonitionblock important">
-                  <table>
-                    <tr>
-                      <td class="icon">
-                        <div class="title">Important</div>
-                      </td>
-                      <td class="content">
-                        Even though it is possible to define projects in a
-                        devfile explicitly, it is recommended to add
-                        <code>.devfile.yaml</code> or
-                        <code>devfile.yaml</code> file to the root of the
-                        repository which allows skipping the project definition
-                        on the devfile level.
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="paragraph">
-                  <p>+ <strong>Request:</strong></p>
-                </div>
-                <div class="paragraph">
-                  <p>+</p>
-                </div>
-                <div class="listingblock">
-                  <div class="content">
-                    <pre
-                      class="rouge highlight"
-                      style="color: #f8f8f2; background-color: #49483e"
-                    ><code>Add https://github.com/eclipse-che/che-server git project.</code></pre>
-                  </div>
-                </div>
-                <div class="paragraph">
-                  <p><strong>Response:</strong></p>
-                </div>
-                <div class="paragraph">
-                  <p>+</p>
-                </div>
-                <div class="listingblock">
-                  <div class="content">
-                    <pre
-                      class="rouge highlight"
-                      style="color: #f8f8f2; background-color: #49483e"
-                    ><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
+                      <div class="admonitionblock important">
+                        <table>
+                          <tr>
+                            <td class="icon">
+                              <div class="title">Important</div>
+                            </td>
+                            <td class="content">
+                              Even though it is possible to define projects in a
+                              devfile explicitly, it is recommended to add
+                              <code>.devfile.yaml</code> or
+                              <code>devfile.yaml</code> file to the root of the
+                              repository which allows skipping the project
+                              definition on the devfile level.
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="paragraph">
+                        <p><strong>Request:</strong></p>
+                      </div>
+                      <div class="listingblock">
+                        <div class="content">
+                          <pre
+                            class="rouge highlight"
+                            style="color: #f8f8f2; background-color: #49483e"
+                          ><code>Add https://github.com/eclipse-che/che-server git project.</code></pre>
+                        </div>
+                      </div>
+                      <div class="paragraph">
+                        <p><strong>Response:</strong></p>
+                      </div>
+                      <div class="listingblock">
+                        <div class="content">
+                          <pre
+                            class="rouge highlight"
+                            style="color: #f8f8f2; background-color: #49483e"
+                          ><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
 <span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
   <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">basic-devfile</span>
 <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
@@ -330,10 +321,9 @@
     <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
       <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
         <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span></code></pre>
-                  </div>
-                </div>
-                <div class="olist arabic">
-                  <ol class="arabic">
+                        </div>
+                      </div>
+                    </li>
                     <li>
                       <p>Add a new component to the devfile.</p>
                       <div class="paragraph">

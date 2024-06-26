@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-06-26T10:13:51+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Introducing the Devfile AI Assistant</title><link href="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html" rel="alternate" type="text/html" title="Introducing the Devfile AI Assistant" /><published>2024-06-26T00:00:00+00:00</published><updated>2024-06-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/06/26/@tolusha/devfile-ai-assistant</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-06-26T10:23:51+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Introducing the Devfile AI Assistant</title><link href="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html" rel="alternate" type="text/html" title="Introducing the Devfile AI Assistant" /><published>2024-06-26T00:00:00+00:00</published><updated>2024-06-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/06/26/@tolusha/devfile-ai-assistant</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html"><![CDATA[<div class="sect1">
 <h2 id="_introducing-the-devfile-ai-assistant">Introducing the Devfile AI Assistant</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -72,9 +72,6 @@ Another tool that simplifies creating devfile is the <a href="https://github.com
 </li>
 <li>
 <p>Add a project to the devfile.</p>
-</li>
-</ol>
-</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -88,11 +85,7 @@ Even though it is possible to define projects in a devfile explicitly, it is rec
 </table>
 </div>
 <div class="paragraph">
-<p>+
-<strong>Request:</strong></p>
-</div>
-<div class="paragraph">
-<p>+</p>
+<p><strong>Request:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -101,9 +94,6 @@ Even though it is possible to define projects in a devfile explicitly, it is rec
 </div>
 <div class="paragraph">
 <p><strong>Response:</strong></p>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -121,8 +111,7 @@ Even though it is possible to define projects in a devfile explicitly, it is rec
         <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span></code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Add a new component to the devfile.</p>
 <div class="paragraph">
