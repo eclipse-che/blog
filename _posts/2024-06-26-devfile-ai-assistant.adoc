@@ -51,7 +51,7 @@ components:
 ----
 
 . Add a project to the devfile.
-
++
 IMPORTANT: Even though it is possible to define projects in a devfile explicitly, it is recommended to add `.devfile.yaml` or `devfile.yaml` file to the root of the repository which allows skipping the project definition on the devfile level.
 +
 **Request:**
