@@ -17,29 +17,29 @@ image::/assets/img/idea-editor/main.png[Eclipse Che and JetBrains Gateway integr
 
 == Why another integration with JetBrains IDEs?
 
-In addition to VS Code, Eclipse Che also https://github.com/che-incubator/jetbrains-editor-images/[provides] the in-browser variant of IntelliJ IDEA Community Edition as one of the editor options to use when working with your Dev Workspace. It's based on the JetBrains Projector.
+In addition to VS Code, Eclipse Che also https://github.com/che-incubator/jetbrains-editor-images/[provides] the in-browser variant of IntelliJ IDEA Community Edition as one of the editor options to use when working with your CDE. It's based on the JetBrains Projector.
 
 > Projector is a self-hosted technology that runs IntelliJ-based IDEs and Swing-based apps on the server, allowing you to access them from anywhere using browsers and native apps.
 > -- From the https://blog.jetbrains.com/blog/2021/03/11/projector-is-out/[JetBrains blog].
 
 JetBrains https://lp.jetbrains.com/projector/[suspended] the development and support of the Projector as a standalone project and introduced a new Projector-based product - https://www.jetbrains.com/remote-development/gateway/[JetBrains Gateway]. It allows the use of the desktop IDE instead of the in-browser web client. So, we integrated its support to Eclipse Che.
 
-== How to get started with the desktop IDEA connected to your Che CDE?
+== How to connect desktop IntelliJ IDEA to your Che CDE?
 
-There are a few prerequisites for connecting IntelliJ IDEA to a Dev Workspace.
+There are a few prerequisites for connecting IntelliJ IDEA to a CDE.
 
 *_Prerequisite 1: Gateway application_*
-Install the JetBrains Gateway application following the instructions from https://www.jetbrains.com/help/idea/jetbrains-gateway.html
+Install the JetBrains Gateway application by following the instructions from https://www.jetbrains.com/help/idea/jetbrains-gateway.html
 
 *_Prerequisite 2: Gateway plugin_*
-Install https://plugins.jetbrains.com/plugin/24234-openshift-dev-spaces[the Gateway plugin] which provides a connector for establishing a connection between your local JetBrains IDE and your remote Dev Workspace running on the OpenShift cluster:
+Install https://plugins.jetbrains.com/plugin/24234-openshift-dev-spaces[the Gateway plugin] which provides a connector for establishing a connection between your local JetBrains IDE and your remote CDE running on the OpenShift cluster:
 
 . From the Gateway main window, open the *Manage Providers* dialog.
 . Search for the *OpenShift Dev Spaces* plugin on the *Marketplace* tab and install it.
 
 *_Prerequisite 3: OpenShift CLI_*
 
-The Gateway plugin relies on the https://docs.openshift.com/container-platform/4.16/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI] to access an OpenShift cluster’s API server for managing the Dev Workspaces.
+The Gateway plugin relies on the https://docs.openshift.com/container-platform/4.16/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI] to access an OpenShift cluster’s API server for managing CDEs.
 
 Install the OpenShift CLI following the instructions from https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli.
 
@@ -52,7 +52,7 @@ JetBrains Gateway provides two main workflows:
 
 Currently, Eclipse Che supports only server-to-client flow with the IntelliJ IDEA as a remote development server. In the future, we may add support for client-to-server flow as well.
 
-There are two options for connecting your desktop IDEA to CDE, depending on your needs:
+There are two options for connecting your desktop IDEA to a CDE, depending on your needs:
 
 * using the Che Dashboard
 * using the JetBrains Gateway application
@@ -61,7 +61,7 @@ There are two options for connecting your desktop IDEA to CDE, depending on your
 
 This option suits all needs and doesn't require you to use the Gateway application directly.
 
-It has one additional prerequisite - your local OpenShift CLI tool (oc) should be logged in your OpenShift cluster. See https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands[this doc] for all possible ways of logging in or follow the next steps that describe the most used option:
+It has one additional prerequisite - your local OpenShift CLI tool (oc) should be logged in to your OpenShift cluster. See https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands[this doc] for all possible ways of logging in or follow the next steps that describe the most used option:
 
 . Go to the *Applications* menu on Che Dashboard and choose the *OpenShift console*.
 . On the opened console page, go to the top-right menu and choose the *Copy login command*.
@@ -77,35 +77,35 @@ image::/assets/img/idea-editor/editor-selector.png[Editor Selector]
 +
 image::/assets/img/idea-editor/open-prompt.png[Open Gateway prompt]
 
-3. Click the *Open Gateway* button to start your local IDEA connected to the Dev Workspace:
+3. Click the *Open Gateway* button to start your local IDEA connected to your CDE:
 +
 image::/assets/img/idea-editor/connecting.png[Connecting to remote host]
 
-You can try it out on the https://developers.redhat.com/developer-sandbox/ide[Red Hat Developer Sandbox]. Clicking on https://workspaces.openshift.com/f?url=https://github.com/che-samples/web-nodejs-sample&che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-idea-server/next/devfile.yaml&policies.create=peruser[this URL] automatically starts a CDE on the Developer Sandbox. There will be a sample project imported. Once the CDE is ready, you’ll be asked to start a local IDEA connected to the CDE.
+You can try it out on the https://developers.redhat.com/developer-sandbox/ide[Red Hat Developer Sandbox]. Clicking on https://workspaces.openshift.com/f?url=https://github.com/che-samples/web-nodejs-sample&che-editor=https://eclipse-che.github.io/che-plugin-registry/main/v3/plugins/che-incubator/che-idea-server/next/devfile.yaml&policies.create=peruser[this URL] automatically starts a CDE on the Developer Sandbox. There will be a sample project imported. Once the CDE is ready, you’ll be asked to start a local IDEA for connecting to the CDE.
 
 ==== Option 2: from the JetBrains Gateway application
 
-This option better suits when you want to continue working with an existing CDE, without accessing Che Dashboard. Currently, it doesn't allow the creation of a new CDE.
+This option is more suitable when you want to continue working with an existing CDE, without accessing the Che Dashboard. Currently, it doesn't allow the creation of a new CDE.
 
-This option has no additional requirements, like having your local OpenShift CLI tool (*oc*) logged in your OpenShift cluster. But, if you do the login, the Gateway application will use the CLI's login session and you will not need to enter the login info to the Gateway app on each usage of it.
+This option has no additional requirements like having your local OpenShift CLI tool (*oc*) logged in your OpenShift cluster. But if you do log in, the Gateway application will use the CLI's login session which means you will not need to enter your login info from Gateway app every time you use it.
 
 How to use it?
 
-1. Open the Gateway application and click *Connect to Dev Spaces* button:
+1. Open the Gateway application and click the *Connect to Dev Spaces* button:
 +
 image::/assets/img/idea-editor/gateway-window.png[Gateway window]
 
-2. In the next step, the Gateway plugin will try to detect if your local OpenShift CLI tool (*oc*) is logged in your OpenShift cluster to read the OpenShift API server connection parameters from the CLI config file. You can provide the connection parameters manually:
+2. In the next step, the Gateway plugin will try to detect if your local OpenShift CLI tool (*oc*) is logged into your OpenShift cluster to read the OpenShift API server connection parameters from the CLI config file. You can provide the connection parameters manually:
 +
 image::/assets/img/idea-editor/login-window.png[Login to API server]
 +
-After clicking the *Check connection and continue* button, the plugin will try to read the existing DevWorksapces.
+After clicking the *Check connection and continue* button, the plugin will try to read your existing CDEs.
 
 3. Choose an existing CDE and click the *Connect* button:
 +
 image::/assets/img/idea-editor/select-ds.png[DevWorkspace selection]
 +
-NOTE: Currently, it lists all CDEs regardless of the configured editor. As Eclipse Che doesn’t allow the user to switch the editor for an already created CDE, make sure the right Workspace is chosen.
+NOTE: Currently, it lists all CDEs regardless of the configured editor. As Eclipse Che doesn’t allow the user to switch the editor for an already created CDE, make sure the right CDE is chosen.
 
 4. Clicking the *Connect* button starts the selected CDE and runs your local IntelliJ IDEA connected to your remote environment:
 +
@@ -113,7 +113,7 @@ image::/assets/img/idea-editor/connecting.png[Connecting to remote host]
 
 == Conclusion
 
-Integration of Eclipse Che with IntelliJ IDEA Ultimate via JetBrains Gateway enables the user to get the advantages that remote development provides and retain the convenience of the local development experience.
+Integration of Eclipse Che with IntelliJ IDEA Ultimate via JetBrains Gateway enables the user to harness the advantages that remote development provides while retaining the convenience of a local development experience.
 
 If you're interested in learning more about the technical details of how the described solution works under the hood, check the following links:
 
