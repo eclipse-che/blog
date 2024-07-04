@@ -64,7 +64,11 @@ This option suits all needs and doesn't require you to use the Gateway applicati
 It has one additional prerequisite - your local OpenShift CLI tool (oc) should be logged into your OpenShift cluster. See https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands[official documentaion] for all possible ways of logging in or follow the next steps that describe the most common flow:
 
 . Go to the *Applications* menu on Eclipse Che User Dashboard and choose the *OpenShift console*.
++
+image::/assets/img/idea-editor/os-console.png[OpenShift console]
 . Go to the top-right menu on the opened console page and choose the *Copy login command*.
++
+image::/assets/img/idea-editor/oc-login.png[Copy login command]
 . Copy the displayed *oc login* command and execute it in your local terminal.
 
 How to use it?
@@ -72,10 +76,12 @@ How to use it?
 1. Use the User Dashboard to spin up a new or start an existing Workspace. When running a new Workspace, make sure the right editor is chosen:
 +
 image::/assets/img/idea-editor/editor-selector.png[Editor Selector]
+{nbsp} +
 
 2. Wait for the prompt to open your local JetBrains Gateway application to appear:
 +
 image::/assets/img/idea-editor/open-prompt.png[Open Gateway prompt]
+{nbsp} +
 
 3. Click the *Open Gateway* button to start your local IDEA connected to your CDE:
 +
