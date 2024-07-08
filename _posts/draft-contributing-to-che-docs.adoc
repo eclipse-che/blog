@@ -1,0 +1,18 @@
+---
+title: Contributing to Eclipse Che documentation
+layout: post
+author: Jana Vrbkova
+description: >-
+  The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers.
+categories: []
+keywords: ['che-docs', 'documentation', 'write', 'contribute']
+slug: /@deerskindoll/contributing-to-che-docs
+---
+
+== Contributing to Eclipse Che documentation
+
+Writing a document about Eclipse Che is even easier than you think.
+The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind
+and has all the tools
+you need
+to create and test your content before submitting a PR.
