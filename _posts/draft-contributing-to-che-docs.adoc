@@ -16,4 +16,4 @@ The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repos
 and has the tools
 you need
 to create and test your content.
-All in the environment you're already familiar with: an Eclipse Che workspace.
+What's more, from the initial draft to submitting a PR, you can do it all in the environment you're already familiar with: an Eclipse Che workspace.
