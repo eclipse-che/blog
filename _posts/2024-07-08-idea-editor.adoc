@@ -19,7 +19,7 @@ image::/assets/img/idea-editor/main.png[Eclipse Che and JetBrains Gateway integr
 
 In addition to Visual Studio Code - Open Source ("Code - OSS"), Eclipse Che also https://github.com/che-incubator/jetbrains-editor-images/[provides] the in-browser variant of IntelliJ IDEA Community Edition as one of the editor options to use when working with your CDE. It's based on the JetBrains Projector.
 
-NOTE: Projector is a self-hosted technology that runs IntelliJ-based IDEs and Swing-based apps on the server, allowing you to access them from anywhere using browsers and native apps.
+NOTE: "Projector is a self-hosted technology that runs IntelliJ-based IDEs and Swing-based apps on the server, allowing you to access them from anywhere using browsers and native apps." 
 -- From the https://blog.jetbrains.com/blog/2021/03/11/projector-is-out/[JetBrains blog].
 
 JetBrains https://lp.jetbrains.com/projector/[suspended] the development and support of the Projector as a standalone project and introduced a new product - https://www.jetbrains.com/remote-development/gateway/[JetBrains Gateway]. It allows the use of the desktop IDE instead of the in-browser web client, and we integrated its support into Eclipse Che.
