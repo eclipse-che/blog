@@ -11,8 +11,9 @@ slug: /@deerskindoll/contributing-to-che-docs
 
 == Contributing to Eclipse Che documentation
 
-Writing a document about Eclipse Che is even easier than you think.
+Writing about Eclipse Che is even easier than you think.
 The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind
-and has all the tools
+and has the tools
 you need
-to create and test your content before submitting a PR.
+to create and test your content.
+All in the environment you're already familiar with: an Eclipse Che workspace.
