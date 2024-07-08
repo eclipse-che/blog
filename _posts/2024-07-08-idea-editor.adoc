@@ -114,7 +114,7 @@ After clicking the *Check connection and continue* button, the plugin will try t
 +
 image::/assets/img/idea-editor/select-ds.png[DevWorkspace selection]
 +
-WARNING: Currently, all CDEs are listed regardless of the configured editor. As Eclipse Che doesn’t allow the user to switch the editor for an already created CDE, make sure the right CDE is chosen.
+WARNING: Currently, all CDEs are listed regardless of the configured editor. As Eclipse Che doesn’t allow the user to switch the editor for an already running CDE, ensure the right one is chosen.
 
 4. Clicking the *Connect* button starts the selected CDE and runs your local IntelliJ IDEA connected to your remote development environment:
 +
