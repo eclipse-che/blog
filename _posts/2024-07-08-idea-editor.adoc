@@ -29,7 +29,7 @@ JetBrains https://lp.jetbrains.com/projector/[suspended] the development and sup
 There are a few prerequisites for connecting IntelliJ IDEA to a CDE.
 
 *_Prerequisite 1: Gateway application_*
-Install the JetBrains Gateway application by following the instructions from https://www.jetbrains.com/help/idea/jetbrains-gateway.html
+Install the JetBrains Gateway application by following the instructions from the https://www.jetbrains.com/help/idea/jetbrains-gateway.html[official documentation].
 
 *_Prerequisite 2: Gateway plugin_*
 Install https://plugins.jetbrains.com/plugin/24234-openshift-dev-spaces[the Gateway plugin] which provides a connector for establishing a connection between your local JetBrains IDE and your remote CDE running on the OpenShift cluster:
