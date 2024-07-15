@@ -40,7 +40,7 @@ Install https://plugins.jetbrains.com/plugin/24234-openshift-dev-spaces[the Gate
 . Search for the *OpenShift Dev Spaces* plugin on the *Marketplace* tab and install it.
 
 *_Prerequisite 3: OpenShift CLI_*
-
+{nbsp} +
 The Gateway plugin relies on the https://docs.openshift.com/container-platform/4.16/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI] to access an OpenShift cluster’s API server for managing CDEs.
 
 Install the OpenShift CLI following the instructions from the https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli[official documentation].
