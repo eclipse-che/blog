@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-07-08T17:17:26+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift.</title><link href="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html" rel="alternate" type="text/html" title="IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift." /><published>2024-07-08T00:00:00+00:00</published><updated>2024-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/07/08/@artem/idea-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-07-15T10:23:50+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift</title><link href="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html" rel="alternate" type="text/html" title="IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift" /><published>2024-07-08T00:00:00+00:00</published><updated>2024-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/07/08/@artem/idea-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html"><![CDATA[<div class="paragraph">
 <p>In this blog post, we&#8217;ll look at the integration of Eclipse Che with IntelliJ IDEA.</p>
 </div>
 <div class="paragraph">
@@ -40,6 +40,7 @@
 </div>
 <div class="paragraph">
 <p><strong><em>Prerequisite 1: Gateway application</em></strong>
+&#160;<br>
 Install the JetBrains Gateway application by following the instructions from the <a href="https://www.jetbrains.com/help/idea/jetbrains-gateway.html">official documentation</a>.</p>
 </div>
 <div class="paragraph">
@@ -58,10 +59,9 @@ Install <a href="https://plugins.jetbrains.com/plugin/24234-openshift-dev-spaces
 </ol>
 </div>
 <div class="paragraph">
-<p><strong><em>Prerequisite 3: OpenShift CLI</em></strong></p>
-</div>
-<div class="paragraph">
-<p>The Gateway plugin relies on the <a href="https://docs.openshift.com/container-platform/4.16/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI</a> to access an OpenShift cluster’s API server for managing CDEs.</p>
+<p><strong><em>Prerequisite 3: OpenShift CLI</em></strong>
+&#160;<br>
+The Gateway plugin relies on the <a href="https://docs.openshift.com/container-platform/4.16/cli_reference/openshift_cli/getting-started-cli.html">OpenShift CLI</a> to access an OpenShift cluster’s API server for managing CDEs.</p>
 </div>
 <div class="paragraph">
 <p>Install the OpenShift CLI following the instructions from the <a href="https://docs.openshift.com/container-platform/4.15/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli">official documentation</a>.</p>
