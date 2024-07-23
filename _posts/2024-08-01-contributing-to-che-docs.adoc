@@ -24,6 +24,11 @@ or click the Developer Workspace button directly in the che-docs repository
 to directly open a clone of the repository in an Eclipse Che workspace hosted
 by Red Hat in the the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
 
+The Vale extension included in the che-docs repository follows the grammatical,
+spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
+Before you start writing,
+read the section about link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[documenting commands].
+
 .Writing tips
 
 A good technical document is easy to read and easy to follow.
@@ -33,7 +38,8 @@ Here are a few tips that will help you write great technical content:
 * Keep it accessible. Short paragraphs, sentences and words make your content easy to read.
 * Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
 
-The Vale extension included in the che-docs repository follows the grammatical,
-spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
+if you want to learn more about technical writing in general,
+check out the link:https://developers.google.com/style[Google developer documentation style guide].
 
-https://developers.google.com/style
+Happy writing.
+
