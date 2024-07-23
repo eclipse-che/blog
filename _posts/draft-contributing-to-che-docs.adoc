@@ -12,8 +12,28 @@ slug: /@deerskindoll/contributing-to-che-docs
 == Contributing to Eclipse Che documentation
 
 Writing about Eclipse Che is even easier than you think.
-The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind
-and has the tools
-you need
-to create and test your content.
-What's more, from the initial draft to submitting a PR, you can do it all in the environment you're already familiar with: an Eclipse Che workspace.
+The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind,
+featuring tools you need to create and test your content.
+And from the initial draft to submitting a PR,
+you can do it all in the environment you're already familiar with: an Eclipse Che workspace.
+
+.Getting started
+
+Use either link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che/[your already installed Eclipse Che]
+or click the Developer Workspace button directly in the che-docs repository
+to directly open a clone of the repository in an Eclipse Che workspace hosted
+by Red Hat in the the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
+
+.Writing tips
+
+A good technical document is easy to read and easy to follow.
+Here are a few tips that will help you write great technical content:
+
+* Keep it simple. Avoid self-referential language ("this article is about..."), overly long introductions, and deep-dives into the feature's history.
+* Keep it accessible. Short paragraphs, sentences and words make your content easy to read.
+* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
+
+The Vale extension included in the che-docs repository follows the grammatical,
+spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
+
+https://developers.google.com/style
