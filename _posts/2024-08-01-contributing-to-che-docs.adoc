@@ -24,6 +24,12 @@ or click the Developer Workspace button directly in the che-docs repository
 to directly open a clone of the repository in an Eclipse Che workspace hosted
 by Red Hat in the the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
 
+*add the button?*
+
+*describe plugins?*
+
+*vale sync command*
+
 The Vale extension included in the che-docs repository follows the grammatical,
 spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
 Before you start writing,
