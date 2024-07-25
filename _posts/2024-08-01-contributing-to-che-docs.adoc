@@ -9,7 +9,7 @@ keywords: ['che-docs', 'documentation', 'write', 'contribute']
 slug: /@deerskindoll/contributing-to-che-docs
 ---
 
-== Contributing to Eclipse Che documentation
+= Contributing to Eclipse Che documentation
 
 Writing about Eclipse Che is even easier than you think.
 The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind,
