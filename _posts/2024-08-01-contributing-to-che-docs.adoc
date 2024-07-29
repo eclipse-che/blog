@@ -19,21 +19,46 @@ you can do it all in the environment you're already familiar with: an Eclipse Ch
 
 .Getting started
 
-Use either link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che/[your already installed Eclipse Che]
-or click the Developer Workspace button directly in the che-docs repository
-to directly open a clone of the repository in an Eclipse Che workspace hosted
-by Red Hat in the the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
+Use either link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che/[your own Eclipse Che installation]
+or click the Developer Workspace button in the che-docs repository README file.
+This opens a clone of the repository in an Eclipse Che workspace hosted
+by Red Hat in the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
+Alternatively, you can click this button:
 
-*add the button?*
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com/f?url=https://github.com/eclipse/che-docs)
+
+.How does it work?
+
+The che-docs repository makes using an Eclipse Che workspace to contribute content so easy with the help of the following two elements:
+//files? items? tools?
+
+* link:https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/[devfile]
+* list of automatically installed Microsoft Visual Studio Code extensions
+
+The che-docs repository contains a simple devfile
+that defines the basic features of the che-docs workspace.
+The devfile also includes a command for building a preview of your newly created content:
+
+[source, code]
+----
+# sh tools/preview.sh
+----
+
+This is helpful for checking the layout of the document as well as making sure that embedded images,
+links and code blocks are displayed correctly.
 
 *describe plugins?*
 
 *vale sync command*
 
+[IMPORTANT]
+====
 The Vale extension included in the che-docs repository follows the grammatical,
 spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
+
 Before you start writing,
 read the section about link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[documenting commands].
+====
 
 .Writing tips
 
@@ -48,4 +73,3 @@ if you want to learn more about technical writing in general,
 check out the link:https://developers.google.com/style[Google developer documentation style guide].
 
 Happy writing!
-
