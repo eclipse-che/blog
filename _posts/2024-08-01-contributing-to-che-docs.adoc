@@ -29,27 +29,34 @@ Alternatively, you can click this button:
 
 .How does it work?
 
-The che-docs repository makes using an Eclipse Che workspace to contribute content so easy with the help of the following two elements:
+What about the che-docs repository makes using an Eclipse Che workspace to contribute content so convenient? The following two elements:
 //files? items? tools?
 
 * link:https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/[devfile]
-* list of automatically installed Microsoft Visual Studio Code extensions
+* list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed Microsoft Visual Studio Code extensions]
 
+Let's look at the devfile first.
 The che-docs repository contains a simple devfile
 that defines the basic features of the che-docs workspace.
-The devfile also includes a command for building a preview of your newly created content:
+It also includes a command for building a preview of your newly created content:
 
 [source, code]
 ----
 # sh tools/preview.sh
 ----
 
-This is helpful for checking the layout of the document as well as making sure that embedded images,
+This is helpful not only for checking the layout of the document but also for making sure that embedded images,
 links and code blocks are displayed correctly.
 
-*describe plugins?*
+//why does the workspace start in VS Code, anyway? it's not explicitly mentioned in the devfile.
 
-*vale sync command*
+By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
+
+
+
+
+
+//vale sync command!!!!
 
 [IMPORTANT]
 ====
