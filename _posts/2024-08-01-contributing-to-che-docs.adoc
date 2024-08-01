@@ -48,20 +48,34 @@ It also includes a command for building a preview of your newly created content:
 This is helpful not only for checking the layout of the document but also for making sure that embedded images,
 links and code blocks are displayed correctly.
 
-//why does the workspace start in VS Code, anyway? it's not explicitly mentioned in the devfile.
-
 By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
+This is relevant for the second file mentioned above.
 The che-docs repository features an `extensions.json` file listing Visual Studio Code extensions
 you need for writing Eclipse Che content.
 When you launch the che-docs workspace for the first time,
-these extensions are installed automatically so you can immediately start writing,
+these extensions are installed automatically.
+You can start working immediately,
 with minimal additional setup required.
 
+.Getting started
 
+By launching the che-docs workspace, you're almost ready to go:
 
+* You have a clone of the che-docs repository
+* You have an IDE to write in.
+* You have required extensions installed.
+* You have a preview build script.
 
+There are only two things left to do.
 
-//vale sync command!!!!
+. Read the link:https://github.com/eclipse-che/che-docs/blob/main/CONTRIBUTING.adoc[contribution guidelines].
+. Update the Vale extension by running the following command in the terminal:
++
+[source, code]
+----
+# vale sync
+----
+
 
 [IMPORTANT]
 ====
