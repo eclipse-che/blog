@@ -51,6 +51,11 @@ links and code blocks are displayed correctly.
 //why does the workspace start in VS Code, anyway? it's not explicitly mentioned in the devfile.
 
 By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
+The che-docs repository features an `extensions.json` file listing Visual Studio Code extensions
+you need for writing Eclipse Che content.
+When you launch the che-docs workspace for the first time,
+these extensions are installed automatically so you can immediately start writing,
+with minimal additional setup required.
 
 
 
@@ -69,12 +74,17 @@ read the section about link:https://redhat-documentation.github.io/supplementary
 
 .Writing tips
 
+//asciidoc
+//modularization
+
 A good technical document is easy to read and easy to follow.
 Here are a few tips that will help you write great technical content:
 
 * Keep it simple. Avoid self-referential language ("this article is about..."), overly long introductions, and deep-dives into the feature's history.
 * Keep it accessible. Short paragraphs, sentences and words make your content easy to read.
-* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
+* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions. Avoid passive voice.
+
+//Jane Austen?
 
 if you want to learn more about technical writing in general,
 check out the link:https://developers.google.com/style[Google developer documentation style guide].
