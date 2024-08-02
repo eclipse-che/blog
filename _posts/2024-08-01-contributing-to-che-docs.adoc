@@ -25,7 +25,7 @@ This opens a clone of the repository in an Eclipse Che workspace hosted
 by Red Hat in the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
 Alternatively, you can click this button:
 
-[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com/f?url=https://github.com/eclipse/che-docs)
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com#https://github.com/eclipse/che-docs)
 
 .How does it work?
 
