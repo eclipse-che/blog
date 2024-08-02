@@ -88,15 +88,13 @@ read the section about link:https://redhat-documentation.github.io/supplementary
 
 .Writing tips
 
-//asciidoc
-//modularization
-
 A good technical document is easy to read and easy to follow.
 Here are a few tips that will help you write great technical content:
 
 * Keep it simple. Avoid self-referential language ("this article is about..."), overly long introductions, and deep-dives into the feature's history.
 * Keep it accessible. Short paragraphs, sentences and words make your content easy to read.
-* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions. Avoid passive voice.
+* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
+* Keep passive voice to a minimum.
 
 //Jane Austen?
 
@@ -104,3 +102,4 @@ if you want to learn more about technical writing in general,
 check out the link:https://developers.google.com/style[Google developer documentation style guide].
 
 Happy writing!
+
