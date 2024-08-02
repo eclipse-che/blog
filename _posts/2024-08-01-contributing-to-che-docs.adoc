@@ -22,7 +22,7 @@ you can do it all in the environment you're already familiar with: an Eclipse Ch
 Use either link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che/[your own Eclipse Che installation]
 or click the Developer Workspace button in the che-docs repository README file.
 This opens a clone of the repository in an Eclipse Che workspace hosted
-by Red Hat in the link:https://developers.redhat.com/developer-sandbox?source=sso[Developer Sandbox].
+by Red Hat in the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
 Alternatively, you can click this button:
 
 [![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com#https://github.com/eclipse/che-docs)
