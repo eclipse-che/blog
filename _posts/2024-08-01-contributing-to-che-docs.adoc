@@ -9,18 +9,17 @@ keywords: ['che-docs', 'documentation', 'write', 'contribute']
 slug: /@deerskindoll/contributing-to-che-docs
 ---
 
-= Contributing to Eclipse Che documentation
+= The quick and easy way to write Eclipse Che documentation
 
 Writing about Eclipse Che is even easier than you think.
 The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind,
 featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
-you can do it all in the environment you're already familiar with: an Eclipse Che workspace.
+you can do it all in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
 .Getting started
 
-Use either link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che/[your own Eclipse Che installation]
-or click the Developer Workspace button in the che-docs repository README file.
+Click the Developer Workspace button in the che-docs repository README file.
 This opens a clone of the repository in an Eclipse Che workspace hosted
 by Red Hat in the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
 Alternatively, you can click this button:
@@ -29,8 +28,7 @@ Alternatively, you can click this button:
 
 .How does it work?
 
-What about the che-docs repository makes using an Eclipse Che workspace to contribute content so convenient? The following two elements:
-//files? items? tools?
+What about the che-docs repository makes using an Eclipse Che CDE to contribute content so convenient? The following two elements:
 
 * link:https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/[devfile]
 * list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed Microsoft Visual Studio Code extensions]
@@ -66,9 +64,10 @@ By launching the che-docs workspace, you're almost ready to go:
 * You have required extensions installed.
 * You have a preview build script.
 
-There are only two things left to do.
+There are only three things left to do.
 
 . Read the link:https://github.com/eclipse-che/che-docs/blob/main/CONTRIBUTING.adoc[contribution guidelines].
+. Read how to link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[document commands] for Eclipse Che documentation.
 . Update the Vale extension by running the following command in the terminal:
 +
 [source, code]
@@ -77,13 +76,10 @@ There are only two things left to do.
 ----
 
 
-[IMPORTANT]
+[NOTE]
 ====
 The Vale extension included in the che-docs repository follows the grammatical,
 spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
-
-Before you start writing,
-read the section about link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[documenting commands].
 ====
 
 .Writing tips
