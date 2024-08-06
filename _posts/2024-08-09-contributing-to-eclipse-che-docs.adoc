@@ -17,6 +17,8 @@ featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
 you can do it all in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
+image::/assets/img/che-docs.png["An Eclipse Che CDE created from the che-docs repository."]
+
 .Getting started
 
 Click the Developer Workspace button in the che-docs repository README file.
@@ -75,7 +77,6 @@ There are only three things left to do.
 # vale sync
 ----
 
-
 [NOTE]
 ====
 The Vale extension included in the che-docs repository follows the grammatical,
@@ -92,9 +93,9 @@ Here are a few tips that will help you write great technical content:
 * Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
 * Keep passive voice to a minimum.
 
-//Jane Austen?
+image::/assets/img/pp-hemingway.png["The famous opening lines of Jane Austen's Pride and Prejudice novel doesn't follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11."]
 
-if you want to learn more about technical writing in general,
+If you want to learn more about technical writing in general,
 check out the link:https://developers.google.com/style[Google developer documentation style guide].
 
 Happy writing!
