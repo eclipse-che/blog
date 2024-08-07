@@ -9,7 +9,7 @@ keywords: ['che-docs', 'documentation', 'write', 'contribute']
 slug: /@deerskindoll/contributing-to-che-docs
 ---
 
-= The quick and easy way to write Eclipse Che documentation
+== The quick and easy way to write Eclipse Che documentation
 
 Writing about Eclipse Che is even easier than you think.
 The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind,
@@ -17,9 +17,9 @@ featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
 you can do it all in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
-image::/assets/img/che-docs.png["An Eclipse Che CDE created from the che-docs repository."]
+image::/assets/img/contributing-to-eclipse-che-docs/che-docs.png[An Eclipse Che CDE created from the che-docs repository.]
 
-.Getting started
+== Getting started
 
 Click the Developer Workspace button in the che-docs repository README file.
 This opens a clone of the repository in an Eclipse Che workspace hosted
@@ -28,7 +28,7 @@ Alternatively, you can click this button:
 
 [![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com#https://github.com/eclipse/che-docs)
 
-.How does it work?
+== How does it work?
 
 What about the che-docs repository makes using an Eclipse Che CDE to contribute content so convenient? The following two elements:
 
@@ -57,7 +57,7 @@ these extensions are installed automatically.
 You can start working immediately,
 with minimal additional setup required.
 
-.Getting started
+== Getting started
 
 By launching the che-docs workspace, you're almost ready to go:
 
@@ -83,7 +83,7 @@ The Vale extension included in the che-docs repository follows the grammatical,
 spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
 ====
 
-.Writing tips
+== Writing tips
 
 A good technical document is easy to read and easy to follow.
 Here are a few tips that will help you write great technical content:
