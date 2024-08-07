@@ -35,7 +35,7 @@ What about the che-docs repository makes using an Eclipse Che CDE to contribute 
 * list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed Microsoft Visual Studio Code extensions]
 
 Let's look at the devfile first.
-The che-docs repository contains a simple devfile
+The che-docs repository contains a simple link:https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml[devfile]
 that defines the basic features of the che-docs workspace.
 It also includes a command for building a preview of your newly created content:
 
