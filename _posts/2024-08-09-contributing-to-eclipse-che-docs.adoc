@@ -19,6 +19,7 @@ you can do it all in the environment you're already familiar with: an Eclipse Ch
 
 image::/assets/img/contributing-to-eclipse-che-docs/che-docs.png[An Eclipse Che CDE created from the che-docs repository.]
 
+
 == Getting started
 
 Click the Developer Workspace button in the che-docs repository README file.
@@ -94,6 +95,7 @@ Here are a few tips that will help you write great technical content:
 * Keep passive voice to a minimum.
 
 image::/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png["The famous opening lines of Jane Austen's Pride and Prejudice novel don't follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11."]
+
 
 If you want to learn more about technical writing in general,
 check out the link:https://developers.google.com/style[Google developer documentation style guide].
