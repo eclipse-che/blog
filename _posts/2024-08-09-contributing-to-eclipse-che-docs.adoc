@@ -52,7 +52,10 @@ This is relevant for the second file mentioned above.
 The che-docs repository features an link:https://github.com/eclipse-che/che-docs/blob/main/.vscode/extensions.json[extensions.json] file listing Visual Studio Code extensions
 you need for writing Eclipse Che content.
 When you launch the che-docs workspace for the first time,
-these extensions are installed automatically.
+these extensions are installed automatically:
+
+image::/assets/img/contributing-to-eclipse-che-docs/extensions.png[Overview of automatically installed extensions.]
+
 You can start working immediately,
 with minimal additional setup required.
 
