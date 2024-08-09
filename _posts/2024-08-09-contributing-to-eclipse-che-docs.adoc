@@ -1,21 +1,22 @@
 ---
-title: Contributing to Eclipse Che documentation
+title: Writing documentation in Eclipse Che
 layout: post
 author: Jana Vrbkova
 description: >-
-  Contribute to Eclipse Che documentation using an Eclipse Che workspace.
+  Write Eclipse Che documentation using an Eclipse Che CDE.
 categories: []
 keywords: ['che-docs', 'documentation', 'write', 'contribute']
 slug: /@deerskindoll/contributing-to-che-docs
 ---
 
-== The quick and easy way to write Eclipse Che documentation
+== The quick and easy way to create documentation
 
-Writing about Eclipse Che is even easier than you think.
-The link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub] was created with community contribution in mind,
+With Eclipse Che, writing technical documentation is even easier than you think.
+Let's use the link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub]
+The che-docs repository was created with community contribution in mind,
 featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
-you can do it all in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
+everything is happening in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
 image::/assets/img/contributing-to-eclipse-che-docs/che-docs.png[An Eclipse Che CDE created from the che-docs repository.]
 
@@ -49,6 +50,8 @@ It also includes a command for building a preview of your newly created content:
 
 This is helpful not only for checking the layout of the document but also for making sure that embedded images,
 links and code blocks are displayed correctly.
+Additionally, the preview script features a Vale-based grammar check you can also use separately.
+More about this in a moment.
 
 By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
 This is relevant for the second file mentioned above.
@@ -57,7 +60,7 @@ you need for writing Eclipse Che content.
 When you launch the che-docs workspace for the first time,
 these extensions are installed automatically:
 
-image::/assets/img/contributing-to-eclipse-che-docs/extensions.png[Overview of automatically installed extensions.]
+image::/assets/img/contributing-to-eclipse-che-docs/extensions.png["Overview of automatically installed extensions, including the Vale extension."]
 
 You can start working immediately,
 with minimal additional setup required.
