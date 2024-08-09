@@ -78,7 +78,7 @@ There are only three things left to do.
 
 . Read the link:https://github.com/eclipse-che/che-docs/blob/main/CONTRIBUTING.adoc[contribution guidelines].
 . Read how to link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[document commands] for Eclipse Che documentation.
-. Update the grammar- and spelling-checking link:https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode[Vale extension] by running the following command in the terminal:
+. Update the grammar- and spelling-checking link:https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode[Vale extension] by running the `vale-sync` command defined in the link:https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml[devfile] or directly execute in the terminal:
 +
 [source, code]
 ----
