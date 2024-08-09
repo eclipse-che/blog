@@ -23,7 +23,7 @@ image::/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png[A
 
 == Getting started
 
-Click the Developer Workspace button in the che-docs repository README file.
+Click the Developer Workspace button in the che-docs repository link:https://github.com/eclipse-che/che-docs?tab=readme-ov-file#eclipse-che-documentation-project[README] file.
 This opens a clone of the repository in an Eclipse Che workspace hosted
 by Red Hat in the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
 Alternatively, you can click right here:
