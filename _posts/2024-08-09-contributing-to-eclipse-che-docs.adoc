@@ -3,10 +3,10 @@ title: Writing documentation in Eclipse Che
 layout: post
 author: Jana Vrbkova
 description: >-
-  Write Eclipse Che documentation using an Eclipse Che CDE.
+  Write documentation using an Eclipse Che CDE.
 categories: []
 keywords: ['che-docs', 'documentation', 'write', 'contribute']
-slug: /@deerskindoll/contributing-to-che-docs
+slug: /@deerskindoll/writing-docs-with-che
 ---
 
 == The quick and easy way to create documentation
@@ -18,7 +18,7 @@ featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
 everything is happening in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
-image::/assets/img/contributing-to-eclipse-che-docs/che-docs.png[An Eclipse Che CDE created from the che-docs repository.]
+image::/assets/img/workspace-with-preview.png[An Eclipse Che CDE created from the che-docs repository.]
 
 
 == Getting started
