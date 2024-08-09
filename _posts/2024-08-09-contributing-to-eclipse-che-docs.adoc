@@ -1,0 +1,111 @@
+---
+title: Writing documentation in Eclipse Che
+layout: post
+author: Jana Vrbkova
+description: >-
+  Write documentation using an Eclipse Che CDE.
+categories: []
+keywords: ['che-docs', 'documentation', 'write', 'contribute']
+slug: /@deerskindoll/writing-docs-with-che
+---
+
+== The quick and easy way to create documentation
+
+With Eclipse Che, writing technical documentation is even easier than you think.
+Let's use the link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub].
+The che-docs repository was created with community contribution in mind,
+featuring tools you need to create and test your content.
+And from the initial draft to submitting a PR,
+everything is happening in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
+
+image::/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png[An Eclipse Che CDE created from the che-docs repository.]
+
+
+== Getting started
+
+Click the Developer Workspace button in the che-docs repository link:https://github.com/eclipse-che/che-docs?tab=readme-ov-file#eclipse-che-documentation-project[README] file.
+This opens a clone of the repository in an Eclipse Che workspace hosted
+by Red Hat in the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
+Alternatively, you can click right here:
+
+[link=https://workspaces.openshift.com#https://github.com/eclipse/che-docs]
+image::https://www.eclipse.org/che/contribute.svg[]
+
+== How does it work?
+
+What about the che-docs repository makes using an Eclipse Che CDE to contribute content so convenient? The following two elements:
+
+* link:https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/[devfile]
+* list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed Microsoft Visual Studio Code extensions]
+
+Let's look at the devfile first.
+The che-docs repository contains a simple link:https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml[devfile]
+that defines the basic features of the che-docs workspace.
+It also includes a command for building a preview of your newly created content:
+
+[source, code]
+----
+# sh tools/preview.sh
+----
+
+This is helpful not only for checking the layout of the document but also for making sure that embedded images,
+links and code blocks are displayed correctly.
+Additionally, the preview script features a Vale-based grammar check you can also use separately.
+More about this in a moment.
+
+By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
+This is relevant for the second file mentioned above.
+The che-docs repository features an link:https://github.com/eclipse-che/che-docs/blob/main/.vscode/extensions.json[extensions.json] file listing Visual Studio Code extensions
+you need for writing Eclipse Che content.
+When you launch the che-docs workspace for the first time,
+these extensions are installed automatically:
+
+image::/assets/img/contributing-to-eclipse-che-docs/extensions.png["Overview of automatically installed extensions, including the Vale extension."]
+
+You can start working immediately,
+with minimal additional setup required.
+
+== Getting started
+
+By launching the che-docs workspace, you're almost ready to go:
+
+* You have a clone of the che-docs repository
+* You have an IDE to write in.
+* You have required extensions installed.
+* You have a preview build script.
+
+There are only three things left to do.
+
+. Read the link:https://github.com/eclipse-che/che-docs/blob/main/CONTRIBUTING.adoc[contribution guidelines].
+. Read how to link:https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples[document commands] for Eclipse Che documentation.
+. Update the grammar- and spelling-checking link:https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode[Vale extension] by running the `vale-sync` command defined in the link:https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml[devfile] or directly execute it in the terminal:
++
+[source, code]
+----
+# vale sync
+----
+
+[NOTE]
+====
+The Vale extension included in the che-docs repository follows the grammatical,
+spelling and stylistic rules from the link:https://redhat-documentation.github.io/supplementary-style-guide/[Red Hat supplementary style guide].
+====
+
+== Writing tips
+
+A good technical document is easy to read and easy to follow.
+Here are a few tips that will help you write great technical content:
+
+* Keep it simple. Avoid self-referential language ("this article is about..."), overly long introductions, and deep-dives into the feature's history.
+* Keep it accessible. Short paragraphs, sentences and words make your content easy to read.
+* Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
+* Keep passive voice to a minimum.
+
+image::/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png["The famous opening lines of Jane Austen's Pride and Prejudice novel don't follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11."]
+
+
+If you want to learn more about technical writing in general,
+check out the link:https://developers.google.com/style[Google developer documentation style guide].
+The readability test is a part of the link:https://hemingwayapp.com/[Hemingway Editor].
+
+Happy writing!
