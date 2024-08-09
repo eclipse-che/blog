@@ -12,7 +12,7 @@ slug: /@deerskindoll/writing-docs-with-che
 == The quick and easy way to create documentation
 
 With Eclipse Che, writing technical documentation is even easier than you think.
-Let's use the link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub]
+Let's use the link:https://github.com/eclipse-che/che-docs[Eclipse Che documentation repository on GitHub].
 The che-docs repository was created with community contribution in mind,
 featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
