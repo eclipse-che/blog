@@ -1,4 +1,187 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-07-15T10:23:50+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift</title><link href="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html" rel="alternate" type="text/html" title="IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift" /><published>2024-07-08T00:00:00+00:00</published><updated>2024-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/07/08/@artem/idea-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html"><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-08-09T12:18:48+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Writing documentation in Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html" rel="alternate" type="text/html" title="Writing documentation in Eclipse Che" /><published>2024-08-09T00:00:00+00:00</published><updated>2024-08-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/08/09/@deerskindoll/writing-docs-with-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html"><![CDATA[<div class="sect1">
+<h2 id="_the-quick-and-easy-way-to-create-documentation">The quick and easy way to create documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With Eclipse Che, writing technical documentation is even easier than you think.
+Let&#8217;s use the <a href="https://github.com/eclipse-che/che-docs">Eclipse Che documentation repository on GitHub</a>.
+The che-docs repository was created with community contribution in mind,
+featuring tools you need to create and test your content.
+And from the initial draft to submitting a PR,
+everything is happening in the environment you&#8217;re already familiar with: an Eclipse Che cloud development environment (CDE).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png" alt="An Eclipse Che CDE created from the che-docs repository.">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting-started">Getting started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click the Developer Workspace button in the che-docs repository <a href="https://github.com/eclipse-che/che-docs?tab=readme-ov-file#eclipse-che-documentation-project">README</a> file.
+This opens a clone of the repository in an Eclipse Che workspace hosted
+by Red Hat in the <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox</a>.
+Alternatively, you can click right here:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://workspaces.openshift.com#https://github.com/eclipse/che-docs"><img src="https://www.eclipse.org/che/contribute.svg" alt="contribute"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how-does-it-work">How does it work?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What about the che-docs repository makes using an Eclipse Che CDE to contribute content so convenient? The following two elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/">devfile</a></p>
+</li>
+<li>
+<p>list of <a href="https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup">automatically installed Microsoft Visual Studio Code extensions</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at the devfile first.
+The che-docs repository contains a simple <a href="https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml">devfile</a>
+that defines the basic features of the che-docs workspace.
+It also includes a command for building a preview of your newly created content:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="code"># sh tools/preview.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is helpful not only for checking the layout of the document but also for making sure that embedded images,
+links and code blocks are displayed correctly.
+Additionally, the preview script features a Vale-based grammar check you can also use separately.
+More about this in a moment.</p>
+</div>
+<div class="paragraph">
+<p>By default, the che-docs workspace launches with Visual Studio Code - Open Source ("Code - OSS") as the IDE.
+This is relevant for the second file mentioned above.
+The che-docs repository features an <a href="https://github.com/eclipse-che/che-docs/blob/main/.vscode/extensions.json">extensions.json</a> file listing Visual Studio Code extensions
+you need for writing Eclipse Che content.
+When you launch the che-docs workspace for the first time,
+these extensions are installed automatically:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/contributing-to-eclipse-che-docs/extensions.png" alt="Overview of automatically installed extensions, including the Vale extension.">
+</div>
+</div>
+<div class="paragraph">
+<p>You can start working immediately,
+with minimal additional setup required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting-started-2">Getting started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By launching the che-docs workspace, you&#8217;re almost ready to go:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You have a clone of the che-docs repository</p>
+</li>
+<li>
+<p>You have an IDE to write in.</p>
+</li>
+<li>
+<p>You have required extensions installed.</p>
+</li>
+<li>
+<p>You have a preview build script.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are only three things left to do.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read the <a href="https://github.com/eclipse-che/che-docs/blob/main/CONTRIBUTING.adoc">contribution guidelines</a>.</p>
+</li>
+<li>
+<p>Read how to <a href="https://redhat-documentation.github.io/supplementary-style-guide/#technical-examples">document commands</a> for Eclipse Che documentation.</p>
+</li>
+<li>
+<p>Update the grammar- and spelling-checking <a href="https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode">Vale extension</a> by running the <code>vale-sync</code> command defined in the <a href="https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml">devfile</a> or directly execute it in the terminal:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="code"># vale sync</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Vale extension included in the che-docs repository follows the grammatical,
+spelling and stylistic rules from the <a href="https://redhat-documentation.github.io/supplementary-style-guide/">Red Hat supplementary style guide</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_writing-tips">Writing tips</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A good technical document is easy to read and easy to follow.
+Here are a few tips that will help you write great technical content:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keep it simple. Avoid self-referential language ("this article is about&#8230;&#8203;"), overly long introductions, and deep-dives into the feature&#8217;s history.</p>
+</li>
+<li>
+<p>Keep it accessible. Short paragraphs, sentences and words make your content easy to read.</p>
+</li>
+<li>
+<p>Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.</p>
+</li>
+<li>
+<p>Keep passive voice to a minimum.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png" alt="The famous opening lines of Jane Austen&#8217;s Pride and Prejudice novel don&#8217;t follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.">
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to learn more about technical writing in general,
+check out the <a href="https://developers.google.com/style">Google developer documentation style guide</a>.
+The readability test is a part of the <a href="https://hemingwayapp.com/">Hemingway Editor</a>.</p>
+</div>
+<div class="paragraph">
+<p>Happy writing!</p>
+</div>
+</div>
+</div>]]></content><author><name>Jana Vrbkova</name></author><summary type="html"><![CDATA[Write documentation using an Eclipse Che CDE.]]></summary></entry><entry><title type="html">IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift</title><link href="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html" rel="alternate" type="text/html" title="IntelliJ IDEA as a desktop editor for Eclipse Che Cloud Development Environment (CDE) running on OpenShift" /><published>2024-07-08T00:00:00+00:00</published><updated>2024-07-08T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/07/08/@artem/idea-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/07/08/@artem-idea-editor.html"><![CDATA[<div class="paragraph">
 <p>In this blog post, we&#8217;ll look at the integration of Eclipse Che with IntelliJ IDEA.</p>
 </div>
 <div class="paragraph">
@@ -2869,159 +3052,4 @@ In our case we already configured <code>cert-manager</code> and created <code>do
 </table>
 </div>
 </div>
-</div>]]></content><author><name>Serguei Gorokhov and Piotr Karatkevich</name></author><summary type="html"><![CDATA[In this blog post, we'll tell the story how we installed Eclipse Che on Microsoft Azure, what challenges we met and how solved them.]]></summary></entry><entry><title type="html">Pair programming using VS Code</title><link href="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html" rel="alternate" type="text/html" title="Pair programming using VS Code" /><published>2022-04-01T00:00:00+00:00</published><updated>2022-04-01T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/04/01/@florent.benoit/pair-programming-using-vscode-editor</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/04/01/@florent.benoit-pair-programming-using-vscode-editor.html"><![CDATA[<div class="paragraph">
-<p>One of Eclipse Che most requested feature is to be able to do pair programming.</p>
-</div>
-<div class="paragraph">
-<p>This blog post describes how it is possible to achieve that by using <a href="https://open-vsx.org/extension/genuitecllc/codetogether">CodeTogether</a>, a third-party VS Code extension.</p>
-</div>
-<div class="paragraph">
-<p>There are different pricing plans available for this extension, but there is one free item when connecting to a maximum of 60 minutes and 3 shares which may be enough for most use cases.</p>
-</div>
-<div class="paragraph">
-<p>This is only possible using Eclipse Che starting with 7.46+ and using Visual Studio Code editor, not Che-Theia.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/pair-programming-vscode/pair-programming-vscode.gif" alt="Pair programming using Che">
-</div>
-</div>
-<div class="sect1">
-<h2 id="_quick-start-from-an-example">Quick start from an example</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Go to Eclipse Che dashboard page. The URL looks like <a href="https://eclipse-che-my-instance.com/dashboard/#/" class="bare">https://eclipse-che-my-instance.com/dashboard/#/</a></p>
-</li>
-<li>
-<p>Replace the last part of the URL containing <code>/dashboard/#</code> with <code>#https://github.com/benoitf/codetogether-che-petclinic</code> and press enter.</p>
-</li>
-<li>
-<p>A workspace starts and Visual Studio Code loads with a sample based on the <code>Petclinic</code> application.</p>
-</li>
-<li>
-<p>As <a href="https://open-vsx.org/extension/genuitecllc/codetogether">CodeTogether</a> is a recommended extension, accept the prompt asking to install this extension.</p>
-</li>
-<li>
-<p>CodeTogether will ask to access Visual Studio Code, click on <code>No</code></p>
-</li>
-<li>
-<p>A new prompt will ask to redirect port 1593: Click on <code>No</code></p>
-</li>
-<li>
-<p>Open the command palette (pressing <code>F1</code> for example) and select <code>CodeTogether: Start Hosting Session</code></p>
-</li>
-<li>
-<p>Keep the defaults for all properties and click on the <code>start</code> button</p>
-</li>
-<li>
-<p>A <code>Pair programming</code> link is then available in the clipboard.</p>
-</li>
-<li>
-<p>You can share this link with your team members. They will be able to join your workspace.</p>
-</li>
-<li>
-<p>It is possible to use this link to join from different IDEs or from a running Eclipse Che workspace (like the one we are using). To do that select 'CodeTogether: Join Session' rather than starting a new session.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enabling-pair-programming-settings-on-your-own-example">Enabling pair programming settings on your own example</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the previous section, a pre-configured repository was used but it is also possible to use your own git repository.</p>
-</div>
-<div class="paragraph">
-<p>This feature works only with Visual Studio Code IDE (not for example with Che-Theia).</p>
-</div>
-<div class="sect2">
-<h3 id="_use-visual-studio-code-as-the-ide-of-an-eclipse-che-workspace">Use Visual Studio Code as the IDE of an Eclipse Che workspace</h3>
-<div class="paragraph">
-<p>There are 2 ways to use Visual Studio Code IDE in a Che workspace:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add <code>?che-editor=che-incubator/che-code/insiders</code> at the end of the workspace URL</p>
-</li>
-<li>
-<p>Add a <code>.che/che-editor.yaml</code> file with the following content:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-incubator/che-code/insiders</span></code></pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_recommend-the-installation-of-codetogether">Recommend the installation of CodeTogether</h3>
-<div class="paragraph">
-<p>Include CodeTogether among the recommended extension.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the file <code>.vscode/extensions.json</code> with the following content:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="json"><span style="color: #f8f8f2">  </span><span style="color: #f8f8f2;background-color: #49483e">{</span><span style="color: #f8f8f2">
-    </span><span style="color: #f8f8f2;font-weight: bold">"recommendations"</span><span style="color: #f8f8f2;background-color: #49483e">:</span><span style="color: #f8f8f2"> </span><span style="color: #f8f8f2;background-color: #49483e">[</span><span style="color: #f8f8f2">
-      </span><span style="color: #e6db74">"genuitecllc.codetogether"</span><span style="color: #f8f8f2;background-color: #49483e">,</span><span style="color: #f8f8f2">
-    </span><span style="color: #f8f8f2;background-color: #49483e">]</span><span style="color: #f8f8f2">
-  </span><span style="color: #f8f8f2;background-color: #49483e">}</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>That will trigger a prompt to install CodeTogether at workspace startup.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_add-a-devfile">Add a Devfile</h3>
-<div class="paragraph">
-<p>If you don&#8217;t have a Devfile at the root of your repository you should add one with a <a href="https://github.com/devfile/developer-images/">Universal Developer Image</a> component (it includes the most popular development tools and languages).</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create a <code>.devfile.yaml</code> file with the following content:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.1.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">my-workspace</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:ubi8-0e189d9</span>
-      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">3Gi</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Do not forget to update the <code>name</code> attribute of the devfile to match your project.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_share-your-workspace">Share your workspace</h3>
-<div class="paragraph">
-<p>Once you have committed these changes on a repository, you can share your workspace URL with your team.</p>
-</div>
-<div class="paragraph">
-<p>The URL looks like this: <code><a href="https://eclipse-che-my-instance.com#https://github.com/&lt;your-repository&gt" class="bare">https://eclipse-che-my-instance.com#https://github.com/&lt;your-repository&gt</a>;</code></p>
-</div>
-<div class="paragraph">
-<p>Or to share the pair-programming link, start your workspace first and then start a CodeTogether session.</p>
-</div>
-</div>
-</div>
-</div>]]></content><author><name>Florent Benoit</name></author><summary type="html"><![CDATA[How to do pair programming using a VS Code extension.]]></summary></entry></feed>
+</div>]]></content><author><name>Serguei Gorokhov and Piotr Karatkevich</name></author><summary type="html"><![CDATA[In this blog post, we'll tell the story how we installed Eclipse Che on Microsoft Azure, what challenges we met and how solved them.]]></summary></entry></feed>
