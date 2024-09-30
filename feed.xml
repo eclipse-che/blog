@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-08-09T12:18:48+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Writing documentation in Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html" rel="alternate" type="text/html" title="Writing documentation in Eclipse Che" /><published>2024-08-09T00:00:00+00:00</published><updated>2024-08-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/08/09/@deerskindoll/writing-docs-with-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-09-30T15:31:35+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Writing documentation in Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html" rel="alternate" type="text/html" title="Writing documentation in Eclipse Che" /><published>2024-08-09T00:00:00+00:00</published><updated>2024-08-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/08/09/@deerskindoll/writing-docs-with-che</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/08/09/@deerskindoll-writing-docs-with-che.html"><![CDATA[<div class="sect1">
 <h2 id="_the-quick-and-easy-way-to-create-documentation">The quick and easy way to create documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -9,10 +9,9 @@ featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
 everything is happening in the environment you&#8217;re already familiar with: an Eclipse Che cloud development environment (CDE).</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png" alt="An Eclipse Che CDE created from the che-docs repository.">
-</div>
+<div class="paragraph">
+<p>image::/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png
+An Eclipse Che CDE created from the che-docs repository.</p>
 </div>
 </div>
 </div>
@@ -44,7 +43,7 @@ Alternatively, you can click right here:</p>
 <p><a href="https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/">devfile</a></p>
 </li>
 <li>
-<p>list of <a href="https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup">automatically installed Microsoft Visual Studio Code extensions</a></p>
+<p>list of <a href="https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup">automatically installed extensions</a></p>
 </li>
 </ul>
 </div>
@@ -73,10 +72,9 @@ you need for writing Eclipse Che content.
 When you launch the che-docs workspace for the first time,
 these extensions are installed automatically:</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/contributing-to-eclipse-che-docs/extensions.png" alt="Overview of automatically installed extensions, including the Vale extension.">
-</div>
+<div class="paragraph">
+<p>image::/assets/img/contributing-to-eclipse-che-docs/extensions.png
+Overview of automatically installed extensions, including the Vale extension.</p>
 </div>
 <div class="paragraph">
 <p>You can start working immediately,
@@ -167,10 +165,9 @@ Here are a few tips that will help you write great technical content:</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png" alt="The famous opening lines of Jane Austen&#8217;s Pride and Prejudice novel don&#8217;t follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.">
-</div>
+<div class="paragraph">
+<p>image::/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png
+The famous opening lines of Jane Austen&#8217;s Pride and Prejudice novel don&#8217;t follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.</p>
 </div>
 <div class="paragraph">
 <p>If you want to learn more about technical writing in general,
