@@ -18,7 +18,8 @@ featuring tools you need to create and test your content.
 And from the initial draft to submitting a PR,
 everything is happening in the environment you're already familiar with: an Eclipse Che cloud development environment (CDE).
 
-image::/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png[An Eclipse Che CDE created from the che-docs repository.]
+image::/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png
+An Eclipse Che CDE created from the che-docs repository.
 
 
 == Getting started
@@ -36,7 +37,7 @@ image::https://www.eclipse.org/che/contribute.svg[]
 What about the che-docs repository makes using an Eclipse Che CDE to contribute content so convenient? The following two elements:
 
 * link:https://eclipse.dev/che/docs/stable/end-user-guide/devfile-introduction/[devfile]
-* list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed Microsoft Visual Studio Code extensions]
+* list of link:https://eclipse.dev/che/docs/stable/end-user-guide/microsoft-visual-studio-code-open-source-ide/#automating-installation-of-microsoft-visual-studio-code-extensions-at-workspace-startup[automatically installed extensions]
 
 Let's look at the devfile first.
 The che-docs repository contains a simple link:https://github.com/eclipse-che/che-docs/blob/main/devfile.yaml[devfile]
@@ -60,7 +61,8 @@ you need for writing Eclipse Che content.
 When you launch the che-docs workspace for the first time,
 these extensions are installed automatically:
 
-image::/assets/img/contributing-to-eclipse-che-docs/extensions.png["Overview of automatically installed extensions, including the Vale extension."]
+image::/assets/img/contributing-to-eclipse-che-docs/extensions.png
+Overview of automatically installed extensions, including the Vale extension.
 
 You can start working immediately,
 with minimal additional setup required.
@@ -101,7 +103,8 @@ Here are a few tips that will help you write great technical content:
 * Keep the focus on the user. Write the content around what the user can achieve when they follow your instructions.
 * Keep passive voice to a minimum.
 
-image::/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png["The famous opening lines of Jane Austen's Pride and Prejudice novel don't follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11."]
+image::/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png
+The famous opening lines of Jane Austen's Pride and Prejudice novel don't follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.
 
 
 If you want to learn more about technical writing in general,
