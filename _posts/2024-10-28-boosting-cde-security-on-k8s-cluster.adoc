@@ -1,0 +1,80 @@
+---
+title: "Boosting CDE Security on k8s cluster: A Guide to new features"
+layout: post
+author: Anatolii Bazko
+description: >-
+  Boosting CDE Security on k8s cluster: A Guide to new features
+categories: []
+keywords: ['workspace', 'security', 'administrator']
+slug: /@tolusha/boosting-cde-security-on-k8s-cluster
+---
+
+== Introduction
+
+As organizations transition to cloud-native development, maintaining control, security, and flexibility in development environments becomes critical. Eclipse Che is a powerful Kubernetes-native IDE that offers administrators tools for ensuring security and resource efficiency. In this post, we'll look at three new Eclipse Che features that improve security and resource control in your development environments.
+
+== Limiting the Number of Simultaneous Workspaces
+
+Effective resource management is critical in cloud-based environments, as uncontrolled workspace development can quickly deplete resources and degrade system performance. To mitigate this risk, Eclipse Che now has a functionality that restricts the amount of running workspaces per cluster.
+
+Administrators can use this feature to limit the amount of workspaces that can run at the same time, reducing resource misuse, supports fair allocation of resources among teams, hence increasing overall efficiency.
+
+In the example below, we set the maximum number of running workspaces per cluster to 20:
+
+[source,shell]
+----
+kubectl patch checluster/eclipse-che \
+  --namespace eclipse-che \
+  --type='merge' -p \
+    '{"spec":
+        {"devEnvironments":
+          {"maxNumberOfRunningWorkspacesPerCluster": 20}
+        }
+     }'
+----
+
+If a user exceeds the workspace limit, they will receive a warning message during workspace startup: "Exceeded the cluster limit for running DevWorkspaces"
+
+image::/assets/img/boosting-cde-security-on-k8s-cluster/exceeded-the-cluster-limit-for-running-devworkspaces.png[Exceeded the cluster limit for running DevWorkspaces]
+{nbsp} +
+
+To learn more about configuring workspace limits, follow the link:https://eclipse.dev/che/docs/stable/administration-guide/limiting-the-number-of-workspaces-that-all-users-can-run-simultaneously[Eclipse Che documentation].
+
+== Configuring Allowed URLs
+
+This feature ensures that developer workspaces can only be launched from pre-approved, secure URLs. Organizations can prevent workspaces from being started with unwanted URLs by creating a whitelist of trusted domains.
+
+In the example below, we configure the allowed URLs to only permit connections to GitLab:
+
+[source,shell]
+----
+kubectl patch checluster/eclipse-che \
+    --namespace eclipse-che \
+    --type='merge' \
+    -p \
+        '{
+           "spec": {
+             "devEnvironments": {
+               "allowedSources": {
+                 "urls": ["https://gitlab.com/*"]
+               }
+             }
+           }
+         }'
+----
+
+If a user attempts to create a workspace with a URL other than GitLab, they will receive the error message: "URL is not permitted for creating a workspace".
+
+image::/assets/img/boosting-cde-security-on-k8s-cluster/url-is-not-permitted-for-creating-a-workspace.png[URL is not permitted for creating a workspace]
+{nbsp} +
+
+If allowed URLs are not configured, a warning window will appear, prompting the user to confirm that they trust the repository from which the workspace will be launched.
+
+image::/assets/img/boosting-cde-security-on-k8s-cluster/do-you-trust-the-authors-of-this-repository.png[URL is not permitted for creating a workspace]
+{nbsp} +
+
+To learn more about configuring allowed URLs, follow the link:https://eclipse.dev/che/docs/stable/administration-guide/configuring-allowed-urls-for-cloud-development-environments/[Eclipse Che documentation].
+
+== Conclusion
+
+Eclipse Che's new security features, such as limiting simultaneous workspaces and configuring allowed URLs, give administrators greater control over resource usage and workspace security in cloud-native environments. Implementing these updates allows organizations to improve the efficiency and safety of their development workflows, resulting in a secure and well-regulated workspace.
