@@ -40,7 +40,7 @@ image::/assets/img/boosting-cde-security-on-kubernetes-cluster/exceeded-the-clus
 
 To learn more about configuring workspace limits, follow the link:https://eclipse.dev/che/docs/stable/administration-guide/limiting-the-number-of-workspaces-that-all-users-can-run-simultaneously[Eclipse Che documentation].
 
-=== Untrusted Repository Warning
+== Untrusted Repository Warning
 
 It is not recommended to create workspaces from unknown or untrusted repositories automatically. When a user tries to create a workspace in Eclipse Che, a warning window appears on the dashboard, requesting confirmation that they trust the repository before proceeding.
 
