@@ -1,5 +1,5 @@
 ---
-title: "Boosting CDE Security on Kubernetes cluster: A Guide to new features"
+title: "Boosting CDE Security in a Kubernetes cluster: A Guide to new features"
 layout: post
 author: Anatolii Bazko
 description: >-
