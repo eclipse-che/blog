@@ -17,7 +17,7 @@ As organizations transition to cloud-native development, maintaining control, se
 
 Effective resource management is critical in cloud-based environments, as uncontrolled workspace development can quickly deplete resources and degrade system performance. To mitigate this risk, Eclipse Che now has a functionality that restricts the amount of running workspaces per cluster.
 
-Administrators can use this feature to limit the amount of workspaces that can run at the same time, reducing resource misuse, supports fair allocation of resources among teams, and increasing overall efficiency.
+Administrators can use this feature to limit the amount of workspaces that can run at the same time, reducing resource misuse, supporting fair allocation of resources among teams, and increasing overall efficiency.
 
 In the example below, we set the maximum number of running workspaces per cluster to 20:
 
