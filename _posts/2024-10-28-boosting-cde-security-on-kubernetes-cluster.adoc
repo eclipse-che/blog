@@ -50,7 +50,7 @@ image::/assets/img/boosting-cde-security-on-kubernetes-cluster/do-you-trust-the-
 
 == Configuring Allowed URLs
 
-This feature ensures that developer workspaces can only be launched from pre-approved, secure URLs. Organizations can prevent workspaces from being started with unwanted URLs by creating a whitelist of trusted domains.
+This feature ensures that developer workspaces can only be launched from pre-approved, secure URLs. Organizations can prevent workspaces from being started with unwanted URLs by creating a allowlist of trusted domains.
 
 In the example below, we configure the allowed URLs to only permit connections to GitLab:
 
