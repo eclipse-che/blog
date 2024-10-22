@@ -71,7 +71,7 @@ kubectl patch checluster/eclipse-che \
          }'
 ----
 
-If a user attempts to create a workspace with a URL other than GitLab, they will receive the error message: "URL is not permitted for creating a workspace".
+If a user attempts to create a workspace with a URL other than GitLab, they will receive an error message: "URL is not permitted for creating a workspace".
 
 image::/assets/img/boosting-cde-security-on-kubernetes-cluster/url-is-not-permitted-for-creating-a-workspace.png[URL is not permitted for creating a workspace]
 {nbsp} +
