@@ -6,7 +6,7 @@
 
 Add a new file in `_posts` folder. Images go in `assets/img/<blog-subfolder>`.
 Test to see if everything looks good.
-Submit a pull request and ping reviewers on mattermost to get it approved.
+Submit a pull request and ping reviewers on the `#forum-che` [slack](https://communityinviter.com/apps/ecd-tools/join-the-community) to get it approved.
 
 ## How to test a blog post
 

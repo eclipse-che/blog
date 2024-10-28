@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>
+      Boosting CDE Security in a Kubernetes cluster: A Guide to new features |
+      Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta
+      property="og:title"
+      content="Boosting CDE Security in a Kubernetes cluster: A Guide to new features"
+    />
+    <meta name="author" content="Anatolii Bazko" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="Boosting CDE Security on Kubernetes cluster: A Guide to new features"
+    />
+    <meta
+      property="og:description"
+      content="Boosting CDE Security on Kubernetes cluster: A Guide to new features"
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2024-10-28T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Boosting CDE Security in a Kubernetes cluster: A Guide to new features"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Anatolii Bazko" },
+        "dateModified": "2024-10-28T00:00:00+00:00",
+        "datePublished": "2024-10-28T00:00:00+00:00",
+        "description": "Boosting CDE Security on Kubernetes cluster: A Guide to new features",
+        "headline": "Boosting CDE Security in a Kubernetes cluster: A Guide to new features",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"
+        },
+        "url": "https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Boosting CDE Security in a Kubernetes cluster: A Guide to new
+              features
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2024-10-28T00:00:00+00:00"
+                itemprop="datePublished"
+                >Oct 28, 2024 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Anatolii Bazko</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="sect1">
+              <h2 id="_introduction">Introduction</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    As organizations transition to cloud-native development,
+                    maintaining control, security, and flexibility in
+                    development environments becomes critical. Eclipse Che is a
+                    powerful Kubernetes-native IDE that offers administrators
+                    tools for ensuring security and resource efficiency. In this
+                    post, we&#8217;ll look at three new Eclipse Che features
+                    that improve security and resource control in your
+                    development environments.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_limiting-the-number-of-simultaneous-workspaces">
+                Limiting the Number of Simultaneous Workspaces
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Effective resource management is critical in cloud-based
+                    environments, as uncontrolled workspace development can
+                    quickly deplete resources and degrade system performance. To
+                    mitigate this risk, Eclipse Che now has a functionality that
+                    restricts the amount of running workspaces per cluster.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Administrators can use this feature to limit the amount of
+                    workspaces that can run at the same time, reducing resource
+                    misuse, supporting fair allocation of resources among teams,
+                    and increasing overall efficiency.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    In the example below, we set the maximum number of running
+                    workspaces per cluster to 20:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="shell">kubectl patch checluster/eclipse-che <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">--namespace</span> eclipse-che <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">--type</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'merge'</span> <span style="color: #f92672">-p</span> <span style="color: #ae81ff">\</span>
+    <span style="color: #e6db74">'{"spec":
+        {"devEnvironments":
+          {"maxNumberOfRunningWorkspacesPerCluster": 20}
+        }
+     }'</span></code></pre>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    If a user exceeds the workspace limit, they will receive a
+                    warning message during workspace startup: "Exceeded the
+                    cluster limit for running DevWorkspaces"
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/boosting-cde-security-on-kubernetes-cluster/exceeded-the-cluster-limit-for-running-devworkspaces.png"
+                      alt="Exceeded the cluster limit for running DevWorkspaces"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    To learn more about configuring workspace limits, follow the
+                    <a
+                      href="https://eclipse.dev/che/docs/stable/administration-guide/limiting-the-number-of-workspaces-that-all-users-can-run-simultaneously"
+                      >Eclipse Che documentation</a
+                    >.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_untrusted-repository-warning">
+                Untrusted Repository Warning
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    It is not recommended to create workspaces from unknown or
+                    untrusted repositories automatically. When a user tries to
+                    create a workspace in Eclipse Che, a warning window appears
+                    on the dashboard, requesting confirmation that they trust
+                    the repository before proceeding.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/boosting-cde-security-on-kubernetes-cluster/do-you-trust-the-authors-of-this-repository.png"
+                      alt="URL is not permitted for creating a workspace"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_configuring-allowed-urls">Configuring Allowed URLs</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    This feature ensures that developer workspaces can only be
+                    launched from pre-approved, secure URLs. Organizations can
+                    prevent workspaces from being started with unwanted URLs by
+                    creating a allowlist of trusted domains.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    In the example below, we configure the allowed URLs to only
+                    permit connections to GitLab:
+                  </p>
+                </div>
+                <div class="listingblock">
+                  <div class="content">
+                    <pre
+                      class="rouge highlight"
+                      style="color: #f8f8f2; background-color: #49483e"
+                    ><code data-lang="shell">kubectl patch checluster/eclipse-che <span style="color: #ae81ff">\</span>
+    <span style="color: #f92672">--namespace</span> eclipse-che <span style="color: #ae81ff">\</span>
+    <span style="color: #f92672">--type</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'merge'</span> <span style="color: #ae81ff">\</span>
+    <span style="color: #f92672">-p</span> <span style="color: #ae81ff">\</span>
+        <span style="color: #e6db74">'{
+           "spec": {
+             "devEnvironments": {
+               "allowedSources": {
+                 "urls": ["https://gitlab.com/*"]
+               }
+             }
+           }
+         }'</span></code></pre>
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    If a user attempts to create a workspace with a URL other
+                    than GitLab, they will receive an error message: "URL is not
+                    permitted for creating a workspace".
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/boosting-cde-security-on-kubernetes-cluster/url-is-not-permitted-for-creating-a-workspace.png"
+                      alt="URL is not permitted for creating a workspace"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    To learn more about configuring allowed URLs, follow the
+                    <a
+                      href="https://eclipse.dev/che/docs/stable/administration-guide/configuring-allowed-urls-for-cloud-development-environments/"
+                      >Eclipse Che documentation</a
+                    >.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_conclusion">Conclusion</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Eclipse Che&#8217;s new security features, such as limiting
+                    simultaneous workspaces and configuring allowed URLs, give
+                    administrators greater control over resource usage and
+                    workspace security in cloud-native environments.
+                    Implementing these updates allows organizations to improve
+                    the efficiency and safety of their development workflows,
+                    resulting in a secure and well-regulated workspace.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
