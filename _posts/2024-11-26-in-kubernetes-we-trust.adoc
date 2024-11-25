@@ -6,12 +6,12 @@ description: >-
   Building an application platform for developers on Kubernetes
 categories: []
 keywords: ['Kubernetes', 'CDE', 'Cloud']
-slug: /@ibuziuk/in-kubernetes-we-trust
+slug: /@ilya.buziuk/in-kubernetes-we-trust
 ---
 
 == Introduction
 
-Last year, the link:https://www.youtube.com/watch?v=eIOZq_e-Fjs["Pros and cons of using Kubernetes as a development platform"]  session was presented at link:https://www.eclipse.org/events/2023/eclipsecon/[EclipseCon] in Ludwigsburg. The main message was that, indeed, link:https://kubernetes.io/[Kubernetes] is complex, and sometimes there are caveats and tradeoffs to make, but it is evolving rapidly with plenty of new features and opportunities available with every release. Today it is time to reflect a bit more on this topic. 
+Last year, the link:https://youtu.be/eIOZq_e-Fjs?si=lecaEpLC5vEb0-Za["Pros and cons of using Kubernetes as a development platform"]  session was presented at link:https://www.eclipse.org/events/2023/eclipsecon/[EclipseCon] in Ludwigsburg. The main message was that, indeed, link:https://kubernetes.io/[Kubernetes] is complex, and sometimes there are caveats and tradeoffs to make, but it is evolving rapidly with plenty of new features and opportunities available with every release. Today it is time to reflect a bit more on this topic. 
 
 == Building an application platform for developers
 
@@ -20,7 +20,6 @@ In general, if you are considering building your own development platform it is 
 image::/assets/img/in-kubernetes-we-trust/multitude-of-options-available-to-provide-an-application-platform-to-developers.png[The multitude of options available to provide an application platform to developers]
 
 Figure 1: The multitude of options available to provide an application platform to developers
-
 {nbsp} +
 
 Of course, you can always craft your own platform from scratch, or even decide that the link:https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0[cloud], in general, is not your cup of tea, and stop the Cloud Development Environment (CDE) journey right here since local development is good enough for your use-case and works “just fine”. However, in link:https://eclipse.dev/che/[Eclipse Che] we strongly believe in the hybrid cloud strategy, and that Kubernetes is one of the best possible options for building a modern CDE platform for developers because of:
