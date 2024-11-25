@@ -1,0 +1,106 @@
+---
+title: "In Kubernetes We Trust"
+layout: post
+author: Ilya Buziuk
+description: >-
+  Building an application platform for developers on Kubernetes
+categories: []
+keywords: ['Kubernetes', 'CDE', 'Cloud']
+slug: /@ilya.buziuk/in-kubernetes-we-trust
+---
+
+== Introduction
+
+Last year, the link:https://youtu.be/eIOZq_e-Fjs?si=lecaEpLC5vEb0-Za["Pros and cons of using Kubernetes as a development platform"]  session was presented at link:https://www.eclipse.org/events/2023/eclipsecon/[EclipseCon] in Ludwigsburg. The main message was that, indeed, link:https://kubernetes.io/[Kubernetes] is complex, and sometimes there are caveats and tradeoffs to make, but it is evolving rapidly with plenty of new features and opportunities available with every release. Today it is time to reflect a bit more on this topic. 
+
+== Building an application platform for developers
+
+If you are considering building your own development platform it is recommended to read the brilliant link:https://www.oreilly.com/library/view/production-kubernetes/9781492092292/[“Production Kubernetes”] book, where a multitude of potential options are described in great detail:
+
+image::/assets/img/in-kubernetes-we-trust/multitude-of-options-available-to-provide-an-application-platform-to-developers.png[The multitude of options available to provide an application platform to developers]
+
+Figure 1: The multitude of options available to provide an application platform to developers.
+
+Of course, you can always craft your own platform from scratch or even decide that the link:https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0[cloud], in general, is not your cup of tea and stop the Cloud Development Environment (CDE) journey right here since local development is good enough for your use-case and works “just fine”. Nevertheless, in link:https://eclipse.dev/che/[Eclipse Che] we strongly believe in the hybrid cloud strategy, and that Kubernetes is one of the best possible options for building a modern CDE platform for developers because of:
+
+- Extensibility
+- Scalability
+- Resource Efficiency
+- Consistency
+- High Availability
+- Control
+- Open Source
+- Community
+- Vendor Neutrality
+- Hybrid-Cloud Nature
+
+However, there are a lot of subtle details worth considering when using Kubernetes as the pillar for building an application platform for developers. Some of them are described in the dedicated link:https://youtu.be/eIOZq_e-Fjs?si=w6_Nx-v4nwg85QgP[EclipseCon session] mentioned in the introduction:
+
+- Networking
+- Storage
+- Immutability
+- Permissions
+- CPU Throttling
+- OOM Kill
+- Image Pulling
+- Image Building
+
+In this article you can find a few more.
+
+=== Namespaces
+
+While there is no strict limit on the number of namespaces in a Kubernetes cluster, having more than 10,000 is generally not recommended due to potential performance and management overhead. In Eclipse Che, for instance, each user is allocated with a namespace. If you expect the user base to be big enough consider spreading workloads across multiple clusters and potentially leveraging solutions for multi-cluster orchestration.
+
+=== GitOps
+
+Do NOT manage the Kubernetes clusters manually otherwise you will end up with a snowflake environment. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand. Using a GitOps CD solution for Kubernetes such as link:https://argo-cd.readthedocs.io/[Argo CD] is a must-have when managing a complex application platform for developers.
+
+=== Root Access
+
+Containers running as root on a cluster are a major security risk since they significantly increase the attack surface, potentially allowing root access over the host node. That is the main reason why the containers on link:https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift] are running using link:https://cookbook.openshift.org/users-and-role-based-access-control/why-do-my-applications-run-as-a-random-user-id.html[Arbitrary User IDs] by default. This approach provides additional security against processes escaping the container due to a container engine vulnerability, thereby achieving escalated permissions on the host node. This basic principle applies to the CDEs as well. It might look like a trade-off between security and usability, when users cannot easily install OS-scoped packages in the runtime. However, dynamically installing packages in a running workspace is anti-pattern - containers are supposed to be immutable, and installing anything inside a running container is not recommended since all the packages will vanish after the restart.  There is also the added benefit of maintaining workspace consistency across different users by adhering to the immutable principle for container images used in the CDE.
+
+=== emptyDir Volumes
+
+Volume mounting could be by far the most time-consuming operation during the pod startup. Consider leveraging ephemeral workloads whenever relevant which are using the link:https://kubernetes.io/docs/concepts/storage/volumes/#emptydir[emptyDir] volumes under the hood. In the context of Eclipse Che, those are ephemeral workspaces that could be particularly useful for developer routines like code review, with the dedicated storage type defined on the link:https://devfile.io/[devfile] level:
+
+....
+schemaVersion: 2.3.0
+metadata:
+  generateName: quarkus-api-example
+attributes:
+  controller.devfile.io/storage-type: ephemeral
+....
+
+=== Autoscaling
+
+Although autoscaling is a powerful Kubernetes feature, you cannot always fall back on it, and should always consider predictive scaling by analyzing the load data on your environment to detect daily or weekly usage patterns. If your workloads follow some pattern, e.g. there are huge spikes based on the time of the day, you should consider provisioning worker nodes in advance (e.g. a lot of users turn on their smart speakers in the morning between 7 - 9 am, and there is a huge spike in the requests that on the infrastructure level is predicted and handled in advance).
+
+=== CPU Limits
+
+Setting CPU Limits in general is a contended topic for production workloads, since If you apply them the workloads are throttled by definition. Limits for CPU for soft-tenancy pods are probably not going to be helpful unless you are approaching very dense setups (> 10 pods per core) - otherwise, you will waste more CPU throttling than you save. CPU Limits definitely increase tail latencies for most non-predictable workloads (almost all request-driven use cases) in a way that will result in a worse overall application environment for most users most of the time (because of how limits are sliced).  At lower pods per core, you are almost certainly trading a false security for a worse quality of service for the workloads you are running on Kubernetes.
+
+CPU Limits are most useful when dealing with bad actors on your own platform, and even then, there are far more effective ways of dealing with bad actors like detection and account blocking.  However, in the case of CDEs, you may consider applying the limits on the namespace level to prevent developers from accidentally saturating a compute node. If you apply limits, you must make sure the limits are high enough to allow normal bursts of CPU usage during the inner-loop activities.  Otherwise, developers may experience unexpected performance issues during CPU-intensive activities.
+
+=== Ephemeral Containers
+
+link:https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/[Ephemeral Containers] is a great example of how Kubernetes features are providing new opportunities for building application platforms for developers every release. Last year we talked about Ephemeral Containers at EclipseCon as a potential new opportunity for Cloud Development Environments. This year a link:https://github.com/devfile/kubectl-debug-ide[kubectl plugin] for debugging Kubernetes pods from a CDE, rather than the CLI has been presented at link:https://youtu.be/fg57Zmm4eN4?si=8LyyRsud6lMJg59h[KubeCon].
+
+=== Dynamic Resource Allocation (DRA)
+
+link:https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/[Dynamic Resource Allocation (DRA)] is yet another striking example of how Kubernetes features are providing new opportunities for developers with every release. With the push for GPU-centric applications, DRA was presented all throughout the last link:https://notes.elmiko.dev/2024/11/19/kubecon-na-2024-retrospective.html[KubeCon North America 2024]. In the first place, it speaks to the popularity of AI-related workloads that require specific resources, and while today DRA mostly targets GPUs, it is very well possible that one day we will be talking about DRA for everything from CPUs and memory to customized hardware accelerators in the future.
+
+=== Release Notes
+
+To maximize the potential of your Kubernetes-based developer platform, consistently review the link:https://kubernetes.io/releases/notes/[Release Notes]. They offer a treasury of opportunities for innovative features,  performance enhancements, optimizations, recommended configurations, best practices, and strategic planning based on future roadmap insights.
+
+== Adoption
+
+For the last few years, we have seen a spike in the adoption of link:https://eclipse.dev/che/[Eclipse Che] and the downstream product link:https://developers.redhat.com/products/openshift-dev-spaces[Red Hat OpenShift Dev Spaces] built on top of it. Multiple success stories when the Kubernetes-based platform for provisioning CDEs to enterprise teams is deployed across public, private, and hybrid environments motivate and encourage us every day. Here are just a few public references:
+
+- EPAM Systems deploys Eclipse Che on link:https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html[Azure Kubernetes Service (AKS)].
+- link:https://www.youtube.com/watch?v=NYCFzNDdXTk[Ford Motor Company] uses fit-for-purpose OpenShift clusters and a dedicated Kubernetes Operator for managing CDEs.
+- link:https://www.redhat.com/en/success-stories/capgemini[Capgemini] accelerates digital service development for the Federal Information Technology Center (ITZBund) using Red Hat OpenShift Dev Spaces Operator in combination with link:https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/index.html[NVIDIA vGPU Operator] for managing CDEs in the 100% air-gapped environment, isolated from the internet.
+
+== Conclusion
+
+We trust in Kubernetes and do believe in the hybrid cloud. Open Source is in our DNA.
