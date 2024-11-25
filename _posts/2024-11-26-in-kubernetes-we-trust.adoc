@@ -37,6 +37,36 @@ Of course, you can always craft your own platform from scratch, or even decide t
 
 However, there are a lot of subtle details worth considering when using Kubernetes as the pillar for building  an application platform for developers. Some of them are described in the dedicated link:https://youtu.be/eIOZq_e-Fjs?si=w6_Nx-v4nwg85QgP[EclipseCon’s session]mentioned in the introduction. In this article you can find a few more.
 
+=== Namespaces
+
+While there is no strict limit on the number of namespaces in a Kubernetes cluster, having more than 10,000 namespaces is generally not recommended due to potential performance and management overhead. If you expect the userbase to be more than that figure, consider spreading workloads across multiple clusters and potentially leveraging solutions for multi-cluster orchestration.
+
+=== GitOps
+
+Do NOT manage the Kubernetes clusters manually otherwise you would end up with the snowflake environment. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand. Using a GitOps CD solution for Kubernetes such as link:https://argo-cd.readthedocs.io/[Argo CD] is a must-have when managing a complex application platform for developers.
+
+=== emptyDir Volumes
+
+Volume mount could be by far the most time-consuming operation during the pod startup. Consider leveraging ephemeral workloads whenever relevant which are using the link:https://kubernetes.io/docs/concepts/storage/volumes/#emptydir[emptyDir] volumes under the hood. In the context of Eclipse Che, those are ephemeral workspaces that could be particularly useful for developer routines like code review, with the dedicated storage type defined on the link:https://devfile.io/[devfile] level:
+
+....
+schemaVersion: 2.3.0
+metadata:
+  generateName: quarkus-api-example
+attributes:
+  controller.devfile.io/storage-type: ephemeral
+....
+
+=== Autoscaling
+
+Although autoscaling is a powerful Kubernetes feature, you cannot always fall back on it, and should always consider predictive scaling by analyzing the load data on your environment to detect daily or weekly usage patterns. If your workloads follow some pattern, e.g. there are huge spikes based on the time of the day, you should consider provisioning worker nodes in advance (e.g. a lot of users turn on their smart speakers in the morning between 7 - 9 am, and there is a huge spike in the requests that on infrastructure level is predicted and handled in advance).
+
+=== CPU Limits
+
+Setting CPU Limits in general is a contended topic for production workloads, since If you apply them the workloads are throttled by definition. Limits for CPU for soft-tenancy pods are probably not going to be helpful unless you are approaching very dense setups (> 10 pods per core) - otherwise, you will waste more CPU throttling than you save. CPU Limits definitely increase tail latencies for most non-predictable workloads (almost all request-driven use cases) in a way that will result in a worse overall application environment for most users most of the time (because of how limits are sliced).  At lower pods per core, you are almost certainly trading a false security for a worse quality of service for the workloads you are running on Kubernetes.
+
+CPU Limits are most useful when dealing with bad actors on your own platform, and even then, there are far more effective ways of dealing with bad actors like detection and account blocking.  However, in case of CDEs, you may consider applying the limits on the namespace level to prevent developers from accidentally saturating a compute node. If you apply limits, you must make sure the limits are high enough to allow the normal bursts of CPU usage during the inner-loop activities.  Otherwise, developers may experience unexpected performance issues during CPU-intensive activities.
+
 == Conclusion
 
 We trust in Kubernetes and do believe in the hybrid cloud. Open Source is in our DNA.
