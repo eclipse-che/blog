@@ -414,15 +414,15 @@ attributes:
                       workloads are throttled by definition. Limits for CPU for
                       soft-tenancy pods are probably not going to be helpful
                       unless you are approaching very dense setups (&gt; 10 pods
-                      per core) - otherwise, you will waste more CPU throttling
-                      than you save. CPU Limits definitely increase tail
-                      latencies for most non-predictable workloads (almost all
-                      request-driven use cases) in a way that will result in a
-                      worse overall application environment for most users most
-                      of the time (because of how limits are sliced). At lower
-                      pods per core, you are almost certainly trading a false
-                      security for a worse quality of service for the workloads
-                      you are running on Kubernetes.
+                      per core) - otherwise, you will waste more CPU by
+                      throttling than you save. CPU Limits definitely increase
+                      tail latencies for most non-predictable workloads (almost
+                      all request-driven use cases) in a way that will result in
+                      a worse overall application environment for most users
+                      most of the time (because of how limits are sliced). At
+                      lower pods per core, you are almost certainly trading a
+                      false security for a worse quality of service for the
+                      workloads you are running on Kubernetes.
                     </p>
                   </div>
                   <div class="paragraph">
