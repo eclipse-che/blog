@@ -1,4 +1,193 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-11-25T16:51:15+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Boosting CDE Security in a Kubernetes cluster: A Guide to new features</title><link href="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html" rel="alternate" type="text/html" title="Boosting CDE Security in a Kubernetes cluster: A Guide to new features" /><published>2024-10-28T00:00:00+00:00</published><updated>2024-10-28T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/10/28/@tolusha/boosting-cde-security-on-kubernetes-cluster</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-11-26T18:01:40+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">In Kubernetes We Trust</title><link href="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html" rel="alternate" type="text/html" title="In Kubernetes We Trust" /><published>2024-11-26T00:00:00+00:00</published><updated>2024-11-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk/in-kubernetes-we-trust</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Last year, the <a href="https://youtu.be/eIOZq_e-Fjs?si=lecaEpLC5vEb0-Za">"Pros and cons of using Kubernetes as a development platform"</a>  session was presented at <a href="https://www.eclipse.org/events/2023/eclipsecon/">EclipseCon</a> in Ludwigsburg. The main message was that, indeed, <a href="https://kubernetes.io/">Kubernetes</a> is complex and sometimes there are caveats and tradeoffs to make, but it is evolving rapidly with plenty of new features and opportunities available with every release. Today it is time to reflect a bit more on this topic.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building-an-application-platform-for-developers">Building an application platform for developers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are considering building your own development platform it is recommended to read the brilliant <a href="https://www.oreilly.com/library/view/production-kubernetes/9781492092292/">“Production Kubernetes”</a> book, where a multitude of potential options are described in great detail:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/in-kubernetes-we-trust/multitude-of-options-available-to-provide-an-application-platform-to-developers.png" alt="The multitude of options available to provide an application platform to developers">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: The multitude of options available to provide an application platform to developers.</p>
+</div>
+<div class="paragraph">
+<p>Of course, you can always craft your own platform from scratch or even decide that the <a href="https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0">cloud</a>, in general, is not your cup of tea and stop the Cloud Development Environment (CDE) journey right here since local development is good enough for your use-case and works “just fine”. Nevertheless, in <a href="https://eclipse.dev/che/">Eclipse Che</a> we strongly believe in the hybrid cloud strategy, and that Kubernetes is one of the best possible options for building a modern CDE platform for developers because of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Extensibility</p>
+</li>
+<li>
+<p>Scalability</p>
+</li>
+<li>
+<p>Resource Efficiency</p>
+</li>
+<li>
+<p>Consistency</p>
+</li>
+<li>
+<p>High Availability</p>
+</li>
+<li>
+<p>Control</p>
+</li>
+<li>
+<p>Open Source</p>
+</li>
+<li>
+<p>Community</p>
+</li>
+<li>
+<p>Vendor Neutrality</p>
+</li>
+<li>
+<p>Hybrid-Cloud Nature</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However, there are a lot of subtle details worth considering when using Kubernetes as the pillar for building an application platform for developers. Some of them are described in the dedicated <a href="https://youtu.be/eIOZq_e-Fjs?si=w6_Nx-v4nwg85QgP">EclipseCon session</a> mentioned in the introduction:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Networking</p>
+</li>
+<li>
+<p>Storage</p>
+</li>
+<li>
+<p>Immutability</p>
+</li>
+<li>
+<p>Permissions</p>
+</li>
+<li>
+<p>CPU Throttling</p>
+</li>
+<li>
+<p>OOM Kill</p>
+</li>
+<li>
+<p>Image Pulling</p>
+</li>
+<li>
+<p>Image Building</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this article you can find a few more.</p>
+</div>
+<div class="sect2">
+<h3 id="_namespaces">Namespaces</h3>
+<div class="paragraph">
+<p>While there is no strict limit on the number of namespaces in a Kubernetes cluster, having more than 10,000 is generally not recommended due to potential performance and management overhead. In Eclipse Che for instance, each user is allocated a namespace. If you expect the user base to be large, consider spreading workloads across multiple clusters and potentially leveraging solutions for multi-cluster orchestration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gitops">GitOps</h3>
+<div class="paragraph">
+<p>Do NOT manage the Kubernetes clusters manually otherwise you will end up with a snowflake environment. Application definitions, configurations, and environments should be declarative and version controlled. Application deployment and lifecycle management should be automated, auditable, and easy to understand. Using a GitOps CD solution for Kubernetes such as <a href="https://argo-cd.readthedocs.io/">Argo CD</a> is a must-have when managing a complex application platform for developers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_root-access">Root Access</h3>
+<div class="paragraph">
+<p>Containers running as root on a cluster are a major security risk since they significantly increase the attack surface, potentially allowing root access over the host node. That is the main reason why the containers on <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">OpenShift</a> are running using <a href="https://cookbook.openshift.org/users-and-role-based-access-control/why-do-my-applications-run-as-a-random-user-id.html">Arbitrary User IDs</a> by default. This approach provides additional security against processes escaping the container due to a container engine vulnerability, thereby achieving escalated permissions on the host node. This basic principle applies to CDEs as well. It might look like a trade-off between security and usability, when users cannot easily install OS-scoped packages in the runtime. However, dynamically installing packages in a running workspace is an anti-pattern - containers are supposed to be immutable, and installing anything inside a running container is not recommended since all the packages will vanish after the restart.  There is also the added benefit of maintaining workspace consistency across different users by adhering to the immutable principle for container images used in the CDE.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emptydir-volumes">emptyDir Volumes</h3>
+<div class="paragraph">
+<p>Volume mounting could be by far the most time-consuming operation during pod startup. Consider leveraging ephemeral workloads whenever relevant which are using  <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">emptyDir</a> volumes under the hood. In the context of Eclipse Che, those are ephemeral workspaces that could be particularly useful for developer routines like code review, with the dedicated storage type defined on the <a href="https://devfile.io/">devfile</a> level:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>schemaVersion: 2.3.0
+metadata:
+  generateName: quarkus-api-example
+attributes:
+  controller.devfile.io/storage-type: ephemeral</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling">Autoscaling</h3>
+<div class="paragraph">
+<p>Although autoscaling is a powerful Kubernetes feature, you cannot always fall back on it, and should always consider predictive scaling by analyzing the load data on your environment to detect daily or weekly usage patterns. If your workloads follow some pattern, e.g. there are huge spikes based on the time of the day, you should consider provisioning worker nodes in advance (e.g. a lot of users turn on their smart speakers in the morning between 7 - 9 am, and there is a huge spike in the requests that on the infrastructure level is predicted and handled in advance).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cpu-limits">CPU Limits</h3>
+<div class="paragraph">
+<p>Setting CPU Limits in general is a contended topic for production workloads, since If you apply them the workloads are throttled by definition. Limits for CPU for soft-tenancy pods are probably not going to be helpful unless you are approaching very dense setups (&gt; 10 pods per core) - otherwise, you will waste more CPU throttling than you save. CPU Limits definitely increase tail latencies for most non-predictable workloads (almost all request-driven use cases) in a way that will result in a worse overall application environment for most users most of the time (because of how limits are sliced).  At lower pods per core, you are almost certainly trading a false security for a worse quality of service for the workloads you are running on Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>CPU Limits are most useful when dealing with bad actors on your own platform, and even then, there are far more effective ways of dealing with bad actors like detection and account blocking.  However, in the case of CDEs, you may consider applying the limits on the namespace level to prevent developers from accidentally saturating a compute node. If you apply limits, you must make sure the limits are high enough to allow normal bursts of CPU usage during the inner-loop activities.  Otherwise, developers may experience unexpected performance issues during CPU-intensive activities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ephemeral-containers">Ephemeral Containers</h3>
+<div class="paragraph">
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/">Ephemeral Containers</a> is a great example of how Kubernetes features are providing new opportunities for building application platforms for developers every release. Last year we talked about Ephemeral Containers at EclipseCon as a potential new opportunity for Cloud Development Environments. This year a <a href="https://github.com/devfile/kubectl-debug-ide">kubectl plugin</a> for debugging Kubernetes pods from a CDE, rather than the CLI has been presented at <a href="https://youtu.be/fg57Zmm4eN4?si=8LyyRsud6lMJg59h">KubeCon</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dynamic-resource-allocation-dra">Dynamic Resource Allocation (DRA)</h3>
+<div class="paragraph">
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/">Dynamic Resource Allocation (DRA)</a> is yet another striking example of how Kubernetes features are providing new opportunities for developers with every release. With the push for GPU-centric applications, DRA was presented all throughout the last <a href="https://notes.elmiko.dev/2024/11/19/kubecon-na-2024-retrospective.html">KubeCon North America 2024</a>. It speaks to the popularity of AI-related workloads that require specific resources, and while today DRA mostly targets GPUs, it is very well possible that one day we will be talking about DRA for everything from CPUs and memory to customized hardware accelerators in the future.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_release-notes">Release Notes</h3>
+<div class="paragraph">
+<p>To maximize the potential of your Kubernetes-based developer platform, consistently review the <a href="https://kubernetes.io/releases/notes/">Release Notes</a>. They offer a treasury of opportunities for innovative features,  performance enhancements, optimizations, recommended configurations, best practices, and strategic planning based on future roadmap insights.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adoption">Adoption</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For the last few years, we have seen a spike in the adoption of <a href="https://eclipse.dev/che/">Eclipse Che</a> and the downstream product <a href="https://developers.redhat.com/products/openshift-dev-spaces">Red Hat OpenShift Dev Spaces</a> built on top of it. Multiple success stories when the Kubernetes-based platform for provisioning CDEs to enterprise teams is deployed across public, private, and hybrid environments motivate and encourage us every day. Here are just a few public references:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>EPAM Systems deploys Eclipse Che on <a href="https://che.eclipseprojects.io/2022/07/25/@karatkep-installing-eclipse-che-on-aks.html">Azure Kubernetes Service (AKS)</a>.</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=NYCFzNDdXTk">Ford Motor Company</a> uses fit-for-purpose OpenShift clusters and a dedicated Kubernetes Operator for managing CDEs.</p>
+</li>
+<li>
+<p><a href="https://www.redhat.com/en/success-stories/capgemini">Capgemini</a> accelerates digital service development for the Federal Information Technology Center (ITZBund) using Red Hat OpenShift Dev Spaces Operator in combination with <a href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/index.html">NVIDIA vGPU Operator</a> for managing CDEs in the 100% air-gapped environment, isolated from the internet.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We trust in Kubernetes and do believe in the hybrid cloud. Open Source is in our DNA.</p>
+</div>
+</div>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[Building an application platform for developers on Kubernetes]]></summary></entry><entry><title type="html">Boosting CDE Security in a Kubernetes cluster: A Guide to new features</title><link href="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html" rel="alternate" type="text/html" title="Boosting CDE Security in a Kubernetes cluster: A Guide to new features" /><published>2024-10-28T00:00:00+00:00</published><updated>2024-10-28T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/10/28/@tolusha/boosting-cde-security-on-kubernetes-cluster</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/10/28/@tolusha-boosting-cde-security-on-kubernetes-cluster.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2643,217 +2832,4 @@ As always, we look forward to your valuable feedback, comments, remarks, and pro
 We wish you an enjoyable and productive coding experience with Eclipse&#160;Che!</p>
 </div>
 </div>
-</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how the PostgreSQL database dependency has been removed in Eclipse Che]]></summary></entry><entry><title type="html">Building Containers in Rootless Mode on OpenShift</title><link href="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html" rel="alternate" type="text/html" title="Building Containers in Rootless Mode on OpenShift" /><published>2022-10-10T00:00:00+00:00</published><updated>2022-10-10T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2022/10/10/@mloriedo/building-container-images</id><content type="html" xml:base="https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html"><![CDATA[<div class="imageblock">
-<div class="content">
-<img src="/assets/img/building-container-images/che-inner-loop-optimized.png" alt="Developer inner loop including a container build">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br>
-&#160;<br>
-Nowadays the typical developer flow, the inner-loop, quite often includes the building of a <code>Dockerfile</code>. Despite that Eclipse Che did not support building container images on OpenShift. That is because it involved granting permissive OpenShift privileges to Che users and we did not want to require that.</p>
-</div>
-<div class="paragraph">
-<p>The good news is that today a few options are available to build containers without compromising the underlying OpenShift cluster security. One of these is running in rootless mode and that is what we are going to discuss in this short blog post.</p>
-</div>
-<div class="paragraph">
-<p>Although it&#8217;s now easy to <a href="https://github.com/containers/buildah/blob/main/docs/tutorials/05-openshift-rootless-build.md">run <code>buildah</code> or <code>podman build</code> in rootless mode</a>, on OpenShift it requires granting some non-default <a href="https://man7.org/linux/man-pages/man7/capabilities.7.html">Linux capabilities</a>: <code>CAP_SETGID</code> and <code>CAP_SETUID</code>. It is possible to provide those capabilities to an Eclipse Che workspace following these steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="#step_1">STEP 1: Creating an OpenShift Security Context Constraint</a></p>
-</li>
-<li>
-<p><a href="#step_2">STEP 2: Grant privileges to the DevWorkspace controller Service Account</a></p>
-</li>
-<li>
-<p><a href="#step_3">STEP 3: Grant privileges to developer accounts</a></p>
-</li>
-<li>
-<p><a href="#step_4">STEP 4: Include the <code>scc</code> attribute in Devfiles</a></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The first 3 steps setup the OpenShift cluster and Eclipse Che. These are administration tasks. The last step is for users that start a workspace: every workspace that requires the <code>CAP_SETGID</code> and <code>CAP_SETUID</code> capability needs that Devfile attribute.</p>
-</div>
-<div class="sect1">
-<h2 id="step_1">STEP 1: Creating an OpenShift Security Context Constraint</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In OpenShift, permissions for Pods are controlled with <a href="https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html">security context constraints (SCC)</a>. OpenShift includes some pre-defined SCCs but the <code>restricted</code> SCC (the default one) does not provide enough capabilities and the <code>non-root</code> SCC provides more capabilities than required. To be able to build containers but avoid granting unrequired privileges we need to define an ad-hoc SCC that we call <code>container-build</code>.</p>
-</div>
-<div class="paragraph">
-<p>Use an admin account to create it on an OpenShift cluster with the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span><span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: security.openshift.io/v1
-kind: SecurityContextConstraints
-metadata:
-  name: container-build
-allowHostDirVolumePlugin: false
-allowHostIPC: false
-allowHostNetwork: false
-allowHostPID: false
-allowHostPorts: false
-allowPrivilegeEscalation: true
-allowPrivilegedContainer: false
-allowedCapabilities:
-  - SETUID
-  - SETGID
-defaultAddCapabilities: null
-fsGroup:
-  type: MustRunAs
-# Temporary workaround for https://github.com/devfile/devworkspace-operator/issues/884
-priority: 20
-readOnlyRootFilesystem: false
-requiredDropCapabilities:
-  - KILL
-  - MKNOD
-runAsUser:
-  type: MustRunAsRange
-seLinuxContext:
-  type: MustRunAs
-supplementalGroups:
-  type: RunAsAny
-users: []
-groups: []
-volumes:
-  - configMap
-  - downwardAPI
-  - emptyDir
-  - persistentVolumeClaim
-  - projected
-  - secret
-EOF</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="step_2">STEP 2: Grant privileges to the DevWorkspace controller Service Account</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The DevWorkspace controller provisions Che workspaces Pods and it uses Service Account <code>system:serviceaccount:openshift-operators:devworkspace-controller-serviceaccount</code>.</p>
-</div>
-<div class="paragraph">
-<p>Execute the following commands to grant <code>get</code> and <code>update</code> privileges for the <code>container-build</code> SCC to the Service Account :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash"><span style="color: #75715e;font-style: italic"># Create the cluster role get-n-update-container-build-scc</span>
-kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span><span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: get-n-update-container-build-scc
-rules:
-- apiGroups:
-  - "security.openshift.io"
-  resources:
-  - "securitycontextconstraints"
-  resourceNames:
-  - "container-build"
-  verbs:
-  - "get"
-  - "update"
-</span><span style="color: #66d9ef">EOF
-
-</span><span style="color: #75715e;font-style: italic"># Add the role to the DevWorkspace controller Service Account</span>
-oc adm policy add-cluster-role-to-user <span style="color: #ae81ff">\</span>
-       get-n-update-container-build-scc <span style="color: #ae81ff">\</span>
-       system:serviceaccount:openshift-operators:devworkspace-controller-serviceaccount</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="step_3">STEP 3: Grant privileges to developer accounts</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To avoid a privilege escalation, when provisioning the workspace Pod, the DevWorkspace controller checks that the developer is allowed to use the <code>container-build</code> SCC. An administrator needs to grant such privileges. Here is an example of the command to add the <code>container-build</code> SCC to the user <code>janedoe</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">oc adm policy add-scc-to-user container-build janedoe</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If this step is skipped, and the developer account is not allowed to use <code>CAP_SETGID</code> and <code>CAP_SETUID</code>, Che will fail to start a workspace using the <code>container-build</code> SCC.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="step_4">STEP 4: Include the <code>scc</code> attribute in Devfiles</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The last requirement to build containers from an Eclipse Che workspace, is adding the <code>controller.devfile.io/scc: container-build</code> attribute in the Devfile as in the following example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.1.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build-test</span>
-<span style="color: #a6e22e">attributes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">controller.devfile.io/scc</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">container-build</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-<span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">dockerfile-hello-world</span>
-  <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/l0rd/dockerfile-hello-world</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-<span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devtooling-container</span>
-  <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devspaces/udi-rhel8:next</span>
-    <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1Gi</span>
-    <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1000m</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When this attribute is included in the Devfile, the resulting workspace Pod will have the <code>openshift.io/scc: container-build</code> annotation:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash"><span style="color: #f8f8f2">$ </span>oc get pod workspace52aa1da24d244cef <span style="color: #f92672">-o</span> yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  annotations:
-    openshift.io/scc: container-build
-<span style="color: #f92672;font-weight: bold">(</span>...<span style="color: #f92672;font-weight: bold">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And it&#8217;s now possible to open a terminal and build a Dockerfile:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/building-container-images/podman-build.gif" alt="Running Podman build">
-</div>
-<div class="title">Figure 1. Running Podman build</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_current-limitations-and-next-steps">Current limitations and next steps</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The first 3 steps mentioned in this post are manual and can be error-prone. In the next releases of Eclipse Che, we want to add a CheCluster field that controls if Eclipse Che is capable of building containers or not. When enabled, Eclipse Che Operator automatically applies <a href="#step_1">STEP 1: Creating an OpenShift Security Context Constraint</a>, <a href="#step_2">STEP 2: Grant privileges to the DevWorkspace controller Service Account</a> and <a href="#step_3">STEP 3: Grant privileges to developer accounts</a>.</p>
-</div>
-<div class="paragraph">
-<p>Step 4, <a href="#step_4">STEP 4: Include the <code>scc</code> attribute in Devfiles</a>, should not be required. When container build is enabled, every workspace Pod should have the required capabilities.</p>
-</div>
-<div class="paragraph">
-<p>The Universal Developer Image, the default image used in Che workspaces, uses Podman and Buildah with a VFS file system. But for better performance, <code>fuse-overlay</code> is recommended.</p>
-</div>
-<div class="paragraph">
-<p>The Universal Developer Image is also not configured to run Docker BuildKit in rootless mode and <code>docker build</code> doesn&#8217;t work on OpenShift yet.</p>
-</div>
-<div class="paragraph">
-<p>Other than rootless mode, we are investigating the use of user namespaces in Kubernetes to build containers.</p>
-</div>
-</div>
-</div>]]></content><author><name>Mario Loriedo</name></author><summary type="html"><![CDATA[In this blog post, we are going to see how to configure Eclispe Che to run `podman build` from a remote development environment.]]></summary></entry></feed>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how the PostgreSQL database dependency has been removed in Eclipse Che]]></summary></entry></feed>
