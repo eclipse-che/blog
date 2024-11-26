@@ -49,7 +49,7 @@ In this article you can find a few more.
 
 === Namespaces
 
-While there is no strict limit on the number of namespaces in a Kubernetes cluster, having more than 10,000 is generally not recommended due to potential performance and management overhead. In Eclipse Che, for instance, each user is allocated with a namespace. If you expect the user base to be big enough consider spreading workloads across multiple clusters and potentially leveraging solutions for multi-cluster orchestration.
+While there is no strict limit on the number of namespaces in a Kubernetes cluster, having more than 10,000 is generally not recommended due to potential performance and management overhead. In Eclipse Che for instance, each user is allocated a namespace. If you expect the user base to be large, consider spreading workloads across multiple clusters and potentially leveraging solutions for multi-cluster orchestration.
 
 === GitOps
 
