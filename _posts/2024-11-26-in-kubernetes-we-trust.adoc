@@ -87,7 +87,7 @@ link:https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/[Ep
 
 === Dynamic Resource Allocation (DRA)
 
-link:https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/[Dynamic Resource Allocation (DRA)] is yet another striking example of how Kubernetes features are providing new opportunities for developers with every release. With the push for GPU-centric applications, DRA was presented all throughout the last link:https://notes.elmiko.dev/2024/11/19/kubecon-na-2024-retrospective.html[KubeCon North America 2024]. In the first place, it speaks to the popularity of AI-related workloads that require specific resources, and while today DRA mostly targets GPUs, it is very well possible that one day we will be talking about DRA for everything from CPUs and memory to customized hardware accelerators in the future.
+link:https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/[Dynamic Resource Allocation (DRA)] is yet another striking example of how Kubernetes features are providing new opportunities for developers with every release. With the push for GPU-centric applications, DRA was presented all throughout the last link:https://notes.elmiko.dev/2024/11/19/kubecon-na-2024-retrospective.html[KubeCon North America 2024]. It speaks to the popularity of AI-related workloads that require specific resources, and while today DRA mostly targets GPUs, it is very well possible that one day we will be talking about DRA for everything from CPUs and memory to customized hardware accelerators in the future.
 
 === Release Notes
 
