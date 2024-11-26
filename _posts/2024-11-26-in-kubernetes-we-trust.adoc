@@ -61,7 +61,7 @@ Containers running as root on a cluster are a major security risk since they sig
 
 === emptyDir Volumes
 
-Volume mounting could be by far the most time-consuming operation during the pod startup. Consider leveraging ephemeral workloads whenever relevant which are using the link:https://kubernetes.io/docs/concepts/storage/volumes/#emptydir[emptyDir] volumes under the hood. In the context of Eclipse Che, those are ephemeral workspaces that could be particularly useful for developer routines like code review, with the dedicated storage type defined on the link:https://devfile.io/[devfile] level:
+Volume mounting could be by far the most time-consuming operation during pod startup. Consider leveraging ephemeral workloads whenever relevant which are using  link:https://kubernetes.io/docs/concepts/storage/volumes/#emptydir[emptyDir] volumes under the hood. In the context of Eclipse Che, those are ephemeral workspaces that could be particularly useful for developer routines like code review, with the dedicated storage type defined on the link:https://devfile.io/[devfile] level:
 
 ....
 schemaVersion: 2.3.0
