@@ -16,4 +16,4 @@ group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.17.0"
 end
 
-gem "webrick", "~> 1.8.2"
+gem "webrick", "~> 1.9.0"
