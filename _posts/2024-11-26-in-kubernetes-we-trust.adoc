@@ -71,9 +71,9 @@ attributes:
   controller.devfile.io/storage-type: ephemeral
 ....
 
-=== Autoscaling
+=== Cluster Autoscaling
 
-Although autoscaling is a powerful Kubernetes feature, you cannot always fall back on it, and should always consider predictive scaling by analyzing the load data on your environment to detect daily or weekly usage patterns. If your workloads follow some pattern, e.g. there are huge spikes based on the time of the day, you should consider provisioning worker nodes in advance (e.g. a lot of users turn on their smart speakers in the morning between 7 - 9 am, and there is a huge spike in the requests that on the infrastructure level is predicted and handled in advance).
+Although link:https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/[Cluster Autoscaling] is a powerful Kubernetes feature, you cannot always fall back on it, and should always consider predictive scaling by analyzing the load data on your environment to detect daily or weekly usage patterns. If your workloads follow some pattern and there are dramatic peaks throughout the day you should consider provisioning worker nodes accordingly (e.g. a lot of users turn on their smart speakers in the morning between 7 - 9 am, and there is a huge spike in the requests that on the infrastructure level is predicted and handled in advance).
 
 === CPU Limits
 
