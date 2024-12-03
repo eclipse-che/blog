@@ -389,19 +389,24 @@ attributes:
                   </div>
                 </div>
                 <div class="sect2">
-                  <h3 id="_autoscaling">Autoscaling</h3>
+                  <h3 id="_cluster-autoscaling">Cluster Autoscaling</h3>
                   <div class="paragraph">
                     <p>
-                      Although autoscaling is a powerful Kubernetes feature, you
-                      cannot always fall back on it, and should always consider
-                      predictive scaling by analyzing the load data on your
-                      environment to detect daily or weekly usage patterns. If
-                      your workloads follow some pattern, e.g. there are huge
-                      spikes based on the time of the day, you should consider
-                      provisioning worker nodes in advance (e.g. a lot of users
-                      turn on their smart speakers in the morning between 7 - 9
-                      am, and there is a huge spike in the requests that on the
-                      infrastructure level is predicted and handled in advance).
+                      Although
+                      <a
+                        href="https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/"
+                        >Cluster Autoscaling</a
+                      >
+                      is a powerful Kubernetes feature, you cannot always fall
+                      back on it and should always consider predictive scaling
+                      by analyzing load data on your environment to detect daily
+                      or weekly usage patterns. If your workloads follow a
+                      pattern and there are dramatic peaks throughout the day
+                      you should consider provisioning worker nodes accordingly
+                      (e.g. a lot of users turn on their smart speakers in the
+                      morning between 7 - 9 a.m. causing a huge spike in
+                      requests that can be predicted and handled in advance on
+                      the infrastructure level).
                     </p>
                   </div>
                 </div>
