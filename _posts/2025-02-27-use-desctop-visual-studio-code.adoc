@@ -14,6 +14,37 @@ slug: /@vgulyy/use-desktop-visual-studio-code
 Eclipse Che provides developers with a web version of the link:https://github.com/microsoft/vscode[Visual Studio Code OSS] editor, which includes most of the desktop version features. However, the transition to cloud development can be quite unusual for developers.
 With link:https://code.visualstudio.com/docs/editor/command-line[Visual Studio Code Command Line Interface (CLI)] you can create a tunnel that allows you to connect your familiar local Visual Studio Code to your workspace.
 
+== Connecting Visual Studio Code desktop to a new workspace
+
+You can connect your local Visual Studio Code to a new workpace with a few clicks.
+First, create a workspace on the Che Dashboard and choose Visual Studio Code (desktop) as your editor.
+
+image::/assets/img/use-desktop-visual-studio-code/select-editor.png["Create Workspace"]
+{nbsp} +
+
+Wait for the login page to appear and log in with your Microsoft or GitHub account.
+Click the *Copy & Continue to Microsoft* or *Copy & Continue to GitHub* button to copy the authentication code to the clipboard and to open the authenticating pop-up.
+
+image::/assets/img/use-desktop-visual-studio-code/login-with-provider.png["Login with GitHub account"]
+{nbsp} +
+
+Complete the authentication process, paste in the code from the clipboard, and follow the instructions. On successful authentication, close the pop-up and wait for the tunnel to your workspace to be created.
+
+image::/assets/img/use-desktop-visual-studio-code/open-visual-studio-code.png["Tunnel to the workspace"]
+{nbsp} +
+
+Click *Open in Visual Studio Code desktop* to open your workspace in the desktop version of Visual Studio Code. Confirm opening the desktop application by clicking Open Visual Studio Code - URL Handler.
+
+image::/assets/img/use-desktop-visual-studio-code/confirm-opening-vscode-desktop.png["Open in Visual Studio Code desktop"]
+{nbsp} +
+
+Wait for the local Visual Studio Code and allow the *Remote - Tunnels* extension to open the URI.
+
+[NOTE]
+====
+If Visual Studio Code opens your workspace with a delay, open the *Remote Explorer* view.
+====
+
 == Connecting Visual Studio Code desktop to a running workspace
 
 === Prepare your local Visual Studio Code.
@@ -72,37 +103,6 @@ image::/assets/img/use-desktop-visual-studio-code/vscode-remote-explorer.png["Op
 ====
 A tunnel to your workspace will not appear if you are not signed in yet.
 Sign in using the same account you used to create the tunnel.
-====
-
-== Connecting Visual Studio Code desktop to a new workspace
-
-You can connect your local Visual Studio Code to a new workpace with a few clicks.
-First, create a workspace on the Che Dashboard and choose Visual Studio Code (desktop) as your editor.
-
-image::/assets/img/use-desktop-visual-studio-code/select-editor.png["Create Workspace"]
-{nbsp} +
-
-Wait for the login page to appear and log in with your Microsoft or GitHub account.
-Click the *Copy & Continue to Microsoft* or *Copy & Continue to GitHub* button to copy the authentication code to the clipboard and to open the authenticating pop-up.
-
-image::/assets/img/use-desktop-visual-studio-code/login-with-provider.png["Login with GitHub account"]
-{nbsp} +
-
-Complete the authentication process, paste in the code from the clipboard, and follow the instructions. On successful authentication, close the pop-up and wait for the tunnel to your workspace to be created.
-
-image::/assets/img/use-desktop-visual-studio-code/open-visual-studio-code.png["Tunnel to the workspace"]
-{nbsp} +
-
-Click *Open in Visual Studio Code desktop* to open your workspace in the desktop version of Visual Studio Code. Confirm opening the desktop application by clicking Open Visual Studio Code - URL Handler.
-
-image::/assets/img/use-desktop-visual-studio-code/confirm-opening-vscode-desktop.png["Open in Visual Studio Code desktop"]
-{nbsp} +
-
-Wait for the local Visual Studio Code and allow the *Remote - Tunnels* extension to open the URI.
-
-[NOTE]
-====
-If Visual Studio Code opens your workspace with a delay, open the *Remote Explorer* view.
 ====
 
 Happy coding!
