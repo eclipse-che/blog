@@ -1,5 +1,5 @@
 ---
-title: "Develop in local Visual Studio Code using Eclipse Che as a remote Cloud Development Environment"
+title: "Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment"
 layout: post
 author: Vitaliy Gulyy
 description: >-
