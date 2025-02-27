@@ -11,8 +11,8 @@ slug: /@vgulyy/use-desktop-visual-studio-code
 
 == Introduction
 
-Eclipse Che provides developers with a web version of the link:https://github.com/microsoft/vscode[Visual Studio Code OSS] editor, which includes most of the desktop version features. The transition to cloud development can feel quite unusual for developers, but Eclipse Che has a feature that will help you feel right at home immediately.
-With link:https://code.visualstudio.com/docs/editor/command-line[Visual Studio Code Command Line Interface (CLI)] you can create a tunnel that allows you to connect your familiar local Visual Studio Code to your workspace.
+Eclipse Che provides developers with a web version of the link:https://github.com/microsoft/vscode[Visual Studio Code OSS] editor, which includes most features from the desktop version. The transition to cloud development can feel quite unusual for developers, but Eclipse Che has a feature that will help you feel right at home immediately.
+With link:https://code.visualstudio.com/docs/editor/command-line[Visual Studio Code Command Line Interface (CLI)] you can create a tunnel that allows you to connect your local Visual Studio Code, an editor you may already be familiar with, to your workspace.
 
 == Connecting Visual Studio Code desktop to a new workspace
 
@@ -28,7 +28,7 @@ Click the *Copy & Continue to Microsoft* or *Copy & Continue to GitHub* button t
 image::/assets/img/use-desktop-visual-studio-code/login-with-provider.png["Login with GitHub account"]
 {nbsp} +
 
-Complete the authentication process, paste in the code from the clipboard, and follow the instructions. On successful authentication, close the pop-up and wait for the tunnel to your workspace to be created.
+Complete the authentication process, paste the code from the clipboard, and follow the instructions. Upon successful authentication, close the pop-up and wait for the tunnel to your workspace to be created.
 
 image::/assets/img/use-desktop-visual-studio-code/open-visual-studio-code.png["Tunnel to the workspace"]
 {nbsp} +
@@ -38,7 +38,7 @@ Click *Open in Visual Studio Code desktop* to open your workspace in the desktop
 image::/assets/img/use-desktop-visual-studio-code/confirm-opening-vscode-desktop.png["Open in Visual Studio Code desktop"]
 {nbsp} +
 
-Wait for the local Visual Studio Code and allow the *Remote - Tunnels* extension to open the URI.
+Wait for the local Visual Studio Code to load and allow the *Remote - Tunnels* extension to open the URI.
 
 [NOTE]
 ====
@@ -74,11 +74,11 @@ In this case you need to:
 . move the binary to `/checode` directory and make it executable by `mv $PROJECT_SOURCE/code /checode && chmod +x /checode/code`
 ====
 
-By placing the Visual Studio Code CLI binary in the `/checode` directory, you will preserve it if the workspace is restarted.
+By placing the Visual Studio Code CLI binary in the `/checode` directory, it will persist even if the workspace is restarted.
 
 === Create a secure tunnel to the Cloud Development Environment.
 
-Open workspace terminal and launch the Visual Studio Code CLI with the command below.
+Open the workspace terminal and launch the Visual Studio Code CLI with the command below.
 
 [source,code]
 ----
