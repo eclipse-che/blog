@@ -16,7 +16,7 @@ With link:https://code.visualstudio.com/docs/editor/command-line[Visual Studio C
 
 == Connecting Visual Studio Code desktop to a new workspace
 
-You can connect your local Visual Studio Code to a new workpace with a few clicks.
+You can connect your local Visual Studio Code to a new workspace with a few clicks.
 First, create a workspace from the Che Dashboard and choose Visual Studio Code (desktop) as your editor.
 
 image::/assets/img/use-desktop-visual-studio-code/select-editor.png["Create Workspace"]
