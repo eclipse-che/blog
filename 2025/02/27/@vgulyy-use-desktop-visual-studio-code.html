@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>
+      Working locally in the cloud: Develop in local Visual Studio Code with
+      Eclipse Che as your Cloud Development Environment | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta
+      property="og:title"
+      content="Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment"
+    />
+    <meta name="author" content="Vitaliy Gulyy" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="Use your local Visual Studio Code as an editor for a Che workspace"
+    />
+    <meta
+      property="og:description"
+      content="Use your local Visual Studio Code as an editor for a Che workspace"
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2025-02-27T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Vitaliy Gulyy" },
+        "dateModified": "2025-02-27T00:00:00+00:00",
+        "datePublished": "2025-02-27T00:00:00+00:00",
+        "description": "Use your local Visual Studio Code as an editor for a Che workspace",
+        "headline": "Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"
+        },
+        "url": "https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Working locally in the cloud: Develop in local Visual Studio Code
+              with Eclipse Che as your Cloud Development Environment
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2025-02-27T00:00:00+00:00"
+                itemprop="datePublished"
+                >Feb 27, 2025 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Vitaliy Gulyy</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="sect1">
+              <h2 id="_introduction">Introduction</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Eclipse Che provides developers with a web version of the
+                    <a href="https://github.com/microsoft/vscode"
+                      >Visual Studio Code OSS</a
+                    >
+                    editor, which includes most features from the desktop
+                    version. The transition to cloud development can feel quite
+                    unusual for developers, but Eclipse Che has a feature that
+                    will help you feel right at home immediately. With
+                    <a
+                      href="https://code.visualstudio.com/docs/editor/command-line"
+                      >Visual Studio Code Command Line Interface (CLI)</a
+                    >
+                    you can create a tunnel that allows you to connect your
+                    local Visual Studio Code, an editor you may already be
+                    familiar with, to your workspace.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2
+                id="_connecting-visual-studio-code-desktop-to-a-new-workspace"
+              >
+                Connecting Visual Studio Code desktop to a new workspace
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    You can connect your local Visual Studio Code to a new
+                    workpace with a few clicks. First, create a workspace from
+                    the Che Dashboard and choose Visual Studio Code (desktop) as
+                    your editor.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/use-desktop-visual-studio-code/select-editor.png"
+                      alt="Create Workspace"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Wait for the login page to appear and log in with your
+                    Microsoft or GitHub account. Click the
+                    <strong>Copy &amp; Continue to Microsoft</strong> or
+                    <strong>Copy &amp; Continue to GitHub</strong> button to
+                    copy the authentication code to the clipboard and to open
+                    the authenticating pop-up.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/use-desktop-visual-studio-code/login-with-provider.png"
+                      alt="Login with GitHub account"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Complete the authentication process, paste the code from the
+                    clipboard, and follow the instructions. Upon successful
+                    authentication, close the pop-up and wait for the tunnel to
+                    your workspace to be created.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/use-desktop-visual-studio-code/open-visual-studio-code.png"
+                      alt="Tunnel to the workspace"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Click <strong>Open in Visual Studio Code desktop</strong> to
+                    open your workspace in the desktop version of Visual Studio
+                    Code. Confirm opening the desktop application by clicking
+                    Open Visual Studio Code - URL Handler.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/use-desktop-visual-studio-code/confirm-opening-vscode-desktop.png"
+                      alt="Open in Visual Studio Code desktop"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&#160;<br /></p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Wait for the local Visual Studio Code to load and allow the
+                    <strong>Remote - Tunnels</strong> extension to open the URI.
+                  </p>
+                </div>
+                <div class="admonitionblock note">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Note</div>
+                      </td>
+                      <td class="content">
+                        <div class="paragraph">
+                          <p>
+                            If Visual Studio Code opens your workspace with a
+                            delay, open the
+                            <strong>Remote Explorer</strong> view.
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2
+                id="_connecting-visual-studio-code-desktop-to-a-running-workspace"
+              >
+                Connecting Visual Studio Code desktop to a running workspace
+              </h2>
+              <div class="sectionbody">
+                <div class="sect2">
+                  <h3 id="_prepare-your-local-visual-studio-code">
+                    Prepare your local Visual Studio Code.
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      First, you need to install both
+                      <a
+                        href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server"
+                        >Remote - Tunnels</a
+                      >
+                      and
+                      <a
+                        href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer"
+                        >Remote Explorer</a
+                      >
+                      extensions to your local Visual Studio Code. It will allow
+                      you to connect to a remote machine via a secure tunnel.
+                    </p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="_install-visual-studio-code-cli">
+                    Install Visual Studio Code CLI.
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Next, you need to install Visual Studio Code CLI in your
+                      workspace. Open a terminal and run the following command
+                      to install Visual Studio Code CLI in the
+                      <code>/checode</code> directory.
+                    </p>
+                  </div>
+                  <div class="listingblock">
+                    <div class="content">
+                      <pre
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="code">curl 'https://code.visualstudio.com/sha/download?build=stable&amp;os=cli-alpine-x64' --location -o /tmp/code.tar.gz &amp;&amp; \
+tar -xvzf /tmp/code.tar.gz --directory=/checode</code></pre>
+                    </div>
+                  </div>
+                  <div class="admonitionblock important">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Important</div>
+                        </td>
+                        <td class="content">
+                          <div class="paragraph">
+                            <p>
+                              If you don&#8217;t have
+                              <code>gzip</code> installed in your workspace, you
+                              won&#8217;t be able to install the CLI using the
+                              command above.
+                            </p>
+                          </div>
+                          <div class="paragraph">
+                            <p>In this case you need to:</p>
+                          </div>
+                          <div class="olist arabic">
+                            <ol class="arabic">
+                              <li>
+                                <p>
+                                  <a
+                                    href="https://code.visualstudio.com/Download"
+                                    >download CLI</a
+                                  >
+                                  for <strong>Linux x64</strong> architecture to
+                                  your desktop
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  unpack and upload the extracted binary to your
+                                  workspace root
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  move the binary to
+                                  <code>/checode</code> directory and make it
+                                  executable by
+                                  <code
+                                    >mv $PROJECT_SOURCE/code /checode &amp;&amp;
+                                    chmod +x /checode/code</code
+                                  >
+                                </p>
+                              </li>
+                            </ol>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      By placing the Visual Studio Code CLI binary in the
+                      <code>/checode</code> directory, it will persist even if
+                      the workspace is restarted.
+                    </p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3
+                    id="_create-a-secure-tunnel-to-the-cloud-development-environment"
+                  >
+                    Create a secure tunnel to the Cloud Development Environment.
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Open the workspace terminal and launch the Visual Studio
+                      Code CLI with the command below.
+                    </p>
+                  </div>
+                  <div class="listingblock">
+                    <div class="content">
+                      <pre
+                        class="rouge highlight"
+                        style="color: #f8f8f2; background-color: #49483e"
+                      ><code data-lang="code">/checode/code tunnel --accept-server-license-terms --name $DEVWORKSPACE_NAME</code></pre>
+                    </div>
+                  </div>
+                  <div class="paragraph">
+                    <p>Log in using your Microsoft or GitHub account.</p>
+                  </div>
+                  <div class="imageblock">
+                    <div class="content">
+                      <img
+                        src="/assets/img/use-desktop-visual-studio-code/cli-create-tunnel.png"
+                        alt="Create a secure tunnel to the workpace"
+                      />
+                    </div>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      After successful login, you will see the information about
+                      the created tunnel and will be prompted to open the
+                      workspace in your browser.
+                    </p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="_open-your-workspace-using-local-visual-studio-code">
+                    Open your workspace using local Visual Studio Code.
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Open your local Visual Studio Code and navigate to the
+                      <strong>Remote Explorer</strong> view. A tunnel to your
+                      workspace will appear. With the buttons on the right, open
+                      your workspace in the current or a new window.
+                    </p>
+                  </div>
+                  <div class="imageblock">
+                    <div class="content">
+                      <img
+                        src="/assets/img/use-desktop-visual-studio-code/vscode-remote-explorer.png"
+                        alt="Open your workspace in local Visual Studio Code"
+                      />
+                    </div>
+                  </div>
+                  <div class="paragraph">
+                    <p>&#160;<br /></p>
+                  </div>
+                  <div class="admonitionblock note">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Note</div>
+                        </td>
+                        <td class="content">
+                          <div class="paragraph">
+                            <p>
+                              A tunnel to your workspace will not appear if you
+                              are not signed in yet. Sign in using the same
+                              account you used to create the tunnel.
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      You are now equipped to develop locally within a Cloud
+                      Development Environment. &#160;<br />
+                      &#160;<br />
+                      Happy coding!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

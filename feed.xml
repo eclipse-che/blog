@@ -1,4 +1,194 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2024-12-24T16:35:27+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">In Kubernetes We Trust</title><link href="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html" rel="alternate" type="text/html" title="In Kubernetes We Trust" /><published>2024-11-26T00:00:00+00:00</published><updated>2024-11-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk/in-kubernetes-we-trust</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-02-27T16:15:33+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment</title><link href="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html" rel="alternate" type="text/html" title="Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment" /><published>2025-02-27T00:00:00+00:00</published><updated>2025-02-27T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/02/27/@vgulyy/use-desktop-visual-studio-code</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che provides developers with a web version of the <a href="https://github.com/microsoft/vscode">Visual Studio Code OSS</a> editor, which includes most features from the desktop version. The transition to cloud development can feel quite unusual for developers, but Eclipse Che has a feature that will help you feel right at home immediately.
+With <a href="https://code.visualstudio.com/docs/editor/command-line">Visual Studio Code Command Line Interface (CLI)</a> you can create a tunnel that allows you to connect your local Visual Studio Code, an editor you may already be familiar with, to your workspace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connecting-visual-studio-code-desktop-to-a-new-workspace">Connecting Visual Studio Code desktop to a new workspace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can connect your local Visual Studio Code to a new workpace with a few clicks.
+First, create a workspace from the Che Dashboard and choose Visual Studio Code (desktop) as your editor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/select-editor.png" alt="Create Workspace">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Wait for the login page to appear and log in with your Microsoft or GitHub account.
+Click the <strong>Copy &amp; Continue to Microsoft</strong> or <strong>Copy &amp; Continue to GitHub</strong> button to copy the authentication code to the clipboard and to open the authenticating pop-up.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/login-with-provider.png" alt="Login with GitHub account">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Complete the authentication process, paste the code from the clipboard, and follow the instructions. Upon successful authentication, close the pop-up and wait for the tunnel to your workspace to be created.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/open-visual-studio-code.png" alt="Tunnel to the workspace">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Open in Visual Studio Code desktop</strong> to open your workspace in the desktop version of Visual Studio Code. Confirm opening the desktop application by clicking Open Visual Studio Code - URL Handler.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/confirm-opening-vscode-desktop.png" alt="Open in Visual Studio Code desktop">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>Wait for the local Visual Studio Code to load and allow the <strong>Remote - Tunnels</strong> extension to open the URI.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If Visual Studio Code opens your workspace with a delay, open the <strong>Remote Explorer</strong> view.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connecting-visual-studio-code-desktop-to-a-running-workspace">Connecting Visual Studio Code desktop to a running workspace</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prepare-your-local-visual-studio-code">Prepare your local Visual Studio Code.</h3>
+<div class="paragraph">
+<p>First, you need to install both <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server">Remote - Tunnels</a> and <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer">Remote Explorer</a> extensions to your local Visual Studio Code. It will allow you to connect to a remote machine via a secure tunnel.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install-visual-studio-code-cli">Install Visual Studio Code CLI.</h3>
+<div class="paragraph">
+<p>Next, you need to install Visual Studio Code CLI in your workspace. Open a terminal and run the following command to install Visual Studio Code CLI in the <code>/checode</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="code">curl 'https://code.visualstudio.com/sha/download?build=stable&amp;os=cli-alpine-x64' --location -o /tmp/code.tar.gz &amp;&amp; \
+tar -xvzf /tmp/code.tar.gz --directory=/checode</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you don&#8217;t have <code>gzip</code> installed in your workspace, you won&#8217;t be able to install the CLI using the command above.</p>
+</div>
+<div class="paragraph">
+<p>In this case you need to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://code.visualstudio.com/Download">download CLI</a> for <strong>Linux x64</strong> architecture to your desktop</p>
+</li>
+<li>
+<p>unpack and upload the extracted binary to your workspace root</p>
+</li>
+<li>
+<p>move the binary to <code>/checode</code> directory and make it executable by <code>mv $PROJECT_SOURCE/code /checode &amp;&amp; chmod +x /checode/code</code></p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By placing the Visual Studio Code CLI binary in the <code>/checode</code> directory, it will persist even if the workspace is restarted.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create-a-secure-tunnel-to-the-cloud-development-environment">Create a secure tunnel to the Cloud Development Environment.</h3>
+<div class="paragraph">
+<p>Open the workspace terminal and launch the Visual Studio Code CLI with the command below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="code">/checode/code tunnel --accept-server-license-terms --name $DEVWORKSPACE_NAME</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Log in using your Microsoft or GitHub account.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/cli-create-tunnel.png" alt="Create a secure tunnel to the workpace">
+</div>
+</div>
+<div class="paragraph">
+<p>After successful login, you will see the information about the created tunnel and will be prompted to open the workspace in your browser.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_open-your-workspace-using-local-visual-studio-code">Open your workspace using local Visual Studio Code.</h3>
+<div class="paragraph">
+<p>Open your local Visual Studio Code and navigate to the <strong>Remote Explorer</strong> view. A tunnel to your workspace will appear.
+With the buttons on the right, open your workspace in the current or a new window.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/use-desktop-visual-studio-code/vscode-remote-explorer.png" alt="Open your workspace in local Visual Studio Code">
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A tunnel to your workspace will not appear if you are not signed in yet.
+Sign in using the same account you used to create the tunnel.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You are now equipped to develop locally within a Cloud Development Environment.
+&#160;<br>
+&#160;<br>
+Happy coding!</p>
+</div>
+</div>
+</div>
+</div>]]></content><author><name>Vitaliy Gulyy</name></author><summary type="html"><![CDATA[Use your local Visual Studio Code as an editor for a Che workspace]]></summary></entry><entry><title type="html">In Kubernetes We Trust</title><link href="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html" rel="alternate" type="text/html" title="In Kubernetes We Trust" /><published>2024-11-26T00:00:00+00:00</published><updated>2024-11-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk/in-kubernetes-we-trust</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/11/26/@ilya.buziuk-in-kubernetes-we-trust.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2636,200 +2826,4 @@ A 'Fit For Purpose' Kubernetes cluster refers to a cluster that is specifically 
 We wish you an enjoyable and productive coding experience with Eclipse&#160;Che!</p>
 </div>
 </div>
-</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how to configure advanced authorization in Eclipse Che]]></summary></entry><entry><title type="html">Decommissioning the PostgreSQL database</title><link href="https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk-decommissioning-postgresql-database.html" rel="alternate" type="text/html" title="Decommissioning the PostgreSQL database" /><published>2023-03-20T00:00:00+00:00</published><updated>2023-03-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk/decommissioning-postgresql-database</id><content type="html" xml:base="https://che.eclipseprojects.io/2023/03/20/@ilya.buziuk-decommissioning-postgresql-database.html"><![CDATA[<div class="paragraph">
-<p>Historically Eclipse&#160;Che used a PostgreSQL database for storing relevant information about the users, workspaces, devfiles, preferences, SSH keys, etc.
-Overall there were dozens of tables in the database which represent the state of the Eclipse&#160;Che instance:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">psql <span style="color: #f92672;font-weight: bold">(</span>13.7<span style="color: #f92672;font-weight: bold">)</span>
-Type <span style="color: #e6db74">"help"</span> <span style="color: #66d9ef;font-weight: bold">for </span>help.
-
-<span style="color: #f8f8f2">dbche</span><span style="color: #f92672;font-weight: bold">=&gt;</span> <span style="color: #ae81ff">\d</span>t
-                            List of relations
- Schema |                      Name                       | Type  | Owner
-<span style="color: #f92672">--------</span>+-------------------------------------------------+-------+-------
- public | account                                         | table | pgche
- public | che_factory                                     | table | pgche
- public | che_factory_action                              | table | pgche
- public | che_factory_action_properties                   | table | pgche
- public | che_factory_ide                                 | table | pgche
- public | che_factory_on_app_closed_action                | table | pgche
- public | che_factory_on_app_closed_action_value          | table | pgche
- public | che_factory_on_app_loaded_action                | table | pgche
- public | che_factory_on_app_loaded_action_value          | table | pgche
- public | che_factory_on_projects_loaded_action           | table | pgche
- public | che_factory_on_projects_loaded_action_value     | table | pgche
- public | che_free_resources_limit                        | table | pgche
- public | che_free_resources_limit_resource               | table | pgche
- public | che_k8s_machine                                 | table | pgche
- public | che_k8s_machine_attributes                      | table | pgche
- public | che_k8s_runtime                                 | table | pgche
- public | che_k8s_server                                  | table | pgche
- public | che_k8s_server_attributes                       | table | pgche
- public | che_member                                      | table | pgche
- public | che_member_actions                              | table | pgche
- public | che_organization                                | table | pgche
- public | che_organization_distributed_resources          | table | pgche
- public | che_organization_distributed_resources_resource | table | pgche
- public | che_resource                                    | table | pgche
- public | che_sign_key                                    | table | pgche
- public | che_sign_key_pair                               | table | pgche
- public | che_system_permissions                          | table | pgche
- public | che_system_permissions_actions                  | table | pgche
- public | che_userdevfile_permissions                     | table | pgche
- public | che_userdevfile_permissions_actions             | table | pgche
- public | che_worker                                      | table | pgche
- public | che_worker_actions                              | table | pgche
- public | che_workspace_activity                          | table | pgche
- public | che_workspace_cfg_attributes                    | table | pgche
- public | <span style="color: #f8f8f2">command</span>                                         | table | pgche
- public | command_attributes                              | table | pgche
- public | devfile                                         | table | pgche
- public | devfile_action                                  | table | pgche
- public | devfile_attributes                              | table | pgche
- public | devfile_command                                 | table | pgche
- public | devfile_command_attributes                      | table | pgche
- public | devfile_component                               | table | pgche
- public | devfile_component_arg                           | table | pgche
- public | devfile_component_command                       | table | pgche
- public | devfile_component_preferences                   | table | pgche
- public | devfile_component_selector                      | table | pgche
- public | devfile_endpoint                                | table | pgche
- public | devfile_endpoint_attributes                     | table | pgche
- public | devfile_entrypoint                              | table | pgche
- public | devfile_entrypoint_arg                          | table | pgche
- public | devfile_entrypoint_commands                     | table | pgche
- public | devfile_entrypoint_selector                     | table | pgche
- public | devfile_env                                     | table | pgche
- public | devfile_project                                 | table | pgche
- public | devfile_volume                                  | table | pgche
- public | environment                                     | table | pgche
- public | externalmachine                                 | table | pgche
- public | externalmachine_attributes                      | table | pgche
- public | externalmachine_env                             | table | pgche
- public | k8s_runtime_command                             | table | pgche
- public | k8s_runtime_command_attributes                  | table | pgche
- public | machine_volume                                  | table | pgche
- public | preference                                      | table | pgche
- public | preference_preferences                          | table | pgche
- public | profile                                         | table | pgche
- public | profile_attributes                              | table | pgche
- public | projectattribute                                | table | pgche
- public | projectattribute_values                         | table | pgche
- public | projectconfig                                   | table | pgche
- public | projectconfig_mixins                            | table | pgche
- public | schema_version                                  | table | pgche
- public | sequence                                        | table | pgche
- public | serverconf                                      | table | pgche
- public | serverconf_attributes                           | table | pgche
- public | serverconf_properties                           | table | pgche
- public | sourcestorage                                   | table | pgche
- public | sourcestorage_parameters                        | table | pgche
- public | sshkeypair                                      | table | pgche
- public | user_aliases                                    | table | pgche
- public | userdevfile                                     | table | pgche
- public | usr                                             | table | pgche
- public | workspace                                       | table | pgche
- public | workspace_attributes                            | table | pgche
- public | workspaceconfig                                 | table | pgche
-<span style="color: #f92672;font-weight: bold">(</span>84 rows<span style="color: #f92672;font-weight: bold">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>However, with the switch to <a href="https://che.eclipseprojects.io/2021/10/12/@mario.loriedo-devfile-v2-and-the-devworkspace-operator-p1.html">DevWorkspace Operator and Devfile v2</a>, all this data becomes irrelevant since we started using native Kubernetes resources instead.</p>
-</div>
-<div class="paragraph">
-<p>The data is now stored and managed as Kubernetes resources such as Secrets and ConfigMaps in the user namespaces:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/decommissioning-postgresql-database/secrets.png" alt="Secrets from the user namespace">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/decommissioning-postgresql-database/configmaps.png" alt="ConfigMaps from the user namespace">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>As an example, SSH keys are now configured using the dedicated <a href="https://github.com/devfile/devworkspace-operator/blob/main/docs/additional-configuration.adoc#configuring-devworkspaces-to-use-ssh-keys-for-git-operations">secret</a>.</p>
-</div>
-<div class="paragraph">
-<p>Starting from the Eclipse&#160;Che <code>7.62.0</code> release, the PostgreSQL deployment has ceased to exist, resulting in only 5 operands: Che Server, User Dashboard, Plugin Registry, Devfile Registry, and Gateway.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/decommissioning-postgresql-database/operands.png" alt="Eclipse Che operands">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-No manual migration steps or action items are required for this change to take effect. The PostgreSQL deployment will be gracefully terminated and removed during the update. All the obsolete data stored in the database will be removed.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>It is also worth mentioning that most of the <code><a href="https://&lt;che_fqdn&gt;/swagger" class="bare">https://&lt;che_fqdn&gt;/swagger</a></code> endpoints are now deprecated and going to be removed in future releases. The only endpoints that are still used are related to the namespace provisioning, Git OAuth configuration, and the factory flow:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/kubernetes/namespace/*</code></p>
-</li>
-<li>
-<p><code>/oauth/*</code></p>
-</li>
-<li>
-<p><code>/factory/*</code></p>
-</li>
-</ul>
-</div>
-<div class="sect1">
-<h2 id="_next-steps">Next steps</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Decommissioning the PostgreSQL database in favor of native Kubernetes resources provides several benefits, including: improved scalability, flexibility, and easier management.</p>
-</div>
-<div class="paragraph">
-<p>Ultimately, moving away from traditional database architectures and embracing Kubernetes makes Eclipse&#160;Che agile and competitive in an increasingly complex and demanding technology landscape.
-For example, in the next Eclipse&#160;Che releases we plan to make it possible to configure a number of replicas for operands from the CheCluster CustomResource, which was not possible before due to the PostgreSQL database dependency:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">cheServer</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
-    <span style="color: #a6e22e">dashboard</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
-    <span style="color: #a6e22e">devfileRegistry</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
-    <span style="color: #a6e22e">pluginRegistry</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">deployment</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">replicas</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The progress of this particular feature can be tracked in the upstream <a href="https://github.com/eclipse/che/issues/22067">issue</a>.
-As always, we look forward to your valuable feedback, comments, remarks, and proposals on this work or anything else related to the project, through our <a href="https://accounts.eclipse.org/mailing-list/che-dev">mailing list</a>, <a href="https://github.com/eclipse/che/issues">GitHub</a>, or <a href="https://mattermost.eclipse.org/eclipse/channels/eclipse-che">Mattermost</a>.
-&#160;<br>
-We wish you an enjoyable and productive coding experience with Eclipse&#160;Che!</p>
-</div>
-</div>
-</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how the PostgreSQL database dependency has been removed in Eclipse Che]]></summary></entry></feed>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how to configure advanced authorization in Eclipse Che]]></summary></entry></feed>
