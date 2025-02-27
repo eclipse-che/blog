@@ -105,4 +105,5 @@ A tunnel to your workspace will not appear if you are not signed in yet.
 Sign in using the same account you used to create the tunnel.
 ====
 
+You are now equipped to develop locally within a Cloud Development Environment.
 Happy coding!
