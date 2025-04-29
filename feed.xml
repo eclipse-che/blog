@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-04-29T20:56:44+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running at Scale</title><link href="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html" rel="alternate" type="text/html" title="Running at Scale" /><published>2025-04-29T00:00:00+00:00</published><updated>2025-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk/running-at-scale</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-04-29T21:21:44+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running at Scale</title><link href="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html" rel="alternate" type="text/html" title="Running at Scale" /><published>2025-04-29T00:00:00+00:00</published><updated>2025-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk/running-at-scale</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -859,6 +859,7 @@ everything is happening in the environment you&#8217;re already familiar with: a
 <div class="content">
 <img src="/assets/img/contributing-to-eclipse-che-docs/workspace-with-preview.png" alt="An Eclipse Che CDE created from the che-docs repository.">
 </div>
+<div class="title">Figure 1. An Eclipse Che CDE created from the che-docs repository.</div>
 </div>
 </div>
 </div>
@@ -923,6 +924,7 @@ these extensions are installed automatically:</p>
 <div class="content">
 <img src="/assets/img/contributing-to-eclipse-che-docs/extensions.png" alt="Overview of automatically installed extensions, including the Vale extension.">
 </div>
+<div class="title">Figure 2. Overview of automatically installed extensions, including the Vale extension.</div>
 </div>
 <div class="paragraph">
 <p>You can start working immediately,
@@ -1017,6 +1019,7 @@ Here are a few tips that will help you write great technical content:</p>
 <div class="content">
 <img src="/assets/img/contributing-to-eclipse-che-docs/pp-hemingway.png" alt="The famous opening lines of Jane Austen&#8217;s Pride and Prejudice novel don&#8217;t follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.">
 </div>
+<div class="title">Figure 3. The famous opening lines of Jane Austen&#8217;s Pride and Prejudice novel don&#8217;t follow any of the writing tips listed in this blog post. At grade 16, they also have a very high readability score in the Hemingway Editor. Your technical document should have a readability score between grade 9 and 11.</div>
 </div>
 <div class="paragraph">
 <p>If you want to learn more about technical writing in general,
