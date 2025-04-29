@@ -1,4 +1,358 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-02-27T20:38:18+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment</title><link href="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html" rel="alternate" type="text/html" title="Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment" /><published>2025-02-27T00:00:00+00:00</published><updated>2025-02-27T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/02/27/@vgulyy/use-desktop-visual-studio-code</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-04-29T20:56:44+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running at Scale</title><link href="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html" rel="alternate" type="text/html" title="Running at Scale" /><published>2025-04-29T00:00:00+00:00</published><updated>2025-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk/running-at-scale</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Even though <a href="https://kubernetes.io/">Kubernetes</a> has emerged as a powerful foundation for deploying and managing containerized workloads at scale, achieving scale with Cloud Development Environments (CDEs), particularly in the range of thousands of concurrent workspaces, presents significant challenges.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+CDE workloads are complex to scale mainly because of the fact that underlying IDE solutions, such as <a href="https://github.com/microsoft/vscode">Visual Studio Code - Open Source ("Code - OSS")</a> or <a href="https://www.jetbrains.com/remote-development/gateway/">JetBrains Gateway</a>, are designed as single-user applications rather than multitenant services.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Such a scale imposes substantial infrastructure demands and introduces potential bottlenecks that can impact the performance and stability of the entire system. Addressing these challenges requires meticulous planning, strategic architectural choices, monitoring, and continuous optimization to ensure a seamless and efficient development experience for a large number of users. In this article, you can find a few important takeaways worth considering when running <a href="https://eclipse.dev/che/">Eclipse Che</a> at scale on Kubernetes.</p>
+</div>
+<div class="sect2">
+<h3 id="_planning-your-environment-according-to-object-maximums">Planning your environment according to object maximums</h3>
+<div class="paragraph">
+<p>While there is no strict limit on the number of resources in a Kubernetes cluster,
+there are certain <a href="https://kubernetes.io/docs/setup/best-practices/cluster-large/">considerations for large clusters</a> to keep in mind.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+More insights about the Kubernetes scalability can be found in the <a href="https://kubernetespodcast.com/episode/111-scalability/">"Scalability, with Wojciech Tyczynski"</a> Kubernetes Podcast.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">OpenShift Container Platform</a>, which is a certified distribution of Kubernetes, also provides a set of tested maximums for various resources, which can serve as an initial guideline for planning your environment:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource type</th>
+<th class="tableblock halign-left valign-top">Tested maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of nodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of pods</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">150000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of pods per node</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2500</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of config maps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90000</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Table 1: OpenShift Container Platform tested cluster maximums for various resources.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can find more details on the OpenShift Container Platform tested object maximums in the <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/scalability_and_performance/planning-your-environment-according-to-object-maximums#planning-your-environment-according-to-object-maximums">official documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, it is generally not recommended to have more than 10,000 namespaces due to potential performance and management overhead. In Eclipse Che, for instance, each user is allocated a namespace. If you expect the user base to be large, consider spreading workloads across multiple "fit-for-purpose" clusters and potentially leveraging solutions for multi-cluster orchestration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_calculating-resource-requirements">Calculating Resource Requirements</h3>
+<div class="paragraph">
+<p>When deploying Eclipse Che on Kubernetes, it is crucial to accurately calculate the resource requirements and determine memory and CPU / GPU needs for each CDE to come up with the right sizing of the cluster. In general, the CDE size is limited by and can not be bigger than the worker node size. The resource requirements for CDEs can vary significantly based on the specific workloads and configurations. For example, a simple CDE may require only a few hundred megabytes of memory, while a more complex one will need several gigabytes of memory and multiple CPU cores.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can find more details about calculating resource requirements in the <a href="https://eclipse.dev/che/docs/stable/administration-guide/calculating-che-resource-requirements/">official documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_etcd">etcd</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The primary datastore of Kubernetes cluster configuration and state is <a href="https://etcd.io/">etcd</a>. It holds the cluster state and configuration, including information about nodes, pods, services, and custom resources. As a distributed key-value store, etcd does not scale well past a certain threshold, and as the size of etcd grows, so does the load on the cluster, risking its stability.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+The default etcd size is 2 GB, and the recommended maximum is 8 GB. Exceeding the maximum limit can make the Kubernetes cluster unstable and unresponsive.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/running-at-scale/etcd.png" alt="Metrics with the progression of the etcd storage growth that leads to cluster instability">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: Metrics with the progression of the etcd storage growth that leads to cluster instability.</p>
+</div>
+<div class="sect2">
+<h3 id="_the-size-of-the-objects-matters">The size of the objects matters</h3>
+<div class="paragraph">
+<p>Not only the overall number, but also the size of the objects stored in etcd is a critical factor that can significantly impact its performance and stability. Each object stored in etcd consumes space, and as the number of objects increases, the overall size of etcd grows too. The larger the object is, the more space it takes in etcd. For example, etcd can be overloaded with just a few thousand of relatively big Kubernetes objects.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Even though the data stored in a <code>ConfigMap</code> cannot exceed 1 MiB by design, a few thousand of relatively big <code>ConfigMap</code> objects can overload etcd storage.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the context of Eclipse Che, by default the operator creates and manages the 'ca-certs-merged' ConfigMap, which contains the Certificate Authorities (CAs) bundle, in every user namespace. With a large number of TLS certificates in the cluster, this results in additional etcd usage.</p>
+</div>
+<div class="paragraph">
+<p>In order to disable mounting the CA bundle using the <code>ConfigMap</code> under the <code>/etc/pki/ca-trust/extracted/pem</code> path, configure the <code>CheCluster</code> Custom Resource by setting the <code>disableWorkspaceCaBundleMount</code> property to <code>true</code>. With this configuration, only custom certificates will be mounted under the path <code>/public-certs</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">devEnvironments</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">trustedCerts</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">disableWorkspaceCaBundleMount</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can find more details about importing untrusted TLS certificates in the <a href="https://eclipse.dev/che/docs/stable/administration-guide/importing-untrusted-tls-certificates/">official documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_devworkspace-objects">DevWorkspace objects</h3>
+<div class="paragraph">
+<p>For large Kubernetes deployments, particularly those involving a high number of custom resources such as <code>DevWorkspace</code> objects, which represent CDEs, etcd can become a significant performance bottleneck.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Based on the load testing for 6,000 <code>DevWorkspace</code> objects, storage consumption for etcd was around 2.5GB.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Starting from <a href="https://github.com/devfile/devworkspace-operator">DevWorkspace Operator</a> version 0.34.0, you can configure a pruner that would automatically clean up <code>DevWorkspace</code> objects that were not in use for a certain period of time. To set the pruner up, configure the <code>DevWorkspaceOperatorConfig</code> object as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">apiVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">controller.devfile.io/v1alpha1</span>
+<span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">DevWorkspaceOperatorConfig</span>
+<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devworkspace-operator-config</span>
+  <span style="color: #a6e22e">namespace</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">crw</span>
+<span style="color: #a6e22e">config</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">workspace</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">cleanupCronJob</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+      <span style="color: #a6e22e">enabled</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span>
+      <span style="color: #a6e22e">dryRun</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">false</span>
+      <span style="color: #a6e22e">retainTime</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">2592000</span> <span style="color: #75715e;font-style: italic"># By default, if a workspace was not started for more than 30 days it will be marked for deletion</span>
+      <span style="color: #a6e22e">schedule</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">“0 0 1 * *”</span> <span style="color: #75715e;font-style: italic"># By default, the pruner will run once per month</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can find more details about DevWorkspace Operator Configuration in the <a href="https://github.com/devfile/devworkspace-operator/blob/main/docs/dwo-configuration.md">official documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_olmconfig">OLMConfig</h3>
+<div class="paragraph">
+<p>When an operator is installed by the <a href="https://olm.operatorframework.io/">Operator Lifecycle Manager (OLM)</a>, a stripped-down copy of its CSV is created in every namespace the operator is configured to watch. These stripped-down CSVs are known as “Copied CSVs” and communicate to users which controllers are actively reconciling resource events in a given namespace. On especially large clusters, with namespaces and installed operators tending in the hundreds or thousands, Copied CSVs consume an untenable amount of resources; e.g. OLM’s memory usage, cluster etcd limits, networking, etc. In order to eliminate the CSVs copied to every namespace, configure the <code>OLMConfig</code> object accordingly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">apiVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">operators.coreos.com/v1</span>
+<span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">OLMConfig</span>
+<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">cluster</span>
+<span style="color: #a6e22e">spec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">features</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">disableCopiedCSVs</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Additional information about the <code>disableCopiedCSVs</code> feature can be found in its original <a href="https://github.com/operator-framework/enhancements/blob/master/enhancements/olm-toggle-copied-csvs.md">enhancement proposal</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The primary impact of the <code>disableCopiedCSVs</code> property on etcd is related to resource consumption. In clusters with a large number of namespaces and many cluster-wide Operators, the creation and maintenance of numerous Copied CSVs can lead to increased etcd storage usage and memory consumption. By disabling Copied CSVs, the amount of data stored in etcd is significantly reduced, which can help improve overall cluster performance and stability.</p>
+</div>
+<div class="paragraph">
+<p>This is particularly important for large clusters where the number of namespaces and operators can quickly add up to a significant amount of data. Disabling Copied CSVs can help reduce the load on etcd, leading to improved performance and responsiveness of the cluster.
+Additionally, it can help reduce the memory footprint of OLM, as it no longer needs to maintain and manage these additional resources.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can find more details about "Disabling Copied CSVs" in the <a href="https://olm.operatorframework.io/docs/advanced-tasks/configuring-olm/#disabling-copied-csvs">official documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cluster-autoscaling">Cluster Autoscaling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although cluster autoscaling is a powerful Kubernetes feature, you cannot always fall back on it. You should always consider predictive scaling by analyzing load data on your environment to detect daily or weekly usage patterns. If your workloads follow a pattern and there are dramatic peaks throughout the day, you should consider provisioning worker nodes accordingly. For example, if you have a predictable load pattern where the number of workspaces increases during business hours and decreases during off-hours, you can use predictive scaling to adjust the number of worker nodes based on the expected load.
+This can help ensure that you have enough resources available to handle the peak load while minimizing costs during off-peak hours.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Consider leveraging open-source solutions like <a href="https://karpenter.sh/">Karpenter</a> for configuration and lifecycle management of the worker nodes. Karpenter can dynamically provision and optimize worker nodes based on the specific requirements of the workloads, helping to improve resource utilization and reduce costs.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multi-cluster">Multi-cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By design, Eclipse Che is not multi-cluster aware, and you can only have one instance per cluster. However, you can run Eclipse Che in a multi-cluster environment by deploying Eclipse Che in each different cluster and using a load balancer or DNS-based routing to direct traffic to the appropriate instance based on the user’s location or other criteria. This approach can help improve performance and reliability by distributing the workload across multiple clusters and providing redundancy in case of cluster failures.</p>
+</div>
+<div class="paragraph">
+<p>One example of a multi-cluster architecture is <a href="https://workspaces.openshift.com/">workspaces.openshift.com</a>, which is part of the <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox</a>.</p>
+</div>
+<div class="paragraph">
+<p>From the infrastructure perspective, the Developer Sandbox consists of multiple <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/aws">ROSA</a> clusters. On each cluster, the productized version of Eclipse Che is installed and configured using <a href="https://argo-cd.readthedocs.io/en/stable/">Argo CD</a>. Since the user base is spread across multiple clusters, <a href="https://workspaces.openshift.com/">workspaces.openshift.com</a> is used as a single entry point to the productized Eclipse Che instances. You can find implementation details about the multicluster redirector in the following <a href="https://github.com/codeready-toolchain/crw-multicluster-redirector">GitHub repository</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/running-at-scale/developer-sandbox.png" alt="Multi-cluster solution for running the productized version of Eclipse Che on the Developer Sandbox">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 2: Multi-cluster solution for running the productized version of Eclipse Che on the Developer Sandbox.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The solution for <a href="https://workspaces.openshift.com/">workspaces.openshift.com</a> is a Developer Sandbox-specific solution that can not be reused as-is in other environments. However, you can use it as a reference for implementing a similar solution well-tailored to your specific multicluster needs.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Running Eclipse Che at scale on Kubernetes presents unique challenges that require careful planning and consideration of various factors. By understanding the limitations of Kubernetes, accurately calculating resource requirements, and implementing best practices for managing etcd and OLM, you can build a robust and scalable CDE platform that meets the needs of your users. Additionally, leveraging predictive scaling and considering multicluster architectures can further enhance the performance and reliability of Eclipse Che deployments. By following these guidelines and continuously monitoring and optimizing the environment, you can provide a reliable and efficient CDE, ensure a seamless and efficient development experience for a large number of users while maintaining responsiveness, and prevent performance degradation of the cluster.</p>
+</div>
+</div>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[Running Eclipse Che at scale on Kubernetes]]></summary></entry><entry><title type="html">Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment</title><link href="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html" rel="alternate" type="text/html" title="Working locally in the cloud: Develop in local Visual Studio Code with Eclipse Che as your Cloud Development Environment" /><published>2025-02-27T00:00:00+00:00</published><updated>2025-02-27T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/02/27/@vgulyy/use-desktop-visual-studio-code</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/02/27/@vgulyy-use-desktop-visual-studio-code.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2691,139 +3045,4 @@ If the DevWorkspaceOpenratorConfig referenced in a Devfile doesn&#8217;t exist i
 <p>Finally, in <a href="#part4">PART4: Secrets and other CDE configurations that cannot be specified in Devfile</a>, some more advanced techniques to configure development environments, beyond the devfile, are reviewed.</p>
 </div>
 </div>
-</div>]]></content><author><name>Mario Loriedo</name></author><summary type="html"><![CDATA[In this article we review the different ways to customize an Eclipse Che Cloud Development Environment]]></summary></entry><entry><title type="html">Configuring Granular Access for Eclipse Che Authorized Users</title><link href="https://che.eclipseprojects.io/2024/01/29/@ilya.buziuk-advanced-authorization.html" rel="alternate" type="text/html" title="Configuring Granular Access for Eclipse Che Authorized Users" /><published>2024-01-29T00:00:00+00:00</published><updated>2024-01-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/01/29/@ilya.buziuk/advanced-authorization</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/01/29/@ilya.buziuk-advanced-authorization.html"><![CDATA[<div class="paragraph">
-<p>Even though the current trend is to split an infrastructure into a number of 'Fit For Purpose' clusters instead of having a gigantic monolith Kubernetes cluster, administrators still want to provide granular access and restrict certain functionality for particular users.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-A 'Fit For Purpose' Kubernetes cluster refers to a cluster that is specifically designed and configured to meet the requirements and goals of a particular use case or workload, tailored to optimize performance, resource utilization, and other factors based on the characteristics of the workloads it will be managing. For Eclipse&#160;Che it is recommended to have this type of cluster provisioned.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Previously, all users provisioned on a Kubernetes cluster had access to Eclipse&#160;Che, and it was difficult to restrict the usage for certain accounts. One of the options for administrators was to remove permissions for namespace / project creation on the Kubernetes level, and disable automatic namespace provisioning for Eclipse&#160;Che:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">devEnvironments</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">defaultNamespace</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">autoProvision</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">false</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Considering this, new optional properties that allow setting up granular access for different groups and users have been added to the Eclipse&#160;Che Custom Resource: <code>allowUsers</code>, <code>allowGroups</code>, <code>denyUsers</code>, and <code>denyGroups</code>. Below you can find an illustration exemplifying the configuration:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"> <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">advancedAuthorization</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">allowUsers</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">user-a</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">user-b</span>
-        <span style="color: #a6e22e">denyUsers</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">user-c</span>
-        <span style="color: #a6e22e">allowGroups</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">team-a</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">team-b</span>
-        <span style="color: #a6e22e">denyGroups</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">team-c</span></code></pre>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-<code>AllowGroups</code> and <code>DenyGroups</code> properties are only supported on OpenShift.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Users who are not allowed will not be able to use Eclipse&#160;Che and will see the following warning when trying to access the User Dashboard:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/advanced-authorization/warning.png" alt="User might not be allowed warning">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="sect1">
-<h2 id="_dogfooding-in-action">Dogfooding In Action</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For internal development and dogfooding purposes we use an <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/dedicated">OpenShift Dedicated</a> cluster with GitHub identity provider setup. Under the <code>Users</code> tab, all the accounts that have access to the cluster are listed e.g.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/advanced-authorization/user.png" alt="OpenShift User">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>There are a few teams working on Eclipse&#160;Che with the corresponding OpenShift Groups created and managed on the cluster:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/advanced-authorization/groups.png" alt="OpenShift Groups">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>Each OpenShift group explicitly defines a set of users that belong to it:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Group</span>
-<span style="color: #a6e22e">apiVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user.openshift.io/v1</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-team-a</span>
-<span style="color: #a6e22e">users</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">ibuziuk</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">...</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>advancedAuthorization</code> property of the Eclipse&#160;Che Custom Resource explicitly defines the groups which are allowed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml">  <span style="color: #a6e22e">networking</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #a6e22e">auth</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">advancedAuthorization</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">allowGroups</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">che-team-a</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">che-team-b</span>
-          <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">che-docs</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Users who do not belong to the groups from the list above are not allowed to use Eclipse&#160;Che. This configuration allows the cluster administrator to explicitly manage the onboarding and curate the access.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>More details about advanced authorization can be found in the <a href="https://eclipse.dev/che/docs/stable/administration-guide/configuring-advanced-authorization/">official documentation</a>. As always, we look forward to your valuable feedback, comments, remarks, and proposals on this work or anything else related to the project, through our <a href="https://accounts.eclipse.org/mailing-list/che-dev">mailing list</a>, <a href="https://github.com/eclipse/che/issues">GitHub</a>, or <a href="https://ecd-tools.slack.com/archives/C05SD64M85R">Slack</a>.
-&#160;<br>
-We wish you an enjoyable and productive coding experience with Eclipse&#160;Che!</p>
-</div>
-</div>
-</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[The article describes how to configure advanced authorization in Eclipse Che]]></summary></entry></feed>
+</div>]]></content><author><name>Mario Loriedo</name></author><summary type="html"><![CDATA[In this article we review the different ways to customize an Eclipse Che Cloud Development Environment]]></summary></entry></feed>
