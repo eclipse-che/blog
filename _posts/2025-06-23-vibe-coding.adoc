@@ -1,0 +1,99 @@
+---
+title: "Vibe Coding"
+layout: post
+author: Ilya Buziuk
+description: >-
+  Vibe Coding with Eclipse Che
+categories: []
+keywords: ['Vibe Coding', 'Roo', 'Eclipse Che', 'Kubernetes']
+slug: /@ilya.buziuk/vibe-coding
+---
+== Introduction
+
+Imagine a world where coding isn't about meticulous syntax or endless debugging, but about intuition, conversation, and pure flow. Welcome to "Vibe Coding" – a revolutionary approach to software development where Large Language Models (LLMs) become your ultimate co-pilot, transforming complex tasks into effortless interactions.
+
+This paradigm shift gained significant traction in early February 2025, sparked by Andrej Karpathy's insightful link:https://x.com/karpathy/status/1886192184808149383[post] on X, who actually coined the term:
+
+[quote]
+There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It's possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I'm too lazy to find it. I "Accept All" always, I don't read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I'd have to really read through it for a while. Sometimes the LLMs can't fix a bug so I just work around it or ask for random changes until it goes away. It's not too bad for throwaway weekend projects, but still quite amusing. I'm building a project or webapp, but it's not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works.
+
+This "AI-First Coding" is rapidly being embraced by link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and is quickly becoming the new norm:
+
+image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embraces Vibe Coding]
+
+Figure 1: Big Tech embraces Vibe Coding
+
+In this article, we'll delve into the innovative solutions and tools that are transforming vibe coding from a concept to a powerful new reality for developers everywhere.
+
+== Open-Source Tools for the Vibe Coder
+
+To truly embrace Vibe Coding, you need the right tools. While many closed-source assistants exist—such as link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], and link:https://kiro.dev/[Kiro] (all effectively forks of the link:https://github.com/microsoft/vscode[Visual Studio Code - Open Source ("Code - OSS")]), the open-source community offers powerful alternatives that provide greater control and transparency.
+
+IMPORTANT: A significant drawback of local-first AI tools is their potential to disrupt your local development environment if the AI assistant misbehaves. Cloud Development Environments (CDEs), however, offer a crucial advantage for AI assistants: they provide isolated, repeatable, and on-demand workspaces. This means developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, as any issues remain contained within a pod/namespace itself (assuming proper RBAC setup for the developer persona on the Kubernetes cluster).
+
+Let's explore some open-source tools that make vibe coding a reality available on link:https://open-vsx.org/[Open VSX].
+
+=== Continue
+
+link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. Continue enables developers to create, share, and use custom AI code assistants with our open-source VS Code and JetBrains extensions and hub of models, rules, prompts, docs, and other building blocks. The link:https://open-vsx.org/extension/Continue/continue[extension] allows you to connect to any LLM, local or hosted, to receive coding assistance directly within the IDE.
+
+TIP: Learn more about integrating a private AI coding assistant into your Cloud Development Environments using Ollama and Continue in the dedicated link:https://developers.redhat.com/learn/openshift-ai/integrate-private-ai-coding-assistant-your-cde-using-ollama-continue-openshift-dev-spaces[article].
+
+=== Cline
+
+link:https://cline.bot/[Cline] is an open-source extension for Visual Studio Code, available under the Apache 2.0 license. Cline (pronounced /klaɪn/, like “Klein”), an AI assistant that can use your **CLI** a**N**d **E**ditor. link:https://open-vsx.org/extension/saoudrizwan/claude-dev[Cline extension] is an autonomous coding agent right in the IDE, capable of creating/editing files, executing commands, using the browser, and more with your permission every step of the way. 
+
+=== Roo Code
+
+link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is yet another open-source extension for Visual Studio Code, available under the Apache 2.0 license. As a link:https://github.com/RooCodeInc/Roo-Code[fork of Cline], Roo Code builds upon its foundation to provide an AI coding assistant that integrates directly into the IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Designed to thrive in CDEs, Roo Code provides a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can request broad changes, refactor entire functions with a single prompt, and let the AI handle repetitive tasks, freeing you to focus on the creative aspects of coding. Roo Code is an AI-powered autonomous coding agent that lives in your editor. It can:
+
+- Communicate in natural language
+- Read and write files directly in your workspace
+- Run terminal commands
+- Automate browser actions
+-  ntegrate with any OpenAI-compatible or custom API/model
+- Adapt its “personality” and capabilities through Custom Modes
+
+Whether you’re seeking a flexible coding partner, a system architect, or specialized roles like a QA engineer or product manager, link:https://roocode.com/[Roo Code] can help you build software more efficiently.
+
+== Experience Vibe Coding Now!
+
+Ready to experience the future of coding? All you need is a browser!
+
+You can start Vibe Coding in minutes using link:https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] on the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
+
+1. Register for a link:https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift account].
+2. Go to link:https://workspaces.openshift.com/[workspaces.openshift.com]
+3. Start an `Empty Workspace` from the Getting Started Samples or import your pet project from Git:
+
+image::/assets/img/vibe-coding/dashboard.png[User Dashboard]
+
+4. Install the `Roo Code` extension from the marketplace:
+
+image::/assets/img/vibe-coding/marketplace.png[OpenVSX Marketplace]
+
+TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json[.vscode/extensions.json] file in the Git repository, and it will be installed automatically after workspace startup:
+
+5. Choose LLM and Configure the API Key in the Roo Code "Settings".
+
+image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
+
+TIP: For some Gemini models e.g. `gemini-2.5-flash` you can generate a free API Key on the link:https://aistudio.google.com/[Google AI Studio]. You only need to set up the API key once in the extension; it will be persisted in your browser settings for future workspaces.
+
+And... start vibe coding - put the most wild ideas in the chat window, and Roo Code will do it's best to make it come true!
+
+image::/assets/img/vibe-coding/roo.png[Roo Code]
+
+This iterative, conversational approach allows you to rapidly prototype and build, focusing on the desired outcome rather than the intricate details of implementation.
+
+== Conclusion
+
+Vibe coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated LLMs, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.
+
+AI coding assistants are central to this new workflow, providing code suggestions, completions, and contextual help. Combining these assistants with a Cloud Development Environment creates a powerful and secure setup. CDEs offer isolated, on-demand workspaces, allowing your AI assistant to experiment freely without risking your local machine. Any issues are contained within the ephemeral workspace, which can be easily discarded and restarted.
+
+As we've explored, Cloud Development Environments are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.
+
+The journey into vibe voding is just beginning. We encourage you to follow our guide, embrace the flow, and discover how these tools can transform your own development process. The future of coding isn't about replacing developers; it's about empowering them with tools that amplify their creativity and productivity.
+
+Happy Vibe Coding!
