@@ -3,6 +3,7 @@
   // for the documentation about the extensions.json format
   "recommendations": [
     "errata-ai.vale-server",
-    "asciidoctor.asciidoctor-vscode"
+    "asciidoctor.asciidoctor-vscode",
+    "RooVeterinaryInc.roo-cline"
   ]
 }
