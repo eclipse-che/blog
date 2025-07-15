@@ -55,6 +55,8 @@ Ready to try it yourself? You can start Vibe Coding in minutes using Eclipse Che
 
 image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
+Figure 2: Configuring the Roo Code API Key
+
 TIP: You only need to set up the API key once; it will be persisted in your browser settings for future workspaces.
 
 4. *Start Vibe Coding*: Open a file and start a conversation with Roo. Try a prompt like:
