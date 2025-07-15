@@ -16,44 +16,37 @@ This all started in the early February 2025 from this very link:https://x.com/ka
 There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It's possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I'm too lazy to find it. I "Accept All" always, I don't read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I'd have to really read through it for a while. Sometimes the LLMs can't fix a bug so I just work around it or ask for random changes until it goes away. It's not too bad for throwaway weekend projects, but still quite amusing. I'm building a project or webapp, but it's not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works. 
 +
 
-Now Vibe Coding (or AI-First Coding) is embraced by the link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and quickly becoming the new norm:
+Now Vibe Coding (or AI-First Coding) is embraced by the link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and quickly becoming the new reality:
 
 image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embraces Vibe Coding]
-+ 
+
+In this article, we will explore the solutions that are making Vibe Coding a reality.
++
 
 == AI Coding Assistants
 
-AI coding assistants can significantly accelerate developer workflows by offering code suggestions, completions, and contextual assistance. DevSpaces as a Cloud Development Environment (CDE) is an isolated, repeatable, and on-demand workspace—often ephemeral—that offers a key advantage for AI assistants: developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, since any issues remain contained within the environment itself.
+There are multiple closed-source assistants available on the market like link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], link:https://aws.amazon.com/kiro/[Kiro] etc. that are effectively forks of https://github.com/microsoft/vscode[Visual Studio Code - Open Source ("Code - OSS"), but in this blog post we will mainly focus on the open-source solutions. 
 
-=== Open-Source
 
-==== Roo Code
+ 
+AI coding assistants can significantly accelerate developer workflows by offering code suggestions, completions, and contextual assistance. Eclipse Che as a Cloud Development Environment (CDE) is an isolated, repeatable, and on-demand workspace—often ephemeral—that offers a key advantage for AI assistants: developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, since any issues remain contained within the environment itself.
 
-link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is a powerful AI coding assistant that integrates seamlessly into your IDE. It provides intelligent code completion, refactoring suggestions, and can help you understand complex codebases. Roo Code is designed to work with Cloud Development Environments like Eclipse Che, providing a safe and reproducible environment for AI-powered development. The `roo-cline` extension is the command-line interface for Roo Code, allowing you to interact with the AI assistant from your terminal.
 
-==== Continue
+=== Roo Code
+
+link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is a powerful AI coding assistant that integrates seamlessly into your IDE. It provides intelligent code completion, refactoring suggestions, and can help you understand complex codebases. Roo Code is designed to work with Cloud Development Environments like Eclipse Che, providing a safe and reproducible environment for AI-powered development. 
+
+TIP: `roo-cline` extension is the command-line interface for Roo Code, allowing you to interact with the AI assistant from your terminal.
+
+=== Continue
 
 link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. It's a VS Code extension that you can connect to any LLM, whether local or hosted, to get coding assistance in your IDE.
 
-==== Windmill
+=== Windmill
 
 link:https://www.windmill.dev/[Windmill] is an open-source developer platform to build internal tools and workflows from scripts, available under the AGPL-3.0 license. While not a direct code assistant, it enables vibe coding by automating scripts and creating UIs from code, allowing developers to orchestrate complex tasks with natural language prompts.
 
-=== Closed-Source
-
-==== Cursor
-
-link:https://cursor.sh/[Cursor] is an AI-first code editor designed for pair-programming with AI. It's a fork of VSCode, deeply integrated with AI capabilities to help you write, understand, and refactor code faster. It is available under a proprietary license.
-
-==== Windsurf
-
-link:https://www.windsurf.ai/[Windsurf] is a closed-source AI coding assistant that provides code completion, refactoring, and debugging capabilities.
-
-==== Kiro
-
-link:https://aws.amazon.com/kiro/[Kiro] is an AI coding assistant from AWS that is deeply integrated with the AWS ecosystem. It provides code suggestions, security scans, and helps developers optimize their applications for the cloud.
-
-=== Demo
+=== Try Vibe Coding + CDE Combo now on Developer Sandbox
 
 image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
