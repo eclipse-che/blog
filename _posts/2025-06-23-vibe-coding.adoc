@@ -15,6 +15,9 @@ This all started in the early February 2025 from this very link:https://x.com/ka
 [quote, Andrej Karpathy, Vibe Coding]
 There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It's possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I'm too lazy to find it. I "Accept All" always, I don't read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I'd have to really read through it for a while. Sometimes the LLMs can't fix a bug so I just work around it or ask for random changes until it goes away. It's not too bad for throwaway weekend projects, but still quite amusing. I'm building a project or webapp, but it's not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works.
 
+Now Vibe Coding (or AI-First Coding) is embraced by the link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and quickly becoming the new norm:
+
+image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embraces Vibe Coding]
 
 == AI Coding Assistants
 
@@ -30,4 +33,5 @@ TIP: You need to setup it once, API key will be persisted in the browser setting
  
 == Conclusion
 
-image::/assets/img/running-at-scale/developer-sandbox.png[Multi-cluster solution for running the productized version of Eclipse Che on the Developer Sandbox]
+Happy Vibe Coding!
+
