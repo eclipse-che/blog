@@ -27,6 +27,7 @@ AI coding assistants can significantly accelerate developer workflows by offerin
 === Roo Code
 
 link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code]
+image::/assets/img/roo-settings.png[Roo Code Settings]
 
 === Demo
 
@@ -41,4 +42,3 @@ Cloud Development Environments like Eclipse Che provide the perfect sandbox for 
 The journey into Vibe Coding is just beginning. We encourage you to embrace the flow, experiment with these new tools, and discover how they can transform your own development process. The future of coding is not about replacing developers, but empowering them with tools that amplify their creativity and productivity.
 
 Happy Vibe Coding!
-
