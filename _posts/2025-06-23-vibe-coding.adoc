@@ -10,23 +10,26 @@ slug: /@ilya.buziuk/vibe-coding
 ---
 == Introduction
 
-This all started in the early February 2025 from this very link:https://x.com/karpathy/status/1886192184808149383[post] on X:
+Imagine a world where coding isn't about meticulous syntax or endless debugging, but about intuition, conversation, and pure flow. Welcome to "Vibe Coding" – a revolutionary approach to software development where Large Language Models (LLMs) become your ultimate co-pilot, transforming complex tasks into effortless interactions.
+
+This paradigm shift gained significant traction in early February 2025, sparked by Andrej Karpathy's insightful link:https://x.com/karpathy/status/1886192184808149383[post] on X, who actually coined the term:
 
 [quote, Andrej Karpathy, Vibe Coding]
-There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It's possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I'm too lazy to find it. I "Accept All" always, I don't read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I'd have to really read through it for a while. Sometimes the LLMs can't fix a bug so I just work around it or ask for random changes until it goes away. It's not too bad for throwaway weekend projects, but still quite amusing. I'm building a project or webapp, but it's not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works. 
-[%hardbreaks]
+There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It's possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I'm too lazy to find it. I "Accept All" always, I don't read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I'd have to really read through it for a while. Sometimes the LLMs can't fix a bug so I just work around it or ask for random changes until it goes away. It's not too bad for throwaway weekend projects, but still quite amusing. I'm building a project or webapp, but it's not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works.
 
-Now Vibe Coding (or AI-First Coding) is embraced by the link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and quickly becoming the new reality:
+This "AI-First Coding" is rapidly being embraced by link:https://www.youtube.com/watch?v=w-Dk7sTba2I[Big Tech] and is quickly becoming the new norm:
 
 image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embraces Vibe Coding]
 
 Figure 1: Big Tech embraces Vibe Coding
 
-In this article, we will explore the solutions that are making Vibe Coding a reality.
+In this article, we'll delve into the innovative solutions and tools that are transforming Vibe Coding from a concept to a powerful new reality for developers everywhere.
 
 == Tools for the Vibe Coder
 
-To truly embrace Vibe Coding, you need the right tools. While there are many closed-source assistants like link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], and link:https://aws.amazon.com/kiro/[Kiro], the open-source community has produced powerful alternatives that give you more control and transparency.
+To truly embrace Vibe Coding, you need the right tools. While there are many closed-source assistants like link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], and link:https://aws.amazon.com/kiro/[Kiro] (All are effectively forks of the [Visual Studio Code - Open Source ("Code - OSS")]. 
+
+The open-source community has produced powerful alternatives that give you more control and transparency.
 
 AI coding assistants are at the heart of this new workflow, offering code suggestions, completions, and contextual help. When you combine these assistants with a Cloud Development Environment (CDE) like Eclipse Che, you get a powerful and safe setup. CDEs provide isolated, on-demand workspaces, meaning you can let your AI assistant experiment freely without worrying about messing up your local machine. Any issues are contained within the ephemeral workspace, which you can simply discard and restart.
 
@@ -77,9 +80,9 @@ Watch as the AI takes your high-level requests and translates them into code. No
  
 == Conclusion
 
-Vibe Coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated Large Language Models, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.
+Vibe Coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated LLMs, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.
 
-As we've explored, Cloud Development Environments like Eclipse Che are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like Roo Code without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.
+As we've explored, Cloud Development Environments are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.
 
 The journey into Vibe Coding is just beginning. We encourage you to follow our guide, embrace the flow, and discover how these tools can transform your own development process. The future of coding isn't about replacing developers; it's about empowering them with tools that amplify their creativity and productivity.
 
