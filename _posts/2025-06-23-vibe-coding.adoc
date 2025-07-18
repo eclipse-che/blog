@@ -66,7 +66,7 @@ You can start Vibe Coding in minutes using link:https://eclipse.dev/che/docs/sta
 2. Go to link:https://workspaces.openshift.com/[workspaces.openshift.com]
 3. Start an `Empty Workspace` from the Getting Started Samples or import your pet project from Git:
 
-image::/assets/img/vibe-coding/dashboard.png[User Dahboard]
+image::/assets/img/vibe-coding/dashboard.png[User Dashboard]
 
 4. Install the `Roo Code` extension from the marketplace:
 
@@ -80,22 +80,9 @@ image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
 TIP: You only need to set up the API key once; it will be persisted in your browser settings for future workspaces.
 
-And... start Vibe Coding - put the most wild ideas in the chat window and Roo Code will do it's best to make it come true!
+And... start vibe coding - put the most wild ideas in the chat window, and Roo Code will do it's best to make it come true!
 
 image::/assets/img/vibe-coding/roo.png[Roo Code]
- 
-== Practical Vibe Coding Walkthrough
-
-Let's walk through a simple example of Vibe Coding in action using Roo Code within a Cloud Development Environment. Our goal is to create a basic HTML page with a "Hello, Vibe Coder!" message and a button that changes the text when clicked.
-
-1.  **Start your Workspace**: Follow steps 1-3 in the "Get Your Vibe On" section to launch your Eclipse Che workspace.
-2.  **Install Roo Code**: If not already installed via `.vscode/extensions.json`, install the `Roo Code` extension from the OpenVSX Marketplace (step 4).
-3.  **Configure API Key**: Set up your API key in Roo Code settings (step 5).
-4.  **Initiate the Vibe**: Open the Roo Code chat window and start with a prompt like:
-    "Create an `index.html` file. It should have a title 'Vibe Coding Demo', a heading 'Hello, Vibe Coder!', and a button with the text 'Change Message'. When the button is clicked, the heading text should change to 'Vibe On!'"
-5.  **Review and Accept**: Roo Code will propose changes, likely including the creation of `index.html` with HTML, CSS, and JavaScript. Review the proposed diffs (or "Accept All" if you're truly vibing!).
-6.  **Refine (if needed)**: If the initial output isn't exactly what you envisioned, provide further natural language instructions. For example: "Make the button background blue and text white."
-7.  **Run and Observe**: Use the terminal to serve your `index.html` (e.g., `python3 -m http.server` or `npx serve`). Open the preview URL and interact with your Vibe Coded application.
 
 This iterative, conversational approach allows you to rapidly prototype and build, focusing on the desired outcome rather than the intricate details of implementation.
 
