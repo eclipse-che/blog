@@ -25,28 +25,25 @@ Figure 1: Big Tech embraces Vibe Coding
 
 In this article, we'll delve into the innovative solutions and tools that are transforming Vibe Coding from a concept to a powerful new reality for developers everywhere.
 
-== Tools for the Vibe Coder
+== Open-Source Tools for the Vibe Coder
 
-To truly embrace Vibe Coding, you need the right tools. While there are many closed-source assistants like link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], and link:https://aws.amazon.com/kiro/[Kiro] (All are effectively forks of the [Visual Studio Code - Open Source ("Code - OSS")]. 
+To truly embrace Vibe Coding, you need the right tools. While many closed-source assistants exist—such as link:https://cursor.sh/[Cursor], link:https://www.windsurf.ai/[Windsurf], and link:https://kiro.dev/[Kiro] (all effectively forks of the link:https://github.com/microsoft/vscode[Visual Studio Code - Open Source ("Code - OSS")]), the open-source community offers powerful alternatives that provide greater control and transparency.
 
-The open-source community has produced powerful alternatives that give you more control and transparency.
-
-AI coding assistants are at the heart of this new workflow, offering code suggestions, completions, and contextual help. When you combine these assistants with a Cloud Development Environment (CDE) like Eclipse Che, you get a powerful and safe setup. CDEs provide isolated, on-demand workspaces, meaning you can let your AI assistant experiment freely without worrying about messing up your local machine. Any issues are contained within the ephemeral workspace, which you can simply discard and restart.
+IMPORTANT: A significant drawback of local-first AI tools is their potential to disrupt your local development environment if the AI assistant misbehaves. Cloud Development Environments (CDEs), however, offer a crucial advantage for AI assistants: they provide isolated, repeatable, and on-demand workspaces. This means developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, as any issues remain contained within a pod/namespace itself (assuming proper RBAC setup for the developer persona on the Kubernetes cluster).
 
 Let's explore some open-source tools that make Vibe Coding a reality.
 
 === Roo Code
 
-link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is a powerful AI coding assistant that integrates directly into your IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Roo Code is designed to thrive in CDEs like Eclipse Che, giving you a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can ask for broad changes, refactor entire functions with a single prompt, and let the AI handle the tedious work, freeing you to focus on the creative aspects of coding.
+link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is an AI coding assistant that integrates directly into your IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Designed to thrive in CDEs like Eclipse Che, Roo Code provides a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can request broad changes, refactor entire functions with a single prompt, and let the AI handle repetitive tasks, freeing you to focus on the creative aspects of coding.
 
-TIP: The `roo-cline` extension is the command-line interface for Roo Code, allowing you to "vibe" with your AI assistant directly from the terminal.
 === Continue
 
-link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. It's a VS Code extension that you can connect to any LLM, whether local or hosted, to get coding assistance in your IDE.
+link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. This VS Code extension allows you to connect to any LLM, local or hosted, to receive coding assistance directly within your IDE.
 
 === Windmill
 
-link:https://www.windmill.dev/[Windmill] is an open-source developer platform to build internal tools and workflows from scripts, available under the AGPL-3.0 license. While not a direct code assistant, it enables vibe coding by automating scripts and creating UIs from code, allowing developers to orchestrate complex tasks with natural language prompts.
+link:https://www.windmill.dev/[Windmill] is an open-source developer platform for building internal tools and workflows from scripts, available under the AGPL-3.0 license. While not a direct code assistant, it facilitates Vibe Coding by automating scripts and generating UIs from code, enabling developers to orchestrate complex tasks using natural language prompts.
 
 == Get Your Vibe On: A Quickstart Guide
 
@@ -81,6 +78,8 @@ Watch as the AI takes your high-level requests and translates them into code. No
 == Conclusion
 
 Vibe Coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated LLMs, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.
+
+AI coding assistants are central to this new workflow, providing code suggestions, completions, and contextual help. Combining these assistants with a Cloud Development Environment creates a powerful and secure setup. CDEs offer isolated, on-demand workspaces, allowing your AI assistant to experiment freely without risking your local machine. Any issues are contained within the ephemeral workspace, which can be easily discarded and restarted.
 
 As we've explored, Cloud Development Environments are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.
 
