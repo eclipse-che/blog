@@ -33,13 +33,17 @@ IMPORTANT: A significant drawback of local-first AI tools is their potential to 
 
 Let's explore some open-source tools that make Vibe Coding a reality.
 
-=== Roo Code
-
-link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is an AI coding assistant that integrates directly into your IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Designed to thrive in CDEs like Eclipse Che, Roo Code provides a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can request broad changes, refactor entire functions with a single prompt, and let the AI handle repetitive tasks, freeing you to focus on the creative aspects of coding.
-
 === Continue
 
 link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. This VS Code extension allows you to connect to any LLM, local or hosted, to receive coding assistance directly within your IDE.
+
+=== Cline
+
+link:https://github.com/devfile/devfile-web-view/tree/main/packages/vscode-cline[Cline] is an open-source extension for Visual Studio Code, available under the Apache 2.0 license. It provides a web-based view for Devfile, enabling developers to visualize and interact with their development environment configurations directly within the IDE. Cline enhances the Vibe Coding experience by offering a clear, intuitive interface for managing complex Devfile structures, making it easier to understand and modify your workspace setup.
+
+=== Roo Code
+
+link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is an open-source extension for Visual Studio Code, available under the Apache 2.0 license. As a fork of Cline, Roo Code builds upon its foundation to provide an AI coding assistant that integrates directly into the IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Designed to thrive in CDEs like Eclipse Che, Roo Code provides a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can request broad changes, refactor entire functions with a single prompt, and let the AI handle repetitive tasks, freeing you to focus on the creative aspects of coding.
 
 === Windmill
 
