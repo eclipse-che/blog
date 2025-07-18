@@ -56,36 +56,49 @@ link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is yet 
 
 Whether you’re seeking a flexible coding partner, a system architect, or specialized roles like a QA engineer or product manager, link:https://roocode.com/[Roo Code] can help you build software more efficiently.
 
-== Get Your Vibe On: A Quickstart Guide
+== Experience Vibe Coding Now!
 
-Ready to try it yourself? You can start Vibe Coding in minutes using Eclipse Che on the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift]. Here’s how to get set up with Roo Code:
+Ready to experience the future of coding? All you need is a browser!
 
-1. *Launch your Cloud Development Environment*: Open your Eclipse Che workspace.
-2. *Install Roo Code*: Navigate to the Extensions view and search for `Roo Code`. Click install.
-3. *Configure the API Key*: Open the settings for Roo Code. You will need to provide your API key.
+You can start Vibe Coding in minutes using link:https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/[Eclipse Che hosted by Red Hat] on the link:https://developers.redhat.com/developer-sandbox[Developer Sandbox].
+
+1. Register for a link:https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift account].
+2. Go to link:https://workspaces.openshift.com/[workspaces.openshift.com]
+3. Start an `Empty Workspace` from the Getting Started Samples or import your pet project from Git:
+
+image::/assets/img/vibe-coding/dashboard.png[User Dahboard]
+
+4. Install the `Roo Code` extension from the marketplace:
+
+image::/assets/img/vibe-coding/marketpalce.png[OpenVSX Marketplace]
+
+TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json[.vscode/extensions.json] file in the Git repository, and it will be installed automatically after workspace startup:
+
+5. Configure the API Key in the Settings for Roo Code. You will need to provide your API key.
 
 image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
-Figure 2: Configuring the Roo Code API Key
-
 TIP: You only need to set up the API key once; it will be persisted in your browser settings for future workspaces.
 
-4. *Start Vibe Coding*: Open a file and start a conversation with Roo. Try a prompt like:
-+
-[source,text]
-----
-"Refactor this function to be more readable and add comments explaining the logic."
-----
-+
-Or, embrace the true vibe and ask for something audacious:
-+
-[source,text]
-----
-"Change the theme of this entire application to a dark mode, and make the primary accent color purple."
-----
+And... start Vibe Coding - put the most wild ideas in the chat window and Roo Code will do it's best to make it come true!
 
-Watch as the AI takes your high-level requests and translates them into code. No more hunting for CSS files or deciphering complex functions. You just vibe.
+image::/assets/img/vibe-coding/roo.png[Roo Code]
  
+== Practical Vibe Coding Walkthrough
+
+Let's walk through a simple example of Vibe Coding in action using Roo Code within a Cloud Development Environment. Our goal is to create a basic HTML page with a "Hello, Vibe Coder!" message and a button that changes the text when clicked.
+
+1.  **Start your Workspace**: Follow steps 1-3 in the "Get Your Vibe On" section to launch your Eclipse Che workspace.
+2.  **Install Roo Code**: If not already installed via `.vscode/extensions.json`, install the `Roo Code` extension from the OpenVSX Marketplace (step 4).
+3.  **Configure API Key**: Set up your API key in Roo Code settings (step 5).
+4.  **Initiate the Vibe**: Open the Roo Code chat window and start with a prompt like:
+    "Create an `index.html` file. It should have a title 'Vibe Coding Demo', a heading 'Hello, Vibe Coder!', and a button with the text 'Change Message'. When the button is clicked, the heading text should change to 'Vibe On!'"
+5.  **Review and Accept**: Roo Code will propose changes, likely including the creation of `index.html` with HTML, CSS, and JavaScript. Review the proposed diffs (or "Accept All" if you're truly vibing!).
+6.  **Refine (if needed)**: If the initial output isn't exactly what you envisioned, provide further natural language instructions. For example: "Make the button background blue and text white."
+7.  **Run and Observe**: Use the terminal to serve your `index.html` (e.g., `python3 -m http.server` or `npx serve`). Open the preview URL and interact with your Vibe Coded application.
+
+This iterative, conversational approach allows you to rapidly prototype and build, focusing on the desired outcome rather than the intricate details of implementation.
+
 == Conclusion
 
 Vibe Coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated LLMs, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.
