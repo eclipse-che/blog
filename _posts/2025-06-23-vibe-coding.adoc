@@ -70,7 +70,7 @@ image::/assets/img/vibe-coding/dashboard.png[User Dahboard]
 
 4. Install the `Roo Code` extension from the marketplace:
 
-image::/assets/img/vibe-coding/marketpalce.png[OpenVSX Marketplace]
+image::/assets/img/vibe-coding/marketplace.png[OpenVSX Marketplace]
 
 TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json[.vscode/extensions.json] file in the Git repository, and it will be installed automatically after workspace startup:
 
