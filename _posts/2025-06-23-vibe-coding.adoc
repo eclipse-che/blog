@@ -31,7 +31,7 @@ To truly embrace Vibe Coding, you need the right tools. While many closed-source
 
 IMPORTANT: A significant drawback of local-first AI tools is their potential to disrupt your local development environment if the AI assistant misbehaves. Cloud Development Environments (CDEs), however, offer a crucial advantage for AI assistants: they provide isolated, repeatable, and on-demand workspaces. This means developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, as any issues remain contained within a pod/namespace itself (assuming proper RBAC setup for the developer persona on the Kubernetes cluster).
 
-Let's explore some open-source tools that make vibe coding a reality available on link:https://open-vsx.org/[Open VSX].
+Let's explore a few open-source tools available on link:https://open-vsx.org/[Open VSX] that make vibe coding a reality today.
 
 === Continue
 
