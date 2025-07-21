@@ -102,6 +102,6 @@ AI coding assistants are central to this new workflow, providing code suggestion
 
 As we've explored, Cloud Development Environments are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.
 
-The journey into vibe voding is just beginning. We encourage you to follow our guide, embrace the flow, and discover how these tools can transform your own development process. The future of coding isn't about replacing developers; it's about empowering them with tools that amplify their creativity and productivity.
+The journey into vibe coding is just beginning. We encourage you to follow our guide, embrace the flow, and discover how these tools can transform your own development process. The future of coding isn't about replacing developers; it's about empowering them with tools that amplify their creativity and productivity.
 
 Happy Vibe Coding!
