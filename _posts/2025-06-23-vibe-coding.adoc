@@ -51,7 +51,7 @@ link:https://open-vsx.org/extension/RooVeterinaryInc/roo-cline[Roo Code] is yet 
 - Read and write files directly in your workspace
 - Run terminal commands
 - Automate browser actions
--  ntegrate with any OpenAI-compatible or custom API/model
+- Integrate with any OpenAI-compatible or custom API/model
 - Adapt its “personality” and capabilities through Custom Modes
 
 Whether you’re seeking a flexible coding partner, a system architect, or specialized roles like a QA engineer or product manager, link:https://roocode.com/[Roo Code] can help you build software more efficiently.
