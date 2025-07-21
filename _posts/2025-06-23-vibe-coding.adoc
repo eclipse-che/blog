@@ -78,7 +78,7 @@ TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse
 
 image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
-TIP: You only need to set up the API key once; it will be persisted in your browser settings for future workspaces.
+TIP: For some Gemini models e.g. `gemini-2.5-flash` you can generate a free API Key on the link:https://aistudio.google.com/[Google AI Studio]. You only need to set up the API key once in the extension; it will be persisted in your browser settings for future workspaces.
 
 And... start vibe coding - put the most wild ideas in the chat window, and Roo Code will do it's best to make it come true!
 
