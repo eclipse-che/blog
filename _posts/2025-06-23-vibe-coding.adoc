@@ -21,7 +21,7 @@ This "AI-First Coding" is rapidly being embraced by link:https://www.youtube.com
 
 image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embraces Vibe Coding]
 
-Figure 1: Big Tech embraces Vibe Coding
+Figure 1: Big Tech embraces Vibe Coding (the screenshot was taken from the link:https://www.youtube.com/@CNBCtelevision[CNBC Television YouTube Channel])
 
 In this article, we'll delve into the innovative solutions and tools that are transforming vibe coding from a concept to a powerful new reality for developers everywhere.
 
@@ -64,13 +64,17 @@ You can start Vibe Coding in minutes using link:https://eclipse.dev/che/docs/sta
 
 1. Register for a link:https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift account].
 2. Go to link:https://workspaces.openshift.com/[workspaces.openshift.com]
-3. Start an `Empty Workspace` from the Getting Started Samples or import your pet project from Git:
+3. Start an `Empty Workspace` from the **Getting Started Samples** or import your pet project from Git:
 
 image::/assets/img/vibe-coding/dashboard.png[User Dashboard]
 
+Figure 2: User Dashboard
+
 4. Install the `Roo Code` extension from the marketplace:
 
-image::/assets/img/vibe-coding/marketplace.png[OpenVSX Marketplace]
+image::/assets/img/vibe-coding/marketplace.png[Open VSX Marketplace]
+
+Figure 3: Open VSX Marketplace
 
 TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json[.vscode/extensions.json] file in the Git repository, and it will be installed automatically after workspace startup:
 
@@ -78,11 +82,15 @@ TIP: You can add the `Roo Code` extension to the link:https://github.com/eclipse
 
 image::/assets/img/vibe-coding/roo-settings.png[Roo Code Settings]
 
+Figure 4: Roo Code Settings
+
 TIP: For some Gemini models e.g. `gemini-2.5-flash` you can generate a free API Key on the link:https://aistudio.google.com/[Google AI Studio]. You only need to set up the API key once in the extension; it will be persisted in your browser settings for future workspaces.
 
 And... start vibe coding - put the most wild ideas in the chat window, and Roo Code will do it's best to make it come true!
 
 image::/assets/img/vibe-coding/roo.png[Roo Code]
+
+Figure 5: Roo Code Extension
 
 This iterative, conversational approach allows you to rapidly prototype and build, focusing on the desired outcome rather than the intricate details of implementation.
 
