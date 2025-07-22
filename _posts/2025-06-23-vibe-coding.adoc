@@ -10,7 +10,7 @@ slug: /@ilya.buziuk/vibe-coding
 ---
 == Introduction
 
-Imagine a world where coding isn't about meticulous syntax or endless debugging, but about intuition, conversation, and pure flow. Welcome to "Vibe Coding" – a revolutionary approach to software development where Large Language Models (LLMs) become your ultimate co-pilot, transforming complex tasks into effortless interactions.
+Imagine a world where coding isn't about meticulous syntax or endless debugging, but about conversation and pure flow. Welcome to "vibe coding" – a revolutionary approach to software development where Large Language Models (LLMs) become your ultimate co-pilot, transforming complex tasks into effortless interactions.
 
 This paradigm shift gained significant traction in early February 2025, sparked by Andrej Karpathy's insightful link:https://x.com/karpathy/status/1886192184808149383[post] on X, who actually coined the term:
 
