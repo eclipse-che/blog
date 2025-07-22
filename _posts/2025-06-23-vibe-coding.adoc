@@ -35,7 +35,7 @@ Let's explore a few awesome open-source extensions available on link:https://ope
 
 === Continue
 
-link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. Continue enables developers to create, share, and use custom AI code assistants with our open-source VS Code and JetBrains extensions and hub of models, rules, prompts, docs, and other building blocks. The link:https://open-vsx.org/extension/Continue/continue[extension] allows you to connect to any LLM, local or hosted, to receive coding assistance directly within the IDE.
+link:https://continue.dev/[Continue] is an open-source autopilot for software development, available under the Apache 2.0 license. Continue enables developers to create, share, and use custom AI code assistants with open-source VS Code and JetBrains extensions, as well as a hub of models, rules, prompts, documentation, and other building blocks. The link:https://open-vsx.org/extension/Continue/continue[extension] allows you to connect to any LLM, local or hosted, to receive coding assistance directly within the IDE.
 
 TIP: Learn more about integrating a private AI coding assistant into your Cloud Development Environments using Ollama and Continue in the dedicated link:https://developers.redhat.com/learn/openshift-ai/integrate-private-ai-coding-assistant-your-cde-using-ollama-continue-openshift-dev-spaces[article].
 
