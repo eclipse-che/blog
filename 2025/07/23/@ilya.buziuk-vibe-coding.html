@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Vibe Coding with Eclipse Che | Eclipse Che Blog</title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta property="og:title" content="Vibe Coding with Eclipse Che" />
+    <meta name="author" content="Ilya Buziuk" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Vibe Coding with Eclipse Che" />
+    <meta property="og:description" content="Vibe Coding with Eclipse Che" />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2025-07-23T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Vibe Coding with Eclipse Che" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Ilya Buziuk" },
+        "dateModified": "2025-07-23T00:00:00+00:00",
+        "datePublished": "2025-07-23T00:00:00+00:00",
+        "description": "Vibe Coding with Eclipse Che",
+        "headline": "Vibe Coding with Eclipse Che",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"
+        },
+        "url": "https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Vibe Coding with Eclipse Che
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2025-07-23T00:00:00+00:00"
+                itemprop="datePublished"
+                >Jul 23, 2025 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Ilya Buziuk</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="sect1">
+              <h2 id="_introduction">Introduction</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Imagine a world where coding isn&#8217;t about meticulous
+                    syntax or endless debugging, but about conversation and pure
+                    flow. Welcome to "vibe coding" – a revolutionary approach to
+                    software development where Large Language Models (LLMs)
+                    become your ultimate co-pilot, transforming complex tasks
+                    into effortless interactions.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    This paradigm shift gained significant traction in early
+                    February 2025, sparked by Andrej Karpathy&#8217;s insightful
+                    <a href="https://x.com/karpathy/status/1886192184808149383"
+                      >post</a
+                    >
+                    on X, who actually coined the term:
+                  </p>
+                </div>
+                <div class="quoteblock">
+                  <blockquote>
+                    There&#8217;s a new kind of coding I call "vibe coding",
+                    where you fully give in to the vibes, embrace exponentials,
+                    and forget that the code even exists. It&#8217;s possible
+                    because the LLMs (e.g. Cursor Composer w Sonnet) are getting
+                    too good. Also I just talk to Composer with SuperWhisper so
+                    I barely even touch the keyboard. I ask for the dumbest
+                    things like "decrease the padding on the sidebar by half"
+                    because I&#8217;m too lazy to find it. I "Accept All"
+                    always, I don&#8217;t read the diffs anymore. When I get
+                    error messages I just copy paste them in with no comment,
+                    usually that fixes it. The code grows beyond my usual
+                    comprehension, I&#8217;d have to really read through it for
+                    a while. Sometimes the LLMs can&#8217;t fix a bug so I just
+                    work around it or ask for random changes until it goes away.
+                    It&#8217;s not too bad for throwaway weekend projects, but
+                    still quite amusing. I&#8217;m building a project or webapp,
+                    but it&#8217;s not really coding - I just see stuff, say
+                    stuff, run stuff, and copy paste stuff, and it mostly works.
+                  </blockquote>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    This "AI-First Coding" is rapidly being embraced by
+                    <a href="https://www.youtube.com/watch?v=w-Dk7sTba2I"
+                      >Big Tech</a
+                    >
+                    and is quickly becoming the new norm:
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png"
+                      alt="Big Tech embraces Vibe Coding"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Figure 1: Big Tech embraces Vibe Coding (the screenshot was
+                    taken from the
+                    <a href="https://www.youtube.com/@CNBCtelevision"
+                      >CNBC Television YouTube Channel</a
+                    >)
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    In this article, we will delve into the innovative solutions
+                    and tools that are transforming vibe coding from a concept
+                    to a powerful new reality for developers everywhere. We will
+                    also explore why Cloud Development Environments (CDEs) are
+                    the ideal playground for the "AI-First Coding" unlike the
+                    local IDEs.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_open-source-tools-for-the-vibe-coder">
+                Open-Source Tools for the Vibe Coder
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    To truly embrace Vibe Coding, you need the right tools.
+                    While many closed-source assistants exist—such as
+                    <a href="https://cursor.sh/">Cursor</a>,
+                    <a href="https://www.windsurf.ai/">Windsurf</a>, and
+                    <a href="https://kiro.dev/">Kiro</a> (all effectively forks
+                    of the
+                    <a href="https://github.com/microsoft/vscode"
+                      >Visual Studio Code - Open Source ("Code - OSS")</a
+                    >), the open-source community offers powerful alternatives
+                    that provide greater control and transparency.
+                  </p>
+                </div>
+                <div class="admonitionblock important">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Important</div>
+                      </td>
+                      <td class="content">
+                        A significant drawback of local-first AI tools is their
+                        potential to disrupt your local development environment
+                        if the AI assistant misbehaves. Cloud Development
+                        Environments (CDEs), however, offer a crucial advantage
+                        for AI assistants: they provide isolated, repeatable,
+                        and on-demand workspaces. This means developers don’t
+                        have to worry about misbehaving AI tools, MCP agents, or
+                        other integrations breaking their local setup, as any
+                        issues remain contained within a pod/namespace itself
+                        (assuming proper RBAC setup for the developer persona on
+                        the Kubernetes cluster).
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Let&#8217;s explore a few awesome open-source extensions
+                    available on
+                    <a href="https://open-vsx.org/">Open VSX</a> that make vibe
+                    coding a reality today.
+                  </p>
+                </div>
+                <div class="sect2">
+                  <h3 id="_continue">Continue</h3>
+                  <div class="paragraph">
+                    <p>
+                      <a href="https://continue.dev/">Continue</a> is an
+                      open-source autopilot for software development, available
+                      under the Apache 2.0 license. Continue enables developers
+                      to create, share, and use custom AI code assistants with
+                      open-source VS Code and JetBrains extensions, as well as a
+                      hub of models, rules, prompts, documentation, and other
+                      building blocks. The
+                      <a href="https://open-vsx.org/extension/Continue/continue"
+                        >extension</a
+                      >
+                      allows you to connect to any LLM, local or hosted, to
+                      receive coding assistance directly within the IDE.
+                    </p>
+                  </div>
+                  <div class="admonitionblock tip">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Tip</div>
+                        </td>
+                        <td class="content">
+                          Learn more about integrating a private AI coding
+                          assistant into your Cloud Development Environments
+                          using Ollama and Continue in the dedicated
+                          <a
+                            href="https://developers.redhat.com/learn/openshift-ai/integrate-private-ai-coding-assistant-your-cde-using-ollama-continue-openshift-dev-spaces"
+                            >article</a
+                          >.
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="_cline">Cline</h3>
+                  <div class="paragraph">
+                    <p>
+                      <a href="https://cline.bot/">Cline</a> is an open-source
+                      extension for Visual Studio Code, available under the
+                      Apache 2.0 license. Cline (pronounced /klaɪn/, like
+                      “Klein”), an AI assistant that can use your
+                      <strong>CLI</strong> a<strong>N</strong>d
+                      <strong>E</strong>ditor.
+                      <a
+                        href="https://open-vsx.org/extension/saoudrizwan/claude-dev"
+                        >Cline extension</a
+                      >
+                      is an autonomous coding agent right in the IDE, capable of
+                      creating/editing files, executing commands, using the
+                      browser, and more with your permission every step of the
+                      way.
+                    </p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="_roo-code">Roo Code</h3>
+                  <div class="paragraph">
+                    <p>
+                      <a
+                        href="https://open-vsx.org/extension/RooVeterinaryInc/roo-cline"
+                        >Roo Code</a
+                      >
+                      is yet another open-source extension for Visual Studio
+                      Code, available under the Apache 2.0 license. As a
+                      <a href="https://github.com/RooCodeInc/Roo-Code"
+                        >fork of Cline</a
+                      >, Roo Code builds upon its foundation to provide an AI
+                      coding assistant that integrates directly into the IDE. It
+                      excels at understanding your intentions, offering
+                      intelligent code completions, refactoring suggestions, and
+                      explaining complex code blocks. Designed to thrive in
+                      CDEs, Roo Code provides a secure, reproducible environment
+                      to push the boundaries of AI-powered development. With
+                      Roo, you can request broad changes, refactor entire
+                      functions with a single prompt, and let the AI handle
+                      repetitive tasks, freeing you to focus on the creative
+                      aspects of coding. Roo Code is an AI-powered autonomous
+                      coding agent that lives in your editor. It can:
+                    </p>
+                  </div>
+                  <div class="ulist">
+                    <ul>
+                      <li>
+                        <p>Communicate in natural language</p>
+                      </li>
+                      <li>
+                        <p>Read and write files directly in your workspace</p>
+                      </li>
+                      <li>
+                        <p>Run terminal commands</p>
+                      </li>
+                      <li>
+                        <p>Automate browser actions</p>
+                      </li>
+                      <li>
+                        <p>
+                          Integrate with any OpenAI-compatible or custom
+                          API/model
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Adapt its “personality” and capabilities through
+                          Custom Modes
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      Whether you’re seeking a flexible coding partner, a system
+                      architect, or specialized roles like a QA engineer or
+                      product manager,
+                      <a href="https://roocode.com/">Roo Code</a> can help you
+                      build software more efficiently.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_experience-vibe-coding-now">
+                Experience Vibe Coding Now!
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Ready to experience the future of coding? All you need is a
+                    browser!
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    You can start Vibe Coding in minutes using
+                    <a
+                      href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/"
+                      >Eclipse Che hosted by Red Hat</a
+                    >
+                    on the
+                    <a href="https://developers.redhat.com/developer-sandbox"
+                      >Developer Sandbox</a
+                    >.
+                  </p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p>
+                        Register for a
+                        <a
+                          href="https://developers.redhat.com/developer-sandbox"
+                          >Developer Sandbox for Red Hat OpenShift account</a
+                        >.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Go to
+                        <a href="https://workspaces.openshift.com/"
+                          >workspaces.openshift.com</a
+                        >
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Start an <code>Empty Workspace</code> from the
+                        <strong>Getting Started Samples</strong> or import your
+                        pet project from Git:
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/vibe-coding/dashboard.png"
+                      alt="User Dashboard"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 2: User Dashboard</p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p>
+                        Install the <code>Roo Code</code> extension from the
+                        marketplace:
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/vibe-coding/marketplace.png"
+                      alt="Open VSX Marketplace"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 3: Open VSX Marketplace</p>
+                </div>
+                <div class="admonitionblock tip">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Tip</div>
+                      </td>
+                      <td class="content">
+                        You can add the <code>Roo Code</code> extension to the
+                        <a
+                          href="https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json"
+                          >.vscode/extensions.json</a
+                        >
+                        file in the Git repository, and it will be installed
+                        automatically after workspace startup:
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p>
+                        Choose LLM and Configure the API Key in the Roo Code
+                        "Settings".
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/vibe-coding/roo-settings.png"
+                      alt="Roo Code Settings"
+                    />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 4: Roo Code Settings</p>
+                </div>
+                <div class="admonitionblock tip">
+                  <table>
+                    <tr>
+                      <td class="icon">
+                        <div class="title">Tip</div>
+                      </td>
+                      <td class="content">
+                        For some Gemini models e.g.
+                        <code>gemini-2.5-flash</code> you can generate a free
+                        API Key on the
+                        <a href="https://aistudio.google.com/"
+                          >Google AI Studio</a
+                        >. You only need to set up the API key once in the
+                        extension; it will be persisted in your browser settings
+                        for future workspaces.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    And&#8230;&#8203; start vibe coding - put the wildest ideas
+                    in the chat window, and Roo Code will do it&#8217;s best to
+                    make it come true!
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img src="/assets/img/vibe-coding/roo.png" alt="Roo Code" />
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>Figure 5: Roo Code Extension</p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    This iterative, conversational approach allows you to
+                    rapidly prototype and build, focusing on the desired outcome
+                    rather than the intricate details of implementation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_conclusion">Conclusion</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Vibe coding represents a paradigm shift in software
+                    development. It’s about moving away from meticulous,
+                    line-by-line implementation and embracing a more intuitive,
+                    conversational, and results-driven workflow. This AI-first
+                    approach, powered by increasingly sophisticated LLMs, lets
+                    developers focus on the "what" rather than the "how,"
+                    accelerating innovation and making development more
+                    accessible.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    AI coding assistants are central to this new workflow,
+                    providing code suggestions, completions, and contextual
+                    help. Combining these assistants with a Cloud Development
+                    Environment creates a powerful and secure setup. CDEs offer
+                    isolated, on-demand workspaces, allowing your AI assistant
+                    to experiment freely without risking your local machine. Any
+                    issues are contained within the ephemeral workspace, which
+                    can be easily discarded and restarted.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    As we&#8217;ve explored, Cloud Development Environments are
+                    the ideal playground for this new era. They provide safe,
+                    isolated, and reproducible workspaces where you can unleash
+                    powerful AI assistants like
+                    <a
+                      href="https://open-vsx.org/extension/RooVeterinaryInc/roo-cline"
+                      >Roo Code</a
+                    >
+                    without fear of breaking your local setup. The synergy
+                    between a CDE and a cutting-edge AI assistant enables a flow
+                    state of rapid prototyping and iteration that was previously
+                    unimaginable.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    The journey into vibe coding is just beginning. We encourage
+                    you to follow our guide, embrace the flow, and discover how
+                    these tools can transform your own development process. The
+                    future of coding isn&#8217;t about replacing developers;
+                    it&#8217;s about empowering them with tools that amplify
+                    their creativity and productivity.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>Happy Vibe Coding!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2025/07/23/@ilya.buziuk-vibe-coding.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

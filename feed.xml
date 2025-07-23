@@ -1,4 +1,231 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-07-15T10:21:03+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running at Scale</title><link href="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html" rel="alternate" type="text/html" title="Running at Scale" /><published>2025-04-29T00:00:00+00:00</published><updated>2025-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk/running-at-scale</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-07-23T11:01:34+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Vibe Coding with Eclipse Che</title><link href="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html" rel="alternate" type="text/html" title="Vibe Coding with Eclipse Che" /><published>2025-07-23T00:00:00+00:00</published><updated>2025-07-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk/vibe-coding</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Imagine a world where coding isn&#8217;t about meticulous syntax or endless debugging, but about conversation and pure flow. Welcome to "vibe coding" – a revolutionary approach to software development where Large Language Models (LLMs) become your ultimate co-pilot, transforming complex tasks into effortless interactions.</p>
+</div>
+<div class="paragraph">
+<p>This paradigm shift gained significant traction in early February 2025, sparked by Andrej Karpathy&#8217;s insightful <a href="https://x.com/karpathy/status/1886192184808149383">post</a> on X, who actually coined the term:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+There&#8217;s a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It&#8217;s possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper so I barely even touch the keyboard. I ask for the dumbest things like "decrease the padding on the sidebar by half" because I&#8217;m too lazy to find it. I "Accept All" always, I don&#8217;t read the diffs anymore. When I get error messages I just copy paste them in with no comment, usually that fixes it. The code grows beyond my usual comprehension, I&#8217;d have to really read through it for a while. Sometimes the LLMs can&#8217;t fix a bug so I just work around it or ask for random changes until it goes away. It&#8217;s not too bad for throwaway weekend projects, but still quite amusing. I&#8217;m building a project or webapp, but it&#8217;s not really coding - I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>This "AI-First Coding" is rapidly being embraced by <a href="https://www.youtube.com/watch?v=w-Dk7sTba2I">Big Tech</a> and is quickly becoming the new norm:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png" alt="Big Tech embraces Vibe Coding">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: Big Tech embraces Vibe Coding (the screenshot was taken from the <a href="https://www.youtube.com/@CNBCtelevision">CNBC Television YouTube Channel</a>)</p>
+</div>
+<div class="paragraph">
+<p>In this article, we will delve into the innovative solutions and tools that are transforming vibe coding from a concept to a powerful new reality for developers everywhere. We will also explore why Cloud Development Environments (CDEs) are the ideal playground for the "AI-First Coding" unlike the local IDEs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_open-source-tools-for-the-vibe-coder">Open-Source Tools for the Vibe Coder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To truly embrace Vibe Coding, you need the right tools. While many closed-source assistants exist—such as <a href="https://cursor.sh/">Cursor</a>, <a href="https://www.windsurf.ai/">Windsurf</a>, and <a href="https://kiro.dev/">Kiro</a> (all effectively forks of the <a href="https://github.com/microsoft/vscode">Visual Studio Code - Open Source ("Code - OSS")</a>), the open-source community offers powerful alternatives that provide greater control and transparency.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+A significant drawback of local-first AI tools is their potential to disrupt your local development environment if the AI assistant misbehaves. Cloud Development Environments (CDEs), however, offer a crucial advantage for AI assistants: they provide isolated, repeatable, and on-demand workspaces. This means developers don’t have to worry about misbehaving AI tools, MCP agents, or other integrations breaking their local setup, as any issues remain contained within a pod/namespace itself (assuming proper RBAC setup for the developer persona on the Kubernetes cluster).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s explore a few awesome open-source extensions available on <a href="https://open-vsx.org/">Open VSX</a> that make vibe coding a reality today.</p>
+</div>
+<div class="sect2">
+<h3 id="_continue">Continue</h3>
+<div class="paragraph">
+<p><a href="https://continue.dev/">Continue</a> is an open-source autopilot for software development, available under the Apache 2.0 license. Continue enables developers to create, share, and use custom AI code assistants with open-source VS Code and JetBrains extensions, as well as a hub of models, rules, prompts, documentation, and other building blocks. The <a href="https://open-vsx.org/extension/Continue/continue">extension</a> allows you to connect to any LLM, local or hosted, to receive coding assistance directly within the IDE.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Learn more about integrating a private AI coding assistant into your Cloud Development Environments using Ollama and Continue in the dedicated <a href="https://developers.redhat.com/learn/openshift-ai/integrate-private-ai-coding-assistant-your-cde-using-ollama-continue-openshift-dev-spaces">article</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cline">Cline</h3>
+<div class="paragraph">
+<p><a href="https://cline.bot/">Cline</a> is an open-source extension for Visual Studio Code, available under the Apache 2.0 license. Cline (pronounced /klaɪn/, like “Klein”), an AI assistant that can use your <strong>CLI</strong> a<strong>N</strong>d <strong>E</strong>ditor. <a href="https://open-vsx.org/extension/saoudrizwan/claude-dev">Cline extension</a> is an autonomous coding agent right in the IDE, capable of creating/editing files, executing commands, using the browser, and more with your permission every step of the way.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_roo-code">Roo Code</h3>
+<div class="paragraph">
+<p><a href="https://open-vsx.org/extension/RooVeterinaryInc/roo-cline">Roo Code</a> is yet another open-source extension for Visual Studio Code, available under the Apache 2.0 license. As a <a href="https://github.com/RooCodeInc/Roo-Code">fork of Cline</a>, Roo Code builds upon its foundation to provide an AI coding assistant that integrates directly into the IDE. It excels at understanding your intentions, offering intelligent code completions, refactoring suggestions, and explaining complex code blocks. Designed to thrive in CDEs, Roo Code provides a secure, reproducible environment to push the boundaries of AI-powered development. With Roo, you can request broad changes, refactor entire functions with a single prompt, and let the AI handle repetitive tasks, freeing you to focus on the creative aspects of coding. Roo Code is an AI-powered autonomous coding agent that lives in your editor. It can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Communicate in natural language</p>
+</li>
+<li>
+<p>Read and write files directly in your workspace</p>
+</li>
+<li>
+<p>Run terminal commands</p>
+</li>
+<li>
+<p>Automate browser actions</p>
+</li>
+<li>
+<p>Integrate with any OpenAI-compatible or custom API/model</p>
+</li>
+<li>
+<p>Adapt its “personality” and capabilities through Custom Modes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Whether you’re seeking a flexible coding partner, a system architect, or specialized roles like a QA engineer or product manager, <a href="https://roocode.com/">Roo Code</a> can help you build software more efficiently.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_experience-vibe-coding-now">Experience Vibe Coding Now!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ready to experience the future of coding? All you need is a browser!</p>
+</div>
+<div class="paragraph">
+<p>You can start Vibe Coding in minutes using <a href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/">Eclipse Che hosted by Red Hat</a> on the <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Register for a <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox for Red Hat OpenShift account</a>.</p>
+</li>
+<li>
+<p>Go to <a href="https://workspaces.openshift.com/">workspaces.openshift.com</a></p>
+</li>
+<li>
+<p>Start an <code>Empty Workspace</code> from the <strong>Getting Started Samples</strong> or import your pet project from Git:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/vibe-coding/dashboard.png" alt="User Dashboard">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 2: User Dashboard</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the <code>Roo Code</code> extension from the marketplace:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/vibe-coding/marketplace.png" alt="Open VSX Marketplace">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3: Open VSX Marketplace</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can add the <code>Roo Code</code> extension to the <a href="https://github.com/eclipse-che/blog/blob/main/.vscode/extensions.json">.vscode/extensions.json</a> file in the Git repository, and it will be installed automatically after workspace startup:
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Choose LLM and Configure the API Key in the Roo Code "Settings".</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/vibe-coding/roo-settings.png" alt="Roo Code Settings">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 4: Roo Code Settings</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+For some Gemini models e.g. <code>gemini-2.5-flash</code> you can generate a free API Key on the <a href="https://aistudio.google.com/">Google AI Studio</a>. You only need to set up the API key once in the extension; it will be persisted in your browser settings for future workspaces.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>And&#8230;&#8203; start vibe coding - put the wildest ideas in the chat window, and Roo Code will do it&#8217;s best to make it come true!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/vibe-coding/roo.png" alt="Roo Code">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 5: Roo Code Extension</p>
+</div>
+<div class="paragraph">
+<p>This iterative, conversational approach allows you to rapidly prototype and build, focusing on the desired outcome rather than the intricate details of implementation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vibe coding represents a paradigm shift in software development. It’s about moving away from meticulous, line-by-line implementation and embracing a more intuitive, conversational, and results-driven workflow. This AI-first approach, powered by increasingly sophisticated LLMs, lets developers focus on the "what" rather than the "how," accelerating innovation and making development more accessible.</p>
+</div>
+<div class="paragraph">
+<p>AI coding assistants are central to this new workflow, providing code suggestions, completions, and contextual help. Combining these assistants with a Cloud Development Environment creates a powerful and secure setup. CDEs offer isolated, on-demand workspaces, allowing your AI assistant to experiment freely without risking your local machine. Any issues are contained within the ephemeral workspace, which can be easily discarded and restarted.</p>
+</div>
+<div class="paragraph">
+<p>As we&#8217;ve explored, Cloud Development Environments are the ideal playground for this new era. They provide safe, isolated, and reproducible workspaces where you can unleash powerful AI assistants like <a href="https://open-vsx.org/extension/RooVeterinaryInc/roo-cline">Roo Code</a> without fear of breaking your local setup. The synergy between a CDE and a cutting-edge AI assistant enables a flow state of rapid prototyping and iteration that was previously unimaginable.</p>
+</div>
+<div class="paragraph">
+<p>The journey into vibe coding is just beginning. We encourage you to follow our guide, embrace the flow, and discover how these tools can transform your own development process. The future of coding isn&#8217;t about replacing developers; it&#8217;s about empowering them with tools that amplify their creativity and productivity.</p>
+</div>
+<div class="paragraph">
+<p>Happy Vibe Coding!</p>
+</div>
+</div>
+</div>]]></content><author><name>Ilya Buziuk</name></author><summary type="html"><![CDATA[Vibe Coding with Eclipse Che]]></summary></entry><entry><title type="html">Running at Scale</title><link href="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html" rel="alternate" type="text/html" title="Running at Scale" /><published>2025-04-29T00:00:00+00:00</published><updated>2025-04-29T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk/running-at-scale</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/04/29/@ilya.buziuk-running-at-scale.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2044,1008 +2271,4 @@ The task <code>Start remote GDB Server</code> should be run before each new debu
 <p>Thank you for reading.</p>
 </div>
 </div>
-</div>]]></content><author><name>David Kwon</name></author><summary type="html"><![CDATA[Enable faster builds and storage optimization with the fuse-overlayfs storage driver in Eclipse Che.]]></summary></entry><entry><title type="html">Customizing Eclipse Che Cloud Development Environments</title><link href="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html" rel="alternate" type="text/html" title="Customizing Eclipse Che Cloud Development Environments" /><published>2024-02-05T00:00:00+00:00</published><updated>2024-02-05T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/02/05/@mario.loriedo/cde-customization</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/02/05/@mario.loriedo-cde-customization.html"><![CDATA[<div class="paragraph">
-<p>Eclipse Che provides Cloud Development Environments (CDEs) with a click. The default container of those CDEs, what we call the <a href="https://github.com/devfile/developer-images/">universal developer image</a>, has a lot of pre-installed development tools but may not have the right version or the right tool for you. If that&#8217;s the case, no worries: one of Eclipse Che CDEs' main assets is configurability!</p>
-</div>
-<div class="paragraph">
-<p>In this blog post we will review Eclipse Che CDEs' customization in 4 parts:</p>
-</div>
-<div class="paragraph">
-<p><a href="#part1">PART 1: Eclipse Che default CDE</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part2">PART2: Customize the CDE container image</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part3">PART3: Change CDE properties with a Devfile</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part4">PART4: Secrets and other CDE configurations that cannot be specified in Devfile</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-To help illustrate this blog post we will use a <a href="https://github.com/l0rd/rails-sample">Ruby on Rails project</a>. Ruby is a good example because the default development container doesn&#8217;t include Ruby development tools at all. For other languages such as Java, Go, NodeJS, Python and .NET, the Eclipse Che default development image includes a few tools, and all the customizations in this blog post may not be necessary.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect1">
-<h2 id="part1">PART 1: Eclipse Che default CDE</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When no Devfile is found in a git repository and the developer doesn&#8217;t provide a URL, Eclipse Che uses a default development environment.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/ruby-sample-main-branch.gif" alt="ruby sample main branch">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br>
-The <a href="https://github.com/l0rd/rails-sample">rails-sample</a> git repository has no <code>devfile.yaml</code>, and Che informs us about that:</p>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>Devfile could not be found in <a href="https://github.com/l0rd/rails-sample" class="bare">https://github.com/l0rd/rails-sample</a>. Applying the default configuration</p>
-</div>
-</blockquote>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Click <a href="https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample">here</a> to open <a href="https://github.com/l0rd/rails-sample" class="bare">https://github.com/l0rd/rails-sample</a> in the Red Hat Developer Sandbox to try it out.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_default-cde-pod-details">Default CDE Pod details</h3>
-<div class="paragraph">
-<p>Let&#8217;s have a look at the Kubernetes objects that get created when the default Eclipse Che CDE is started. From the Visual Studio Code Terminal we can list Kubernetes Pods:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>$ kubectl get pod
-NAME                                         READY   STATUS    RESTARTS   AGE
-workspacef14b414e91574d61-675c894dbb-ch727   2/2     Running   0          2m</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This is the CDE Pod. Then we can look at the images of the containers of the Pod:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>$ kubectl get pods -o jsonpath='{range ..containers[*]}{.image}{"\n"}{end}'
-quay.io/devfile/universal-developer-image:ubi8-latest
-quay.io/eclipse/che--traefik:v2.9.10-8d81a9df1435f9f3d...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The first container image is <code>registry.redhat.io/devspaces/udi-rhel8</code> or <code>UDI</code> (Universal Developer Image) and has a default set of development tools. The second is <code>traefik</code>, a <a href="https://github.com/traefik/traefik/">reverse proxy</a> that Eclipse Che uses to authenticate CDE users.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-You may see a different output. That&#8217;s because Eclipse Che can be configured to use a different default image. For example, on Red Hat Developer Sandbox, the default image is <code>registry.redhat.io/devspaces/udi-rhel8</code>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_universal-developer-image">Universal Developer Image</h3>
-<div class="paragraph">
-<p>The default container image, <code>quay.io/devfile/universal-developer-image</code>, includes quite a few development tools: essential CLI tools, popular programming languages and cloud development tools. It&#8217;s called <em>Universal Developer Image</em> and the following diagram summarizes its content.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/udi.png" alt="udi">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br>
-The Universal Developer Image <a href="https://github.com/devfile/developer-images/blob/main/universal/ubi8/Dockerfile">Dockerfile</a> has the details of all the tools, runtimes, environment variables etc&#8230;&#8203;that are included (<a href="https://github.com/redhat-developer/devspaces-images/blob/devspaces-3-rhel-8/devspaces-udi/Dockerfile">here is the OpenShift Dev Spaces version</a>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_when-the-default-is-not-enough">When the default is not enough</h3>
-<div class="paragraph">
-<p>The configuration of the <code>rails-sample</code> Cloud Development Environment is good enough for reading the source code and doing some basic editing, but some essential features of the IDE are missing:</p>
-</div>
-<div class="paragraph">
-<p><strong>Starting the rails application fails:</strong> Rails requires Ruby which is not installed in the default container.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/ruby-sample-main-branch-rails-server.png" alt="ruby sample main branch rails server">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p><strong>The <a href="https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp">Ruby LSP extension</a> activation fails:</strong> the extension from Shopify fails because Ruby is not installed.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/ruby-sample-main-branch-ruby-lsp.png" alt="ruby sample main branch ruby lsp">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>In PART2 we are going to address those problems by using a container image with the required development tools.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part2">PART2: Customize the CDE container image</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In PART 1 we have seen that Eclipse Che CDEs run in a container of a Kubernetes Pod. In this section we are going to see how to replace the default Eclipe Che CDE image with a custom one.</p>
-</div>
-<div class="sect2">
-<h3 id="_the-dockerfile">The Dockerfile</h3>
-<div class="paragraph">
-<p>We want to build an image with the pre-requisite to run the <a href="https://github.com/l0rd/rails-sample">ruby on rails example</a> seen in PART 1. The following Dockerfile provides the specification of such image.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="docker"><span style="color: #66d9ef;font-weight: bold">FROM</span><span style="color: #e6db74"> quay.io/devfile/universal-developer-image:latest</span>
-
-<span style="color: #75715e;font-style: italic"># Switching to root user (setting UID to 0) because next</span>
-<span style="color: #75715e;font-style: italic"># commands require root privileges. Universal Developer</span>
-<span style="color: #75715e;font-style: italic"># Image default user has UID set to 10001.</span>
-<span style="color: #66d9ef;font-weight: bold">USER</span><span style="color: #e6db74"> 0</span>
-
-<span style="color: #75715e;font-style: italic"># Install a recent version of ruby</span>
-<span style="color: #66d9ef;font-weight: bold">ENV</span><span style="color: #e6db74"> RUBY_VERSION 3.1.2</span>
-<span style="color: #66d9ef;font-weight: bold">RUN </span>dnf <span style="color: #f92672">-y</span> update <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    dnf <span style="color: #f92672">-y</span> <span style="color: #f8f8f2">install </span>rbenv ruby-build sqlite <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    dnf <span style="color: #f92672">-y</span> clean all <span style="color: #f92672">--enablerepo</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'*'</span> <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    rbenv <span style="color: #f8f8f2">install</span> <span style="color: #f8f8f2">$RUBY_VERSION</span> <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    rbenv global <span style="color: #f8f8f2">$RUBY_VERSION</span> <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">'eval "$(rbenv init - bash)"'</span> <span style="color: #f92672;font-weight: bold">&gt;&gt;</span> <span style="color: #f8f8f2">$HOME</span>/.bashrc <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\
-</span>    <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">'eval "$(rbenv init - sh)"'</span> <span style="color: #f92672;font-weight: bold">&gt;</span> /etc/profile.d/rbenv.sh
-
-<span style="color: #66d9ef;font-weight: bold">ENV</span><span style="color: #e6db74"> PATH="${HOME}/.rbenv/shims:${PATH}" ENV="/etc/profile"</span>
-
-<span style="color: #75715e;font-style: italic"># Install rails</span>
-<span style="color: #66d9ef;font-weight: bold">RUN </span>gem <span style="color: #f8f8f2">install </span>rails
-
-<span style="color: #75715e;font-style: italic"># Switch back to default user</span>
-<span style="color: #66d9ef;font-weight: bold">USER</span><span style="color: #e6db74"> 10001</span>
-
-<span style="color: #75715e;font-style: italic"># Set bundle config</span>
-<span style="color: #66d9ef;font-weight: bold">RUN </span>bundle config <span style="color: #f92672">--global</span> path <span style="color: #f8f8f2">$HOME</span>/.bundle</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The base image in the Dockerfile above is Eclipse Che Universal Developer Image (<code>quay.io/devfile/universal-developer-image:latest</code>). The remaining instructions in the Dockerfile install <code>ruby</code> and <code>rails</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-It&#8217;s not necessary to use the Eclipse Che default image as the base image. I am maintaining <a href="https://github.com/devfile/developer-images/">a repository with a list of Dockerfiles for Che CDEs</a> using popular base images.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_build-and-publish-the-custom-image">Build and publish the custom image</h3>
-<div class="paragraph">
-<p>The Dockerfile can be built locally (on your laptop) and pushed to a remote registry such as Docker Hub or Quay.io. That requires <code>docker</code> or <code>podman</code> and a good Internet connection (the base image, UDI, has a size of a few Gigabytes).</p>
-</div>
-<div class="paragraph">
-<p>Another option is to build and push the <code>Dockerfile</code> without leaving the <code>ruby-sample</code> CDE started in STEP1. <code>podman</code> is included in the universal developer image and can be used to build and push the Dockerfile above.</p>
-</div>
-<div class="paragraph">
-<p>My preferred alternative though, and the one used in <a href="https://github.com/l0rd/rails-sample/blob/dockerfile/.devfile.Dockerfile">branch <code>dockerfile</code> of the ruby-sample repository</a>, is to leverage GitHub actions to automatically build and push the image:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Add the Dockerfile to the git repository as <code>.devfile.Dockerfile</code></p>
-</li>
-<li>
-<p>Add a GitHub workflow to build and push the image automatically (<a href="https://github.com/l0rd/rails-sample/blob/dockerfile/.github/workflows/image-build.yaml">see an example here</a>)</p>
-</li>
-<li>
-<p>Push both files to a remote branch of the git repository</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Last step will trigger the GitHub action job that builds the image:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/github-action.png" alt="github action">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br>
-As a result the image will be built and published on <code>quay.io</code> automatically after every push to the repository. The job in the <a href="https://github.com/l0rd/rails-sample/blob/dockerfile/.github/workflows/image-build.yaml#L29">branch <code>dockerfile</code> of the ruby-sample repository</a> builds and publishes the image <code>quay.io/mloriedo/rails-blog-cde:latest</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-I have named the file as <code>.devfile.Dockerfile</code>: even though any name is ok, I like to use the <code>.devfile</code> prefix as these images are usually used in devfiles (as we will do STEP 3).
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_start-a-new-cde-using-the-custom-image">Start a new CDE using the custom image</h3>
-<div class="paragraph">
-<p>The simplest way to start a workspace using a new custom image is to use Eclispe Che URL parameter <a href="https://eclipse.dev/che/docs/stable/end-user-guide/url-parameter-for-container-image/"><code>?image=&lt;image-name&gt;</code></a>.</p>
-</div>
-<div class="paragraph">
-<p>For example, to start a CDE using the custom image <code>quay.io/mloriedo/rails-blog-cde</code> and cloning rails-sample, the following string can be used in the "Create Workspace" page:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>https://github.com/l0rd/rails-sample&amp;image=quay.io/mloriedo/rails-blog-cde</pre>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/image-url-parameter.png" alt="image url parameter">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>Clicking <a href="https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample&amp;image=quay.io/mloriedo/rails-blog-cde">on this URL</a> automatically starts the customized CDE on the Red Hat Developer Sandbox.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_verify-the-new-cde-pod-image">Verify the new CDE Pod image</h3>
-<div class="paragraph">
-<p>The CDE Pod now uses a <code>rails-blog-cde</code> container rather than the Eclipse Che default universal developer image. To verify it open a Terminal from Visual Studio Code and run <code>kubectl</code>:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>$ kubectl get pods -o jsonpath='{range ..containers[*]}{.image}{"\n"}{end}'
-quay.io/mloriedo/rails-blog-cde:latest
-quay.io/eclipse/che--traefik:v2.9.10-8d81a9df1435f9f3d...</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_run-ruby-on-rails-from-the-terminal">Run Ruby on Rails from the Terminal</h3>
-<div class="paragraph">
-<p>We can verify that the <code>rails-sample</code> application starts successfully from the Visual Studio Code Terminal:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>$ bundle install &amp;&amp; ./bin/rails server
-(...)
-=&gt; Booting Puma
-=&gt; Rails 7.0.8 application starting in development
-=&gt; Run `bin/rails server --help` for more startup options
-Puma starting in single mode...
-* Puma version: 5.6.8 (ruby 3.1.2-p20) ("Birdie's Version")
-*  Min threads: 5
-*  Max threads: 5
-*  Environment: development
-*          PID: 4119
-* Listening on http://127.0.0.1:3000
-* Listening on http://[::1]:3000
-Use Ctrl-C to stop</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_install-ruby-lsp-visual-studio-code-extension">Install <code>ruby-lsp</code> Visual Studio Code extension</h3>
-<div class="paragraph">
-<p>Finally, the Ruby LSP extension, which failed to activate in STEP1, is now fully working:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/cde-customization/ruby-lsp-extension-fully-functional.png" alt="ruby lsp extension fully functional">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br>
-Replacing the Eclipse Che default image with a custom one allowed us to include the right pre-requisites (ruby and rails) to the CDE. With that, we are able to run the application and the Visual Studio Code ruby extension.</p>
-</div>
-<div class="paragraph">
-<p>But there are still some issues with the CDE that we would like to fix (e.g. CPU and memory are not enough, running the application is not automated, the application dependencies are not pre-fetch at startup etc&#8230;&#8203;). We will cover those in the next session where we will use the Devfile to perform more advanced configurations for the CDE.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>We have seen how to replace the image of the CDE using a URL parameter. We will see in the next section that it can be done with a Devfile too. A third alternative is changing the image "on the fly" using <code>kubectl patch</code> against the DevWorkspace object:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash"><span style="color: #f8f8f2">DW_NAME</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">"rails-sample"</span> <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\</span>
-<span style="color: #f8f8f2">IMAGE</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">"quay.io/mloriedo/rails-blog-cde:latest"</span> <span style="color: #f92672;font-weight: bold">&amp;&amp;</span> <span style="color: #ae81ff">\</span>
-kubectl patch dw <span style="color: #e6db74">"</span><span style="color: #66d9ef;font-weight: bold">${</span><span style="color: #f8f8f2">DW_NAME</span><span style="color: #66d9ef;font-weight: bold">}</span><span style="color: #e6db74">"</span> <span style="color: #f92672">--type</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'merge'</span> <span style="color: #ae81ff">\</span>
-      <span style="color: #f92672">-p</span> <span style="color: #e6db74">'{"spec":
-            {"template":
-              {"components":
-                [
-                  { "name":"universal-developer-image",
-                    "container":{"image":"'</span><span style="color: #f8f8f2">$IMAGE</span><span style="color: #e6db74">'"} }
-                ]
-              }
-            }
-          }'</span></code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part3">PART3: Change CDE properties with a Devfile</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In Part 2 we have seen how to customize a CDE with a new container image. That helps to include some development tools that are not in Eclipse Che default environment.</p>
-</div>
-<div class="paragraph">
-<p>But what about properties such as the required memory or CPU, the containers to run in the CDE Pod (a CDE can have multiple containers!), the exposed endpoints, the commands triggered at startup, at shutdown? These properties can be customized using a Devfile and in this Part 3 we are reviewing how to do that.</p>
-</div>
-<div class="sect2">
-<h3 id="_define-a-devfile-for-an-eclipse-che-cde">Define a Devfile for an Eclipse Che CDE</h3>
-<div class="paragraph">
-<p>A Devfile is an <a href="https://www.cncf.io/projects/devfile/">open standard</a> to define Cloud Development Environments. It&#8217;s a YAML file used to configure Eclipse Che CDEs.</p>
-</div>
-<div class="paragraph">
-<p>Here is a simple Devfile that specifies the container image built in STEP 2:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.2.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">rails-sample</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devtools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/mloriedo/rails-blog-cde:latest</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It&#8217;s recommended to add the Devfile in the same git repository of the application being developed using the name <code>.devfile.yaml</code> (as in the <a href="https://github.com/l0rd/rails-sample/tree/devfile"><code>devfile</code> branch of the <code>rails-sample</code></a>). A Devfile in the git repository will evolve along with the application and will be applied automatically whenever a developer provides the git repository URL to start a CDE.</p>
-</div>
-<div class="paragraph">
-<p>When it&#8217;s not possible to add a <code>.devfile.yaml</code> in the git repository, there is still the option to publish it (in a gist, pastebin or another git repository) and <a href="https://eclipse.dev/che/docs/stable/end-user-guide/starting-a-workspace-from-a-raw-devfile-url/">start the CDE by providing the raw URL to it</a>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-To change the configuration of a running CDE, add a new <code>.devfile.yaml</code> (or edit the existing one), and restart the CDE using the command <code>Eclipse Che: Restart Workspace from Local Devfile</code> from the Visual Studio Code command palette. This command is also quickly accessible by clicking on the bottom-left corner of Visual Studio Code.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-<a href="https://open-vsx.org/extension/Devfile/vscode-devfile">The Devfile Visual Studio Code walkthrough extension</a> helps generating a Devfile using a GUI wizard.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step-by-step-guide-to-an-optimal-devfile">Step by step guide to an optimal Devfile</h3>
-<div class="paragraph">
-<p>The <a href="https://devfile.io/docs/2.2.2/what-is-a-devfile">documentation website</a> includes a detailed Devfiles syntax reference. In this section I will share a practical step by step guide to write an optimal Devfile for the <a href="https://github.com/l0rd/rails-sample/"><code>rails-sample</code></a>.</p>
-</div>
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Iterative devfile Creation</title>
-  <link rel="stylesheet" href="/assets/html/cde-customization/devfile-table.css">
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script> -->
-<fieldset>
-  <legend>Iterative Devfile Creation</legend>
-  <div class="flex-wrap">
-    <div class="steps">
-      <input type="radio" name="devfile" value="simplest" checked="checked" />
-      <label>1. The simplest `.devfile.yaml`: only the name of the CDE is specified</label><br />
-
-      <input type="radio" name="devfile" value="image" />
-      <label>2. Customize CDE main container image</label><br />
-
-      <input type="radio" name="devfile" value="commands" />
-      <label>3. Set some predefined commands (in VS Code: Terminal =&gt; Run Tasks =&gt; Devfile)</label><br />
-
-      <input type="radio" name="devfile" value="resources" />
-      <label>3. Adjust memory and CPU requirements</label><br />
-
-      <input type="radio" name="devfile" value="poststart" />
-      <label>4. Execute commands at CDE start</label><br />
-
-      <input type="radio" name="devfile" value="volume" />
-      <label>5. Persist folders after CDE restart</label><br />
-
-      <input type="radio" name="devfile" value="env" />
-      <label>6. Configure the application runtime through environment variables</label><br />
-
-      <input type="radio" name="devfile" value="endpoint" />
-      <label>7. Expose the application endpoints: port, path and protocol</label><br />
-
-    </div>
-    <div class="devfiles">
-      <div class="area" id="simplest" style="display: block">
-        <pre>
-    <code>
-<ins>schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-</ins>
-    </code>
-  </pre>
-      </div>
-
-      <div class="area" id="image">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-<ins>components:
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-</ins>
-    </code>
-  </pre>
-      </div>
-
-      <div class="area" id="commands">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-<ins>commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-</ins>
-    </code>
-    </pre>
-      </div>
-
-      <div class="area" id="resources">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-<ins>      memoryRequest: 2G
-      memoryLimit: 4G
-      cpuRequest: '1'
-      cpuLimit: '2'
-</ins>commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-    </code>
-    </pre>
-      </div>
-
-      <div class="area" id="poststart">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-      memoryRequest: 2G
-      memoryLimit: 4G
-      cpuRequest: '1'
-      cpuLimit: '2'
-commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-<ins>events:
-  postStart:
-    - bundle-install
-</ins>
-</code>
-    </pre>
-      </div>
-
-      <div class="area" id="volume">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-<ins>  - name: bundle-volume
-    volume:
-      size: 1G
-</ins>  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-      memoryRequest: 2G
-      memoryLimit: 4G
-      cpuRequest: '1'
-      cpuLimit: '2'
-<ins>      volumeMounts:
-        - name: bundle-volume
-          path: /home/user/.bundle/vendor
-</ins>commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-events:
-  postStart:
-    - bundle-install
-    </code>
-    </pre>
-      </div>
-
-      <div class="area" id="env">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-  - name: bundle-volume
-    volume:
-      size: 1G
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-      memoryRequest: 2G
-      memoryLimit: 4G
-      cpuRequest: '1'
-      cpuLimit: '2'
-      volumeMounts:
-        - name: bundle-volume
-          path: /home/user/.bundle/vendor
-commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-<ins>        export RAILS_DEVELOPMENT_HOSTS="${CHE_DASHBOARD_URL/https:\/\/devspaces/}" &&
-</ins>        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-events:
-  postStart:
-    - bundle-install
-    </code>
-    </pre>
-      </div>
-
-      <div class="area" id="endpoint">
-        <pre>
-    <code>
-schemaVersion: 2.2.0
-metadata:
-  name: rails-blog
-components:
-  - name: bundle-volume
-    volume:
-      size: 1G
-  - name: devtools
-    container:
-      image: quay.io/mloriedo/rails-blog-cde:latest
-      memoryRequest: 2G
-      memoryLimit: 4G
-      cpuRequest: '1'
-      cpuLimit: '2'
-      volumeMounts:
-        - name: bundle-volume
-          path: /home/user/.bundle/vendor
-<ins>      endpoints:
-        - name: blog
-          exposure: public
-          protocol: https
-          targetPort: 3000
-          path: /articles</ins>commands:
-  - id: bundle-install
-    exec:
-      component: devtools
-      commandLine: bundle install
-      workingDir: ${PROJECT_SOURCE}
-  - id: server-start
-    exec:
-      component: devtools
-      commandLine: |
-        export RAILS_DEVELOPMENT_HOSTS="${CHE_DASHBOARD_URL/https:\/\/devspaces/}" &&
-        ./bin/rails server --binding 0.0.0.0
-  - id: server-kill
-    exec:
-      component: devtools
-      commandLine: kill $(pidof "ruby")
-events:
-  postStart:
-    - bundle-install
-    </code>
-    </pre>
-      </div>
-    </div>
-  </div>
-
-</fieldset>
-<!-- partial -->
-  <script  src="/assets/html/cde-customization/devfile-table.js"></script>
-
-</body>
-</html>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>These steps can be tested iteratively from a running CDE using the "Eclipse Che: Restart Workspace from Local Devfile" command in Visual Studio Code. You get the best experience installing <a href="https://open-vsx.org/extension/redhat/vscode-yaml">Visual Studio Code YAML extension</a> that provides code completion when editing a Devfile.</p>
-</div>
-<div class="paragraph">
-<p>After the last step, the CDE will be fully functional. After the Devfile has been pushed to the git repository any new contributor will be able to run the application, do some changes, and debug them in a flash.</p>
-</div>
-<div class="paragraph">
-<p>For example you can use <a href="https://workspaces.openshift.com/#https://github.com/l0rd/rails-sample/tree/devfile">this link</a> to test the rails-sample using the Devfile in step 7. After the workspace has started, use task <code>server-start</code> in VS Code (Terminal &#8658; Run Tasks &#8658; Devfile) to start the Ruby on Rails application. And install the VS Code extension <code>ruby-lsp</code> to get full language support.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part4">PART4: Secrets and other CDE configurations that cannot be specified in Devfile</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There are some properties of your CDE that you don&#8217;t want to specify in a Devfile. Either because they contain sensitive information (like a password or an SSH private key), or because you want to customize your CDE without affecting the rest of the team. In any case the Devfile, which is a shared in the git repository, cannot be used. In this section we will go through a few techniques to add user specific configurations.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-Secrets, ConfigMaps and other Kubernetes objects mentioned in this PART are supposed to be created, by a developer, in the developer namespace. This is not admin tasks. Other developers using the same Eclipse Che instance won&#8217;t "see" those objects and their CDEs won&#8217;t be affected.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_add-environment-variables-using-kubernetes-configmaps-and-secrets">Add environment variables using Kubernetes <code>ConfigMaps</code> and <code>Secrets</code></h3>
-<div class="paragraph">
-<p>The Devfile allows to specify environment variables but in some situations you don&#8217;t want to add them there. Eclipse Che provides a mechanism to automatically add variables to CDEs containers without Devfiles but using Kubernetes ConfigMaps or Secrets.</p>
-</div>
-<div class="sect3">
-<h4 id="_using-configmaps">Using <code>ConfigMaps</code></h4>
-<div class="paragraph">
-<p>It&#8217;s possible to use a Devfile to add an environment variable such as <code>RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code> that holds the URL of your specific Kubernetes cluster. But that would make the Devfile less portable.</p>
-</div>
-<div class="paragraph">
-<p>A better approach is to create, in your namespace (the developer namespace where your CDE are created), a <code>ConfigMap</code> with labels <code>controller.devfile.io/mount-to-devworkspace: "true"</code> and <code>controller.devfile.io/watch-configmap: "true"</code> and with the annotation <code>controller.devfile.io/mount-as: env</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: workspaces-env-vars
-  labels:
-    controller.devfile.io/mount-to-devworkspace: "true"
-    controller.devfile.io/watch-configmap: "true"
-  annotations:
-    controller.devfile.io/mount-as: env
-data:
-  RAILS_DEVELOPMENT_HOSTS: ".apps.che-dev.x6e0.p1.openshiftapps.com"
-EOF</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The environment variables specified in the <code>data</code> field of the <code>ConfigMap</code> (in this case <code>RAILS_DEVELOPMENT_HOSTS=.apps.che-dev.x6e0.p1.openshiftapps.com</code>) will be added automatically to every CDE created in the same namespace.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_using-secrets">Using <code>Secrets</code></h4>
-<div class="paragraph">
-<p>An example of environment variables holding sensitive information are those that specify developers' tokens (for example <code>GITHUB_TOKEN</code> used by the GitHub CLI).</p>
-</div>
-<div class="paragraph">
-<p>In this case, we can create a <code>Secret</code> with labels <code>controller.devfile.io/mount-to-devworkspace: "true"</code> and <code>controller.devfile.io/watch-secret: "true"</code> and with the annotation <code>controller.devfile.io/mount-as: env</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: v1
-kind: Secret
-metadata:
-  name: workspaces-env-vars
-  labels:
-    controller.devfile.io/mount-to-devworkspace: "true"
-    controller.devfile.io/watch-secret: "true"
-  annotations:
-    controller.devfile.io/mount-as: env
-stringData:
-  GITHUB_TOKEN: "&lt;your token&gt;"
-EOF</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The environment variable specified in the <code>stringData</code> field of the <code>Secret</code> (in this case <code>GITHUB_TOKEN=&lt;your token&gt;</code>) will be added automatically to every CDE created in the same namespace.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-These ConfigMap and Secret should be created in the developer namespace. The variables specified in <code>data</code> will be added to the CDEs of the owner of the namespace only. Eclipse Che uses namespaces to isolate developers CDEs: it&#8217;s critical to allow read access to the objects in the namespaces only to the developer owning it.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_add-files-to-a-cde-using-kubernetes-configmaps-and-secrets">Add files to a CDE using Kubernetes <code>ConfigMaps</code> and <code>Secrets</code></h3>
-<div class="paragraph">
-<p>Regular files can be projected into CDEs using <code>ConfigMaps</code> and <code>Secrets</code> too. In this case the required annotation is <code>controller.devfile.io/mount-as: file</code>.</p>
-</div>
-<div class="paragraph">
-<p>When projecting files, there are two extra annotations read by Eclipse Che: <code>controller.devfile.io/mount-path: &lt;container-path&gt;</code> specifies the projected file folder, and <code>controller.devfile.io/mount-access-mode</code> specifies the projected file&#8217;s access mode.</p>
-</div>
-<div class="sect3">
-<h4 id="_using-configmaps-2">Using <code>ConfigMaps</code></h4>
-<div class="paragraph">
-<p>The following <code>ConfigMap</code> projects a Visual Studio Code <code>settings.json</code> file (remote VS Code data folder is <code>/checode/remote/data/machine</code>) that specifies a couple of Visual Studio Code Terminal settings:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vscode-settings
-  labels:
-    controller.devfile.io/mount-to-devworkspace: "true"
-    controller.devfile.io/watch-configmap: "true"
-  annotations:
-    controller.devfile.io/mount-as: file
-    controller.devfile.io/mount-path: /checode/remote/data/Machine/
-    controller.devfile.io/mount-access-mode: "511"
-data:
-  settings.json: |
-    {
-        "terminal.integrated.copyOnSelection": true,
-        "terminal.integrated.cursorBlinking": true
-    }
-EOF</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_using-secrets-2">Using <code>Secrets</code></h4>
-<div class="paragraph">
-<p>The following <code>Secret</code> projects file <code>credentials</code> in fodler <code>/home/user/.aws</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: v1
-kind: Secret
-metadata:
-  name: aws-credentials
-  labels:
-    controller.devfile.io/mount-to-devworkspace: "true"
-    controller.devfile.io/watch-secret: "true"
-  annotations:
-    controller.devfile.io/mount-as: file
-    controller.devfile.io/mount-path: /home/user/.aws/
-    controller.devfile.io/mount-access-mode: "511"
-stringData:
-  credentials: |
-     [default]
-     aws_access_key_id     = ABCDEFGHILMNOPQRSTUVZ
-     aws_secret_access_key = ABCDEFGHILMNOPQRSTUVZ123456789+abcdefg
-EOF</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_override-defaults-configurations-using-a-devworkspace-operator-configuration">Override defaults configurations using a DevWorkspace Operator Configuration</h3>
-<div class="paragraph">
-<p>In this last section we want to show a mechanism that a developer can use to override CDEs' default properties. In this case, by using a <a href="https://doc.crds.dev/github.com/devfile/devworkspace-operator">DevWorkspaceOperatorConfig Custom Resource</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>DevWorkspaceOperatorConfig</code> objects specify advanced CDE properties such as the <code>Pod</code> <code>schedulerName</code>, whether the <code>/home/user</code> folder will persist after a restart or not, and many more.</p>
-</div>
-<div class="paragraph">
-<p>Applying a particular <code>DevWorkspaceOperatorConfig</code> to a CDEs takes 2 steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the <code>DevWorkspaceOperatorConfig</code> custom resource in the Kubernetes cluster</p>
-</li>
-<li>
-<p>Edit the Devfile to apply that specific configuration</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For example the following <code>DevWorkspaceOperatorConfig</code> override CDEs Pod <code>schedulerName</code> configuration:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">kubectl apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
-apiVersion: controller.devfile.io/v1alpha1
-kind: DevWorkspaceOperatorConfig
-metadata:
-  name: custom-dwoc
-  namespace: &lt;namespace-name&gt;
-config:
-  workspace:
-    schedulerName: my-scheduler
-EOF</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To use this configuration a Devfile needs to reference it. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="diff"><span style="color: #f8f8f2;background-color: #49483e">schemaVersion: 2.2.0
-metadata:
-</span>  name: rails-blog
-<span style="color: #ffffff;background-color: #324932">+ attributes:
-+   controller.devfile.io/devworkspace-config:
-+     name: custom-dwoc
-+     namespace: &lt;namespace-name&gt;
-</span><span style="color: #f8f8f2;background-color: #49483e">components:
-</span><span style="color: #960050;background-color: #1e0010">...</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>With that attribute, the CDE started using this devfile will use the scheduler <code>my-scheduler</code> (if it exists) rather than the default Kubernetes scheduler.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If the DevWorkspaceOpenratorConfig referenced in a Devfile doesn&#8217;t exist in the Kubernetes cluster, then Che will silently ignore it.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Most of the time, the Eclipse Che default Cloud Development Environment (CDE) that we have covered in <a href="#part1">PART 1: Eclipse Che default CDE</a>, is good enough to start navigating and doing some simple editing of the source code.</p>
-</div>
-<div class="paragraph">
-<p>To build and run an application in a CDE, it may be necessary to create a custom container image to replace the default one. This is described in <a href="#part2">PART2: Customize the CDE container image</a>.</p>
-</div>
-<div class="paragraph">
-<p>But it&#8217;s in <a href="#part3">PART3: Change CDE properties with a Devfile</a> that we shared how to make to most out of Eclipse Che development environments. The Devfile allows us to specify development environments as code and share it with the rest of the team.</p>
-</div>
-<div class="paragraph">
-<p>Finally, in <a href="#part4">PART4: Secrets and other CDE configurations that cannot be specified in Devfile</a>, some more advanced techniques to configure development environments, beyond the devfile, are reviewed.</p>
-</div>
-</div>
-</div>]]></content><author><name>Mario Loriedo</name></author><summary type="html"><![CDATA[In this article we review the different ways to customize an Eclipse Che Cloud Development Environment]]></summary></entry></feed>
+</div>]]></content><author><name>David Kwon</name></author><summary type="html"><![CDATA[Enable faster builds and storage optimization with the fuse-overlayfs storage driver in Eclipse Che.]]></summary></entry></feed>
