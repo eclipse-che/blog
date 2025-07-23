@@ -5,7 +5,7 @@ author: Ilya Buziuk
 description: >-
   Vibe Coding with Eclipse Che
 categories: []
-keywords: ['Vibe Coding', 'Eclipse Che', 'Roo', 'Cline', 'Kubernetes']
+keywords: ['Vibe Coding', 'CDE', 'Eclipse Che', 'Roo', 'Cline', 'Kubernetes']
 slug: /@ilya.buziuk/vibe-coding
 ---
 == Introduction
