@@ -1,5 +1,5 @@
 ---
-title: "Vibe Coding"
+title: "Vibe Coding with Eclipse Che"
 layout: post
 author: Ilya Buziuk
 description: >-
