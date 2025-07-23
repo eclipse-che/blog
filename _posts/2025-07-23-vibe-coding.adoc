@@ -23,7 +23,7 @@ image::/assets/img/vibe-coding/big-tech-embraces-vibe-coding.png[Big Tech embrac
 
 Figure 1: Big Tech embraces Vibe Coding (the screenshot was taken from the link:https://www.youtube.com/@CNBCtelevision[CNBC Television YouTube Channel])
 
-In this article, we'll delve into the innovative solutions and tools that are transforming vibe coding from a concept to a powerful new reality for developers everywhere.
+In this article, we will delve into the innovative solutions and tools that are transforming vibe coding from a concept to a powerful new reality for developers everywhere. We will also explore why Cloud Development Environments (CDEs) are the ideal playground for the "AI-First Coding" unlike the local IDEs.
 
 == Open-Source Tools for the Vibe Coder
 
