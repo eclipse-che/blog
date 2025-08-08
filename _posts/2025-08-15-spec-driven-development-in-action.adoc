@@ -77,7 +77,9 @@ This command tells **RA.Aid** to use your `spec.md` file as its guide, leverage 
 
 Instantly, the agent will parse the specification and begin building the application right inside your Eclipse Che workspace, just as it did for my URL shortener. See the whole process unfold in the video below.
 
-_placeholder: Embedded video of the entire process, from running the command to the application being ready._
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L_a1ig1VrxY?si=DGC5q405MhLMnmrY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+++++
 
 As the agent works, you can follow its progress directly in the terminal. The output shows its step-by-step thinking process as it interprets the specification, plans its actions, and executes them.
 
