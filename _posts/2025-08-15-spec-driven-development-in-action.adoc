@@ -20,7 +20,7 @@ I'm talking about **specification-driven development**, a workflow where the dev
 This experiment relies on a powerful combination of modern tools working in synergy:
 
 - link:https://eclipse.dev/che/[**Eclipse Che**]: A platform for providing Kubernetes-based Cloud Development Environments.
-- link:https://www.ra-aid.ai/[**RA.Aid**] & link:https://aider.chat/#[**Aider**]: A pair of AI assistants. **RA.Aid** is the master planner, taking a high-level spec and breaking it down into an implementation plan. **Aider** is the hands-on coder, executing the plan and modifying the code.
+- link:https://github.com/ai-christianson/RA.Aid[**RA.Aid**] & link:https://github.com/Aider-AI/aider[**Aider**]: A pair of open-source AI assistants, both licensed under the Apache 2.0 license. **RA.Aid** is the master planner, taking a high-level spec and breaking it down into an implementation plan. **Aider** is the hands-on coder, executing the plan and modifying the code.
 
 Together, they enable a shift where you, the developer, transition from a coder to an architect. Your focus is on high-level decisions, defining robust data models, crafting clean API contracts, and designing intuitive user interactions. The specification file becomes the single source of truth that drives the entire development process.
 
