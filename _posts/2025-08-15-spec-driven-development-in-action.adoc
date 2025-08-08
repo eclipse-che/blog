@@ -30,7 +30,7 @@ You can follow these exact steps to see the process for yourself.
 
 === Step 1: The Blueprint Repo
 
-Everything you need to start is in this GitHub repository: link:https://github.com/akurinnoy/demo-spec-driven-development-with-ai[akurinnoy/demo-spec-driven-development-with-ai]
+Everything you need to start is in this GitHub repository: link:https://github.com/che-incubator/demo-spec-driven-development-with-ai[che-incubator/demo-spec-driven-development-with-ai]
 
 This repo contains the blueprint for our entire project. It includes two crucial files: the `spec.md`, which provides the detailed instructions for the AI, and the `devfile.yaml`, which defines the Eclipse Che workspace.
 
