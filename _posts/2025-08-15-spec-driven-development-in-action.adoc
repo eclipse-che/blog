@@ -1,5 +1,5 @@
 ---
-title: "Spec-Driven Development in Action: Building a URL Shortener with One Command"
+title: "Spec-Driven Development in Action"
 layout: post
 author: Oleksii Kurinnyi
 description: >-
