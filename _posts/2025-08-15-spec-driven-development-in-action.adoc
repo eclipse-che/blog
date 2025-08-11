@@ -89,7 +89,7 @@ It will generate the backend, the frontend, and any necessary scripts. You can s
 
 image::/assets/img/spec-driven-development-in-action/2-generated-project-file-structure.png[Generated project file structure for the URL shortener in the Eclipse Che IDE.]
 
-=== Welcome to the Future
+== Step 5: Working Application
 
 Writing a detailed specification requires deep thought, but that upfront investment pays off massively by automating the hours of coding and debugging. After the agent finishes, you have a fully working application.
 
