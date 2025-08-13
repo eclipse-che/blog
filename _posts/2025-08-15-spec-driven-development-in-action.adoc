@@ -103,4 +103,4 @@ This demonstration is more than just a new way to build a URL shortener; it's a 
 
 Spec-driven development is likely just one step on a path of rapid transformation. The world of AI in software engineering is changing fast, and the tools we use tomorrow will be even more powerful.
 
-The best way to understand this shift is to experience it firsthand. I encourage you to run the demo yourself and reflect on how this technology could change your own work. The conversation is no longer about if AI will write code, but about how we will guide it to build better software.
+The best way to understand this shift is to experience it firsthand. I encourage you to run the demo yourself and reflect on how this technology could change your own work. The conversation is no longer about whether AI will write code, but about how we will guide it to build better software.
