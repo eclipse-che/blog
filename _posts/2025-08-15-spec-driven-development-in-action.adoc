@@ -11,7 +11,7 @@ slug: /@oleksii.kurinnyi/spec-driven-development-in-action
 
 == Introduction
 
-What if the most important skill for a developer was no longer writing code, but writing specifications? The traditional development cycle is a grind of boilerplate, configuration, and repetitive tasks. We spend more time on the "how" than perfecting the "what." But a new paradigm, powered by AI, is shifting that dynamic, and you can try it yourself right now.
+What if the most important skill for a developer was no longer writing code, but writing specifications? The traditional development cycle is a grind of boilerplate, configuration, and repetitive tasks. We spend more time on the "how" than perfecting the "what". But a new paradigm, powered by AI, is shifting that dynamic, and you can try it yourself right now.
 
 I'm talking about **specification-driven development**, a workflow where the developer's primary role is to create a detailed, machine-readable blueprint of an application. To prove it, I built a full-stack URL shortener. The vast majority of my time was spent crafting a perfect specification file; then an AI did the rest with a single command.
 
