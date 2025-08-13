@@ -83,11 +83,17 @@ Instantly, the agent will parse the specification and begin building the applica
 
 As the agent works, you can follow its progress directly in the terminal. The output shows its step-by-step thinking process as it interprets the specification, plans its actions, and executes them.
 
+.RA.Aid command running in the terminal, showing the AI planning and executing steps for the URL shortener.
 image::/assets/img/spec-driven-development-in-action/1-ra-aid-command-running.png[RA.Aid command running in the terminal, showing the AI planning and executing steps for the URL shortener.]
+
+&nbsp;
 
 It will generate the backend, the frontend, and any necessary scripts. You can see the complete, well-structured project created by the AI in the file explorer.
 
+.Generated project file structure for the URL shortener in the Eclipse Che IDE.
 image::/assets/img/spec-driven-development-in-action/2-generated-project-file-structure.png[Generated project file structure for the URL shortener in the Eclipse Che IDE.]
+
+&nbsp;
 
 === Step 5: Working Application
 
@@ -95,7 +101,10 @@ Writing a detailed specification requires deep thought, but that upfront investm
 
 NOTE: While the demo environment's hostname makes the full URL long, the AI correctly built the core feature: generating a short, clean, and predictable path for any link you provide.
 
+.The final URL shortener application running in a browser tab within Eclipse Che.
 image::/assets/img/spec-driven-development-in-action/3-url-shortener-running.png[Final URL shortener application running in a browser tab within Eclipse Che.]
+
+&nbsp;
 
 == Conclusion
 
