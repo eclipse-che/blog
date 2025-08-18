@@ -102,7 +102,7 @@ Writing a detailed specification requires deep thought, but that upfront investm
 NOTE: While the demo environment's hostname makes the full URL long, the AI correctly built the core feature: generating a short, clean, and predictable path for any link you provide.
 
 .The final URL shortener application is running in a browser tab within Eclipse Che.
-image::/assets/img/spec-driven-development-in-action/3-url-shortener-running.png[Final URL shortener application running in a browser tab within Eclipse Che.]
+image::/assets/img/spec-driven-development-in-action/3-url-shortener-running.png[Final URL shortener application is running in a browser tab within Eclipse Che.]
 
 &nbsp;
 
