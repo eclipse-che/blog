@@ -1,4 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-07-23T11:01:34+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Vibe Coding with Eclipse Che</title><link href="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html" rel="alternate" type="text/html" title="Vibe Coding with Eclipse Che" /><published>2025-07-23T00:00:00+00:00</published><updated>2025-07-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk/vibe-coding</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-08-18T14:03:53+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Spec-Driven Development in Action</title><link href="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html" rel="alternate" type="text/html" title="Spec-Driven Development in Action" /><published>2025-08-18T00:00:00+00:00</published><updated>2025-08-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi/spec-driven-development-in-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What if the most important skill for a developer was no longer writing code, but writing specifications? The traditional development cycle is a grind of boilerplate, configuration, and repetitive tasks. We spend more time on the "how" than perfecting the "what". But a new paradigm, powered by AI, is shifting that dynamic, and you can try it yourself right now.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m talking about <strong>specification-driven development</strong>, a workflow where the developer&#8217;s primary role is to create a detailed, machine-readable blueprint of an application. To prove it, I built a full-stack URL shortener. The vast majority of my time was spent crafting a perfect specification file; then an AI did the rest with a single command.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the-tools-and-the-paradigm">The Tools and the Paradigm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This experiment relies on a powerful combination of modern tools working in synergy:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://eclipse.dev/che/"><strong>Eclipse Che</strong></a>: A platform for providing Kubernetes-based Cloud Development Environments.</p>
+</li>
+<li>
+<p><a href="https://github.com/ai-christianson/RA.Aid"><strong>RA.Aid</strong></a> &amp; <a href="https://github.com/Aider-AI/aider"><strong>Aider</strong></a>: A pair of open-source AI assistants, both licensed under the <code>Apache 2.0</code>. <strong>RA.Aid</strong> is the master planner, taking a high-level spec and breaking it down into an implementation plan. <strong>Aider</strong> is the hands-on coder, executing the plan and modifying the code.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Together, they enable a shift where you, the developer, transition from a coder to an architect. Your focus is on high-level decisions, defining robust data models, crafting clean API contracts, and designing intuitive user interactions. The specification file becomes the single source of truth that drives the entire development process.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how-to-replicate-this-from-repo-to-running-app">How to Replicate This: From Repo to Running App</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can follow these exact steps to see the process for yourself.</p>
+</div>
+<div class="sect2">
+<h3 id="_step-1-the-blueprint-repo">Step 1: The Blueprint Repo</h3>
+<div class="paragraph">
+<p>Everything you need to start is in this GitHub repository: <a href="https://github.com/che-incubator/demo-spec-driven-development-with-ai">che-incubator/demo-spec-driven-development-with-ai</a></p>
+</div>
+<div class="paragraph">
+<p>This repo contains the blueprint for our entire project. It includes two crucial files: the <code>spec.md</code>, which provides the detailed instructions for the AI, and the <code>devfile.yaml</code>, which defines the Eclipse Che workspace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-2-launch-the-workspace-with-a-devfile">Step 2: Launch the Workspace with a Devfile</h3>
+<div class="paragraph">
+<p>The <code>devfile.yaml</code> is the key to a one-click setup. It tells Eclipse Che to create a workspace using a pre-configured container image (<code>quay.io/che-incubator/cli-ai-tools:latest</code>) that already includes <strong>RA.Aid</strong> and <strong>Aider</strong>. This means your development environment comes ready with all the specialized AI tools installed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-3-secure-your-ais-access">Step 3: Secure Your AI&#8217;s Access</h3>
+<div class="paragraph">
+<p>To work, the AI assistants need access to a Large Language Model (LLM). <strong>RA.Aid</strong> and <strong>Aider</strong> are flexible and support many different providers, including Gemini, OpenAI, Anthropic, Groq, and more. For this demo, we&#8217;ll use the Gemini API.</p>
+</div>
+<div class="paragraph">
+<p>The recommended way to provide credentials is by creating a Kubernetes <code>Secret</code>. Eclipse Che will then automatically mount this secret as an environment variable inside your workspace. For the Gemini API, the required environment variable is <code>GEMINI_API_KEY</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can create the secret for Gemini with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="sh">oc apply <span style="color: #f92672">-f</span> - <span style="color: #f92672;font-weight: bold">&lt;&lt;</span><span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
+kind: Secret
+apiVersion: v1
+metadata:
+  name: gemini-api-key
+  labels:
+    controller.devfile.io/mount-to-devworkspace: 'true'
+    controller.devfile.io/watch-secret: 'true'
+  annotations:
+    controller.devfile.io/mount-as: env
+data:
+  GEMINI_API_KEY: [base64 encoded Gemini API key]
+type: Opaque
+EOF</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you prefer to use a different provider, simply consult the <strong>RA.Aid</strong> or <strong>Aider</strong> documentation for the correct environment variable name (e.g., <code>OPENAI_API_KEY</code>) and adapt the secret accordingly.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-4-unleash-the-ai">Step 4: Unleash the AI</h3>
+<div class="paragraph">
+<p>Once you have crafted the <code>spec.md</code> for the application of your dreams, all it takes is this one command in the terminal to set the AI to work:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="sh">ra-aid <span style="color: #f92672">--use-aider</span> <span style="color: #f92672">--cowboy-mode</span> <span style="color: #f92672">--show-cost</span> <span style="color: #f92672">--track-cost</span> <span style="color: #f92672">--msg-file</span> spec.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command tells <strong>RA.Aid</strong> to use your <code>spec.md</code> file as its guide, leverage <strong>Aider</strong> for code modifications, and run autonomously without needing interactive approval (<code>--cowboy-mode</code>).</p>
+</div>
+<div class="paragraph">
+<p>Instantly, the agent will parse the specification and begin building the application right inside your Eclipse Che workspace, just as it did for my URL shortener. See the whole process unfold in the video below.</p>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L_a1ig1VrxY?si=DGC5q405MhLMnmrY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="paragraph">
+<p>As the agent works, you can follow its progress directly in the terminal. The output shows its step-by-step thinking process as it interprets the specification, plans its actions, and executes them.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/spec-driven-development-in-action/1-ra-aid-command-running.png" alt="RA.Aid command running in the terminal" width="showing the AI planning and executing steps for the URL shortener.">
+</div>
+<div class="title">Figure 1. RA.Aid command running in the terminal, showing the AI planning and executing steps for the URL shortener.</div>
+</div>
+<div class="paragraph">
+<p>&nbsp;</p>
+</div>
+<div class="paragraph">
+<p>It will generate the backend, the frontend, and any necessary scripts. You can see the complete, well-structured project created by the AI in the file explorer.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/spec-driven-development-in-action/2-generated-project-file-structure.png" alt="Generated project file structure for the URL shortener in the Eclipse Che IDE.">
+</div>
+<div class="title">Figure 2. Generated project file structure for the URL shortener in the Eclipse Che IDE.</div>
+</div>
+<div class="paragraph">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-5-working-application">Step 5: Working Application</h3>
+<div class="paragraph">
+<p>Writing a detailed specification requires deep thought, but that upfront investment pays off massively by automating the hours of coding and debugging. After the agent finishes, you have a fully working application.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+While the demo environment&#8217;s hostname makes the full URL long, the AI correctly built the core feature: generating a short, clean, and predictable path for any link you provide.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/spec-driven-development-in-action/3-url-shortener-running.png" alt="Final URL shortener application is running in a browser tab within Eclipse Che.">
+</div>
+<div class="title">Figure 3. The final URL shortener application is running in a browser tab within Eclipse Che.</div>
+</div>
+<div class="paragraph">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This demonstration is more than just a new way to build a URL shortener; it&#8217;s a glimpse into the future of our profession. The rise of capable AI assistants marks a fundamental shift in the developer&#8217;s workflow, moving us away from the manual, line-by-line construction of applications and toward a new paradigm where we act as architects. Our primary role is evolving to be the designers of robust systems, the authors of clear specifications, and the strategic thinkers who guide AI tools to execute a vision.</p>
+</div>
+<div class="paragraph">
+<p>Spec-driven development is likely just one step on a path of rapid transformation. The world of AI in software engineering is changing fast, and the tools we use tomorrow will be even more powerful.</p>
+</div>
+<div class="paragraph">
+<p>The best way to understand this shift is to experience it firsthand. I encourage you to run the demo yourself and reflect on how this technology could change your own work. The conversation is no longer about whether AI will write code, but about how we will guide it to build better software.</p>
+</div>
+</div>
+</div>]]></content><author><name>Oleksii Kurinnyi</name></author><summary type="html"><![CDATA[Spec-Driven Development in Action: Building a URL Shortener with One Command]]></summary></entry><entry><title type="html">Vibe Coding with Eclipse Che</title><link href="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html" rel="alternate" type="text/html" title="Vibe Coding with Eclipse Che" /><published>2025-07-23T00:00:00+00:00</published><updated>2025-07-23T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk/vibe-coding</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/07/23/@ilya.buziuk-vibe-coding.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2140,135 +2310,4 @@ The task <code>Start remote GDB Server</code> should be run before each new debu
 <p>Thank you for reading. I hope you found this article helpful.</p>
 </div>
 </div>
-</div>]]></content><author><name>Oleksii Orel</name></author><summary type="html"><![CDATA[Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.]]></summary></entry><entry><title type="html">Drive a coupe with the overlay storage driver - a Podman build comparison</title><link href="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html" rel="alternate" type="text/html" title="Drive a coupe with the overlay storage driver - a Podman build comparison" /><published>2024-03-28T00:00:00+00:00</published><updated>2024-03-28T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/03/28/@david.kwon/fuse-storage-driver</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/03/28/@david.kwon-fuse-storage-driver.html"><![CDATA[<div class="paragraph">
-<p>With the fuse-overlayfs storage driver, you can enable faster builds and a more optimized storage usage for <code>podman build</code> and <code>buildah</code> within your Eclipse Che cloud development environment (CDE). Before diving into its advantages, let&#8217;s first discuss some prerequisite details about container image layers and storage drivers.</p>
-</div>
-<div class="paragraph">
-<p>Container images consist of <a href="https://docs.docker.com/build/guide/layers">layers</a> which are stored and used for building and running containers. A huge benefit of this layer anatomy is that, assuming that each image layer stores only the file differences compared to the previous layer (i.e. the delta), each layer is small which generally allows time and space savings when building and running containers. This is because layers allow efficient caching and sharing between containers.</p>
-</div>
-<div class="paragraph">
-<p>A <a href="https://docs.docker.com/storage/storagedriver/select-storage-driver">storage driver</a> for Docker and Podman is what manages these image layers upon image pulling, building, and running. By default, Eclipse Che uses the vfs storage driver for Podman in the <a href="https://github.com/devfile/developer-images">Universal Development Image</a>. While vfs is generally considered very stable, the lack of <a href="https://en.wikipedia.org/wiki/Copy-on-write">copy-on-write</a> (CoW) support poses a significant disadvantage compared to other storage drivers like fuse-overlayfs, overlay2, and btrfs.</p>
-</div>
-<div class="sect1">
-<h2 id="_what-is-the-disadvantage-of-vfs">What is the disadvantage of vfs?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As mentioned previously, having smaller layers allows time and space savings when building and running containers. The disadvantage with vfs&#8217;s lack of CoW is that whenever a new layer is created, a complete copy of the previous layer is created. This can create duplicate and redundant data in each layer, and can quickly fill up your storage space especially when working with larger images. Comparing that with image layers created with CoW-supported storage drivers like fuse-overlayfs, those image layers would typically not contain redundant data and would remain smaller since only the delta is stored in each image layer.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/fuse-storage-driver/layer-diagram.png" alt="layer diagram">
-</div>
-</div>
-<div class="paragraph">
-<p>Fig. 1. Example comparison of image layer sizes between vfs and overlay storage drivers. The total size of the image layers created with overlay is about half the size of the image layers created with vfs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how-can-we-use-fuse-overlayfs-in-an-eclipse-che-cloud-development-environment">How can we use fuse-overlayfs in an Eclipse Che cloud development environment?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To use fuse-overlayfs in a CDE, the CDE&#8217;s pod requires access to the <code>/dev/fuse</code> device from the host operating system. For Kubernetes, support for this can vary depending on the platform. However, for Openshift, version 4.15 allows access to the <code>/dev/fuse</code> device <a href="https://docs.openshift.com/container-platform/4.15/release_notes/ocp-4-15-release-notes.html#ocp-4-15-nodes-dev-fuse">without any cluster modifications</a>. Here&#8217;s the documentation on how to <a href="https://eclipse.dev/che/docs/stable/end-user-guide/accessing-fuse">enable the overlay storage driver for CDEs running on OpenShift 4.15 and older versions</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how-does-fuse-overlayfs-compare-to-vfs-in-an-eclipse-che-cde">How does fuse-overlayfs compare to vfs in an Eclipse Che CDE?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A series of tests were performed to measure the build time and storage usage differences between the fuse-overlayfs and vfs storage drivers in an Eclipse Che CDE. For this blog post, I will present the measurements for building a series of different GitHub projects. If you&#8217;re interested, the results for tests that were specifically designed to highlight the characteristics of each storage driver are available in this <a href="https://github.com/dkwon17/storage-driver-test/blob/main/results.md">GitHub repository</a>.</p>
-</div>
-<div class="paragraph">
-<p>All tests presented in Fig. 2. were run on an OpenShift Dedicated 4.15.3 cluster with a productized version of Eclipse Che 7.82.0.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Test name</th>
-<th class="tableblock halign-left valign-top">Project URL</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dashboard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-dashboard">che-dashboard</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dashboard-edit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-dashboard">che-dashboard</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">operator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-operator">che-operator</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">operator-edit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-operator">che-operator</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">server</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-server">che-server</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">server-edit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse-che/che-server">che-server</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">nginx-alpine</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/nginxinc/docker-nginx/tree/master/stable/alpine">docker-nginx</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus-api-example</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/che-incubator/quarkus-api-example">quarkus-api-example</a></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Fig. 2. Table of test names name project URLs.</p>
-</div>
-<div class="paragraph">
-<p>For each test apart from the &lt;projectname&gt;-edit tests, the <code>podman system reset</code> command was run before running each test in order to clear the graphroot directory. This removes all image layers, therefore these tests measure a clean-build scenario, just like when a user creates a CDE and runs <code>podman build</code> for the first time.</p>
-</div>
-<div class="paragraph">
-<p>For the &lt;projectname&gt;-edit tests, the image container was built beforehand. The tests measure a rebuild of the image after changing the source code without running <code>podman system reset</code> command. This scenario mimics the case where the developer is running a new build after making code changes in their CDE.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/fuse-storage-driver/image-build-time.png" alt="image build time">
-</div>
-</div>
-<div class="paragraph">
-<p>Fig. 3. Container image build time results</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/fuse-storage-driver/graphroot-size.png" alt="graphroot size">
-</div>
-</div>
-<div class="paragraph">
-<p>Fig. 4. Graphroot directory size results</p>
-</div>
-<div class="paragraph">
-<p>For all tests, the fuse-overlayfs storage driver had faster build times and significantly smaller storage consumption compared to vfs. The benefits of CoW is especially evident in Fig. 4. For example the operator-edit test showed that by using fuse-overlayfs, the graphroot directory was about 88% smaller, saving about 15GB of storage.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In conclusion, the fuse-overlayfs storage driver should be considered for your Eclipse Che CDEs, saving time and storage thanks to the CoW support. In general, there is no “best” storage driver because performance, stability, and usability of each storage driver is dependent on your specific workload and environment. However, with vfs not supporting CoW, fuse-overlayfs is a much more suitable choice for image layer management.</p>
-</div>
-<div class="paragraph">
-<p>For additional content regarding fuse-overlayfs in Eclipse Che, check out this <a href="https://upstreamwithoutapaddle.com/blog%20post/2023/08/10/Podman-In-Dev-Spaces-With-Fuse-Overlay.html">blog post and demo project</a>.</p>
-</div>
-<div class="paragraph">
-<p>Thank you for reading.</p>
-</div>
-</div>
-</div>]]></content><author><name>David Kwon</name></author><summary type="html"><![CDATA[Enable faster builds and storage optimization with the fuse-overlayfs storage driver in Eclipse Che.]]></summary></entry></feed>
+</div>]]></content><author><name>Oleksii Orel</name></author><summary type="html"><![CDATA[Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.]]></summary></entry></feed>
