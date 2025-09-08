@@ -166,7 +166,7 @@ oc patch checluster <name> -n <namespace> \
 == Conclusion
 
 Setting up Open VSX on-premises with {prod} may sound complex at first, but the Devfile-driven flow makes it straightforward:  
-you spin up a workspace, run a sequence of tasks, and end up with a fully functional, internal extension registry.
+You spin up a workspace, run a sequence of tasks, and end up with a fully functional, internal extension registry.
 
 ---
 
