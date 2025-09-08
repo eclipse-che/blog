@@ -141,7 +141,7 @@ Start a new Che workspace and open the Extensions view. Confirm that extensions 
 image::/assets/img/openvsx-on-premises/extensions-view.png[Extensions View]
 Figure 10: Extensions view
 
-Or browse directly at your registry’s route opening the internal route in the OpenVSX OpenShift project.
+Or browse directly to your registry’s route, opening the internal route in the OpenVSX OpenShift project.
 
 image::/assets/img/openvsx-on-premises/extensions-registry.png[Open VSX Extensions Registry]
 Figure 11: Custom Extensions registry
