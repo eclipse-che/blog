@@ -16,7 +16,7 @@ But in enterprise environments, relying on the public link:https://open-vsx.org[
 air-gapped environments, compliance rules, or simply the need for a curated list of approved tools.
 
 That’s where running **Open VSX On-Premises** comes in.
-In this post, we’ll explore how {prod} makes it easy to deploy and configure your own extension registry, using nothing more than an {prod} workspace.
+In this post, we’ll explore how {prod} makes it easy to deploy and configure your own extension registry, using nothing more than an {prod} Cloud Development Environment running on the OpenShift cluster.
 
 WARNING: ⚠️ This flow is supported only on **OpenShift clusters where {prod} is deployed**. It will not work on plain Kubernetes.
 
