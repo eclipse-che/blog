@@ -118,7 +118,7 @@ image::/assets/img/openvsx-on-premises/patched-che-cluster.png[CheCluster CR]
 Figure 7: CheCluster custom resource after patching
 
 ### Step 8: Publish Extensions via VSIX File
-At the beginning, the Open VSX registry does not provide any extension. Once the openvsx-server pod is running and in the Ready state, extensions can be published to the registry. The `2.8. Publish a Visual Studio Code Extension from a VSIX file` command publishes an extension to the local Open VSX registry directly from a `.vsix` file. It prompts you to provide the extension’s namespace name and the path to the `.vsix` file.
+At the beginning, the Open VSX registry does not provide any extensions. Once the openvsx-server pod is running and in the Ready state, extensions can be published to the registry. The `2.8. Publish a Visual Studio Code Extension from a VSIX file` command publishes an extension to the local Open VSX registry directly from a `.vsix` file. It prompts you to provide the extension’s namespace name and the path to the `.vsix` file.
 
 image::/assets/img/openvsx-on-premises/publish-extension.png[Publish Extension from VSIX]
 Figure 8: Publish GitLens extension from the local vsix file
