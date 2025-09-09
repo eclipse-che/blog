@@ -1,4 +1,332 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-08-19T12:30:45+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Spec-Driven Development in Action</title><link href="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html" rel="alternate" type="text/html" title="Spec-Driven Development in Action" /><published>2025-08-18T00:00:00+00:00</published><updated>2025-08-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi/spec-driven-development-in-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2025-09-09T08:21:35+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running Open VSX On-Premises</title><link href="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html" rel="alternate" type="text/html" title="Running Open VSX On-Premises" /><published>2025-09-09T00:00:00+00:00</published><updated>2025-09-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/09/09/@svor/running-open-vsx-on-premises</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html"><![CDATA[<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Developers love extensions — they customize editors, add new languages, and streamline workflows.
+But in enterprise environments, relying on the public <a href="https://open-vsx.org"><strong>Open VSX registry</strong></a> can introduce challenges:
+air-gapped environments, compliance rules, or simply the need for a curated list of approved tools.</p>
+</div>
+<div class="paragraph">
+<p>That’s where running <strong>Open VSX On-Premises</strong> comes in.
+In this post, we’ll explore how Eclipse&#160;Che makes it easy to deploy and configure your own extension registry, using nothing more than an Eclipse&#160;Che Cloud Development Environment running on the OpenShift cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step-by-step-preparing-eclipse-open-vsx-with-eclipseche">Step-by-Step: Preparing Eclipse Open VSX with Eclipse&#160;Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All the following steps can be executed inside an <strong>Eclipse&#160;Che workspace</strong> provisioned from <a href="https://github.com/eclipse/openvsx/blob/master/.devfile.yaml">the Open VSX repository&#8217;s devfile</a>.
+This Devfile automates most of the work — so instead of manually stitching pieces together, you simply run tasks in sequence.</p>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites">Prerequisites:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>You must be running Eclipse&#160;Che on an OpenShift cluster.</p>
+</li>
+<li>
+<p>You must be logged in as a cluster administrator.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-1-start-the-open-vsx-workspace">Step 1: Start the Open VSX Workspace</h3>
+<div class="paragraph">
+<p>Create a workspace using <a href="https://github.com/eclipse/openvsx/tree/master">the Open VSX repository</a>.
+This initializes an environment with all required components and tasks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/dashboard.png" alt="User Dashboard">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: User Dashboard</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-2-create-an-openshift-project-for-open-vsx">Step 2: Create an OpenShift project for Open VSX</h3>
+<div class="paragraph">
+<p>Run the Devfile task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.1. Create Namespace for OpenVSX</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This creates a new OpenShift project named openvsx.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/create-namespace.png" alt="Create Open VSX Project">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 2: Open VSX namespace creation</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-3-build-and-publish-the-open-vsx-server-image">Step 3: Build and Publish the Open VSX Server Image</h3>
+<div class="paragraph">
+<p>Run the task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.2. Build and Publish Open VSX Image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You’ll be prompted for the Open VSX version (defaults to v0.27.0 if left blank). The image is built and pushed to the OpenShift internal registry.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/server-image-build.png" alt="Build Open VSX Server Image">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3: Open VSX server image build</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-4-build-and-publish-the-open-vsx-cli-ovsx-image">Step 4: Build and Publish the Open VSX CLI (ovsx) Image</h3>
+<div class="paragraph">
+<p>Run the task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.3. Build and Publish OpenVSX CLI Image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This prepares the ovsx CLI image and uploads it to the cluster registry.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/cli-image-build.png" alt="Build Open VSX CLI Image">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 4: Open VSX CLI image build</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-5-deploy-open-vsx-components">Step 5: Deploy Open VSX Components</h3>
+<div class="paragraph">
+<p>Run the task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.4. Deploy OpenVSX</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command deploys the Open VSX components to an OpenShift project by processing a template file (<a href="https://github.com/eclipse/openvsx/blob/master/deploy/openshift/openvsx-deployment.yml">openvsx-deployment.yml</a>). It creates all required resources defined in the template, which includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployments (PostgreSQL, Elasticsearch, Open VSX server, Open VSX CLI).</p>
+</li>
+<li>
+<p>Services and Routes for accessing components.</p>
+</li>
+<li>
+<p>Secrets for GitHub OAuth credentials and Open VSX personal access token.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/openvsx-pods.png" alt="Open VSX Pods">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 5: Open VSX pods running in OpenShift console</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-6-add-a-user-with-personal-access-token-pat">Step 6: Add a User with Personal Access Token (PAT)</h3>
+<div class="paragraph">
+<p>Run the task :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.5. Add OpenVSX user with PAT to the DB</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command will ask for the Open VSX username and user PAT and insert them into the PostgreSQL database. You can just click enter to use the default values.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+❗ The user PAT must match the decoded value of OVSX_PAT_BASE64 specified in the deployment file. If OVSX_PAT_BASE64 has been updated, use the new token’s decoded value as the user PAT.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/openvsx-user-pat.png" alt="Adding User and PAT">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 6: Terminal output after adding a user with a PAT</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-7-configure-eclipseche-to-use-your-internal-registry">Step 7: Configure Eclipse&#160;Che to Use Your Internal Registry</h3>
+<div class="paragraph">
+<p>Run the task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.6. Configure Che to use the internal OpenVSX registry</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This patches the CheCluster CR, updating the <code>pluginRegistry.openVSXURL</code> to point to your internal Open VSX endpoint.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/patched-che-cluster.png" alt="CheCluster CR">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 7: CheCluster custom resource after patching</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-8-publish-extensions-via-vsix-file">Step 8: Publish Extensions via VSIX File</h3>
+<div class="paragraph">
+<p>At the beginning, the Open VSX registry does not provide any extensions. Once the openvsx-server pod is running and in the Ready state, extensions can be published to the registry. The <code>2.8. Publish a Visual Studio Code Extension from a VSIX file</code> command publishes an extension to the local Open VSX registry directly from a <code>.vsix</code> file. It prompts you to provide the extension’s namespace name and the path to the <code>.vsix</code> file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/publish-extension.png" alt="Publish Extension from VSIX">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 8: Publish GitLens extension from the local vsix file</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-9-batch-publish-extensions-from-a-list">Step 9: Batch Publish Extensions from a List</h3>
+<div class="paragraph">
+<p>For multiple extensions, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Terminal → Run Task… → devfile → 2.9. Publish list of Visual Studio Code Extensions</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This task reads URLs from <a href="https://github.com/eclipse/openvsx/blob/master/deploy/openshift/extensions.txt">deploy/openshift/extensions.txt</a> and publishes them automatically.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/publish-list-extensions.png" alt="Publish List of Extensions">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 9: Batch publishing from extensions.txt</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step-10-verify-integration">Step 10: Verify Integration</h3>
+<div class="paragraph">
+<p>Start a new Che workspace and open the Extensions view. Confirm that extensions are served from your internal registry.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/extensions-view.png" alt="Extensions View">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 10: Extensions view</p>
+</div>
+<div class="paragraph">
+<p>Or browse directly to your registry’s route, opening the internal route in the OpenVSX OpenShift project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openvsx-on-premises/extensions-registry.png" alt="Open VSX Extensions Registry">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 11: Custom Extensions registry</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_optional-restrict-open-vsx-registry-to-internal-only-access">Optional: Restrict Open VSX Registry to Internal-Only Access</h3>
+<div class="paragraph">
+<p>To prevent external exposure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Delete the public route with name <code>internal</code> from <code>openvsx</code> OpenShift project:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>oc delete route internal -n openvsx</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Patch Che to use the in-cluster service DNS:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>oc patch checluster &lt;name&gt; -n &lt;namespace&gt; \
+  --type=merge \
+  --patch '{"spec":{"components":{"pluginRegistry":{"openVSXURL":"http://openvsx-server.openvsx.svc:8080"}}}}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Setting up Open VSX on-premises with Eclipse&#160;Che may sound complex at first, but the Devfile-driven flow makes it straightforward:
+You spin up a workspace, run a sequence of tasks, and end up with a fully functional, internal extension registry.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further-reading">Further Reading</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>📘 <a href="https://eclipse.dev/che/docs/stable/administration-guide/running-the-open-vsx-on-premises">Running the Open VSX On-Premises — Eclipse Che documentation</a></p>
+</li>
+<li>
+<p>💻 <a href="https://github.com/eclipse/openvsx">Eclipse Open VSX source code on GitHub</a></p>
+</li>
+<li>
+<p>📚 <a href="https://github.com/eclipse/openvsx/wiki">Eclipse Open VSX Wiki</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></content><author><name>Valerii Svydenko</name></author><summary type="html"><![CDATA[Take Control of Your Extensions: Running Open VSX on-Premises with Eclipse Che]]></summary></entry><entry><title type="html">Spec-Driven Development in Action</title><link href="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html" rel="alternate" type="text/html" title="Spec-Driven Development in Action" /><published>2025-08-18T00:00:00+00:00</published><updated>2025-08-18T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi/spec-driven-development-in-action</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/08/18/@oleksii.kurinnyi-spec-driven-development-in-action.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2115,199 +2443,4 @@ Even though it is possible to define projects in a devfile explicitly, it is rec
 <p>Are you a developer looking to simplify setting up your development environment? The Devfile AI Assistant is here to help! It provides clear and accurate configurations, taking the complexity out of the process. Give the Devfile AI Assistant a try today!</p>
 </div>
 </div>
-</div>]]></content><author><name>Anatolii Bazko</name></author><summary type="html"><![CDATA[The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers.]]></summary></entry><entry><title type="html">Developing OpenWRT in QEMU with Eclipse Che</title><link href="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html" rel="alternate" type="text/html" title="Developing OpenWRT in QEMU with Eclipse Che" /><published>2024-05-22T00:00:00+00:00</published><updated>2024-05-22T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/05/22/@olexii.orel/openwrt-helloworld-package</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/05/22/@olexii.orel-openwrt-helloworld-package.html"><![CDATA[<div class="paragraph">
-<p><a href="https://openwrt.org/">OpenWrt</a> is a highly extensible GNU/Linux distribution for embedded devices (typically wireless routers). OpenWrt is built from the ground up to be a full-featured, easily modifiable operating system for embedded devices. You can have all the features you need with no bloat, powered by a modern Linux kernel.</p>
-</div>
-<div class="paragraph">
-<p>We can create and develop <a href="https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt">OpenWRT CMake packages</a> with Eclipse Che.</p>
-</div>
-<div class="paragraph">
-<p>In this blog post, we will review developing OpenWRT in <a href="https://www.qemu.org/">QEMU</a> with Eclipse Che in 4 parts:</p>
-</div>
-<div class="paragraph">
-<p><a href="#part1">PART 1: Quick start with prebuild resources</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part2">PART 2: (optional) Build all packages and the kernel</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part3">PART 3: Run OpenWRT in QEMU</a></p>
-</div>
-<div class="paragraph">
-<p><a href="#part4">PART 4: Debugging helloworld package</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-In this blog post, we will use <a href="https://github.com/che-incubator/openwrt-helloworld-package.git">OpenWrt HelloWorld package</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>First of all, we need to create a new workspace from the repo <a href="https://github.com/che-incubator/openwrt-helloworld-package.git">openwrt-helloworld-package</a> with Eclipse Che. The easiest way to do this is to use <a href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/">Eclipse Che hosted by Red Hat</a> and create a workspace by navigating to the following URL - <a href="https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package" class="bare">https://workspaces.openshift.com#https://github.com/che-incubator/openwrt-helloworld-package</a>.</p>
-</div>
-<div class="sect1">
-<h2 id="part1">PART 1: Quick start with prebuild resources</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Prebuilt resources could be applied for a quick start with Eclipse Che. We could do this by running the next tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>Add prebuilt resources</code></p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-After adding prebuilt resources, we should see the <code>openwrt-*.img.gz</code> file in the <code>output</code> directory. Prebuilt resources were added to the runtime image during the last successful GitHub image build action.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/add-prebuilt-resources.png" alt="Add prebuilt resources">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part2">PART 2: (optional) Build all packages and the kernel</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Instead of using prebuilt resources from STEP 1, we can install all package definitions, copy <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/configs/.x86-generic.config"><code>.config</code></a> file and build all packages and the kernel. We can do this by running the following tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>Install all package definitions</code></p>
-</li>
-<li>
-<p><code>Copy diff-config to OpenWRT</code></p>
-</li>
-<li>
-<p><code>Build all packages and the kernel</code></p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The build process may take a while, which is why using prebuilt resources from STEP 1 could be more desirable for getting started quickly. After the build is complete, we can see the <code>openwrt-*.img.gz</code> file in the <code>output</code> directory.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/build-all-packages-and-the-kernel.png" alt="Build all packages and the kernel" width="100%">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part3">PART 3: Run OpenWRT in QEMU</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>After adding prebuilt resources or building all packages and the kernel, OpenWRT could be run in the QEMU VM by running the following tasks from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>Running OpenWRT in a QEMU VM</code></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>After running the task, we see the OpenWRT booting in the QEMU machine emulator and virtualizer.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/running-openwrt-in-qemu-vm.png" alt="Running OpenWRT in a QEMU VM">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>We can access the OpenWRT console by running the task <code>Remote access to OpenWRT via SSH</code> and start the helloworld package by running:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="bash">helloworld</code></pre>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/run-helloworld.png" alt="Run helloworld package">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part4">PART 4: Debugging helloworld package</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>After starting OpenWRT in a QEMU VM, we need to run a remote gdbserver for debugging. We can do this by running the task <code>Start remote GDB Server</code> from the <a href="https://github.com/che-incubator/openwrt-helloworld-package/blob/main/devfile.yaml">devfile</a>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/start-remote-gdbserver.png" alt="Start remote gdbserver">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="paragraph">
-<p>Then, we can debug the helloworld package with IDE:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/developing-openwrt/remote-debugging.png" alt="Start remote gdbserver">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The task <code>Start remote GDB Server</code> should be run before each new debug session.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Thank you for reading. I hope you found this article helpful.</p>
-</div>
-</div>
-</div>]]></content><author><name>Oleksii Orel</name></author><summary type="html"><![CDATA[Developing OpenWRT helloworld package in QEMU machine emulator and virtualizer with Eclipse Che.]]></summary></entry></feed>
+</div>]]></content><author><name>Anatolii Bazko</name></author><summary type="html"><![CDATA[The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers.]]></summary></entry></feed>
