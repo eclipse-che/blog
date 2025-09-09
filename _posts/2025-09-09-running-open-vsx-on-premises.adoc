@@ -1,0 +1,176 @@
+---
+title: "Running Open VSX On-Premises"
+layout: post
+author: Valerii Svydenko
+description: >-
+  Take Control of Your Extensions: Running Open VSX on-Premises with Eclipse Che
+categories: []
+keywords: ['Eclipse Open VSX', 'Eclipse Che', 'Extension Marketplace']
+slug: /@svor/running-open-vsx-on-premises
+---
+
+== Introduction
+
+Developers love extensions — they customize editors, add new languages, and streamline workflows.
+But in enterprise environments, relying on the public link:https://open-vsx.org[**Open VSX registry**] can introduce challenges:
+air-gapped environments, compliance rules, or simply the need for a curated list of approved tools.
+
+That’s where running **Open VSX On-Premises** comes in.
+In this post, we’ll explore how {prod} makes it easy to deploy and configure your own extension registry, using nothing more than an {prod} Cloud Development Environment running on the OpenShift cluster.
+
+
+## Step-by-Step: Preparing Eclipse Open VSX with {prod}
+
+All the following steps can be executed inside an **{prod} workspace** provisioned from link:https://github.com/eclipse/openvsx/blob/master/.devfile.yaml[the Open VSX repository's devfile].
+This Devfile automates most of the work — so instead of manually stitching pieces together, you simply run tasks in sequence.
+
+### Prerequisites:
+- You must be running {prod} on an OpenShift cluster.
+- You must be logged in as a cluster administrator.
+
+### Step 1: Start the Open VSX Workspace
+
+Create a workspace using link:https://github.com/eclipse/openvsx/tree/master[the Open VSX repository].
+This initializes an environment with all required components and tasks.
+
+image::/assets/img/openvsx-on-premises/dashboard.png[User Dashboard]
+Figure 1: User Dashboard
+
+### Step 2: Create an OpenShift project for Open VSX
+
+Run the Devfile task:
+
+```
+Terminal → Run Task… → devfile → 2.1. Create Namespace for OpenVSX
+```
+
+This creates a new OpenShift project named openvsx.
+
+image::/assets/img/openvsx-on-premises/create-namespace.png[Create Open VSX Project]
+Figure 2: Open VSX namespace creation
+
+### Step 3: Build and Publish the Open VSX Server Image
+
+Run the task:
+
+```
+Terminal → Run Task… → devfile → 2.2. Build and Publish Open VSX Image
+```
+
+You’ll be prompted for the Open VSX version (defaults to v0.27.0 if left blank). The image is built and pushed to the OpenShift internal registry.
+
+image::/assets/img/openvsx-on-premises/server-image-build.png[Build Open VSX Server Image]
+Figure 3: Open VSX server image build
+
+### Step 4: Build and Publish the Open VSX CLI (ovsx) Image
+Run the task:
+
+```
+Terminal → Run Task… → devfile → 2.3. Build and Publish OpenVSX CLI Image
+```
+
+This prepares the ovsx CLI image and uploads it to the cluster registry.
+
+image::/assets/img/openvsx-on-premises/cli-image-build.png[Build Open VSX CLI Image]
+Figure 4: Open VSX CLI image build
+
+### Step 5: Deploy Open VSX Components
+Run the task:
+
+```
+Terminal → Run Task… → devfile → 2.4. Deploy OpenVSX
+```
+
+This command deploys the Open VSX components to an OpenShift project by processing a template file (link:https://github.com/eclipse/openvsx/blob/master/deploy/openshift/openvsx-deployment.yml[openvsx-deployment.yml]). It creates all required resources defined in the template, which includes:
+
+- Deployments (PostgreSQL, Elasticsearch, Open VSX server, Open VSX CLI).
+- Services and Routes for accessing components.
+- Secrets for GitHub OAuth credentials and Open VSX personal access token.
+
+image::/assets/img/openvsx-on-premises/openvsx-pods.png[Open VSX Pods]
+Figure 5: Open VSX pods running in OpenShift console
+
+### Step 6: Add a User with Personal Access Token (PAT)
+Run the task :
+
+```
+Terminal → Run Task… → devfile → 2.5. Add OpenVSX user with PAT to the DB
+```
+
+The command will ask for the Open VSX username and user PAT and insert them into the PostgreSQL database. You can just click enter to use the default values.
+
+IMPORTANT: ❗ The user PAT must match the decoded value of OVSX_PAT_BASE64 specified in the deployment file. If OVSX_PAT_BASE64 has been updated, use the new token’s decoded value as the user PAT.
+
+image::/assets/img/openvsx-on-premises/openvsx-user-pat.png[Adding User and PAT]
+Figure 6: Terminal output after adding a user with a PAT
+
+### Step 7: Configure {prod} to Use Your Internal Registry
+Run the task:
+
+```
+Terminal → Run Task… → devfile → 2.6. Configure Che to use the internal OpenVSX registry
+```
+
+This patches the CheCluster CR, updating the `pluginRegistry.openVSXURL` to point to your internal Open VSX endpoint.
+
+image::/assets/img/openvsx-on-premises/patched-che-cluster.png[CheCluster CR]
+Figure 7: CheCluster custom resource after patching
+
+### Step 8: Publish Extensions via VSIX File
+At the beginning, the Open VSX registry does not provide any extensions. Once the openvsx-server pod is running and in the Ready state, extensions can be published to the registry. The `2.8. Publish a Visual Studio Code Extension from a VSIX file` command publishes an extension to the local Open VSX registry directly from a `.vsix` file. It prompts you to provide the extension’s namespace name and the path to the `.vsix` file.
+
+image::/assets/img/openvsx-on-premises/publish-extension.png[Publish Extension from VSIX]
+Figure 8: Publish GitLens extension from the local vsix file
+
+### Step 9: Batch Publish Extensions from a List
+For multiple extensions, run:
+
+```
+Terminal → Run Task… → devfile → 2.9. Publish list of Visual Studio Code Extensions
+```
+
+This task reads URLs from link:https://github.com/eclipse/openvsx/blob/master/deploy/openshift/extensions.txt[deploy/openshift/extensions.txt] and publishes them automatically.
+
+image::/assets/img/openvsx-on-premises/publish-list-extensions.png[Publish List of Extensions]
+Figure 9: Batch publishing from extensions.txt
+
+### Step 10: Verify Integration
+Start a new Che workspace and open the Extensions view. Confirm that extensions are served from your internal registry.
+
+image::/assets/img/openvsx-on-premises/extensions-view.png[Extensions View]
+Figure 10: Extensions view
+
+Or browse directly to your registry’s route, opening the internal route in the OpenVSX OpenShift project.
+
+image::/assets/img/openvsx-on-premises/extensions-registry.png[Open VSX Extensions Registry]
+Figure 11: Custom Extensions registry
+
+### Optional: Restrict Open VSX Registry to Internal-Only Access
+To prevent external exposure:
+
+- Delete the public route with name `internal` from `openvsx` OpenShift project:
+
+```
+oc delete route internal -n openvsx
+```
+
+- Patch Che to use the in-cluster service DNS:
+
+```
+oc patch checluster <name> -n <namespace> \
+  --type=merge \
+  --patch '{"spec":{"components":{"pluginRegistry":{"openVSXURL":"http://openvsx-server.openvsx.svc:8080"}}}}'
+```
+
+== Conclusion
+
+Setting up Open VSX on-premises with {prod} may sound complex at first, but the Devfile-driven flow makes it straightforward:  
+You spin up a workspace, run a sequence of tasks, and end up with a fully functional, internal extension registry.
+
+---
+
+## Further Reading
+
+- 📘 link:https://eclipse.dev/che/docs/stable/administration-guide/running-the-open-vsx-on-premises[Running the Open VSX On-Premises — Eclipse Che documentation]  
+- 💻 link:https://github.com/eclipse/openvsx[Eclipse Open VSX source code on GitHub]  
+- 📚 link:https://github.com/eclipse/openvsx/wiki[Eclipse Open VSX Wiki]
