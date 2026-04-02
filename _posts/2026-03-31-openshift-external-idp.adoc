@@ -91,7 +91,42 @@ stringData:
 EOF
 ----
 
-=== 5. Prepare the CheCluster Configuration
+=== 5. Import the Keycloak CA Certificate
+
+Create a ConfigMap containing the Keycloak server's CA certificate,
+so that Eclipse Che can trust the Keycloak endpoint.
+
+Extract the CA certificate from the Keycloak server:
+
+[source,shell]
+----
+openssl s_client \
+  -connect "$(echo "$KEYCLOAK_URL" | sed 's|https://||'):443" \
+  -showcerts < /dev/null \
+  | sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p' \
+  > keycloak-ca.crt
+----
+
+Create a ConfigMap from the extracted certificate:
+
+[source,shell]
+----
+oc create configmap keycloak-certs \
+  --from-file=keycloak-ca.crt=keycloak-ca.crt \
+  -n eclipse-che
+----
+
+Label the ConfigMap so that Eclipse Che recognizes it as a trusted CA bundle:
+
+[source,shell]
+----
+oc label configmap keycloak-certs \
+  app.kubernetes.io/part-of=che.eclipse.org \
+  app.kubernetes.io/component=ca-bundle \
+  -n eclipse-che
+----
+
+=== 6. Prepare the CheCluster Configuration
 
 Create a patch file that configures Che to use Keycloak for authentication.
 Replace `<KEYCLOAK_URL>` with the actual Keycloak URL,
@@ -130,7 +165,7 @@ spec:
 EOF
 ----
 
-=== 6. Deploy Eclipse Che
+=== 7. Deploy Eclipse Che
 
 [source,shell]
 ----
@@ -140,7 +175,7 @@ chectl server:deploy --platform openshift --che-operator-cr-patch-yaml che-patch
 image::/assets/img/openshift-external-idp/eclipse-che-deployed.png[Eclipse Che deployed]
 {nbsp}
 
-=== 7. Configure the Callback URL in Keycloak
+=== 8. Configure the Callback URL in Keycloak
 
 After deployment, update the `eclipse-che` client in Keycloak with the redirect URI and web origin:
 
@@ -160,7 +195,7 @@ oc get checluster eclipse-che -n eclipse-che \
 // image::/assets/img/openshift-external-idp/keycloak-redirect-uri.png[Configuring the redirect URI in Keycloak]
 {nbsp}
 
-=== 8. Grant User Access
+=== 9. Grant User Access
 
 Create a `ClusterRoleBinding` so that users from your Keycloak group can access Che:
 
@@ -182,7 +217,7 @@ subjects:
 EOF
 ----
 
-=== 9. Start a workspace
+=== 10. Start a workspace
 
 Once everything is configured, open the dashboard and start a workspace:
 
