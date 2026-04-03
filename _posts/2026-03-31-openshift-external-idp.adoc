@@ -17,7 +17,7 @@ This enables direct integration with an external OIDC provider,
 allowing you to leverage advanced capabilities beyond the built-in OAuth server.
 
 Eclipse Che now fully supports this setup: you can deploy Che on an OpenShift cluster
-that authenticates users, for example, through an external Keycloak instance.
+that authenticates users through an external Keycloak instance, for example.
 In this post, we walk through the end-to-end configuration.
 
 == Step-by-Step Configuration
