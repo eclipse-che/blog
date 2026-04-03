@@ -233,4 +233,4 @@ image::/assets/img/openshift-external-idp/dashboard.png[Eclipse Che dashboard af
 {nbsp}
 
 For the full reference documentation,
-see link:https://eclipse.dev/che/docs/stable/administration-guide/installing-che-on-openshift-with-keycloak-as-oidc/[Installing Che on OpenShift with Keycloak as external identity provider].
+see link:https://eclipse.dev/che/docs/next/administration-guide/installing-che-on-openshift-with-keycloak-as-oidc/[Installing Che on OpenShift with Keycloak as external identity provider].
