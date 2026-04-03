@@ -11,7 +11,7 @@ slug: /@tolusha/openshift-external-idp
 
 Starting with OpenShift 4.20, administrators can configure
 link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/authentication_and_authorization/external-auth[external OIDC identity providers]
-for direct authentication to bypasses the built-in OAuth server and uses the
+for direct authentication to bypass the built-in OAuth server and use the
 external identity provider directly.
 This enables direct integration with an external OIDC provider,
 allowing you to leverage its advanced capabilities beyond the built-in OAuth server.
