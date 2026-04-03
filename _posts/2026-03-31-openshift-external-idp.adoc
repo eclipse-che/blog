@@ -14,7 +14,7 @@ link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/
 for direct authentication to bypass the built-in OAuth server and use the
 external identity provider directly.
 This enables direct integration with an external OIDC provider,
-allowing you to leverage its advanced capabilities beyond the built-in OAuth server.
+allowing you to leverage advanced capabilities beyond the built-in OAuth server.
 
 Eclipse Che now fully supports this setup: you can deploy Che on an OpenShift cluster
 that authenticates users, for example, through an external Keycloak instance.
