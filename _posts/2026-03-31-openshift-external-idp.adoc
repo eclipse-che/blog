@@ -35,7 +35,7 @@ In the Keycloak Admin Console, create a new client for Eclipse Che:
 . On the *Capability config* page, toggle *Client authentication* to *On*.
 . Save the client and copy the *Client secret* from the *Credentials* tab.
 
-NOTE: The redirect URI will be configured later, after Eclipse Che is deployed.
+NOTE: The redirect URI will be configured after Eclipse Che is deployed.
 
 image::/assets/img/openshift-external-idp/eclipse-che-client.png[Creating the eclipse-che client in Keycloak Admin Console]
 
