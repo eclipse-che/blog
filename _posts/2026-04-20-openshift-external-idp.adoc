@@ -14,7 +14,7 @@ link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/
 for direct authentication to bypass the built-in OAuth server and use the
 external identity provider directly.
 This enables direct integration with an external OIDC provider,
-allowing you to leverage advanced capabilities beyond the built-in OAuth server.
+allowing you to use its advanced capabilities beyond the built-in OAuth server.
 
 Eclipse Che now fully supports this setup: you can deploy Che on an OpenShift cluster
 that authenticates users through an external Keycloak instance, for example.
@@ -22,8 +22,10 @@ In this post, we walk through the end-to-end configuration.
 
 == Step-by-Step Configuration
 
-This guide assumes that Keycloak is already deployed and configured as
-an external identity provider for OpenShift.
+.Prerequisites:
+* Keycloak is deployed and configured as an external identity provider for OpenShift.
+* You have cluster administrator access.
+* You have `oc` CLI installed and authenticated.
 
 === 1. Create the Eclipse Che Client in Keycloak
 
@@ -35,11 +37,9 @@ In the Keycloak Admin Console, create a new client for Eclipse Che:
 . On the *Capability config* page, toggle *Client authentication* to *On*.
 . Save the client and copy the *Client secret* from the *Credentials* tab.
 
-NOTE: The redirect URI will be configured after Eclipse Che is deployed.
+NOTE: You configure the redirect URI after deploying Eclipse Che (Step 7).
 
 image::/assets/img/openshift-external-idp/eclipse-che-client.png[Creating the eclipse-che client in Keycloak Admin Console]
-
-{nbsp}
 
 === 2. Register the Client as an Audience
 
@@ -72,11 +72,9 @@ watch oc get co kube-apiserver
 oc create namespace eclipse-che
 ----
 
-=== 4. Create the OAuth Secret:
+=== 4. Create the OAuth Secret
 
-Create a secret containing the client secret from Step 1:
-
-[source,yaml]
+[source,yaml,subs="+quotes"]
 ----
 oc apply -f - <<EOF
 apiVersion: v1
@@ -87,9 +85,10 @@ metadata:
   labels:
     app.kubernetes.io/part-of: che.eclipse.org
 stringData:
-  oAuthSecret: <CLIENT_SECRET>
+  oAuthSecret: __<CLIENT_SECRET>__
 EOF
 ----
+Replace <CLIENT_SECRET> with the value copied from the Keycloak Credentials tab.
 
 === 5. Import the Keycloak CA Certificate
 
@@ -133,7 +132,7 @@ Replace `<KEYCLOAK_URL>` with the actual Keycloak URL,
 `<OPENSHIFT_REALM>` with the Keycloak realm configured for OpenShift authentication,
 and the claim and prefix values with those configured in the `authentication.config/cluster` resource:
 
-[source,shell]
+[source,shell,subs="+quotes"]
 ----
 cat > che-patch.yaml << EOF
 kind: CheCluster
@@ -143,7 +142,7 @@ spec:
     auth:
       oAuthClientName: eclipse-che
       oAuthSecret: oauth-secret
-      identityProviderURL: "<KEYCLOAK_URL>/realms/<OPENSHIFT_REALM>"
+      identityProviderURL: "__<KEYCLOAK_URL>__/realms/<OPENSHIFT_REALM>"
       gateway:
         oAuthProxy:
           cookieExpireSeconds: 300
@@ -154,14 +153,14 @@ spec:
                 - name: OAUTH2_PROXY_CODE_CHALLENGE_METHOD
                   value: S256
                 - name: OAUTH2_PROXY_BACKEND_LOGOUT_URL
-                  value: "<KEYCLOAK_URL>/realms/<OPENSHIFT_REALM>/protocol/openid-connect/logout?id_token_hint={id_token}"
+                  value: "__<KEYCLOAK_URL>__/realms/__<OPENSHIFT_REALM>__/protocol/openid-connect/logout?id_token_hint=\{id_token}"
   components:
     cheServer:
       extraProperties:
-        CHE_OIDC_GROUPS__CLAIM: '<GROUPS_CLAIM>'
-        CHE_OIDC_GROUPS__PREFIX: '<GROUPS_PREFIX>'
-        CHE_OIDC_USERNAME__CLAIM: '<USERNAME_CLAIM>'
-        CHE_OIDC_USERNAME__PREFIX: '<USERNAME_PREFIX>'
+        pass:[CHE_OIDC_GROUPS__CLAIM]: '__<GROUPS_CLAIM>__'
+        pass:[CHE_OIDC_GROUPS__PREFIX]: '__<GROUPS_PREFIX>__'
+        pass:[CHE_OIDC_USERNAME__CLAIM]: '__<USERNAME_CLAIM>__'
+        pass:[CHE_OIDC_USERNAME__PREFIX]: '__<USERNAME_PREFIX>__'
 EOF
 ----
 
@@ -173,7 +172,6 @@ chectl server:deploy --platform openshift --che-operator-cr-patch-yaml che-patch
 ----
 
 image::/assets/img/openshift-external-idp/eclipse-che-deployed.png[Eclipse Che deployed]
-{nbsp}
 
 === 8. Configure the Callback URL in Keycloak
 
@@ -191,33 +189,7 @@ oc get checluster eclipse-che -n eclipse-che \
 . Paste the URL into *Web origins*.
 . Save.
 
-// TODO: Add screenshot of Keycloak redirect URI configuration
-// image::/assets/img/openshift-external-idp/keycloak-redirect-uri.png[Configuring the redirect URI in Keycloak]
-{nbsp}
-
-=== 9. Grant User Access
-
-Create a `ClusterRoleBinding` so that users from your Keycloak group can access Che:
-
-[source,yaml]
-----
-oc apply -f - <<EOF
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: openshift-developers
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: self-provisioner
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: <GROUP_NAME>
-EOF
-----
-
-=== 10. Start a workspace
+=== 9. Start a Workspace
 
 Once everything is configured, open the dashboard and start a workspace:
 
@@ -227,10 +199,9 @@ chectl dashboard:open
 ----
 
 You should be redirected to the Keycloak login page.
-After authenticating, you will land on the Eclipse Che dashboard.
+After authenticating, the Eclipse Che dashboard opens.
 
 image::/assets/img/openshift-external-idp/dashboard.png[Eclipse Che dashboard after successful authentication]
-{nbsp}
 
 For the full reference documentation,
 see link:https://eclipse.dev/che/docs/next/administration-guide/installing-che-on-openshift-with-keycloak-as-oidc/[Installing Che on OpenShift with Keycloak as external identity provider].
