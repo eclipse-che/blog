@@ -153,14 +153,14 @@ spec:
                 - name: OAUTH2_PROXY_CODE_CHALLENGE_METHOD
                   value: S256
                 - name: OAUTH2_PROXY_BACKEND_LOGOUT_URL
-                  value: "__<KEYCLOAK_URL>__/realms/__<OPENSHIFT_REALM>__/protocol/openid-connect/logout?id_token_hint=\{id_token}"
+                  value: "__<KEYCLOAK_URL>__/realms/__<OPENSHIFT_REALM>__/protocol/openid-connect/logout?id_token_hint={id_token}"
   components:
     cheServer:
       extraProperties:
-        pass:[CHE_OIDC_GROUPS__CLAIM]: '__<GROUPS_CLAIM>__'
-        pass:[CHE_OIDC_GROUPS__PREFIX]: '__<GROUPS_PREFIX>__'
-        pass:[CHE_OIDC_USERNAME__CLAIM]: '__<USERNAME_CLAIM>__'
-        pass:[CHE_OIDC_USERNAME__PREFIX]: '__<USERNAME_PREFIX>__'
+        CHE_OIDC_GROUPS_&#95;CLAIM: '__<GROUPS_CLAIM>__'
+        CHE_OIDC_GROUPS_&#95;PREFIX: '__<GROUPS_PREFIX>__'
+        CHE_OIDC_USERNAME_&#95;CLAIM: '__<USERNAME_CLAIM>__'
+        CHE_OIDC_USERNAME_&#95;PREFIX: '__<USERNAME_PREFIX>__'
 EOF
 ----
 
