@@ -1,4 +1,282 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2026-04-17T08:22:59+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Running Open VSX On-Premises</title><link href="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html" rel="alternate" type="text/html" title="Running Open VSX On-Premises" /><published>2025-09-09T00:00:00+00:00</published><updated>2025-09-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/09/09/@svor/running-open-vsx-on-premises</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html"><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://che.eclipseprojects.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://che.eclipseprojects.io/" rel="alternate" type="text/html" /><updated>2026-04-21T13:42:41+00:00</updated><id>https://che.eclipseprojects.io/feed.xml</id><title type="html">Eclipse Che Blog</title><subtitle>Eclipse Che runs IDEs in Kubernetes.</subtitle><entry><title type="html">Using Keycloak as an External Identity Provider for Eclipse Che on OpenShift</title><link href="https://che.eclipseprojects.io/2026/04/20/@tolusha-openshift-external-idp.html" rel="alternate" type="text/html" title="Using Keycloak as an External Identity Provider for Eclipse Che on OpenShift" /><published>2026-04-20T00:00:00+00:00</published><updated>2026-04-20T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2026/04/20/@tolusha/openshift-external-idp</id><content type="html" xml:base="https://che.eclipseprojects.io/2026/04/20/@tolusha-openshift-external-idp.html"><![CDATA[<div class="paragraph">
+<p>Starting with OpenShift 4.20, administrators can configure
+<a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/authentication_and_authorization/external-auth">external OIDC identity providers</a>
+for direct authentication to bypass the built-in OAuth server and use the
+external identity provider directly.
+This enables direct integration with an external OIDC provider,
+allowing you to use its advanced capabilities beyond the built-in OAuth server.</p>
+</div>
+<div class="paragraph">
+<p>Eclipse Che now fully supports this setup: you can deploy Che on an OpenShift cluster
+that authenticates users through an external Keycloak instance, for example.
+In this post, we walk through the end-to-end configuration.</p>
+</div>
+<div class="sect1">
+<h2 id="_step-by-step-configuration">Step-by-Step Configuration</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Prerequisites:</div>
+<ul>
+<li>
+<p>Keycloak is deployed and configured as an external identity provider for OpenShift.</p>
+</li>
+<li>
+<p>You have cluster administrator access.</p>
+</li>
+<li>
+<p>You have <code>oc</code> CLI installed and authenticated.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_1-create-the-eclipse-che-client-in-keycloak">1. Create the Eclipse Che Client in Keycloak</h3>
+<div class="paragraph">
+<p>In the Keycloak Admin Console, create a new client for Eclipse Che:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your OpenShift realm and select <strong>Clients</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Create client</strong>.</p>
+</li>
+<li>
+<p>Set the <strong>Client ID</strong> to <code>eclipse-che</code>.</p>
+</li>
+<li>
+<p>On the <strong>Capability config</strong> page, toggle <strong>Client authentication</strong> to <strong>On</strong>.</p>
+</li>
+<li>
+<p>Save the client and copy the <strong>Client secret</strong> from the <strong>Credentials</strong> tab.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You configure the redirect URI after deploying Eclipse Che (Step 7).
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openshift-external-idp/eclipse-che-client.png" alt="Creating the eclipse-che client in Keycloak Admin Console">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2-register-the-client-as-an-audience">2. Register the Client as an Audience</h3>
+<div class="paragraph">
+<p>Add the <code>eclipse-che</code> client to the audiences list in the OpenShift authentication configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">oc patch authentication.config/cluster <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">--type</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'json'</span> <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-p</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'[
+    {
+      "op": "add",
+      "path": "/spec/oidcProviders/0/issuer/audiences/-",
+      "value": "eclipse-che"
+    }
+  ]'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then wait for the <code>kube-apiserver</code> to roll out the changes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">watch oc get co kube-apiserver</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3-create-the-eclipse-che-namespace">3. Create the <code>eclipse-che</code> Namespace</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">oc create namespace eclipse-che</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4-create-the-oauth-secret">4. Create the OAuth Secret</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #e6db74">oc apply -f - &lt;&lt;EOF</span>
+<span style="color: #a6e22e">apiVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">v1</span>
+<span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Secret</span>
+<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">oauth-secret</span>
+  <span style="color: #a6e22e">namespace</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">eclipse-che</span>
+  <span style="color: #a6e22e">labels</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+    <span style="color: #a6e22e">app.kubernetes.io/part-of</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che.eclipse.org</span>
+<span style="color: #a6e22e">stringData</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
+  <span style="color: #a6e22e">oAuthSecret</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74"><em>&lt;CLIENT_SECRET&gt;</em></span>
+<span style="color: #e6db74">EOF</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Replace &lt;CLIENT_SECRET&gt; with the value copied from the Keycloak Credentials tab.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5-import-the-keycloak-ca-certificate">5. Import the Keycloak CA Certificate</h3>
+<div class="paragraph">
+<p>Create a ConfigMap containing the Keycloak server&#8217;s CA certificate,
+so that Eclipse Che can trust the Keycloak endpoint.</p>
+</div>
+<div class="paragraph">
+<p>Extract the CA certificate from the Keycloak server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">openssl s_client <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-connect</span> <span style="color: #e6db74">"</span><span style="color: #e6db74">$(</span><span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">"</span><span style="color: #f8f8f2">$KEYCLOAK_URL</span><span style="color: #e6db74">"</span> | <span style="color: #f8f8f2">sed</span> <span style="color: #e6db74">'s|https://||'</span><span style="color: #e6db74">)</span><span style="color: #e6db74">:443"</span> <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-showcerts</span> &lt; /dev/null <span style="color: #ae81ff">\</span>
+  | <span style="color: #f8f8f2">sed</span> <span style="color: #f92672">-n</span> <span style="color: #e6db74">'/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p'</span> <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672;font-weight: bold">&gt;</span> keycloak-ca.crt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a ConfigMap from the extracted certificate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">oc create configmap keycloak-certs <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">--from-file</span><span style="color: #f92672;font-weight: bold">=</span>keycloak-ca.crt<span style="color: #f92672;font-weight: bold">=</span>keycloak-ca.crt <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-n</span> eclipse-che</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Label the ConfigMap so that Eclipse Che recognizes it as a trusted CA bundle:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">oc label configmap keycloak-certs <span style="color: #ae81ff">\</span>
+  app.kubernetes.io/part-of<span style="color: #f92672;font-weight: bold">=</span>che.eclipse.org <span style="color: #ae81ff">\</span>
+  app.kubernetes.io/component<span style="color: #f92672;font-weight: bold">=</span>ca-bundle <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-n</span> eclipse-che</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6-prepare-the-checluster-configuration">6. Prepare the CheCluster Configuration</h3>
+<div class="paragraph">
+<p>Create a patch file that configures Che to use Keycloak for authentication.
+Replace <code>&lt;KEYCLOAK_URL&gt;</code> with the actual Keycloak URL,
+<code>&lt;OPENSHIFT_REALM&gt;</code> with the Keycloak realm configured for OpenShift authentication,
+and the claim and prefix values with those configured in the <code>authentication.config/cluster</code> resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell"><span style="color: #f8f8f2">cat</span> <span style="color: #f92672;font-weight: bold">&gt;</span> che-patch.yaml <span style="color: #f92672;font-weight: bold">&lt;&lt;</span> <span style="color: #66d9ef">EOF</span><span style="color: #e6db74">
+kind: CheCluster
+apiVersion: org.eclipse.che/v2
+spec:
+  networking:
+    auth:
+      oAuthClientName: eclipse-che
+      oAuthSecret: oauth-secret
+      identityProviderURL: "<em>&lt;KEYCLOAK_URL&gt;</em>/realms/&lt;OPENSHIFT_REALM&gt;"
+      gateway:
+        oAuthProxy:
+          cookieExpireSeconds: 300
+        deployment:
+          containers:
+            - name: oauth-proxy
+              env:
+                - name: OAUTH2_PROXY_CODE_CHALLENGE_METHOD
+                  value: S256
+                - name: OAUTH2_PROXY_BACKEND_LOGOUT_URL
+                  value: "<em>&lt;KEYCLOAK_URL&gt;</em>/realms/<em>&lt;OPENSHIFT_REALM&gt;</em>/protocol/openid-connect/logout?id_token_hint={id_token}"
+  components:
+    cheServer:
+      extraProperties:
+        CHE_OIDC_GROUPS__CLAIM: '<em>&lt;GROUPS_CLAIM&gt;</em>'
+        CHE_OIDC_GROUPS__PREFIX: '<em>&lt;GROUPS_PREFIX&gt;</em>'
+        CHE_OIDC_USERNAME__CLAIM: '<em>&lt;USERNAME_CLAIM&gt;</em>'
+        CHE_OIDC_USERNAME__PREFIX: '<em>&lt;USERNAME_PREFIX&gt;</em>'
+EOF</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7-deploy-eclipse-che">7. Deploy Eclipse Che</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">chectl server:deploy <span style="color: #f92672">--platform</span> openshift <span style="color: #f92672">--che-operator-cr-patch-yaml</span> che-patch.yaml</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openshift-external-idp/eclipse-che-deployed.png" alt="Eclipse Che deployed">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8-configure-the-callback-url-in-keycloak">8. Configure the Callback URL in Keycloak</h3>
+<div class="paragraph">
+<p>After deployment, update the <code>eclipse-che</code> client in Keycloak with the redirect URI and web origin:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get the Eclipse Che URL:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">oc get checluster eclipse-che <span style="color: #f92672">-n</span> eclipse-che <span style="color: #ae81ff">\</span>
+  <span style="color: #f92672">-o</span> <span style="color: #f8f8f2">jsonpath</span><span style="color: #f92672;font-weight: bold">=</span><span style="color: #e6db74">'{.status.cheURL}'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the Keycloak Admin Console, open the <code>eclipse-che</code> client.</p>
+</li>
+<li>
+<p>Paste the URL with <code>/oauth/callback</code> appended into <strong>Valid redirect URIs</strong>.</p>
+</li>
+<li>
+<p>Paste the URL into <strong>Web origins</strong>.</p>
+</li>
+<li>
+<p>Save.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9-start-a-workspace">9. Start a Workspace</h3>
+<div class="paragraph">
+<p>Once everything is configured, open the dashboard and start a workspace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="shell">chectl dashboard:open</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should be redirected to the Keycloak login page.
+After authenticating, the Eclipse Che dashboard opens.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/assets/img/openshift-external-idp/dashboard.png" alt="Eclipse Che dashboard after successful authentication">
+</div>
+</div>
+<div class="paragraph">
+<p>For the full reference documentation,
+see <a href="https://eclipse.dev/che/docs/next/administration-guide/installing-che-on-openshift-with-keycloak-as-oidc/">Installing Che on OpenShift with Keycloak as external identity provider</a>.</p>
+</div>
+</div>
+</div>
+</div>]]></content><author><name>Anatolii Bazko</name></author><summary type="html"><![CDATA[Install Eclipse Che on OpenShift with Keycloak as an external OIDC identity provider.]]></summary></entry><entry><title type="html">Running Open VSX On-Premises</title><link href="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html" rel="alternate" type="text/html" title="Running Open VSX On-Premises" /><published>2025-09-09T00:00:00+00:00</published><updated>2025-09-09T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2025/09/09/@svor/running-open-vsx-on-premises</id><content type="html" xml:base="https://che.eclipseprojects.io/2025/09/09/@svor-running-open-vsx-on-premises.html"><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2045,402 +2323,4 @@ Currently, all CDEs are listed regardless of the configured editor. As Eclipse C
 <p>Thank you for reading and happy coding!</p>
 </div>
 </div>
-</div>]]></content><author><name>Artem Zatsarynnyi</name></author><summary type="html"><![CDATA[Integration of Eclipse Che running on OpenShift with IntelliJ IDEA Ultimate using JetBrains Gateway.]]></summary></entry><entry><title type="html">Introducing the Devfile AI Assistant</title><link href="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html" rel="alternate" type="text/html" title="Introducing the Devfile AI Assistant" /><published>2024-06-26T00:00:00+00:00</published><updated>2024-06-26T00:00:00+00:00</updated><id>https://che.eclipseprojects.io/2024/06/26/@tolusha/devfile-ai-assistant</id><content type="html" xml:base="https://che.eclipseprojects.io/2024/06/26/@tolusha-devfile-ai-assistant.html"><![CDATA[<div class="sect1">
-<h2 id="_introducing-the-devfile-ai-assistant">Introducing the Devfile AI Assistant</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In software development, it&#8217;s important to be efficient. Whether you&#8217;re an experienced developer or just starting, setting up your development environment can be complex and time-consuming. That&#8217;s where the <a href="https://chatgpt.com/g/g-Bm20CP2Rp-devfile-assistant">Devfile AI Assistant</a> comes in. It&#8217;s designed to help developers create devfiles easily without needing in-depth knowledge of the devfile syntax or structure. It uses a <a href="https://devfile.io">devfile knowledge base</a> to help you craft a devfile, making sure your development environment is set up right.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Another tool that simplifies creating devfile is the <a href="https://github.com/devfile/vscode-walkthrough-extension">VS Code Walkthrough Extension for Devfile</a>. It provides an interactive guide to help users understand and utilize devfiles within Visual Studio Code. Using a wizard, you can easily create a devfile to customize your Cloud Development Environment.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_what-is-a-devfile">What is a devfile?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Devfiles are configuration files that define development environments. They specify the components, commands, events etc. that make up a development workspace. They play a central role in the workflow of Eclipse Che.</p>
-</div>
-<div class="paragraph">
-<p>In Eclipse Che, devfiles are used to automate the setup of development environments. By providing a devfile, developers can ensure a consistent environment across the team, getting rid of the "works on my machine" problems. When a devfile is applied, Eclipse Che provisions the specified containers, clones the necessary repositories, and sets up the workspace with all the tools and dependencies required for development. This makes them an essential tool for modern cloud-based development.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/assets/img/devfile-ai-assistant/devfile-eclipse-che-cde.png" alt="Devfile&#8594;Eclipse-Che&#8594;CDE">
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;<br></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_step-by-step-example-of-how-to-create-a-devfile">Step-by-step example of how to create a devfile</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Let&#8217;s check out some real-life examples of how the Devfile AI Assistant can help you in creating devfiles for your projects.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Start by providing a basic devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Provide a basic devfile.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">basic-devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add a project to the devfile.</p>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-Even though it is possible to define projects in a devfile explicitly, it is recommended to add <code>.devfile.yaml</code> or <code>devfile.yaml</code> file to the root of the repository which allows skipping the project definition on the devfile level.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add https://github.com/eclipse-che/che-server git project.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">basic-devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add a new component to the devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add PostgreSQL component.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres:latest</span>
-      <span style="color: #a6e22e">env</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_DB</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mydatabase</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_USER</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_PASSWORD</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">password</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add a volume to the devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add 2Gi volume in home user directory to store Maven artifacts.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-      <span style="color: #a6e22e">volumeMounts</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-          <span style="color: #a6e22e">path</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/home/user/.m2</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres:latest</span>
-      <span style="color: #a6e22e">env</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_DB</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mydatabase</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_USER</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_PASSWORD</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">password</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-    <span style="color: #a6e22e">volume</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">size</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add command to the devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add command to build a java project.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-      <span style="color: #a6e22e">volumeMounts</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-          <span style="color: #a6e22e">path</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/home/user/.m2</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres:latest</span>
-      <span style="color: #a6e22e">env</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_DB</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mydatabase</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_USER</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_PASSWORD</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">password</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-    <span style="color: #a6e22e">volume</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">size</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span>
-<span style="color: #a6e22e">commands</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build-java-project</span>
-    <span style="color: #a6e22e">exec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">commandLine</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mvn clean install</span>
-      <span style="color: #a6e22e">component</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-      <span style="color: #a6e22e">group</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build</span>
-        <span style="color: #a6e22e">isDefault</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span>
-      <span style="color: #a6e22e">label</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Build Java Project</span>
-      <span style="color: #a6e22e">workingDir</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/projects/che-server</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add resource limits to the devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add resource limits to all components.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devfile</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-      <span style="color: #a6e22e">volumeMounts</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-          <span style="color: #a6e22e">path</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/home/user/.m2</span>
-      <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">2</span>
-      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">4Gi</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres:latest</span>
-      <span style="color: #a6e22e">env</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_DB</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mydatabase</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_USER</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_PASSWORD</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">password</span>
-      <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
-      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-    <span style="color: #a6e22e">volume</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">size</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span>
-<span style="color: #a6e22e">commands</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build-java-project</span>
-    <span style="color: #a6e22e">exec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">commandLine</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mvn clean install</span>
-      <span style="color: #a6e22e">component</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-      <span style="color: #a6e22e">group</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build</span>
-        <span style="color: #a6e22e">isDefault</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span>
-      <span style="color: #a6e22e">label</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Build Java Project</span>
-      <span style="color: #a6e22e">workingDir</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/projects/che-server</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add metadata to the devfile.</p>
-<div class="paragraph">
-<p><strong>Request:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code>Add metadata based on the devfile.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Response:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="color: #f8f8f2;background-color: #49483e"><code data-lang="yaml"><span style="color: #a6e22e">schemaVersion</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2.3.0</span>
-<span style="color: #a6e22e">metadata</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">devfile</span>
-  <span style="color: #a6e22e">displayName</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Java with PostgreSQL Dev Environment</span>
-  <span style="color: #a6e22e">description</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">A development environment for a Java project with PostgreSQL database support.</span>
-  <span style="color: #a6e22e">language</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Java</span>
-  <span style="color: #a6e22e">projectType</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Java Application</span>
-  <span style="color: #a6e22e">version</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">1.0.0</span>
-  <span style="color: #a6e22e">provider</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Eclipse Che</span>
-  <span style="color: #a6e22e">tags</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">java</span>
-    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">maven</span>
-    <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #e6db74">database</span>
-<span style="color: #a6e22e">components</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">quay.io/devfile/universal-developer-image:latest</span>
-      <span style="color: #a6e22e">volumeMounts</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-          <span style="color: #a6e22e">path</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/home/user/.m2</span>
-      <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">2</span>
-      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">4Gi</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres</span>
-    <span style="color: #a6e22e">container</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">image</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">postgres:latest</span>
-      <span style="color: #a6e22e">env</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_DB</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mydatabase</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_USER</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">user</span>
-        <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">POSTGRES_PASSWORD</span>
-          <span style="color: #a6e22e">value</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">password</span>
-      <span style="color: #a6e22e">cpuLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #ae81ff">1</span>
-      <span style="color: #a6e22e">memoryLimit</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">maven-artifacts</span>
-    <span style="color: #a6e22e">volume</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">size</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">2Gi</span>
-<span style="color: #a6e22e">projects</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">che-server</span>
-    <span style="color: #a6e22e">git</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">remotes</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">origin</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">https://github.com/eclipse-che/che-server.git</span>
-<span style="color: #a6e22e">commands</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-  <span style="color: #f8f8f2;background-color: #49483e">-</span> <span style="color: #a6e22e">id</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build-java-project</span>
-    <span style="color: #a6e22e">exec</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-      <span style="color: #a6e22e">commandLine</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">mvn clean install</span>
-      <span style="color: #a6e22e">component</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">tools</span>
-      <span style="color: #a6e22e">group</span><span style="color: #f8f8f2;background-color: #49483e">:</span>
-        <span style="color: #a6e22e">kind</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">build</span>
-        <span style="color: #a6e22e">isDefault</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #66d9ef">true</span>
-      <span style="color: #a6e22e">label</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">Build Java Project</span>
-      <span style="color: #a6e22e">workingDir</span><span style="color: #f8f8f2;background-color: #49483e">:</span> <span style="color: #e6db74">/projects/che-server</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Are you a developer looking to simplify setting up your development environment? The Devfile AI Assistant is here to help! It provides clear and accurate configurations, taking the complexity out of the process. Give the Devfile AI Assistant a try today!</p>
-</div>
-</div>
-</div>]]></content><author><name>Anatolii Bazko</name></author><summary type="html"><![CDATA[The Devfile AI Assistant is an online tool that simplifies the creation of devfiles for developers.]]></summary></entry></feed>
+</div>]]></content><author><name>Artem Zatsarynnyi</name></author><summary type="html"><![CDATA[Integration of Eclipse Che running on OpenShift with IntelliJ IDEA Ultimate using JetBrains Gateway.]]></summary></entry></feed>
