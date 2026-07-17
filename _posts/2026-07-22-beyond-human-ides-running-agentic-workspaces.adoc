@@ -1,12 +1,12 @@
 ---
-title: "Beyond Human IDEs: Running Agentic Workspaces in Eclipse Che"
+title: "Beyond Human IDEs: Running Agentic Cloud Development Environments in Eclipse Che"
 layout: post
 author: Rohan Kumar
 description: >-
   How to run safer agentic automation in isolated workspaces with Eclipse Che:
   lightweight, ttyd-based Agentic Workspaces on Kubernetes.
 categories: []
-keywords: ['Agentic Workspaces', 'CDE', 'Eclipse Che', 'AI', 'Kubernetes', 'ttyd', 'Devfile']
+keywords: ['Agentic Workspaces', 'CDE', 'Eclipse Che', 'AI', 'Kubernetes', 'ttyd', 'herdr', 'Devfile']
 slug: /@rohan.kumar/beyond-human-ides-running-agentic-workspaces
 ---
 
@@ -17,6 +17,13 @@ AI coding agents have shifted from autocomplete helpers to autonomous teammates 
 What if, for routine, well-defined tasks, those agents could run in their own lightweight, isolated environments instead, so you could stay focused on creative problem-solving and review what the agents produce?
 
 One way to do that is with Agentic Workspaces on Eclipse Che. Che's Cloud Development Environments (CDEs) let you spin up terminal-centric workspaces dedicated to autonomous agents: safer agentic automation in isolated sandboxes, with the human in the review loop, either inspecting a diff in the workspace or reviewing a pull request the agent creates.
+
+Here is the end result this post walks through: Claude Code and OpenCode running side by side in an Eclipse Che workspace with the Herdr editor definition.
+
+.End result: Claude Code (generator) and OpenCode (reviewer) agents running in an Eclipse Che workspace with the Herdr editor definition.
+image::/assets/img/beyond-human-ides-running-agentic-workspaces/herdr-agents-running.png[Herdr workspace showing Claude Code idle as generator and OpenCode working as reviewer on a GitHub Actions workflow inside Eclipse Che.]
+
+&nbsp;
 
 == Traditional CDEs vs Agentic CDEs
 
@@ -31,7 +38,7 @@ Traditional CDEs are built around a full IDE experience for humans. In this post
 | Autonomous agents executing tasks, with humans in the review loop
 
 | Workspace shape
-| Full IDE (for example Che-Code or VS Code) plus extensions, UI, and layouts
+| Full IDE (for example, VS Code) plus extensions, UI, and layouts
 | Slim terminal-centric runtime with terminal-based coding agents and a web terminal such as `ttyd`
 
 | Resource footprint
@@ -96,7 +103,7 @@ Here is a simple way to start an agentic workspace from the Eclipse Che dashboar
 * Access to an Eclipse Che instance (for example, a local or team deployment)
 * Credentials for an LLM provider your coding agent can use (on-prem or cloud-hosted)
 * A Git repository URL to import in the *Import from Git* section
-* Optional: Git credentials configured in Eclipse Che so the agent can push branches and open pull requests on GitHub automatically
+* Optional: Git credentials configured in Eclipse Che so the agent can push branches and open pull requests on your Git provider automatically
 
 === 1. Go to the Eclipse Che Dashboard
 
@@ -106,8 +113,8 @@ Open your Che dashboard in the browser and begin creating a new workspace.
 
 Open the *Choose an Editor* tree and select a lightweight, terminal-centric editor definition instead of a full IDE. For an agentic CDE, pick either:
 
-* Web Terminal: a minimal `ttyd`-based shell in the browser
-* Herdr: an agent-aware terminal multiplexer on top of the same web-terminal model
+* https://github.com/tsl0922/ttyd[Web Terminal]: a minimal `ttyd`-based shell in the browser
+* https://herdr.dev/[Herdr]: an agent-aware terminal multiplexer on top of the same web-terminal model
 
 .Eclipse Che Editor Selector, with Herdr and Web Terminal highlighted as lightweight, terminal-centric editor definitions alongside full IDEs.
 image::/assets/img/beyond-human-ides-running-agentic-workspaces/editor-selector.png[Eclipse Che Editor Selector with red circles around Herdr and Web Terminal editor definitions.]
@@ -127,7 +134,10 @@ image::/assets/img/beyond-human-ides-running-agentic-workspaces/import-from-git.
 
 Wait for the workspace to become ready. Once it is ready, Che opens the `ttyd`-based terminal in the browser. From there, launch your preferred terminal-based coding agent (for example, `claude-code` or `opencode`), point it at a task or specification, and let it work inside the isolated workspace.
 
-NOTE: Terminal-based coding agents (such as `claude-code` or `opencode`) must already be present in the DevWorkspace container image, or installed or otherwise injected into the workspace before you use them.
+[NOTE]
+====
+Terminal-based coding agents (such as Claude Code or OpenCode) must already be present in the DevWorkspace container image, or installed or otherwise injected into the workspace before you use them. One simple option is a Devfile `exec` command. See link:https://github.com/eclipse-che/che-server/blob/main/devfile.yaml#L93-L97[che-server Devfile] as an example that installs the Claude Code CLI.
+====
 
 NOTE: Coding agents also need authentication configured for the models they call. That step varies by tool and model provider (for example API keys, login flows, or on-prem endpoint settings).
 
@@ -138,13 +148,11 @@ Here is an example of Claude Code and OpenCode running in a workspace with the H
 .Claude Code and OpenCode agents running in an Eclipse Che workspace with the Herdr editor definition.
 image::/assets/img/beyond-human-ides-running-agentic-workspaces/herdr-agents-running.png[Herdr workspace showing Claude Code idle and OpenCode working on Dockerfile tests inside Eclipse Che.]
 
-&nbsp;
-
 TIP: If you chose Herdr, you can split panes and run multiple agents in parallel, while Herdr tracks whether each one is idle, working, or blocked. The platform underneath matters more: with Che, each agent still gets its own sandboxed, Kubernetes-native workspace.
 
-== How Agentic CDEs Can Be Beneficial for Teams
+== How Agentic CDEs help Teams
 
-Agentic CDEs can be beneficial for safer agentic automation: every agent can run in its own workspace, with Kubernetes-enforced boundaries, instead of sharing a developer's laptop or a long-lived shared VM. Using Che for ttyd-driven agent workspaces can build on that foundation in a few practical ways:
+Agentic CDEs keep each coding agent in its own Kubernetes-isolated workspace, instead of sharing a developer laptop or a long-lived VM. Using Che for ttyd-driven agent workspaces can build on that foundation in a few practical ways:
 
 * *Contained sandbox execution:* Giving autonomous tools raw access to a local machine is a significant security and operational risk. With Eclipse Che, you can confine the agent to a secure, RBAC-bounded Kubernetes namespace. If an agent misbehaves or runs a destructive script, the blast radius stays contained within that workspace.
 * *Higher workspace density:* Without the overhead of complex browser-based IDE UIs, terminal-centric workspaces typically require less CPU and memory, so teams can run more agent workspaces on the same cluster.
