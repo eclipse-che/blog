@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>
+      Beyond Human IDEs: Running Agentic Cloud Development Environments in
+      Eclipse Che | Eclipse Che Blog
+    </title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta
+      property="og:title"
+      content="Beyond Human IDEs: Running Agentic Cloud Development Environments in Eclipse Che"
+    />
+    <meta name="author" content="Rohan Kumar" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="How to run safer agentic automation in isolated workspaces with Eclipse Che: lightweight, ttyd-based Agentic Workspaces on Kubernetes."
+    />
+    <meta
+      property="og:description"
+      content="How to run safer agentic automation in isolated workspaces with Eclipse Che: lightweight, ttyd-based Agentic Workspaces on Kubernetes."
+    />
+    <link
+      rel="canonical"
+      href="https://che.eclipseprojects.io/2026/07/22/@rohan.kumar-beyond-human-ides-running-agentic-workspaces.html"
+    />
+    <meta
+      property="og:url"
+      content="https://che.eclipseprojects.io/2026/07/22/@rohan.kumar-beyond-human-ides-running-agentic-workspaces.html"
+    />
+    <meta property="og:site_name" content="Eclipse Che Blog" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2026-07-22T00:00:00+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Beyond Human IDEs: Running Agentic Cloud Development Environments in Eclipse Che"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": { "@type": "Person", "name": "Rohan Kumar" },
+        "dateModified": "2026-07-22T00:00:00+00:00",
+        "datePublished": "2026-07-22T00:00:00+00:00",
+        "description": "How to run safer agentic automation in isolated workspaces with Eclipse Che: lightweight, ttyd-based Agentic Workspaces on Kubernetes.",
+        "headline": "Beyond Human IDEs: Running Agentic Cloud Development Environments in Eclipse Che",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://che.eclipseprojects.io/2026/07/22/@rohan.kumar-beyond-human-ides-running-agentic-workspaces.html"
+        },
+        "url": "https://che.eclipseprojects.io/2026/07/22/@rohan.kumar-beyond-human-ides-running-agentic-workspaces.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://che.eclipseprojects.io/feed.xml"
+      title="Eclipse Che Blog"
+    />
+    <script>
+      if (
+        !(
+          window.doNotTrack === "1" ||
+          navigator.doNotTrack === "1" ||
+          navigator.doNotTrack === "yes" ||
+          navigator.msDoNotTrack === "1"
+        )
+      ) {
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        ga("create", "UA-215676970-1", "auto");
+        ga("send", "pageview");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Eclipse Che Blog</a>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article
+          class="post h-entry"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
+          <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline">
+              Beyond Human IDEs: Running Agentic Cloud Development Environments
+              in Eclipse Che
+            </h1>
+            <p class="post-meta">
+              <time
+                class="dt-published"
+                datetime="2026-07-22T00:00:00+00:00"
+                itemprop="datePublished"
+                >Jul 22, 2026 </time
+              >•
+              <span
+                itemprop="author"
+                itemscope
+                itemtype="http://schema.org/Person"
+                ><span class="p-author h-card" itemprop="name"
+                  >Rohan Kumar</span
+                ></span
+              >
+            </p>
+          </header>
+
+          <div class="post-content e-content" itemprop="articleBody">
+            <div class="sect1">
+              <h2 id="_introduction">Introduction</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    AI coding agents have shifted from autocomplete helpers to
+                    autonomous teammates that can edit code, run tests, and open
+                    pull requests. Today, they often run in the same
+                    environments developers already use every day: a local
+                    machine or a full IDE cloud workspace.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    What if, for routine, well-defined tasks, those agents could
+                    run in their own lightweight, isolated environments instead,
+                    so you could stay focused on creative problem-solving and
+                    review what the agents produce?
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    One way to do that is with Agentic Workspaces on Eclipse
+                    Che. Che&#8217;s Cloud Development Environments (CDEs) let
+                    you spin up terminal-centric workspaces dedicated to
+                    autonomous agents: safer agentic automation in isolated
+                    sandboxes, with the human in the review loop, either
+                    inspecting a diff in the workspace or reviewing a pull
+                    request the agent creates.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    Here is the end result this post walks through: Claude Code
+                    and OpenCode running side by side in an Eclipse Che
+                    workspace with the Herdr editor definition.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/beyond-human-ides-running-agentic-workspaces/herdr-agents-running.png"
+                      alt="Herdr workspace showing Claude Code idle as generator and OpenCode working as reviewer on a GitHub Actions workflow inside Eclipse Che."
+                    />
+                  </div>
+                  <div class="title">
+                    Figure 1. End result: Claude Code (generator) and OpenCode
+                    (reviewer) agents running in an Eclipse Che workspace with
+                    the Herdr editor definition.
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&nbsp;</p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_traditional-cdes-vs-agentic-cdes">
+                Traditional CDEs vs Agentic CDEs
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Traditional CDEs are built around a full IDE experience for
+                    humans. In this post, we use <strong>Agentic CDE</strong> to
+                    describe a terminal-centric Che workspace built for
+                    terminal-based coding agents rather than human IDE use.
+                    Agentic CDEs keep the same isolation and lifecycle model,
+                    but slim the workspace down to the minimal tooling an agent
+                    needs. One does not replace the other; each is built for
+                    different use cases.
+                  </p>
+                </div>
+                <table class="tableblock frame-all grid-all stretch">
+                  <colgroup>
+                    <col style="width: 20%" />
+                    <col style="width: 40%" />
+                    <col style="width: 40%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th class="tableblock halign-left valign-top">
+                        Capability
+                      </th>
+                      <th class="tableblock halign-left valign-top">
+                        Traditional CDEs
+                      </th>
+                      <th class="tableblock halign-left valign-top">
+                        Agentic CDEs
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Primary user</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Human developers working interactively in an IDE
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Autonomous agents executing tasks, with humans in the
+                          review loop
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Workspace shape</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Full IDE (for example, VS Code) plus extensions, UI,
+                          and layouts
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Slim terminal-centric runtime with terminal-based
+                          coding agents and a web terminal such as
+                          <code>ttyd</code>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Resource footprint</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Higher CPU and memory to host a browser IDE and rich
+                          UI
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Lower overhead; more workspaces can fit on the same
+                          cluster
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Day-to-day interaction</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Developer lives in the editor: coding, debugging, and
+                          exploring
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Developer assigns work, monitors progress, and reviews
+                          diffs or pull requests
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Best suited for</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Interactive development, pairing, and complex
+                          local-style workflows in the cloud
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Routine or parallel agent tasks that do not need a
+                          full graphical IDE
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Strengths</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Familiar IDE UX, rich debugging, and strong human
+                          productivity tooling
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          High density, lower cost per workspace, and a tighter
+                          sandbox for unattended agent runs
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">Trade-offs</p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Heavier and often more than an agent needs for
+                          CLI-driven work
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          Less convenient for deep interactive editing; humans
+                          review rather than live in the workspace
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_the-human-in-the-review-loop-workflow">
+                The Human-in-the-Review-Loop Workflow
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    An agentic workspace flips the usual CDE interaction model.
+                    The developer is no longer living inside the IDE day to day;
+                    they are the orchestrator and reviewer.
+                  </p>
+                </div>
+                <div class="olist arabic">
+                  <ol class="arabic">
+                    <li>
+                      <p>
+                        <strong>Assign a task:</strong> the human starts a Che
+                        workspace and points an agent at a bug, feature, or
+                        specification.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Let the agent work:</strong> the agent edits
+                        code, runs tests, and iterates inside the isolated
+                        workspace, observed through <code>ttyd</code> if needed.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Review the outcome:</strong> when the agent
+                        finishes, the human either inspects the diff in that
+                        workspace or, more commonly for team workflows, reviews
+                        a pull request the agent created.
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    That last step is the control point. The agent does the
+                    execution; the human decides what merges.
+                  </p>
+                </div>
+                <div class="imageblock">
+                  <div class="content">
+                    <img
+                      src="/assets/img/beyond-human-ides-running-agentic-workspaces/review-loop.png"
+                      alt="Review-loop flow showing a human assigning tasks to an agentic workspace in Eclipse Che on Kubernetes, producing a diff or PR for human review, with API calls to on-prem or cloud-hosted models."
+                    />
+                  </div>
+                  <div class="title">
+                    Figure 2. Review-loop flow: the human assigns a task, the
+                    agent works inside an Eclipse Che workspace, and the human
+                    reviews a diff or pull request. The agent can call on-prem
+                    or cloud-hosted models.
+                  </div>
+                </div>
+                <div class="paragraph">
+                  <p>&nbsp;</p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_the-stack-eclipse-che-and-ttyd">
+                The Stack: Eclipse Che and ttyd
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    In this post, we show one practical stack: Eclipse Che for
+                    the workspace lifecycle, plus <code>ttyd</code> for a
+                    lightweight browser terminal. The idea is to strip away the
+                    traditional desktop IDE layer and keep a minimal,
+                    terminal-centric environment.
+                  </p>
+                </div>
+                <table class="tableblock frame-all grid-all stretch">
+                  <colgroup>
+                    <col style="width: 33.3333%" />
+                    <col style="width: 66.6667%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th class="tableblock halign-left valign-top">
+                        Component
+                      </th>
+                      <th class="tableblock halign-left valign-top">
+                        Role in the Agentic Workspace
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <a href="https://eclipse.dev/che/">Eclipse Che</a>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          The Kubernetes-native control plane. It handles
+                          workspace lifecycle, secure container isolation, RBAC,
+                          and compute resource allocation.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          <a href="https://github.com/tsl0922/ttyd">ttyd</a>
+                        </p>
+                      </td>
+                      <td class="tableblock halign-left valign-top">
+                        <p class="tableblock">
+                          A simple, fast utility that shares a Linux terminal
+                          over the web, allowing users to monitor their agents
+                          in real-time through any browser.
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="paragraph">
+                  <p>
+                    Together, they create a secure sandbox where AI agents can
+                    run without overloading a developer&#8217;s local machine or
+                    cluttering their primary workspace. You get a
+                    browser-accessible shell backed by Kubernetes isolation,
+                    with no full IDE required.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_step-by-step-running-an-agentic-cde-in-eclipse-che">
+                Step-by-Step: Running an Agentic CDE in Eclipse Che
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Here is a simple way to start an agentic workspace from the
+                    Eclipse Che dashboard.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p><strong>Prerequisites:</strong></p>
+                </div>
+                <div class="ulist">
+                  <ul>
+                    <li>
+                      <p>
+                        Access to an Eclipse Che instance (for example, a local
+                        or team deployment)
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Credentials for an LLM provider your coding agent can
+                        use (on-prem or cloud-hosted)
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        A Git repository URL to import in the
+                        <strong>Import from Git</strong> section
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Optional: Git credentials configured in Eclipse Che so
+                        the agent can push branches and open pull requests on
+                        your Git provider automatically
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="sect2">
+                  <h3 id="_1-go-to-the-eclipse-che-dashboard">
+                    1. Go to the Eclipse Che Dashboard
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Open your Che dashboard in the browser and begin creating
+                      a new workspace.
+                    </p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3 id="_2-choose-an-editor-definition">
+                    2. Choose an Editor Definition
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Open the <strong>Choose an Editor</strong> tree and select
+                      a lightweight, terminal-centric editor definition instead
+                      of a full IDE. For an agentic CDE, pick either:
+                    </p>
+                  </div>
+                  <div class="ulist">
+                    <ul>
+                      <li>
+                        <p>
+                          <a href="https://github.com/tsl0922/ttyd"
+                            >Web Terminal</a
+                          >: a minimal <code>ttyd</code>-based shell in the
+                          browser
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <a href="https://herdr.dev/">Herdr</a>: an agent-aware
+                          terminal multiplexer on top of the same web-terminal
+                          model
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="imageblock">
+                    <div class="content">
+                      <img
+                        src="/assets/img/beyond-human-ides-running-agentic-workspaces/editor-selector.png"
+                        alt="Eclipse Che Editor Selector with red circles around Herdr and Web Terminal editor definitions."
+                      />
+                    </div>
+                    <div class="title">
+                      Figure 3. Eclipse Che Editor Selector, with Herdr and Web
+                      Terminal highlighted as lightweight, terminal-centric
+                      editor definitions alongside full IDEs.
+                    </div>
+                  </div>
+                  <div class="paragraph">
+                    <p>&nbsp;</p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3
+                    id="_3-provide-a-git-repository-url-and-create-the-workspace"
+                  >
+                    3. Provide a Git Repository URL and Create the Workspace
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      In the <strong>Import from Git</strong> section, paste the
+                      Git repository URL for the project you want the agent to
+                      work on. Then select <strong>Create &amp; Open</strong> to
+                      start the workspace.
+                    </p>
+                  </div>
+                  <div class="imageblock">
+                    <div class="content">
+                      <img
+                        src="/assets/img/beyond-human-ides-running-agentic-workspaces/import-from-git.png"
+                        alt="Eclipse Che Import from Git section with the Create and Open button highlighted."
+                      />
+                    </div>
+                    <div class="title">
+                      Figure 4. Import from Git: enter a repository URL, then
+                      select Create &amp; Open.
+                    </div>
+                  </div>
+                  <div class="paragraph">
+                    <p>&nbsp;</p>
+                  </div>
+                </div>
+                <div class="sect2">
+                  <h3
+                    id="_4-wait-for-the-workspace-to-become-ready-then-launch-a-coding-agent"
+                  >
+                    4. Wait for the Workspace to Become Ready, Then Launch a
+                    Coding Agent
+                  </h3>
+                  <div class="paragraph">
+                    <p>
+                      Wait for the workspace to become ready. Once it is ready,
+                      Che opens the <code>ttyd</code>-based terminal in the
+                      browser. From there, launch your preferred terminal-based
+                      coding agent (for example, <code>claude-code</code> or
+                      <code>opencode</code>), point it at a task or
+                      specification, and let it work inside the isolated
+                      workspace.
+                    </p>
+                  </div>
+                  <div class="admonitionblock note">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Note</div>
+                        </td>
+                        <td class="content">
+                          <div class="paragraph">
+                            <p>
+                              Terminal-based coding agents (such as Claude Code
+                              or OpenCode) must already be present in the
+                              DevWorkspace container image, or installed or
+                              otherwise injected into the workspace before you
+                              use them. One simple option is a Devfile
+                              <code>exec</code> command. See
+                              <a
+                                href="https://github.com/eclipse-che/che-server/blob/main/devfile.yaml#L93-L97"
+                                >che-server Devfile</a
+                              >
+                              as an example that installs the Claude Code CLI.
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="admonitionblock note">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Note</div>
+                        </td>
+                        <td class="content">
+                          Coding agents also need authentication configured for
+                          the models they call. That step varies by tool and
+                          model provider (for example API keys, login flows, or
+                          on-prem endpoint settings).
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      When the agent finishes, stay in the review loop: inspect
+                      the diff in the workspace, or let the agent open a pull
+                      request and review that through your normal Git workflow.
+                    </p>
+                  </div>
+                  <div class="paragraph">
+                    <p>
+                      Here is an example of Claude Code and OpenCode running in
+                      a workspace with the Herdr editor definition. Herdr shows
+                      each agent in the sidebar (idle or working) while the
+                      active pane streams the agent&#8217;s tools and output.
+                    </p>
+                  </div>
+                  <div class="imageblock">
+                    <div class="content">
+                      <img
+                        src="/assets/img/beyond-human-ides-running-agentic-workspaces/herdr-agents-running.png"
+                        alt="Herdr workspace showing Claude Code idle and OpenCode working on Dockerfile tests inside Eclipse Che."
+                      />
+                    </div>
+                    <div class="title">
+                      Figure 5. Claude Code and OpenCode agents running in an
+                      Eclipse Che workspace with the Herdr editor definition.
+                    </div>
+                  </div>
+                  <div class="admonitionblock tip">
+                    <table>
+                      <tr>
+                        <td class="icon">
+                          <div class="title">Tip</div>
+                        </td>
+                        <td class="content">
+                          If you chose Herdr, you can split panes and run
+                          multiple agents in parallel, while Herdr tracks
+                          whether each one is idle, working, or blocked. The
+                          platform underneath matters more: with Che, each agent
+                          still gets its own sandboxed, Kubernetes-native
+                          workspace.
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_how-agentic-cdes-help-teams">
+                How Agentic CDEs help Teams
+              </h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Agentic CDEs keep each coding agent in its own
+                    Kubernetes-isolated workspace, instead of sharing a
+                    developer laptop or a long-lived VM. Using Che for
+                    ttyd-driven agent workspaces can build on that foundation in
+                    a few practical ways:
+                  </p>
+                </div>
+                <div class="ulist">
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Contained sandbox execution:</strong> Giving
+                        autonomous tools raw access to a local machine is a
+                        significant security and operational risk. With Eclipse
+                        Che, you can confine the agent to a secure, RBAC-bounded
+                        Kubernetes namespace. If an agent misbehaves or runs a
+                        destructive script, the blast radius stays contained
+                        within that workspace.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Higher workspace density:</strong> Without the
+                        overhead of complex browser-based IDE UIs,
+                        terminal-centric workspaces typically require less CPU
+                        and memory, so teams can run more agent workspaces on
+                        the same cluster.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Parallel asynchronous scaling:</strong> A
+                        developer can spin up multiple independent agent
+                        workspaces simultaneously from their browser, each
+                        tackling a different task or bug report, without
+                        consuming local compute.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_try-it-yourself">Try It Yourself</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    If you do not have a Che instance handy, you can try this
+                    workflow on
+                    <a
+                      href="https://eclipse.dev/che/docs/stable/hosted-che/hosted-che/"
+                      >Eclipse Che hosted by Red Hat</a
+                    >
+                    through the
+                    <a href="https://developers.redhat.com/developer-sandbox"
+                      >Developer Sandbox</a
+                    >. Open
+                    <a href="https://workspaces.openshift.com/"
+                      >workspaces.openshift.com</a
+                    >, choose a terminal-centric editor definition, and import a
+                    Git repository as described above.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sect1">
+              <h2 id="_conclusion">Conclusion</h2>
+              <div class="sectionbody">
+                <div class="paragraph">
+                  <p>
+                    Software engineering is evolving, and so are CDEs along with
+                    it. They are no longer only digital desktops for human
+                    developers; they can also host safer agentic automation in
+                    isolated workspaces.
+                  </p>
+                </div>
+                <div class="paragraph">
+                  <p>
+                    With Eclipse Che&#8217;s Kubernetes-native orchestration and
+                    lightweight tools like <code>ttyd</code>, you can try this
+                    pattern today: spin up a terminal-centric workspace, run a
+                    coding agent inside it, and keep humans in the review loop
+                    through diffs or pull requests.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="u-url"
+            href="/2026/07/22/@rohan.kumar-beyond-human-ides-running-agentic-workspaces.html"
+            hidden
+          ></a>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+
+      <div class="wrapper">
+        <h2 class="footer-heading">Eclipse Che Blog</h2>
+
+        <div class="footer-col-wrapper">
+          <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+              <li class="p-name">Eclipse Che Blog</li>
+              <li>
+                <a class="u-email" href="mailto:che-dev@eclipse.org"
+                  >che-dev@eclipse.org</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+              <li>
+                <a href="https://github.com/eclipse-che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#github"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse-che</span></a
+                >
+              </li>
+              <li>
+                <a href="https://www.twitter.com/eclipse_che"
+                  ><svg class="svg-icon">
+                    <use
+                      xlink:href="/assets/minima-social-icons.svg#twitter"
+                    ></use>
+                  </svg>
+                  <span class="username">eclipse_che</span></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            <p>Eclipse Che runs IDEs in Kubernetes.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
