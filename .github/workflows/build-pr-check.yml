@@ -15,16 +15,16 @@ jobs:
   jekyll-pr-check:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       with:
         fetch-depth: '0'
 
     - name: 💎 setup ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
       with:
         ruby-version: 2.7
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
       with:
         name: blog-post-source
         path: |
@@ -32,13 +32,13 @@ jobs:
           assets/img/
 
     - name: 🔨 install dependencies & build site
-      uses: limjh16/jekyll-action-ts@v2
+      uses: limjh16/jekyll-action-ts@807a5f09755d777bfd3070e9505d02347844c9b2 # v2
       with:
         enable_cache: true
         format_output: true
         custom_opts: '--drafts --future'
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
       with:
         name: blog-content
         path: ./_site
@@ -49,21 +49,20 @@ jobs:
        run: |
          echo "${{ github.event.number }}" > PR_NUMBER
          echo "${{ github.event.pull_request.head.sha }}" > PR_SHA
-     - uses: actions/upload-artifact@v4
+     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
        with:
          name: pull-request-number
          path: PR_NUMBER
-     - uses: actions/upload-artifact@v4
+     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
        with:
          name: pull-request-sha
          path: PR_SHA
-     - uses: jitterbit/get-changed-files@v1
-       id: get-files
-       with:
-         format: 'json'
-     - run: |
-         jq -r '.' <<< '${{ steps.get-files.outputs.all }}' > modified_files.json
-     - uses: actions/upload-artifact@v4
+     - name: Get changed files
+       run: |
+         gh api repos/${{ github.repository }}/pulls/${{ github.event.number }}/files --paginate --jq '.[].filename' | jq -R -s 'split("\n") | map(select(. != ""))' > modified_files.json
+       env:
+         GH_TOKEN: ${{ github.token }}
+     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
        with:
          name: modified-files
          path: modified_files.json

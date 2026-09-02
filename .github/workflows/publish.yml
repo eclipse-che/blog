@@ -19,17 +19,17 @@ jobs:
   jekyll:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       with:
         fetch-depth: '0'
 
     - name: 💎 setup ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
       with:
         ruby-version: 2.7
 
     - name: 🔨 install dependencies & build site
-      uses: limjh16/jekyll-action-ts@v2
+      uses: limjh16/jekyll-action-ts@807a5f09755d777bfd3070e9505d02347844c9b2 # v2
       env:
         JEKYLL_ENV: production
       with:
@@ -37,7 +37,7 @@ jobs:
         format_output: true
 
     - name: 🚀 deploy
-      uses: peaceiris/actions-gh-pages@v4
+      uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
